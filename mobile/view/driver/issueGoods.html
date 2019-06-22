@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>发布找货</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+				<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll_002.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll_003.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/driver/issueGoods.css"/>
+	</head>
+
+	<body ontouchstart style="background:#F2F2F2;">
+		<div class="issueGoods" id="issueGoods">
+			<template>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell"> 
+				<div class="weui-cell__hd"><label class="weui-label">开始等货日期</label></div>
+				<div class="weui-cell__bd">
+					<input type="text" class="weui-input" placeholder="请选择等货日期"  name="waitingDate" id="waitingDate" >
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">等货地点</label></div>
+				<div class="weui-cell__bd">
+					<!--<p class="info" v-if="driver.routes[0].starts!=null">{{driver.routes[0].starts.join('-')}}</p>-->
+					<input class="weui-input" type="text" id="waitingAddress" placeholder="请选择省市区/县"  readonly="readonly"/>
+				</div>
+			</div>
+			
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">等货车辆</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text"  placeholder="" v-model="driver.cars[0].license" readonly="readonly"/>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">车型</label></div>
+				<div class="weui-cell__bd">
+					    <p  class="info" v-if="driver.cars[0].type==1">厢式车</p>
+						<p  class="info" v-if="driver.cars[0].type==2">平板车</p>
+						<p  class="info" v-if="driver.cars[0].type==3">高栏车</p>
+						<p  class="info" v-if="driver.cars[0].type==4">中栏车</p>
+						<p  class="info" v-if="driver.cars[0].type==5">低栏车</p>
+						<p  class="info" v-if="driver.cars[0].type==6">半封闭</p>
+						<p  class="info" v-if="driver.cars[0].type==7">灌装车</p>
+						<p  class="info" v-if="driver.cars[0].type==8">冷藏车</p>
+						<p  class="info" v-if="driver.cars[0].type==9">集装车</p>
+						<p  class="info" v-if="driver.cars[0].type==10">自卸车</p>
+						<p  class="info" v-if="driver.cars[0].type==11">危险品车</p>
+						<p  class="info" v-if="driver.cars[0].type==12">挂车</p>
+						<p class="info" v-if="driver.cars[0].type==13">其他</p>
+					<!--<input class="weui-input" type="text"  placeholder="" v-model="carModel" />-->
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">车长</label></div>
+				<div class="weui-cell__bd">
+					<p class="info">{{driver.cars[0].length}}米</p>
+					<!--<input class="weui-input" type="text"  placeholder="" v-model="carLength"/>-->
+				</div>
+			</div>
+		</div>
+		 <div  class="save">
+		 	       <p class="tip">说明：找货信息发布后，企业会更快找到您哦~</p>
+		        <a href="javascript:;" class="weui-btn weui-btn_primary" @click="release">发布</a>
+		 </div>
+		 </template>
+		</div>
+	</body>
+
+	<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../../lib/weui/js/fastclick.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/city-picker.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../../lib/js/json2.js"></script>
+	<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+	<script type="text/javascript" src="../../lib/function/common.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+	<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+	<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_002.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_004.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_003.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_005.js"></script>
+	<script type="text/javascript" src="../../js/driver/issueGoods.js"></script>
+	<script>
+		$(function() {
+				FastClick.attach(document.body);
+			});
+		//	alert($(document).height());
+		//alert($(".weui-footer").get(0).height());
+	</script>
+	</body>
+
+</html>

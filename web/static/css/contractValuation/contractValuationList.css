@@ -1,0 +1,13 @@
+.searchBar .el-input{
+	width: 15%;
+}
+.searchBar .el-input__inner {
+	height: 32px;
+	line-height: 32px;
+}
+.menuBar {
+	padding-top: 20px;
+}
+.table {
+	padding-top: 20px;
+}

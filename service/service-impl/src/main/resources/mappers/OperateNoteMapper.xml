@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.OperateNoteMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.OperateNote">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="HOST_TYPE" jdbcType="VARCHAR" property="hostType"/>
+        <result column="HOST_ID" jdbcType="INTEGER" property="hostId"/>
+        <result column="LOG_TYPE" jdbcType="INTEGER" property="logType"/>
+        <result column="LOG_CONTEXT" jdbcType="VARCHAR" property="logContext"/>
+        <result column="ADJUNCT_KEY" jdbcType="VARCHAR" property="adjunctKey"/>
+        <result column="USER_KEY" jdbcType="INTEGER" property="userKey"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <select id="queryByHostId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+       select * from T_OPERATE_NOTE where  HOST_TYPE = 1 and HOST_ID =#{orderKey}  ORDER BY CREATE_TIME DESC  LIMIT 1;
+  </select>
+</mapper>

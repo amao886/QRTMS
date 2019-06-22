@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+
+
+
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+       default-lazy-init="true">
+
+	<context:component-scan base-package="com.ycg.ksh.adapter.impl">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<!-- 开启AOP -->
+	<aop:config proxy-target-class="true" />
+	
+	<!-- <import resource="spring-cache.xml" /> -->
+	<import resource="redis.xml" />
+	<import resource="spring-dubbo.xml" />
+	<import resource="spring-rabbitmq.xml"/>
+
+	<bean id="ksh.net.service.authenticateService" class="com.ycg.ksh.adapter.impl.esign.YhtServiceImpl">
+		<property name="key" value="${certified.service.key}"/>
+		<property name="value" value="${certified.service.value}"/>
+		<property name="certifiedUrl" value="${certified.service.url}"/>
+
+		<property name="appId" value="${e.sign.service.yunghetong.appId}"/>
+		<property name="appKey" value="${e.sign.service.yunghetong.appKey}"/>
+		<property name="apiUrl" value="${e.sign.service.yunghetong.apiUrl}"/>
+
+		<property name="brankCodeFile" value="/conf/yunhetong.brakcode"/>
+	</bean>
+
+	<bean id="ksh.net.service.esignService" class="com.ycg.ksh.adapter.impl.ESignServiceProxy">
+		<property name="services">
+			<map>
+				<entry key="yunhetong" value-ref="ksh.net.service.authenticateService" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- 配置日志AOP -->
+	<bean id="log.aspect" class="com.ycg.ksh.common.log.LogAspect"/>
+	<aop:config>
+		<aop:aspect ref="log.aspect">
+			<aop:pointcut id="log.pointcut" expression="execution (* com.ycg.ksh.net.adapter.service.impl.*ServiceImpl.*(..))" />
+			<aop:around pointcut-ref="log.pointcut" method="aroundAspect"/>
+		</aop:aspect>
+	</aop:config>
+
+
+
+	<bean id="ksh.application.property.configurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="properties" ref="ksh.application.properties"/>
+	</bean>
+
+	<bean id="ksh.application.properties" class="com.ycg.ksh.common.extend.spring.PropertiesFactoryBean">
+		<property name="fileEncoding" value="UTF-8" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locationXml" value="conf/application.xml"/>
+	</bean>
+</beans>

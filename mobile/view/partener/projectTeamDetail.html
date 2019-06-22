@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>项目组详情</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/partener/projectTeamDetail.css" />
+
+</head>
+
+<body ontouchstart style="background:#fafafa;">
+	<div class="projectTeam-wrapper">
+		<div class="weui-cells people_list" id="detailCon">
+	    	<div class="weui-cell" id="memberList">
+			    <!--循环从这开始--><!--循环在这结束-->
+			    <a href="javascript:;" class="weui-grid js_grid hide" id="memberDel">
+			        <div class="weui-grid__icon deleteP"></div>
+			    </a>
+			    <a href="javascript:;" class="weui-grid js_grid hide" id="showMoreList">
+			        <p class="a-toggle">更多>></p>
+			    </a>
+			</div>
+	    </div>   
+	                
+	    <div class='demos-content-padded btn_mbottom hide' id="delGroupCon">
+			<a href="javascript:;" class="weui-btn weui-btn_warn" id="delTeam">删除并退出</a>
+		</div>
+		<input type="hidden" id="loginIdInput" readonly="readonly" />
+	</div>
+<!--底部导航-->
+<div id="navBarIn"></div>
+
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/x-jsrender" id="getMemberList">				    	
+	<a data-link="projectTeamMemberDetail.html?userId={{:userid}}&groupId={{:groupid}}&loginId=" class="weui-grid js_grid a-hook perMember" onclick="memberView(this)">
+        <div class="weui-grid__icon">
+            <img src="../../images/timg2.png" alt="">
+        </div>
+        {{if user == null}}
+        <p class="weui-grid__label showHeight"></p>
+        {{else}}
+        <p class="weui-grid__label">{{:user.unamezn}}</p>
+        {{/if}}
+        {{if rolePermission == null}}
+        <p class="weui-grid__label"><font color='#31aafb'></font></p>
+        {{else}}
+        <p class="weui-grid__label"><font color='#31aafb'>{{:rolePermission.rolename}}</font></p>
+        {{/if}}
+    </a>        
+</script>
+
+<script type="text/x-jsrender" id="getProInfo">
+	<div class="weui-cells pl_part2">
+		<a class="weui-cell weui-cell_access limitWidth" href="projectTeamNEdit.html?groupId={{:id}}">
+			<div class="weui-cell__hd">
+			    <p>项目组名称</p>
+			</div>
+			<div class="weui-cell__ft">{{:groupName}}</div>
+		</a>
+		<a class="weui-cell weui-cell_access" href="projectTeamCode.html?groupId={{:id}}">
+            <div class="weui-cell__hd"></div>
+        	<div class="weui-cell__bd">
+              <p>组二维码</p>
+            </div>
+            <div class="weui-cell__ft">
+            	<span class="script">分享组二维码邀请组员加入</span>
+            	<img src="../../images/icon_erweima.png" alt="" style="vertical-align: middle;"/>
+			</div>
+        </a>
+    </div>
+    <div class="weui-cells">
+          <div class="weui-cell">
+            <div class="weui-cell__bd">
+              <p>二维码</p>
+            </div>
+            <div class="weui-cell__ft"><span>{{:number}}</span>/<span>{{:totalNum}}</span></div>
+          </div>
+        </div>
+    
+    <div class="weui-cells">
+        <a class="weui-cell weui-cell_access" href="applyResource.html?groupId={{:id}}&groupName={{:groupName}}">
+            <div class="weui-cell__bd">
+              <p>申请二维码</p>
+            </div>
+            <div class="weui-cell__ft">
+            </div>
+        </a>
+    </div>
+</script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../js/partener/projectTeamDetail.js"></script>
+</body>
+</html>

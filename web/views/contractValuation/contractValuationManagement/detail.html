@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<html>
+
+	<head>
+		<script src="../../../static/lib/function/common.js"></script>
+		<script src="../../../static/js/public/commonMeta.js"></script>
+		<title>新增合同</title>
+		<script src="../../../static/js/public/commonCss.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../static/css/contractValuation/detail.css" />
+	</head>
+
+	<body>
+		<div id="content">
+			<template>
+				<!--基本信息-->
+				<div class="part-wrapper">
+					<h4 class="title">基本信息</h4>
+					<div class="line">
+						<div class="line-info">
+							<span class="text">合同编号</span>
+							<el-input placeholder="请输入内容" v-model='baseInformation.contractNo' :disabled="true"></el-input>
+						</div>
+						<div class="line-info">
+							<span class="text">合同开始日期</span>
+							<el-date-picker v-model="baseInformation.contractStartDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" :disabled="true">
+							</el-date-picker>
+						</div>
+						<div class="line-info">
+							<span class="text">合同结束日期</span>
+							<el-date-picker v-model="baseInformation.contractEndDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" :disabled="true">
+							</el-date-picker>
+						</div>
+					</div>
+					<div class="line">
+						<div class="line-info">
+							<span class="text">客户名称</span>
+							<el-select v-model="baseInformation.customerName" filterable placeholder="请选择客户" @change='customerDetail' :disabled="true">
+								<el-option v-for="item in customerList" :key="item.key" :label="item.name" :value="item.name">
+								</el-option>
+							</el-select>
+						</div>
+						<div class="line-info">
+							<span class="text">客户编码</span>
+							<el-input placeholder="请输入内容" v-model='baseInformation.customerCode' :disabled="true"></el-input>
+						</div>
+						<div class="line-info">
+							<span class="text">行业类别</span>
+							<el-select v-model="baseInformation.industryType" filterable placeholder="请选择行业" filterable :disabled="true">
+								<el-option label="电器、厨具类 " value="1"></el-option>
+								<el-option label="电子数码类 " value="2"></el-option>
+								<el-option label="服装服饰类 " value="3"></el-option>
+								<el-option label="纺织皮具类 " value="4"></el-option>
+								<el-option label="电商类 " value="5"></el-option>
+								<el-option label="五金化工类 " value="6"></el-option>
+								<el-option label="医药器械类" value="7"></el-option>
+								<el-option label="日用品类 " value="8"></el-option>
+								<el-option label="乳制品、母婴类 " value="9"></el-option>
+								<el-option label=" 食品调料类 " value="10"></el-option>
+								<el-option label="饮料类 " value="11"></el-option>
+								<el-option label="白酒类 " value="12"></el-option>
+								<el-option label="其他酒类 " value="13"></el-option>
+								<el-option label="鲜活冷链类 " value="14"></el-option>
+								<el-option label="办公印刷品类 " value="15"></el-option>
+								<el-option label="橡胶机械类 " value="16"></el-option>
+								<el-option label="建材装饰类 " value="17"></el-option>
+								<el-option label="汽车配件类 " value="18"></el-option>
+								<el-option label="通信通讯类 " value="19"></el-option>
+								<el-option label="其它类 " value="20"></el-option>
+							</el-select>
+						</div>
+					</div>
+					<div class="line">
+						<div class="line-info">
+							<span class="text">联系人姓名</span>
+							<el-input placeholder="请输入内容" v-model='customer.contacts' :disabled="true"></el-input>
+						</div>
+						<div class="line-info">
+							<span class="text">座机号码</span>
+							<el-input placeholder="请输入内容" v-model='customer.landlineNumber' :disabled="true"></el-input>
+						</div>
+						<div class="line-info">
+							<span class="text">手机号码</span>
+							<el-input placeholder="请输入内容" v-model='customer.phone' :disabled="true"></el-input>
+						</div>
+					</div>
+					<div class="line">
+						<div class="line-info">
+							<span class="text">客户地址</span>
+							<el-input placeholder="省" v-model='customer.province' :disabled="true"></el-input>
+						</div>
+						<div class="line-info">
+							<el-input placeholder="市" v-model='customer.city' :disabled="true"></el-input>
+						</div>
+						<div class="line-info">
+							<el-input placeholder="区" v-model='customer.district' :disabled="true"> </el-input>
+						</div>
+						<div class="line-info">
+							<el-input placeholder="详细地址" v-model='customer.fullAddress' :disabled="true"></el-input>
+						</div>
+					</div>
+				</div>
+				<!--运费设置-->
+				<div class="part-wrapper">
+					<h4 class="title">运费设置</h4>
+					<div class="transport">
+						<el-checkbox v-model="checked">零担运输</el-checkbox>
+						<div class="computings" v-for='(item,index) in tableDataList' :key='index'>
+							<h5 class="computing">计算方法{{index+1}}:</h5>
+							<p>
+								<span class="goods">货物性质</span>
+								<el-select v-model="item.goodsNature" placeholder="请选择" :disabled="true">
+									<el-option label="不限" value="0"></el-option>
+									<el-option label="重货" value="1"></el-option>
+									<el-option label="轻货" value="2"></el-option>
+								</el-select>
+							</p>
+							<div class="clearfix">
+								<div class="valuationMethod fl">
+									<span>计价方式:</span>
+									<el-radio v-model="item.goodsCalculMode" label="1" @change='toggle(index)' :disabled="true">按重量核算运费</el-radio>
+									<el-radio v-model="item.goodsCalculMode" label="2" @change='toggle(index)' :disabled="true">按体积核算运费</el-radio>
+									<el-radio v-model="item.goodsCalculMode" label="3" @change='toggle(index)' :disabled="true">按数量核算运费</el-radio>
+								</div>
+								<div class="menuBar fl">
+									<div class="fl weight">
+										<span>计价单位:</span>
+										<el-select v-model="item.goodsUnit" placeholder="请选择" v-if='item.goodsCalculMode==2' :disabled="true">
+											<el-option label="方" value="2" checked></el-option>
+										</el-select>
+										<el-select v-model="item.goodsUnit" placeholder="请选择" v-if='item.goodsCalculMode==3' :disabled="true">
+											<el-option label="件" value="3" checked></el-option>
+										</el-select>
+										<el-select v-model="item.goodsUnit" placeholder="请选择" v-if='item.goodsCalculMode==1' :disabled="true">
+											<el-option label="吨" value="0"></el-option>
+											<el-option label="千克/公斤" value="1"></el-option>
+										</el-select>
+									</div>
+								</div>
+							</div>
+							<div class="tableList">
+								<el-table :data="item.freightList.slice((page[index].currentPage -1 ) * page[index].pageSize, page[index].currentPage * page[index].pageSize)" style="width: 100%">
+									<el-table-column label="终点城市" width="500" align='center'>
+										<template slot-scope="scope">
+											<div class="address">
+												<el-input v-model="scope.row.area.province" :disabled="true">
+												</el-input>
+												<el-input v-model="scope.row.area.city" :disabled="true">
+												</el-input>
+												<el-input v-model="scope.row.area.county" :disabled="true">
+												</el-input>
+											</div>
+										</template>
+									</el-table-column>
+									<el-table-column prop="date" label="城市级别" width="200" align='center'>
+										<template slot-scope="scope">
+											<el-select v-model="scope.row.cityLevel" placeholder="请选择" :disabled="true"> 
+												<el-option label="不限" value="0"></el-option>
+												<el-option label="一级/省会" value="1"></el-option>
+												<el-option label="二级/地级市" value="2"></el-option>
+												<el-option label="三级/县,区级" value="3"></el-option>
+											</el-select>
+										</template>
+									</el-table-column>
+									<el-table-column :label="weightIntervalList[index].weightInterval[i]" width="200" v-for='(s,i) in weightIntervalList[index].weightInterval' :key='i' align='center'>
+										<el-table-column width="200" align='center'>
+											<template slot="header" slot-scope="scope">
+												<el-input v-model="item.intervals[i].startNum" size="mini" placeholder="0"  :disabled="true"/>
+											</template>
+											<el-table-column width="200" align='center'>
+												<template slot="header" slot-scope="scope">
+													<el-input v-model="item.intervals[i].endNum" size="mini" placeholder="无上限" :disabled="true"/>
+												</template>
+												<template slot-scope="scope">
+													<el-input placeholder="0" v-model='scope.row.num[i]' type='number' value='number' @change='conversionType(index,scope.$index,i)' :disabled="true"></el-input>
+													<span v-show="item.goodsUnit==0">元/吨</span>
+													<span v-show="item.goodsUnit==1">元/千克(公斤)</span>
+													<span v-show="item.goodsUnit==2">元/方</span>
+													<span v-show="item.goodsUnit==3">元/件</span>
+												</template>
+											</el-table-column>
+										</el-table-column>
+									</el-table-column>
+								</el-table>
+								<!-- 分页  -->
+								<div class="pagination">
+									<el-pagination @size-change="handleSizeChange(val,index)" @current-change="function(val){ handleCurrentChange(val, index);}" :current-page="page[index].currentPage" :page-sizes="[2, 20, 30, 40]" :page-size="2" layout="total, sizes, prev, pager, next, jumper" :total="page[index].total">
+									</el-pagination>
+								</div>
+							</div>
+							<div class="line effectiveDate">
+								<div class="line-info">
+									<span class="text">开始使用日期</span>
+									<el-date-picker v-model="item.useStartDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" :disabled="true">
+									</el-date-picker>
+								</div>
+								<div class="line-info">
+									<span class="text">结束使用日期</span>
+									<el-date-picker v-model="item.useEndDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" :disabled="true">
+									</el-date-picker>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="part-wrapper">
+					<h4 class="title">审核结果</h4>
+					<div class="examineResult" v-for='(item,index) in auditResultList' :key='index' v-if="auditResultList!=null||auditResultList.length>0">
+						  <span class="w50" v-if="item.auditStatus==0">审核状态:未审核</span>
+						   <span class="w50" v-if="item.auditStatus==1">审核状态:审核不通过</span>
+						    <span class="w50" v-if="item.auditStatus==2">审核状态:审核通过</span>
+						   <span class="w50">审核时间:{{item.auditTime}}</span>
+						   <p class="resultText">不通过原因:{{item.auditFailReason}}</p>
+					</div>
+					<div v-if='auditResultList==null||auditResultList.length==0' >暂无数据</div>
+				</div>
+			</template>
+		</div>
+
+	</body>
+
+	<script src="../../../static/js/public/commonJs.js"></script>
+	<script src="../../../static/lib/js/xlsx.core.min.js"></script>
+	<script src="../../../static/js/contractValuation/detail.js"></script>
+
+	</html>

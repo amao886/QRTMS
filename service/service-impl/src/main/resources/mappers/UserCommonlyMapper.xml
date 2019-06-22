@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.UserCommonlyMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.UserCommonly">
+    <result column="user_key" jdbcType="INTEGER" property="userKey" />
+    <result column="commonly" jdbcType="VARCHAR" property="commonly" />
+    <result column="commonly_keys" jdbcType="VARCHAR" property="commonlyKeys" />
+    <result column="driver_commonly_keys" jdbcType="VARCHAR" property="driverCommonlyKeys" />
+    <result column="identity_key" jdbcType="INTEGER" property="identityKey" />
+  </resultMap>
+</mapper>

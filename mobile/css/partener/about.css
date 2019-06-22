@@ -1,0 +1,121 @@
+/*banner部分*/
+.about-banner{
+	padding:15px 12px;
+	background:#30abfa;
+}
+.about-banner .about-banner-img{
+	width:100px;
+	padding-right:14px;
+}
+.about-banner .about-banner-img>img{
+	width:100%;
+}
+.about-banner-con h1{
+	font-size:18px;
+	color:#fff;
+	font-style:italic;
+	margin-bottom: 4px;
+}
+.about-banner-con p{
+	margin-top:-2px;
+	font-size:13px;
+	color:#fff;
+}
+
+/*合同物流管理平台能做什么部分*/
+.about-con{
+	padding:15px 12px;
+}
+.about-con h2{
+	font-size:16px;
+	color:#636363;
+	margin-bottom: 30px;
+	font-weight: normal;
+}
+.about-con-con .weui-line{
+	text-align: center;
+	margin-bottom: 15px;
+}
+.about-con-con span.block{
+	padding:4px 0;
+	text-align: center;
+	display: inline-block;
+	border-radius: 16px;
+	font-size:15px;
+	color:#fff;	
+}
+.about-con-con .color-skyblue{
+	width:78px;
+	background:#6fb6ea;
+	margin-right:15px;
+}
+.about-con-con .color-azureblue{
+	width:140px;	
+	background:#41d2cd;
+}
+.about-con-con .color-light-orange{
+	width:100px;
+	background:#ff8659;
+}
+.about-con-con .color-lightyellow{
+	width:165px;
+	background:#ffcd5c;
+	margin-right:15px;
+}
+.about-con-con .color-lightgray{
+	width:140px;
+	background:#d2b991;
+	margin-right:15px;
+}
+.about-con-con .color-lightpink{
+	width:118px;
+	background:#f989b7;
+}
+.about-con-con .color-lightgreen{
+	width:100px;
+	background:#acd697;
+}
+.about-con-con .color-lightgreen1{
+	width:124px;
+	background:#51ca95;
+}
+
+/*合同物流管理平台使用部分*/
+.about-use{
+	padding-bottom:100px;
+}
+.about-use h2{
+	font-size:16px;
+	color:#636363;
+	font-weight: normal;
+	padding:0 12px;
+	margin-bottom: 5px;
+}
+.about-use-item{
+	padding:5px 0;
+}
+.about-use-item+.about-use-item{
+	border-top: 1px solid #dedede;
+}
+.about-use-item>h3{
+	position: relative;
+	font-size: 15px;
+	color:#30abfa;
+	font-weight: normal;
+	padding-left:22px;
+}
+.about-use-item>h3:before{
+	position: absolute;
+	top:10px;
+	left:12px;
+	content:'';
+	width:5px;
+	height:5px;
+	background:#30abfa;
+	border-radius: 50%;	
+}
+.about-use-item>p{
+	font-size: 13px;
+	color:#636363;
+	padding:0 12px 0 22px;
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.adventive.AdventiveNoteMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.adventive.AdventiveNote">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="ADVENTIVE_ID" jdbcType="BIGINT" property="adventiveId" />
+    <result column="NOTE_TYPE" jdbcType="INTEGER" property="noteType" />
+    <result column="OBJECT_KEY" jdbcType="VARCHAR" property="objectKey" />
+    <result column="OPPOSITE_KEY" jdbcType="VARCHAR" property="oppositeKey" />
+    <result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="FETTLE" jdbcType="INTEGER" property="fettle" />
+    <result column="COUNT" jdbcType="INTEGER" property="count" />
+  </resultMap>
+</mapper>

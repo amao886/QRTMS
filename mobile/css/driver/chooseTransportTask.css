@@ -1,0 +1,146 @@
+.vue-page {
+	font-size: 15px;
+	color: #333;
+}
+
+.recordSearch-wrapper {
+	margin-bottom: 100px;
+}
+
+.searchTab {
+	margin-bottom: 5px;
+	padding: 10px 12px;
+	background: transparent;
+}
+
+.weui-search-bar {
+	padding: 0;
+}
+
+.searchTab .weui-btn_mini {
+	vertical-align: top;
+}
+
+.weui-search-bar__box {
+	background: #fff;
+}
+
+.weui-flex__item_Btn {
+	padding-left: 10px;
+}
+
+.searchInput {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-left: 0;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+}
+
+.searchInput>input[type=text] {
+	padding: 7px 16px 7px 0px;
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	box-sizing: border-box;
+	text-indent: 6px;
+}
+
+.paddingBottom {
+	padding-bottom: 5px !important;
+}
+
+.paddingTop {
+	padding-top: 10px !important;
+}
+
+
+/*点击效果*/
+.recordList-wrapper:active {
+	background: #f9f9f9;
+}
+
+.recordList-wrapper {
+	background: transparent;
+}
+
+.recordList-wrapper .listItem {
+	background: #FFFFFF;
+	padding-top: 10px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+.recordList-wrapper .weui-flex {
+	padding: 0 12px;
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+.recordList-wrapper .left-title {
+	overflow: hidden;
+	text-align: center;
+	/*width: 5em;*/
+	color: #333333;
+}
+
+.recordList-wrapper .left-title>span {
+	display: block;
+}
+
+.recordList-wrapper .left-title .w3 {
+	letter-spacing: 0.5em;
+	margin-right: -0.5em;
+}
+
+.recordList-wrapper .left-title .w2 {
+	letter-spacing: 2em;
+	margin-right: -2em;
+}
+
+.recordList-wrapper .weui-flex {
+	position: relative;
+	margin-top: 10px;
+}
+
+.recordList-wrapper .weui-flex:before {
+	content: ':';
+	position: absolute;
+	top: 0px;
+	left: 90px;
+	z-index: 2;
+	color: #333333;
+}
+
+.recordList-wrapper .weui-flex.paddingTop:before {
+	top: 10px;
+}
+
+.recordList-wrapper .weui-flex__item {
+	padding-left: 15px;
+	color: #333333;
+}
+
+.recordList-wrapper .left-title .w4 {
+	letter-spacing: 0.3em;
+	/*margin-right: -0.3em;*/
+}
+
+.recordList-wrapper .text_right {
+	text-align: right;
+	color: #999999;
+}
+
+.weui-cells {
+	font-size: 15px;
+}
+
+.weui-cell {
+	padding: 0px 15px 10px 15px;
+}
+
+.textellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap
+}

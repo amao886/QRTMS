@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.RouteMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.Route">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="route_name" jdbcType="VARCHAR" property="routeName" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <select id="queryPageRoute" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.persistent.Route">
+	  SELECT
+		  r.*
+	  FROM
+	  	route_tab r LEFT JOIN user_hotspot_tab h ON (r.user_id = h.user_id AND r.id = h.associate_key AND h.associate_type = 3)
+  	  WHERE 1 = 1
+  		<if test="userId !=null and userId gt 0">
+  			AND r.user_id = #{userId}
+  		</if>
+  		<if test="routeName != null and routeName != ''">
+  			AND LOCATE(#{routeName}, r.route_name) > 0
+  		</if>
+	  ORDER BY h.hotspot_count DESC, r.createtime DESC
+  </select>
+</mapper>

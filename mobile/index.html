@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="可视化系统">
+<meta name="Description" content="可视化系统">
+<title>首页</title>
+<link href="lib/font-awesome-fa/font-awesome.min.css" rel="stylesheet" media="screen">
+
+<link rel="stylesheet" type="text/css" href="lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+
+</head>
+<body class="vue-page">
+	<!--banner-->
+	<div class="banner">
+		<img class="banner-img" src="images/banner.png" alt="扫码关注公众号" />
+	</div>
+	<!--图标导航-->
+	
+	<div class="commonBox" id="vue-common-function"  >
+		<template>
+		<ul class="iconList clearfix">	
+	        <li class="" v-for="(item,index) in collection">
+	        	<a @click="jumpLink(item)" :key="item" :id="'myIcon_'+index" :data-num="item">
+		        	<div class="iconBox">
+		        		<img v-bind:src="'images/index/w_'+ item +'.png'" alt="">
+		        	</div>
+		        	<p class="weui-grid__label"  v-if="item=='101'">我要发货</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='102'">发货清单</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='103'">发货监控</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='104'">客户管理</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item=='201'">扫码绑单</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='202'">发车报告</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='203'">装车卸货</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item=='301'">货主查货</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='302'">收货人查货</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='303'">扫码定位</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='304'">批报位置</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item=='401'">上传回单</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='402'">电子回单</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item=='501'">项目管理</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='502'">申请二维码</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='503'">货主管理</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='504'">历史记录</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='505'">运输管理</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item=='601'">定位设置</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='602'">路径规划</p>
+	        	</a>
+	        </li>
+	        <li>
+	        	<a @click="toAll">
+		        	<div class="iconBox">
+		        		<img src="images/index/w_all.png" alt="">
+		        	</div>
+		        	<p class="weui-grid__label">全部功能</p>		        	
+	        	</a>	        	
+	        </li>
+	    </ul>
+	    </template>
+	</div>
+  <div class="elec-banner" id="elecBanner">
+    <img class="banner-img" src="images/elec-banner.png" alt="">
+  </div>
+		
+	<!--我的任务-->	
+	<div class="my-task padding" id="vue-task-list">
+		<template>
+		<h3 class="h3" v-show="collection.length > 0">近三天任务</h3>
+		<div class="task-list-item" v-for="(item, index) in collection" v-if="collection.length > 0">
+			<div class="task-list-item-con">
+				<div class="task-list-item-part" @click="toDetail(item.id,item.fettle)">
+					<div class="weui-flex">
+						<div class="task-con-title">送货单号 :</div>
+						<div class="weui-flex__item one-line-hide title-right">{{item.deliveryNumber}}</div>
+					</div>
+					<div class="weui-flex">
+						<div class="task-con-title">收货客户 :</div>
+						<div class="weui-flex__item one-line-hide">{{item.receiveName}}</div>
+					</div>
+					<div class="weui-flex">
+						<div class="task-con-title">收货地址 :</div>
+						<div class="weui-flex__item more-line-hide">{{item.receiveAddress}}</div>
+					</div>															
+					<template>
+						<span class="upload-task-status green" v-if="item.fettle == 10">未绑定</span>
+						<span class="upload-task-status green" v-if="item.fettle == 20">已绑定</span>
+						<span class="upload-task-status green" v-if="item.fettle == 30">运输中</span>
+						<span class="upload-task-status green" v-if="item.fettle == 35">已到货</span>
+						<span class="upload-task-status green" v-if="item.fettle == 40">确认到货</span>
+					</template>
+					
+					<template v-if="editShow == true">
+						<a class="taskEditBtn toGoodsPage" v-if="item.groupId != 0" :href="'view/partener/editBarCode.html?taskId='+item.id+'&groupId='+item.groupId">
+							<i class="fa fa-pencil-square-o"></i>
+						</a>
+						<a class="taskEditBtn toGoodsPage" v-else :href="'view/partener/editBarCode.html?taskId='+item.id">
+							<i class="fa fa-pencil-square-o"></i>
+						</a>
+					</template>					
+	
+					<!--运输中 字体颜色color-blue,  已绑定 color-green , 已完成  color-gray-->
+				</div>
+			</div>
+		</div>
+		<p v-else-if="collection.length == 0" style="text-align:center;padding:10px 0;font-size:15px;">暂无数据。。。</p>
+		</template>
+	</div>
+	<div class="weui-loadmore">
+	    <i class="weui-loading"></i>
+	    <span class="weui-loadmore__tips">正在加载</span>
+	</div>	
+	<!-- 底部导航部分 -->
+	<div id="navBar"></div>
+<script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="lib/js/json2.js"></script>
+<script type="text/javascript" src="lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="lib/vue/vue.js"></script>
+<script type="text/javascript" src="lib/vue/moment.min.js"></script>
+<script type="text/javascript" src="lib/vue/common.vue.js"></script>
+
+<script type="text/javascript" src="lib/function/common.js"></script>
+<script type="text/javascript" src="lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="lib/function/easy.config.js"></script>
+<script type="text/javascript" src="lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="lib/function/weixin.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+	
+/*function classify(datas){
+    var arrays = [], i = 0;
+    $.each(datas, function(index, v, array){        
+        $.each(v,function(i,item){
+        	arrays.push(item)
+        })
+    });
+    return arrays;
+}*/
+
+
+</script>
+</body>
+</html>

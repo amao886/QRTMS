@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>历史记录</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll_002.css" />
+  <link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll.css" />
+  <link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll_003.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/partener/myTask.css" />
+
+</head>
+
+<body ontouchstart style="background:#f9f9fc;">
+	<div class="check-task-search">
+		<div class="weui-flex">
+			<div class="weui-flex__item relative">
+				<i class="weui-icon-search"></i>
+				<input class="task-search-input" type="text" name="" id="searchData" placeholder="客户名称/地址/送货单号/摘要等" />
+				<a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+			</div>
+<!--			<div class="task-search-btn">
+				<a href="javascript:;" class="weui-btn-search weui-btn_mini weui-btn_primary" id="search-btn">搜索</a>
+			</div>-->
+		</div>	
+	</div>
+	<!--tab切换开始-->
+  <div class="weui-flex selectTab">
+    <div class="weui-flex__item">
+      <input class="weui-input" id="sendTime" type="text" value="近三天" readonly>
+    </div>
+    <div class="weui-flex__item">
+      <input class="weui-input" id="fettles" type="text" value="全部" readonly>
+    </div>
+    <div class="weui-flex__item">
+      <input class="weui-input" id="delayStatus" type="text" value="全部" readonly>
+    </div>
+  </div> 
+  <!--tab切换结束-->
+
+	<div class="task-list-con">
+		<!--循环内容放置处-->
+	</div>
+	<!--下拉刷新-->
+	<div class="weui-loadmore">
+	    <i class="weui-loading"></i>
+	    <span class="weui-loadmore__tips">正在加载</span>
+	</div>
+	<!--底部导航-->
+  <div id="navBarIn"></div>
+  <!-- 开始时间-结束时间弹出框-->
+  <div class="range-time">
+    <div class="weui-dialog weui-dialog--visible">
+      <div class="weui-dialog__hd"></div>
+      <div class="weui-dialog__bd">
+        <input type="text" class="weui-input" style="border:1px solid #ddd;height:28px;" placeholder="请输入开始时间" readonly="readonly" name="startDate" id="startDate" value="" >
+        <input type="text" class="weui-input" style="border:1px solid #ddd;height:28px;" placeholder="请输入结束时间" readonly="readonly" name="endDate" id="endDate" value="">
+      </div>
+      <div class="weui-dialog__ft">
+        <a href="javascript:;" class="weui-dialog__btn default range-time-cencel">取消</a>
+        <a href="javascript:;" class="weui-dialog__btn primary range-time-sure">确定</a>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/x-jsrender" id="myTaskList">
+<div class="task-list-item-part" uid={{:id}}>
+	<div class="weui-flex">
+		<div class="task-con-title">送货单号:</div>
+		<div class="weui-flex__item one-line-hide title-right">{{:deliveryNumber}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="task-con-title">收货客户:</div>
+		<div class="weui-flex__item one-line-hide">{{:receiverName}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="task-con-title">收货地址:</div>
+		<div class="weui-flex__item more-line-hide">{{:receiveAddress}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="task-con-title">任务摘要:</div>
+		<div class="weui-flex__item one-line-hide">{{:orderSummary}}</div>
+	</div>
+	
+	<div class="pbox">发货时间：<span class="upload-task-time1">{{:~dateFormatCommon(createtime,2)}}</span></div>
+	<div class="pbox">要求到货时间：<span class="upload-task-time2">{{:~dateFormatCommon(arrivaltime,2)}}</span></div>
+	<div class="pbox">实际送达时间：<span class="upload-task-time2">{{:~dateFormatCommon(actualArrivalTime,2)}}</span></div>
+	<div class="pbox">
+		<!--<span class="span-info">
+			来源：
+			{{if haveType != null && haveType == '1'}}
+			<em class="color-mark">扫码</em>
+			{{else haveType != null && haveType == '2'}}
+			<em class="color-mark">分享</em>
+			{{/if}}
+		</span>-->
+		<span class="span-info">已运：<em class="color-mark">{{:transportDays}}</em>天</span>
+		<span class="span-info">定位次数：<em class="color-mark">{{:positionCount}}</em>次</span>
+	</div>
+	<a href="javascript:;" class="upload-task-link">上传回单</a>
+	{{if delay == 0 || delay == 1}}
+		<span class="upload-task-status status-delay color-red">已延迟</span>
+	{{/if}}
+		
+	{{if waybillStatus == "40"}}
+		<span class="upload-task-status color-gray">已到货</span>
+	{{else waybillStatus == "35"}}
+		<span class="upload-task-status color-lightorange">已送达</span>	
+	{{else waybillStatus == "30"}}
+		<span class="upload-task-status color-blue">运输中</span>
+	{{else waybillStatus == "20"}}
+		<span class="upload-task-status color-green">已绑定</span>
+	{{/if}}
+	<!--运输中 字体颜色color-blue,  已绑定 color-green , 已完成  color-gray-->
+</div>
+</script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_002.js"></script>
+<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_004.js"></script>
+<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll.js"></script>
+<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_003.js"></script>
+<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_005.js"></script>
+<script type="text/javascript" src="../../js/partener/myTask.js"></script>
+
+</body>
+</html>

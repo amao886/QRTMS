@@ -1,0 +1,116 @@
+/*回单内容标题*/
+.upload-task{
+	position:relative;
+	background:#fff;
+	padding:12px;
+	margin-bottom: 15px;
+}
+.upload-task-title > .up-task-check{
+	display: block;
+	font-size:16px;
+	color:#636363;
+}
+.upload-task-title .up-task-icon{
+	position: absolute;
+	top:4px;
+	right:12px;
+	width:40px;
+	height:40px;
+	border-radius: 50%;
+	background:#31acfa url(../../images/footer-swap.png) no-repeat center;
+	background-size: 60%;
+}
+/*回单内容展示*/
+.upload-task-content{
+    font-size: 15px;
+    color:#333;
+}
+.upload-task-content .weui-flex{
+	margin-bottom: 6px;
+}
+.upload-task-content .task-con-title{
+	width:76px;
+	color:#666;
+}
+.upload-task-content .weui-flex__item{
+	padding-left:4px;
+}
+.upload-task-content > p{
+	font-size:13px;
+	color:#8f8f8f;
+}
+.upload-task-close{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #31acfa;
+    font-size: 20px;
+}
+.span-info{
+	margin-right:20px;
+}
+.color-mark{
+	color:#ff6633;
+	margin-right:2px;
+}
+
+
+/*上传照片*/
+.weui-cell{
+	padding:10px 12px;
+	color:#636363;
+}
+.weui-cells:before{
+	border-top:none;
+}
+.weui-cells:after{
+	border-bottom: none;
+}
+.upload{margin-top:0;}
+.upload .weui-uploader__bd{
+	overflow: visible;
+	font-size:0;
+}
+#uploaderFiles,#uploaderRecipt{
+	display: inline-block;
+}
+.upload .weui-uploader__hd{padding-bottom: 20px;}
+.upload .weui-uploader__input-box{border-radius: 6px;float: none;}
+.weui-uploader__file{position:relative;border-radius:6px;}
+.weui-uploader__file>img{display:block;width:100%;height:100%;border-radius: 6px;}
+.weui-uploader__file>.close-img{
+	position: absolute;
+	top:-6px;
+	right:-6px;
+	width:22px;
+	height:22px;
+	color:#f40;
+	/*background:pink;*/
+	background:url(../../images/del-icon.png) no-repeat center;
+	background-size: 100%;
+}
+.img-name-p {
+    display: none;
+}
+.demos-content-padded{
+	padding:0 15px;
+}
+/*提示照片*/
+.img_tips{
+    width:90%;
+    margin:12px auto 120px;
+}
+.img_tips>p{
+	color:#f43530;
+	font-size:15px;
+	text-align: left;
+	padding:5px 0 5px 5px;
+}
+.img_tips>img{
+	width:100%;	
+}
+.barCodeTxt{font-size:16px;}

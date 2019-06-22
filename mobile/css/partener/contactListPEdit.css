@@ -1,0 +1,26 @@
+.margin-top{
+	margin-top:0;
+}
+.weui-label{
+	font-size:16px;
+	width:84px;
+}
+.weui-cell__bd{
+	font-size:16px;
+}
+.demos-content-padded{
+	padding:148px 15px 0;
+}
+/*对齐样式*/
+.w4{
+	display: inline-block;
+	letter-spacing:0em; 
+}
+.w3{  
+	letter-spacing:0.5em; 
+	margin-right:-0.5em; 
+}
+.w2{  
+	letter-spacing:2em; 
+	margin-right:-2em;
+}

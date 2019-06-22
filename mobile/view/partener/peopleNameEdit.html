@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>修改姓名</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+
+</head>
+
+<body ontouchstart style="background:#fafafa;">
+<div class="weui-cells" style="margin-top:0;">
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+      <input class="weui-input" id="inputfocus" type="text" />
+  </div>
+  </div>
+</div>
+<div class='demos-content-padded' style="margin-top:150px;">
+	<a href="javascript:;" id="showTooltips" class="weui-btn weui-btn_primary" >确定</a>
+</div>
+
+<!--底部导航-->
+<div id="navBarIn"></div>
+
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../js/partener/peopleNameEdit.js"></script>
+<script type="text/javascript">
+	//光标显示在value值后面
+	var t=$("#inputfocus").val(); 
+	$("#inputfocus").val("").focus().val(t); 
+	</script>
+</body>
+</html>

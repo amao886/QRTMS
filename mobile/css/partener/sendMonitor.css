@@ -1,0 +1,51 @@
+.monitor-title{
+	padding:0 15px;
+	height:34px;
+	background:#fff;
+	box-shadow: 0 0 10px #f1f2f6;
+	margin-bottom: 10px;
+}
+.monitor-title .monitor-date{
+	float:left;
+	width:150px;
+}
+.monitor-title .monitor-date .weui-cell{padding:0;}
+.monitor-title .monitor-date .weui-label{
+	margin-right:7px;
+	width:17px;
+	height:34px;
+	background:url(../../images/monitor-calendar.png) no-repeat center;
+	background-size:17px 17px;
+}
+.monitor-title .monitor-date .weui-input{height:34px;font-size:14px;color:#0094fe;}
+.monitor-title .monitor-icon{
+	float:right;	
+	padding:0 5px;
+	width:20px;
+	height:34px;
+	background:url(../../images/monitor-icon.png) no-repeat center;
+	background-size:17px 19px;
+}
+
+.monitor-content {margin-bottom: 80px;}
+.monitor-content>p{padding:20px 0;font-size:14px;color:#666;text-align: center;}
+.monitor-item{background:#fff;padding-bottom: 10px;box-shadow: 0 0 10px #f1f2f6;}
+.monitor-item + .monitor-item{margin-top:10px;}
+.monitor-item .m-head{
+	padding:0 15px;
+	height:34px;
+	line-height:34px;
+	font-size:14px;
+	color:#333;
+	box-shadow: 0 -2px 10px #f1f2f6;
+}
+.monitor-item .m-body{	
+	padding:0 15px;
+	margin-top:10px;
+}
+.monitor-item .m-body .weui-flex__item{height:70px;text-align: center;}
+.monitor-item .m-body .weui-flex__item>p{margin:15px auto 10px;line-height:12px;font-size:12px;color:#666;}
+.monitor-item .m-body .weui-flex__item>.taskNum{font-size:24px;line-height:24px;display: inline-block;}
+.monitor-item .m-body .weui-flex__item>.taskNum.blue{color:#448afe;}
+.monitor-item .m-body .weui-flex__item>.taskNum.green{color:#1fd282;}
+.monitor-item .m-body .weui-flex__item>.taskNum.purple{color:#9460fe;}

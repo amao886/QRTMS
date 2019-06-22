@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.enterprise.CompanyConfigMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.enterprise.CompanyConfig">
+        <result column="COMPANY_KEY" jdbcType="BIGINT" property="companyKey"/>
+        <result column="CONFIG_KEY" jdbcType="VARCHAR" property="configKey"/>
+        <result column="CONFIG_VALUE" jdbcType="VARCHAR" property="configValue"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    
+    <select id="listConfigKeys" resultType="java.lang.String" parameterType="java.lang.Long">
+        select CONFIG_KEY from T_COMPANY_CONFIG where COMPANY_KEY=#{conpanyKey}
+    </select>
+
+    <!-- 批量插入 -->
+    <insert id="inserts" parameterType="java.util.List">
+        INSERT INTO T_COMPANY_CONFIG
+        (COMPANY_KEY, CONFIG_KEY, CONFIG_VALUE, UPDATE_TIME)
+        VALUES
+        <foreach collection="list" item="o" index="index" separator=",">
+            (#{o.companyKey}, #{o.configKey}, #{o.configValue}, #{o.updateTime})
+        </foreach>
+    </insert>
+    <update id="updateBykey" parameterType="com.ycg.ksh.entity.persistent.enterprise.CompanyConfig">
+        update T_COMPANY_CONFIG set CONFIG_VALUE=#{configValue}, UPDATE_TIME=#{updateTime} where COMPANY_KEY =#{companyKey} AND CONFIG_KEY=#{configKey}
+    </update>
+</mapper>

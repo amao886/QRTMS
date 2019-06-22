@@ -1,0 +1,52 @@
+/**
+*web分页样式
+*/
+
+.pages {
+	margin-top: 30px;
+	margin-bottom:80px;
+}
+.pageCenter {
+	text-align:center;
+}
+.pageCenter>a,
+.pageCenter>span,
+.pageCenter>select,
+.pageCenter .enterNum{
+	display:inline-block;
+	vertical-align:middle;
+}
+.pageCenter>a {
+	padding: 2px 10px;
+	border: 1px solid #ddd;
+	cursor: pointer;
+	background: #fff;
+	color: #428bca;
+	font-size:14px;
+}
+.pageCenter>span {
+	padding: 2px 10px;
+	border: 1px solid #ddd;
+	background: #fff;
+	color: #428bca;
+	font-size:14px;
+}
+.pageCenter>a:hover {
+	color: #2a6496;
+	background-color: #f2f2f2;
+}
+.pageCenter>select{
+	border:1px solid #ddd;
+	height:23px;
+	color: #428bca;
+	font-size:14px;
+	margin:0 10px;
+}
+.pageCenter .enterNum{
+	width:32px;
+	height:25px;
+	line-height:25px;
+	border:1px solid #ddd;
+	text-align:center;
+	font-size:14px;
+}

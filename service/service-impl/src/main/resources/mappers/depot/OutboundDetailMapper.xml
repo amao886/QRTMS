@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.depot.OutboundDetailMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.depot.OutboundDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="KEY" jdbcType="BIGINT" property="key"/>
+    <result column="BATCH_NUMBER" jdbcType="VARCHAR" property="batchNumber"/>
+    <result column="MATERIAL_NAME" jdbcType="VARCHAR" property="materialName"/>
+    <result column="OUTBOUND_QUANTITY" jdbcType="INTEGER" property="outboundQuantity"/>
+    <result column="OUTBOUND_ID" jdbcType="BIGINT" property="outboundId"/>
+  </resultMap>
+
+  <resultMap id="DepotBatchSomethingResultMap" type="com.ycg.ksh.entity.service.depot.DepotAlliance">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="KEY" jdbcType="INTEGER" property="key"/>
+    <result column="BATCH_NUMBER" jdbcType="VARCHAR" property="batchNumber"/>
+    <result column="MATERIAL_NAME" jdbcType="VARCHAR" property="materialName"/>
+    <result column="STORAGE_TIME" jdbcType="TIMESTAMP" property="storageTime"/>
+    <result column="OUTBOUND_QUANTITY" jdbcType="INTEGER" property="outboundQuantity"/>
+    <result column="DELIVERY_NO" jdbcType="VARCHAR" property="deliveryNo"/>
+    <result column="RECEIVE_NAME" jdbcType="VARCHAR" property="receiveName"/>
+    <result column="SHIPPER_NAME" jdbcType="VARCHAR" property="shipperName"/>
+    <result column="DELIVERY_TIME" jdbcType="TIMESTAMP" property="deliveryTime"/>
+    <result column="OPERATOR_ID" jdbcType="INTEGER" property="operatorId"/>
+    <result column="CUSTOMER_NAME" jdbcType="VARCHAR" property="customerName"/>
+    <result column="dateFormat" jdbcType="VARCHAR" property="dateFormat"/>
+
+  </resultMap>
+
+
+  <resultMap id="outBoundPrintMap" type="com.ycg.ksh.entity.service.depot.OutBoundPrintAlliance">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="BATCH_NUMBER" jdbcType="VARCHAR" property="batchNumber"/>
+    <result column="MATERIAL_NAME" jdbcType="VARCHAR" property="materialName"/>
+    <result column="OUTBOUND_QUANTITY" jdbcType="INTEGER" property="outboundQuantity"/>
+  </resultMap>
+
+  <select id="listBySomething" resultMap="DepotBatchSomethingResultMap"
+          parameterType="com.ycg.ksh.entity.service.depot.DepotSearch">
+    SELECT
+    od.KEY,
+    od.BATCH_NUMBER,
+    io.MATERIAL_NAME,
+    io.STORAGE_TIME,
+    od.OUTBOUND_QUANTITY,
+    oo.DELIVERY_NO,
+    oo.RECEIVE_NAME,
+    oo.SHIPPER_NAME,
+    oo.DELIVERY_TIME,
+    od.OPERATOR_ID
+    FROM
+    T_OUTBOUND_DETAILS od
+    LEFT JOIN T_OUTBOUND_ORDER oo ON od.OUTBOUND_ID = oo.`KEY`
+    LEFT JOIN T_INBOUND_ORDER io ON od.BATCH_NUMBER = io.BATCH_NUMBER
+    <where>
+      io.COMPANY_KEY = #{companyKey}
+      <if test="firstTime != null">
+        <![CDATA[ AND io.STORAGE_TIME >= #{firstTime} ]]>
+      </if>
+      <if test="secondTime != null">
+        <![CDATA[ AND io.STORAGE_TIME <= #{secondTime} ]]>
+      </if>
+
+      <if test="likefirst != null and likefirst != ''">
+        AND (LOCATE(#{likefirst}, od.BATCH_NUMBER) > 0)
+      </if>
+      <if test="likesecond != null and likesecond != ''">
+        AND (
+        (LOCATE(#{likesecond}, oo.RECEIVE_NAME) > 0) OR
+        (LOCATE(#{likesecond}, oo.SHIPPER_NAME) > 0) OR
+        (LOCATE(#{likesecond}, io.MATERIAL_NAME) > 0)
+        )
+      </if>
+    </where>
+    ORDER BY
+    oo.DELIVERY_TIME DESC, oo.RECEIVE_ID
+  </select>
+
+  <select id="listExportOrders" resultMap="DepotBatchSomethingResultMap" parameterType="java.lang.Long">
+    select
+    d.KEY,
+    d.BATCH_NUMBER,
+    d.MATERIAL_NAME,
+    d.OUTBOUND_QUANTITY,
+    d.OPERATOR_ID,
+    o.CUSTOMER_NAME,
+    oo.DELIVERY_TIME,
+    oo.RECEIVE_NAME
+    FROM
+    T_OUTBOUND_DETAILS d
+    LEFT JOIN T_OUTBOUND_ORDER oo ON d.OUTBOUND_ID = oo.`KEY`
+    LEFT JOIN T_INBOUND_ORDER o ON d.BATCH_NUMBER = o.BATCH_NUMBER
+    <where>
+      1 = 1
+      <if test="orders != null">
+        AND d.KEY IN
+        <foreach collection="orders" item="key" separator="," open="(" close=")">
+          #{key}
+        </foreach>
+      </if>
+    </where>
+  </select>
+  <select id="listPrintGroup" resultMap="DepotBatchSomethingResultMap" parameterType="java.lang.Long">
+    SELECT
+    DATE_FORMAT(oo.DELIVERY_TIME, '%Y-%m-%d') dateFormat,
+    oo.RECEIVE_NAME
+    FROM
+    T_OUTBOUND_DETAILS od
+    LEFT JOIN T_OUTBOUND_ORDER oo ON od.OUTBOUND_ID = oo.`KEY`
+    LEFT JOIN T_INBOUND_ORDER io ON od.BATCH_NUMBER = io.BATCH_NUMBER
+    WHERE
+    od.`KEY` IN
+    <foreach collection="orders" item="key" separator="," open="(" close=")">
+      #{key}
+    </foreach>
+    GROUP BY
+    dateFormat,
+    oo.RECEIVE_NAME
+  </select>
+
+  <select id="listOutBoundByGroup" resultMap="outBoundPrintMap">
+    SELECT
+    o.MATERIAL_NAME,o.OUTBOUND_QUANTITY,o.BATCH_NUMBER
+    FROM
+    T_OUTBOUND_DETAILS o
+    LEFT JOIN T_OUTBOUND_ORDER oo ON o.OUTBOUND_ID = oo.`KEY`
+    WHERE oo.RECEIVE_NAME = #{customerName} and oo.DELIVERY_TIME LIKE CONCAT('%',#{dateFormat} ,'%')
+    <if test="materialName != null and materialName != ''">
+      and o.MATERIAL_NAME =#{materialName}
+    </if>
+  </select>
+
+</mapper>

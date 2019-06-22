@@ -1,0 +1,36 @@
+.topMenu{justify-content:space-between;flex-wrap: nowrap;border-bottom: #ececec solid 1px; background: #fff;position: fixed;width: 100%;top: 0;z-index: 9999;}
+.topMenu a{margin: 5px 5px 0 5px;}
+.topMenu a img{width:22px;}
+.tabBox{justify-content:space-between;flex-wrap: nowrap;}
+.tabBox span{font-size: 15px;padding:5px;text-align: center;}
+.tabBox span.active{color: #31acfa; border-bottom:#31acfa solid 3px;}
+
+.contentBox{ position: relative;margin-top:15px;padding-bottom: 65px;}
+.contentBox .targetBox{background: #fff;margin-top:15px; }
+.targetBox:first-child{margin-top:0}
+.targetBox h3{padding: 10px 0 0 10px; font-size: 16px;}
+.iconList{background: #fff; padding-bottom:10px; }
+.iconList li{ float:left; width:22%; text-align: center;margin: 10px 0 10px 2.5%;box-shadow: 0 0 4px #ddd inset; position: relative;}
+.iconList li a{display: block;}
+.iconBox{width:60px; height:60px; display: inline-block;border-radius: 50%;}
+.iconBox img{width:40px;height:40px; margin-top: 10px;}
+.iconList li a p{margin-bottom: 5px;}
+.iconList li > i{width:20px;height:20px; display: block; position: absolute; right: 5px; top:5px;}
+.iconList li > .delBtn{ background:url(../../images/index/icon_del.png) center center / 100% 100% no-repeat;}
+.iconList li > .addBtn{background:url(../../images/index/icon_add.png) center center / 100% 100% no-repeat;}
+.iconList li > .nowBtn{background:url(../../images/index/icon_yes.png) center center / 100% 100% no-repeat;}
+
+.moreBtn{width:40px;height:40px; display: inline-block; border-radius: 10px; background: #000; opacity: 0.5; position: fixed;right:5px; bottom: 60px;} 
+
+/*****常用功能*/
+.commonBox{background: #fff;}
+.commonBox .titleCon{padding:10px 10px 0;}
+.commonBox .titleCon h3{font-size: 16px;}
+.commonBox .titleCon img{width:24px;}
+/*.commonBox .iconList{ border-radius: 5px; position: relative;}
+.commonBox .iconList li{ float:left; width:25%; text-align: center;margin-top: 20px;}
+.commonBox .iconList li a{display: block;}
+.commonBox .iconBox{width:60px; height:60px; display: inline-block;border-radius: 50%;margin-bottom: 5px;}
+.commonBox .iconBox img{width:40px;height:40px; margin-top: 10px;}*/
+
+.funcSave{background: #31acfa; color: #fff; display: block; padding: 3px 5px; font-size: 12px; border-radius: 3px;}

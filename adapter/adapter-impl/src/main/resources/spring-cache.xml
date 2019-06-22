@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<description>缓存相关配置</description>
+
+	<!-- 配置Cluster -->
+	<bean id="ksh.redis.cluster.configuration" class="org.springframework.data.redis.connection.RedisClusterConfiguration">
+		<constructor-arg>
+			<bean class="org.springframework.core.env.MapPropertySource">
+				<constructor-arg name="name" value="RedisClusterConfiguration" />
+				<constructor-arg name="source">
+					<map>
+						<entry key="spring.redis.cluster.nodes" value="${redis.server.address}" />
+						<entry key="spring.redis.cluster.max-redirects" value="${redis.cluster.max.redirects}" />
+					</map>
+				</constructor-arg>
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="ksh.redis.pool.config" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.client.pool.maxIdle}"/>
+		<property name="minIdle" value="${redis.client.pool.minIdle}"/>
+		<property name="maxTotal" value="${redis.client.pool.maxTotal}"/>
+		<property name="maxWaitMillis" value="${redis.client.pool.maxWaitMillis}"/>
+	</bean>
+	<bean id="ksh.redis.connection.factory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<constructor-arg name="clusterConfig" ref="ksh.redis.cluster.configuration"/>
+		<constructor-arg name="poolConfig" ref="ksh.redis.pool.config"/>
+		<property name="timeout" value="${redis.server.timeout}" />
+	</bean>
+
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="ksh.redis.connection.factory"/>
+		<property name="keySerializer" >
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<property name="valueSerializer">
+			<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+		</property>
+		<property name="hashKeySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+		</property>
+		<property name="hashValueSerializer">
+			<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+		</property>
+	</bean>
+
+	<bean id="cache.local.permanent.service" class="com.ycg.ksh.common.extend.cache.redis.RedisCacheManager">
+		<property name="redisTemplate" ref="redisTemplate" />
+		<property name="regionName" value="cache.local.permanent" />
+	</bean>
+</beans>

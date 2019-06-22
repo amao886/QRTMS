@@ -1,0 +1,179 @@
+/*回单内容标题*/
+.upload-task{
+	position:relative;
+	padding:0px 15px 16px 15px;
+}
+.upload-task-title{position:relative;padding-top:48px;}
+.upload-task-title:before{
+	position:absolute;
+	top:12px;
+	left:0;
+	content:'请选择需要上传回单的任务';
+	font-size:15px;
+	color:#666;
+}
+.up-task-check,.up-task-icon{
+	width:47%;
+	height:42px;
+	line-height:42px;
+	font-size:16px;
+	color:#448afe;
+	background:#fff;
+	text-indent:54px;
+	box-shadow: 0 0 10px #f1f2f6;
+}
+.upload-task-title .up-task-check{
+	float:right;
+	margin-right:1px;
+	background:#fff url(../../images/upload-list.png) no-repeat 23px center;
+	background-size:20px 15px;
+}
+.upload-task-title .up-task-icon{
+	float:left;
+	margin-left:1px;
+	background:#fff url(../../images/upload-swap.png) no-repeat 23px center;
+	background-size:21px;
+}
+/*回单内容展示*/
+.upload-task-content{
+    font-size: 15px;
+    color:#333;
+}
+.upload-task-content .weui-flex{
+	margin-bottom: 6px;
+}
+.upload-task-content .task-con-title{
+	width:76px;
+	color:#666;
+}
+.upload-task-content .weui-flex__item{
+	padding-left:4px;
+}
+.upload-task-content > p{
+	font-size:13px;
+	color:#8f8f8f;
+}
+.upload-task-close{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #31acfa;
+    font-size: 20px;
+}
+.span-info{
+	margin-right:20px;
+}
+.color-mark{
+	color:#ff6633;
+	margin-right:2px;
+}
+
+
+/*上传照片*/
+.weui-cell{
+	padding:10px 12px 0;
+	color:#636363;
+}
+.weui-cells:before{
+	border-top:none;
+}
+.weui-cells:after{
+	border-bottom: none;
+}
+.upload{margin-top:0;margin-bottom:20px;box-shadow: 0 0 10px #f1f2f6;}
+.upload .weui-uploader__bd{
+	overflow: visible;
+	font-size:0;
+}
+#uploaderFiles,#uploaderRecipt{
+	display: inline-block;
+}
+.upload .weui-uploader__hd{padding-bottom: 20px;}
+.upload .weui-uploader__input-box{border-radius: 6px;float: none;}
+.weui-uploader__file{position:relative;border-radius:6px;}
+.weui-uploader__file>img{display:block;width:100%;height:100%;border-radius: 6px;}
+.weui-uploader__file>.close-img{
+	position: absolute;
+	top:-6px;
+	right:-6px;
+	width:22px;
+	height:22px;
+	color:#f40;
+	/*background:pink;*/
+	background:url(../../images/del-icon.png) no-repeat center;
+	background-size: 100%;
+}
+.img-name-p {
+    display: none;
+}
+.demos-content-padded{
+	padding:0;
+}
+/*提示照片*/
+.img_tips{
+	display: none;   
+}
+.img_tips .tip-part{ 
+    background:#fff;
+    padding-top:15px;
+    margin-bottom: 20px;
+}
+.img_tips .tip-part>p{
+	margin-left:5%;
+	padding:18px 0 25px;
+	width:90%;
+	color:#666;
+	font-size:14px;
+	text-align: left;
+}
+.img_tips .tip-part>img{
+	display: block;
+	width:90%;
+	margin:0 auto;
+}
+.img_tips .imgTipsBtn{
+	display: block;
+    text-align: center;
+    margin: 0 auto;
+	width: 80%;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+    color:#fff;
+    background: #31acfa;
+    font-size: 14px;
+}
+/*上传照片按钮*/
+.uploadBtn{
+	border:none;
+	background:url(../../images/upload-add.png) no-repeat center;
+	background-size:41px;
+}
+.weui-uploader__bd.txtCenter{text-align: center;margin-bottom: 0;margin-right:0;}
+.txtCenter .uploadBtn{
+	margin-right:0;
+	margin-bottom:6px;
+	margin-top:3px;
+}
+.txtCenter + .weui-uploader__ft{padding-bottom: 9px;}
+.uploadBtn:before,.uploadBtn:after{
+	width:0;
+	height:0;
+}
+.upload-tip-text{text-align: center;font-size:18px;color:#448afe;}
+.bgWhite{background:#fff;}
+
+.upload-task.cancelPadding{
+	padding:0;
+}
+.cancelPadding .showTaskList{
+	padding:10px 15px 16px 15px;
+	background:#fff;
+	margin-bottom: 20px;
+	box-shadow: 0 0 10px #f1f2f6;
+}
+.upImage-hook{display: inline !important;}

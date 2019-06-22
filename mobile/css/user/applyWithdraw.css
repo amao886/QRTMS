@@ -1,0 +1,99 @@
+.mt0 {
+	margin-top: 0;
+}
+
+.weui-cells {
+	color: #333333;
+}
+
+.weui-cell {
+	padding: 24px 18px 0px 18px;
+}
+
+.weui-cell:before {
+	border-top: none;
+}
+
+.weui-cells:before {
+	border-top: none;
+}
+
+.weui-cells:after {
+	border-bottom: none;
+}
+
+.weui-cells .last {
+	margin-top: -8px;
+	padding-bottom: 24px;
+}
+
+.demos-content-padded {
+	padding: 20px 0 30px;
+}
+
+.operate {
+	margin-top: 18px;
+	background: #FFFFFF;
+	padding-top: 18px;
+	padding-left: 24px;
+	padding-right: 24px;
+}
+
+.title {
+	color: #333333;
+	margin-left: -12px;
+}
+
+.radio-box-choosemoney {
+	width: 90px;
+	height: 48px;
+	border: 1px solid #999999;
+	margin-top: 24px;
+	text-align: center;
+	cursor: pointer;
+	color: #333333;
+	background: transparent;
+}
+
+.selected {
+	border: 1px solid #0071FE;
+	color: #0071FE;
+}
+
+.money-300 {
+	float: left;
+}
+
+.money-400,
+.money-500 {
+	float: left;
+	margin-left: 20px;
+}
+
+.tripInfo {
+	color: #333333;
+	line-height: 30px;
+	font-size: 14px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 34px;
+}
+
+
+/*覆盖框架原样式*/
+.weui-btn_primary {
+	width: 90%;
+	height: 44px;
+	line-height: 44px;
+	border-radius: 4px;
+	background: #0071FE;
+	font-size: 15px;
+}
+
+.weui-btn:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}

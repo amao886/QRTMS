@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.CustomerGroupMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.CustomerGroup">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="customerid" jdbcType="INTEGER" property="customerid" />
+    <result column="groupid" jdbcType="INTEGER" property="groupid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+</mapper>

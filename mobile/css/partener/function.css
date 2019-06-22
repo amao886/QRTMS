@@ -1,0 +1,20 @@
+.topMenu{justify-content:space-between;flex-wrap: nowrap;border-bottom: #ececec solid 1px; background: #fff;position: fixed;width: 100%;top: 0;z-index: 9999;}
+.topMenu a{padding: 8px 5px 0 5px;}
+.topMenu a img{width:22px;}
+.tabBox{justify-content:space-between;flex-wrap: nowrap;}
+.tabBox span{font-size: 15px;padding:5px;text-align: center;line-height: 30px;}
+.tabBox span.active{color: #31acfa; border-bottom:#31acfa solid 3px;}
+
+.contentBox{ position: relative;margin-top:44px;}
+.targetBox{background: #fff;margin-top:15px; }
+.targetBox:first-child{margin-top:0}
+.targetBox h3{padding: 10px 0 0 10px; font-size: 16px;}
+.iconList{background: #fff; padding-bottom:10px; }
+.iconList li{ float:left; width:25%; text-align: center;    margin: 10px 0;}
+.iconList li a{display: block;}
+.iconBox{width:54px; height:54px; display: inline-block;border-radius: 50%;}
+.iconBox img{width:34px;height:34px; margin-top: 10px;}
+
+.moreBtn{width:40px;height:40px; display: inline-block; border-radius:20px; background: #000; opacity: 0.5; position: fixed;right:5px; bottom: 60px;color: #fff;line-height: 40px;text-align: center;font-size: 14px;} 
+
+

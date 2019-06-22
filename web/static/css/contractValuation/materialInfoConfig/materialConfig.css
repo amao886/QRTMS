@@ -1,0 +1,79 @@
+.search {
+	box-sizing: border-box;
+	padding-top: 30px;
+}
+
+.el-input {
+	width: 200px;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+.el-input__icon {
+	line-height: 32px;
+}
+
+.search input {
+	height: 32px;
+	line-height: 32px;
+	padding: 0 5px;
+}
+
+.search button {
+	padding: 8px 20px;
+}
+
+.operateBtn {
+	padding: 30px 0;
+	margin-left: 20px;
+}
+
+.operateBtn button {
+	width: 140px;
+	height: 40px;
+}
+
+.table {
+	padding: 0 20px;
+	box-sizing: border-box;
+}
+
+.el-table .cell {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.el-table th>.cell {
+	text-align: center;
+}
+
+.el-dialog__header {
+	border-bottom: 1px solid #ccc;
+}
+
+.el-dialog__footer {
+	border-top: 1px solid #ccc;
+}
+
+.el-dialog__body {
+	padding: 0 20px;
+	position: relative;
+	min-height: 350px;
+}
+
+.el-upload,
+.el-upload-dragger {
+	width: 100%;
+}
+
+.btnUpload {
+	margin: 10px 0;
+	color: #409EFF;
+	border: 1px solid #409EFF;
+}
+
+.pagination {
+	margin-top: 5px;
+	margin-left: 20px;
+}

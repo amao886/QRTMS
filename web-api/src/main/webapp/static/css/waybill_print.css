@@ -1,0 +1,132 @@
+body,html{
+  height: 100%;
+  margin: 0px;
+}
+.fw700{font-weight: 700;}
+.fs0{font-size: 0;}
+.print-content{width:85%;margin:40px auto 0;}
+.print-item{
+    position:relative;
+    padding:25px 20px;
+    background:#fff;
+    margin-bottom:20px;
+    /* -moz-box-shadow:0px 0px 7px #dedede; 
+    -webkit-box-shadow:0px 0px 7px #dedede;  
+    box-shadow:0px 0px 7px #dedede;*/
+}
+.print-item .print-title{font-size:20px;font-weight:400;text-align: center;}
+.print-item .now-date{position:absolute;top:54px;right:20px;font-size:14px;}
+.print-text{width:95%;margin:20px auto 0;}
+.print-line{font-size:0;}
+.print-line>.line-part{display:inline-block;width:48%;padding:5px 0;vertical-align: top;}
+.print-line>.line-part+.line-part{margin-left:4%;}
+.line-part .float-tag{
+    float: left; 
+    width:72px;
+    font-weight: 600;
+    font-size:14px;
+    text-align: left;
+}
+.line-part .text-tag{margin-left:78px;font-size: 14px;}
+
+/*侧导航部分样式*/
+.print-tab{
+    position:fixed;
+    top:0;
+    left:0;
+    bottom: 0;
+    width:240px;
+    background: #ededed;
+    display: none;
+}
+.print-right{
+    margin-left:0px;
+}
+.print-tab ul{margin-top:40px;width:100%;}
+.print-tab ul>li.li-item{
+    margin:0 auto 20px;
+    width:160px;
+    height:100px;
+}
+.print-tab .li-item > a{display: block;width:100%;height: 100px;}
+.print-tab .li-item > a>img{width:100%;height:auto;vertical-align: top;}
+/* 二维码部分样式 */
+.print-sign{position:relative;width:95%;margin:25px auto 0;}
+.sign-content .sign-img{
+    float: left; 
+    width:106px;
+    height:106px;
+}
+.sign-content .sign-img>img{width:100%;height:auto;}
+.sign-content .sign-summary{
+    margin-left:146px;
+    height:106px;
+}
+.sign-content .sign-summary .float-tag{font-weight: 400;}
+.sign-people,.sign-date{
+    position:absolute;
+    bottom: 0;
+    left:45%;
+    font-size:14px;
+    z-index: 10;
+}
+.sign-date{
+    left:70%;
+}
+
+/* 显示侧导航后的样式 */
+.print-wrapper.sidebar-show .print-tab{display: block;}
+.print-wrapper.sidebar-show .print-right{margin-left:240px;}
+
+/* 滚动条样式调整 */
+.zUIpanelScrollBox{
+    width:6px;
+    top:4px;
+    right:2px;
+    border-radius:3px;
+    
+}
+.zUIpanelScrollBar{
+    width:6px;
+    top:4px;
+    right:2px;
+    border-radius:3px;
+}
+.zUIpanelScrollBox{
+    background:black;
+    opacity:0.1;
+    filter:alpha(opacity=10);
+}
+.zUIpanelScrollBar{
+    background:#fff;opacity:0.8;
+    filter:alpha(opacity=80);
+}
+/* 菜单样式 */
+.print-toggle{
+    position:fixed;
+    top:4px;
+    left:9px;
+    z-index: 11;
+    cursor: pointer;
+}
+.print-toggle .menu-icon{}
+.print-toggle .menu-icon .menu-line{
+    width:26px;
+    display: block;
+    padding:3px 0px;
+    border-bottom:2px solid #ccc;
+}
+/*打印样式*/
+@media print {
+    /*不打印的元素*/
+    .Noprn{ display:none;}
+    td, th{
+        border: 1px solid #000000 !important;
+    }
+}
+.print-page{
+    /*分页*/
+    page-break-after:always;
+    page-break-inside: avoid;
+}
+.top-btn{position:fixed;top:0;right:50px;z-index:11;}

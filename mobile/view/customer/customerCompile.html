@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>客户管理</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/customer/customerCompile.css" />
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#F2F2F2;">
+		<div id="app">
+			<template>
+				<div class="headline hide">
+					<a href="javascript:history.go(-1)" class="jiantou">
+						</a>
+							<h1>客户管理</h1>
+				</div>
+				<div class="customerDetail-color">
+					<div class="weui-cell weui-cell_warn" style="border-bottom: 1px solid #F1F1F1; height: 60px;">
+						<div class="weui-cell__bd"><label for="" class="weui-label">企业名称</label></div>
+						<div class="weui-cell__hd">
+							<input v-model="customerName"style="font-size: 16px;" class="weui-input" type="text" placeholder="请输入文本">
+						</div>
+					</div>
+
+					<div class="enterprise">
+						<span class="fl left">客户类型</span>
+						<select v-model="customerType" class="fl none" style="background: transparent;">
+							<option value="1">货主</option>
+							<option value="2">收货客户</option>
+							<option value="3">承运商</option>
+						</select>
+					</div>
+					<div class="addition" @click="saveCustomer">
+						确定
+					</div>
+				</div>
+			</template>
+		</div>
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+	</body>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el: '#app',
+
+			data: {
+				customerType: '',
+				customerName: '',
+				customerkey: ''
+			},
+			methods: {
+				saveCustomer: function() {
+					var _this = this
+					var parmas = {
+						customerType: _this.customerType,
+						customerName: _this.customerName,
+						customerKey: _this.customerkey
+					};
+					EasyAjax.ajax_Post_Json({
+						url: '/enterprise/customer/edit',
+						data: JSON.stringify(parmas)
+					}, function(res) {
+						if(res.success) {
+							$.toast(res.message, function() {
+								window.location.href = "./customerManage.html";
+							});
+						} else {
+							$.toast(res.message);
+						}
+					});
+				}
+			},
+			mounted: function() {
+				var _this = this
+				var _customerkey = _common.getUrlParam('id');
+				EasyAjax.ajax_Post_Json({
+					url: '/enterprise/customer/detail/' + _customerkey,
+				}, function(res) {
+					_this.customerType = res.customer.type;
+					_this.customerName = res.customer.name;
+					_this.customerkey = res.customer.key;
+				});
+			}
+		})
+	</script>
+
+</html>

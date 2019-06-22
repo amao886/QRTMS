@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>发货计划</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/deliveryplan/deliveryPlan.css" />
+
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#F5F5F5;">
+		<div class="deliveryPlanSearch-wrapper deliveryPlanList" id="deliveryPlanWrapper" v-cloak>
+			<template>
+				<div class="searchTab">
+					<div class="weui-flex">
+						<div class="searchSelect weui-flex__item assignedStatusTxt" :class="{'borderBottom' : logisticsState == 0}" uid="0" @click="chooseLogisticsState(0)">未分配物流商</div>
+						<div class="searchSelect weui-flex__item assignedStatusTxt" :class="{'borderBottom' : logisticsState == 1}" uid='1' @click="chooseLogisticsState(1)">已分配物流商</div>
+						<div class="weui-flex__item choose" @click="openFilterView">
+							<div class="splitLine"></div>
+							<div class="filterText">筛选</div>
+						</div>
+					</div>
+					<div class="chooseCon" :class="{'show' : isShowFilterView}" @click="closeFilterView($event)">
+						<div class="chooseBox">
+							<!--搜索部分-->
+							<div class="searchInput weui-search-bar__box">
+								<input type="text" placeholder="发货计划单号/收货客户/运输路线" id="inputSearch" v-model="searchText">
+								<i class="weui-icon-clear" id="iconClear" @click="clearText"></i>
+							</div>
+							<!--筛选部分-->
+							<div class="choosePart">
+								<h2 class="chooseTitle">发货单状态</h2>
+								<ul class="deliverBillSts">
+									<li :class="{'active' : deliverBillState == 0}" @click="chooseDeliverBillState(0)">
+										<label for="deliverBill0">全部</label>
+										<input type="radio" name="deliverBillState" id="deliverBill0" value="0" />
+									</li>
+									<li :class="{'active' : deliverBillState == 1}" @click="chooseDeliverBillState(1)">
+										<label for="deliverBill1">未生成</label>
+										<input type="radio" name="deliverBillState" id="deliverBill1" value="1" />
+									</li>
+									<li :class="{'active' : deliverBillState == 2}" @click="chooseDeliverBillState(2)">
+										<label for="deliverBill2">已生成</label>
+										<input type="radio" name="deliverBillState" id="deliverBill2" value="2" />
+									</li>
+								</ul>
+							</div>
+							<div class="choosePart" v-show="logisticsState == 1">
+								<h2 class="chooseTitle">下级接单状态</h2>
+								<ul>
+									<li :class="{'active' : subOrderTakingState == 0}" @click="chooseSubOrderTakingState(0)">
+										<label for="subOrderTaking0">全部</label>
+										<input type="radio" name="subOrderTakingState" id="subOrderTaking0" value="0" />
+									</li>
+									<li :class="{'active' : subOrderTakingState == 1}" @click="chooseSubOrderTakingState(1)">
+										<label for="subOrderTaking1">下级未接单</label>
+										<input type="radio" name="subOrderTakingState" id="subOrderTaking1" value="1" />
+									</li>
+									<li :class="{'active' : subOrderTakingState == 2}" @click="chooseSubOrderTakingState(2)">
+										<label for="subOrderTaking2">下级已接单</label>
+										<input type="radio" name="subOrderTakingState" id="subOrderTaking2" value="2" />
+									</li>
+								</ul>
+							</div>
+							<div class="btnPart">
+								<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default cancelBtn" @click="cancel">取消</a>
+								<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary confirmBtn" @click="confirm">确定</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="planList-wrapper plan-wrap">
+					<div class="planList" v-if="collection != null && collection.length > 0" v-for="(item, index) in collection" :id="index">
+						<div class="weui-flex">
+							<div class="left-title">
+								<span class="w4">计划单号</span>
+							</div>
+							<div class="weui-flex__item wordwrap">{{item.planNo}}</div>
+							<div class="pLeft10">
+								<span class="green" v-if="item.orderKey == 0">未生成</span>
+								<span class="blue" v-else>已生成</span>
+							</div>
+						</div>
+						<div class="spliteLine"></div>
+						<div @click="toDetail(item.id)">
+							<div class="weui-flex pTop5">
+								<div class="left-title">
+									<span class="w4">收货客户</span>
+								</div>
+								<div class="weui-flex__item wordwrap">{{item.receive.companyName}}</div>
+							</div>
+							<div class="weui-flex">
+								<div class="left-title">
+									<span class="w4">运输路线</span>
+								</div>
+								<div class="weui-flex__item">{{item.transportRoute}}</div>
+							</div>
+							<div class="weui-flex">
+								<div class="left-title">
+									<span>要求提货时间</span>
+								</div>
+								<div class="weui-flex__item">{{item.collectTime | datetime}}</div>
+							</div>
+							<div class="weui-flex">
+								<div class="left-title">
+									<span>要求到货时间</span>
+								</div>
+								<div class="weui-flex__item">{{item.arrivalTime | datetime}}</div>
+							</div>
+						</div>
+						<div class="spliteLine"></div>
+						<div class="mTop10">
+							<div class="operate-btn clearfix">
+								<div class="fl pTop5 pLeft15" v-if="logisticsState == 1">
+									<span class="blue" v-if="item.designate != null && item.designate.fettle >= 1">下级已接单</span>
+									<span class="green" v-else>下级未接单</span>
+								</div>
+								<a href="javascript:;" class="weui-btn weui-btn_primary fr" v-if="logisticsState == 0" @click="allotCarrier(item.id)">分配物流商</a>
+								<a href="javascript:;" class="weui-btn weui-btn_primary fr" v-if="logisticsState == 1 && item.orderKey == 0" @click="generateInvoice(item.id)">生成发货单</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--加载更多-->
+				<div class="weui-loadmore hide">
+					<i class="weui-loading"></i>
+					<span class="weui-loadmore__tips">正在加载</span>
+				</div>
+
+				<!--底部导航-->
+				<div id="navBarIn">
+					<span class="entryPlanBtn" id="moreTouch" @click="entryPlan">录入计划</span>
+				</div>
+			</template>
+		</div>
+
+		<script type="text/javascript" src="../../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../../lib/vue/common.vue.js"></script>
+		<script type="text/javascript" src="../../../lib/vue/moment.min.js"></script>
+		<script type="text/javascript" src="../../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../../js/deliveryplan/shipper/deliveryPlan.js"></script>
+	</body>
+
+</html>

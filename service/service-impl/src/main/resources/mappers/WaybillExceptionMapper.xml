@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.WaybillExceptionMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.WaybillException">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="waybillid" jdbcType="INTEGER" property="waybillid"/>
+        <result column="conveyance_id" jdbcType="BIGINT" property="conveyanceId"/>
+        <result column="uname" jdbcType="VARCHAR" property="uname"/>
+    </resultMap>
+
+    <select id="selectByWaybillId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	  SELECT * FROM exception_repor_tab WHERE waybillid = #{waybillId} ORDER BY createtime DESC
+    </select>
+
+    <insert id="insertException" parameterType="com.ycg.ksh.entity.persistent.WaybillException">
+      INSERT  INTO exception_repor_tab (content, userid, createtime, waybillid, uname, conveyance_id) VALUES (#{content},#{userid},#{createtime},#{waybillid},#{uname},#{conveyanceId})
+    </insert>
+
+    <select id="searchExceptionPage" parameterType="com.ycg.ksh.entity.service.ExceptionSearch"
+            resultType="com.ycg.ksh.entity.service.MergeExceptionRepor">
+        SELECT
+            a.*,
+            b.barcode,
+            b.delivery_number AS deliveryNumber,
+            b.owner_key AS ownerKey,
+            b.conveyance_number AS conveyanceNumber,
+            b.simple_start_station AS startStation,
+            b.simple_end_station AS endStation
+        FROM
+          exception_repor_tab a, conveyance_tab b
+        WHERE
+        a.conveyance_id = b.id
+        AND ((b.owner_group_key IN (SELECT groupid FROM group_members_tab WHERE userid =#{sendKey})) OR (b.owner_key = #{sendKey}))
+        <if test="firstTime != null">
+            <![CDATA[ AND a.createtime >= #{firstTime} ]]>
+        </if>
+        <if test="secondTime != null">
+            <![CDATA[ AND a.createtime <= #{secondTime} ]]>
+        </if>
+        <if test="assignKey != null and assignKey gt 0">
+            AND b.owner_key = #{assignKey}
+        </if>
+        ORDER BY a.createtime DESC
+    </select>
+</mapper>

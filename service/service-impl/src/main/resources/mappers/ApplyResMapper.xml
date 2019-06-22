@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.ApplyResMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.ApplyRes">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="groupid" jdbcType="INTEGER" property="groupid"/>
+        <result column="number" jdbcType="INTEGER" property="number"/>
+        <result column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="start_num" jdbcType="VARCHAR" property="startNum"/>
+        <result column="end_num" jdbcType="VARCHAR" property="endNum"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="print_status" jdbcType="INTEGER" property="printStatus"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="company_id" jdbcType="BIGINT" property="companyId"/>
+    </resultMap>
+
+
+    <select id="queryApplyResList" resultType="com.ycg.ksh.entity.service.MergeApplyRes"
+            parameterType="com.ycg.ksh.entity.persistent.ApplyRes">
+            SELECT
+            a.id,
+            a.groupid,
+            a.number,
+            a.userid,
+            a.createtime,
+            a.remark,
+            a.print_status AS printStatus,
+            a.start_num AS startNum,
+            a.end_num AS endNum,
+            c.uname,
+            c.mobilephone,
+            (
+            SELECT
+            count(1)
+            FROM
+            barcode_tab b
+            WHERE
+            b.resourceid = a.id
+            AND b.bindstatus != 10
+            ) AS total,
+            d.group_name as groupName
+            FROM
+            resourcse_app_tab a
+            LEFT JOIN user_tab c ON a.userid = c.id LEFT JOIN group_tab d on d.id = a.groupid
+            WHERE a.company_id is null
+            order by a.createtime desc
+         </select>
+
+        <select id="queryApplyResListv2" resultType="com.ycg.ksh.entity.service.MergeApplyRes"
+            parameterType="com.ycg.ksh.entity.service.MergeApplyRes">
+			SELECT
+            a.id,
+            a.groupid,
+            a.number,
+            a.userid,
+            a.createtime,
+            a.remark,
+            a.print_status AS printStatus,
+            a.start_num AS startNum,
+            a.end_num AS endNum,
+            c.uname,
+            c.mobilephone,
+            (SELECT
+            count(1)
+            FROM
+            barcode_tab b
+            WHERE
+            b.resourceid = a.id
+            AND b.bindstatus != 10
+            ) AS total,
+            d.company_name as companyName
+            FROM
+            resourcse_app_tab a
+            LEFT JOIN
+			user_tab c
+            ON a.userid = c.id
+			LEFT JOIN
+			T_COMPANY d
+			on
+			d.id = a.company_id
+			 WHERE a.company_id is not null
+			 <if test="companyId != null and companyId gt 0">
+			 	and a.company_id = #{companyId}
+			 </if>
+			 <!-- <if test="startNum != null and startNum != '' and endNum != null and endNum != ''">
+			 		and (#{startNum} BETWEEN a.start_num and a.end_num 
+			 			or #{endNum} BETWEEN a.start_num and a.end_num)
+			 </if>
+			 <if test="startNum != null and startNum != '' and ( endNum == null || endNum == '')">
+			 		and #{startNum} BETWEEN a.start_num and a.end_num 
+			 </if>
+			 <if test="endNum != null and endNum != '' and ( startNum == null || startNum == '')">
+			 		and #{endNum} BETWEEN a.start_num and a.end_num
+			 </if> -->
+			 <choose>
+			 	<when test="startNum != null and startNum != '' and endNum != null and endNum != ''">
+			 		and (#{startNum} BETWEEN a.start_num and a.end_num 
+			 			or #{endNum} BETWEEN a.start_num and a.end_num)
+			 	</when>
+			 	<otherwise>
+			 		<if test="startNum != null and startNum != '' and ( endNum == null || endNum == '')">
+			 			and #{startNum} BETWEEN a.start_num and a.end_num 
+			 		</if>
+			 		<if test="endNum != null and endNum != '' and ( startNum == null || startNum == '')">
+			 			and #{endNum} BETWEEN a.start_num and a.end_num
+			 		</if>
+			 	</otherwise>
+			 </choose>
+			order by a.createtime desc
+    </select>
+    <!-- 查询所有申请条码记录-新版-->
+    <select id="queryAllApplayRes" resultType="com.ycg.ksh.entity.service.MergeApplyRes">
+    	SELECT
+            a.id,
+            a.number,
+            a.createtime,
+            a.remark,
+            a.print_status AS printStatus,
+            a.start_num AS startNum,
+            a.end_num AS endNum,
+            (select count(id) from barcode_tab where resourceid = a.id) as total,  
+            c.uname,
+            c.mobilephone
+            FROM
+            resourcse_app_tab a
+            LEFT JOIN
+			user_tab c
+            ON a.userid = c.id
+            <where>
+	            <if test="uname != null and uname != ''">
+			 		and c.uname = #{uname}
+				 </if>
+				 <if test="mobilePhone != null and mobilePhone != ''">
+				 	and c.mobilephone = #{mobilePhone}
+				 </if>
+            </where>
+		order by a.createtime desc
+    </select>
+</mapper>

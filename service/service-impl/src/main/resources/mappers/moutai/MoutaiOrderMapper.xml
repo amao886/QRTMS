@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.moutai.MaotaiOrderMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.moutai.Order">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="SCHEDULE_NO" jdbcType="VARCHAR" property="scheduleNo" />
+    <result column="CUSTOMER_NO" jdbcType="VARCHAR" property="customerNo" />
+    <result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
+    <result column="CONVEY_ID" jdbcType="BIGINT" property="conveyId" />
+    <result column="SPECIFICATION" jdbcType="VARCHAR" property="specification" />
+    <result column="BOTTLES" jdbcType="INTEGER" property="bottles" />
+    <result column="QUANTITY" jdbcType="INTEGER" property="quantity" />
+    <result column="BUY_ORG" jdbcType="VARCHAR" property="buyOrg" />
+    <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="PRINT_SIGN" jdbcType="INTEGER" property="printSign" />
+
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="CONTACT_NAME" jdbcType="VARCHAR" property="contactName" />
+    <result column="CONTACT_TEL" jdbcType="VARCHAR" property="contactTel" />
+
+  </resultMap>
+
+  <!-- 批量插入 -->
+  <insert id="inserts" parameterType="java.util.List">
+    INSERT INTO MOUTAI_ORDER
+    (ID, SCHEDULE_NO, CUSTOMER_NO, SPECIFICATION, BOTTLES, QUANTITY, BUY_ORG, CREATE_USER_ID, CREATE_TIME,CONVEY_ID)
+    VALUES
+    <foreach collection="list" item="o" index="index" separator=",">
+      (#{o.id}, #{o.scheduleNo}, #{o.customerNo}, #{o.specification}, #{o.bottles}, #{o.quantity}, #{o.buyOrg}, #{o.createUserId}, #{o.createTime},#{o.conveyId})
+    </foreach>
+  </insert>
+
+  <select id="searchOrderPage" parameterType="com.ycg.ksh.entity.service.moutai.MaotaiOrder"
+          resultMap="BaseResultMap">
+    select * from MOUTAI_ORDER
+      <where>
+        <if test="customerId != null and customerId != '' ">
+          and CUSTOMER_NO like  concat('%', #{customerId}, '%')
+        </if>
+        <if test="buyerUnit!=null and buyerUnit != ''">
+          and buy_org LIKE concat('%', #{buyerUnit}, '%')
+        </if>
+        <if test="startTime!=null ">
+          and CREATE_TIME >= #{startTime}
+        </if>
+        <if test="endTime !=null ">
+        <![CDATA[  and CREATE_TIME <= #{endTime} ]]>
+      </if>
+        <if test="conveyId !=null ">
+          <![CDATA[  and CONVEY_ID = #{conveyId} ]]>
+        </if>
+        <if test="printSign != null ">
+          <![CDATA[  and PRINT_SIGN = #{printSign} ]]>
+        </if>
+        <if test="depotId != null ">
+          <![CDATA[  and STORE_ID = #{depotId} ]]>
+        </if>
+        <if test="scheduleNo != null ">
+          and SCHEDULE_NO LIKE concat('%', #{scheduleNo}, '%')
+        </if>
+      </where>
+    ORDER BY `CREATE_TIME` desc
+  </select>
+
+  <select id="updateOrderForAddDepot" >
+      update  MOUTAI_ORDER set STORE_ID = #{depot}
+    <where>
+      <foreach collection="ids" open=" and id in(" close=")"
+               item="id" separator=",">
+        #{id}
+      </foreach>
+    </where>
+  </select>
+
+  <delete id="deleteBatchByIds">
+    DELETE FROM MOUTAI_ORDER
+    <where>
+      <foreach collection="ids" open=" and id in(" close=")"
+               item="id" separator=",">
+        #{id}
+      </foreach>
+    </where>
+  </delete>
+
+  <select id="selectOrderByIds" resultMap="BaseResultMap">
+   select * FROM MOUTAI_ORDER
+    <where>
+      <foreach collection="ids" open=" and id in(" close=")"
+               item="id" separator=",">
+        #{id}
+      </foreach>
+    </where>
+  </select>
+  <update id="updatePrintSignByIds">
+      UPDATE MOUTAI_ORDER
+      SET PRINT_SIGN = #{sign}
+      <where>
+        <foreach collection="ids" open=" and id in(" close=")"
+                 item="id" separator=",">
+          #{id}
+        </foreach>
+      </where>
+  </update>
+
+</mapper>

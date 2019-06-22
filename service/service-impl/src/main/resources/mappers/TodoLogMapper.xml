@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.TodoLogMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.TodoLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="todo_key" jdbcType="INTEGER" property="todoKey" />
+    <result column="log_type" jdbcType="INTEGER" property="logType" />
+    <result column="log_time" jdbcType="TIMESTAMP" property="logTime" />
+    <result column="user_key" jdbcType="INTEGER" property="userKey" />
+  </resultMap>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into todo_log (todo_key, log_type, log_time, user_key)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (#{item.todoKey}, #{item.logType}, #{item.logTime}, #{item.userKey})
+    </foreach>
+  </insert>
+  <select id="selectByTodoKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+      SELECT * FROM todo_log WHERE todo_key = #{todoKey} ORDER BY log_time DESC
+  </select>
+</mapper>

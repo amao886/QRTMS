@@ -1,0 +1,144 @@
+.margin-top{margin-top:0;}
+.weui-cell{background-color:#fff;}
+.weui-label{width:100px;position:relative;}
+.weui-cell.align{
+	-webkit-box-align: flex-start;
+	-webkit-align-items: flex-start;
+	align-items: flex-start;
+}
+.weui-cell__bd.color-danger{color:#f6383a !important;}
+.demos-content-padded{margin:20px 0 130px;}
+.weui-cells{font-size:16px;}
+
+/* 收货客户部分 */
+.about_custom{position:relative;}
+.about_custom:before{
+	content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #D9D9D9;
+    color: #D9D9D9;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    z-index: 10;
+}
+.cell_link p{
+	width:100px;
+}
+.cell_link .weui-cell__bd{
+	color:#999;
+}
+.cell_link{
+	padding:11px 15px;
+}
+.add_after:after{
+	content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 15px;
+    height: 1px;
+    border-top: 1px solid #D9D9D9;
+    color: #D9D9D9;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    z-index: 10;
+    left:15px;
+}
+.change_before:before{
+	left:0;
+}
+.show_custom{
+	padding:10px 15px;
+	font-size:15px;
+	color:#666;
+}
+.show_custom .d_left{
+	width:86px;
+}
+.show_custom .weui-flex{
+	padding:2px 0;
+}
+/* 要求到货时间 */
+.no-left.weui-cell:before{
+	left:0;
+}
+/*单位*/
+.unit-weight:after{
+	position:absolute;
+	top:10px;
+	right:15px;
+	content:'kg';
+	color:#999;
+}
+.unit-vol:after{
+	position:absolute;
+	top:10px;
+	right:15px;
+	content:'m³';
+	color:#999;
+}
+/*对齐样式*/
+.w4{
+	display: inline-block;
+	letter-spacing:0em; 
+}
+.w3{  
+	letter-spacing:0.5em; 
+	margin-right:-0.5em; 
+}
+.w2{  
+	letter-spacing:2em; 
+	margin-right:-2em;
+}
+
+/*样式调整*/
+.bindBarCode .span-m-l{
+	/*margin-left:12px;*/
+}
+.bindBarCode .need-remark{
+	position:absolute;
+	top:0;
+	left:-10px;
+	color:#999;
+}
+.p_tips {
+    padding: 6px 18px;
+    font-size: 14px;
+    color: #999;
+}
+
+/*要求到货时间*/
+.project-label-w .weui-label{
+	width:130px;
+}
+.project-bd{
+	font-size:15px;
+	padding-top:3px;
+}
+.project-bd select{
+	height:33px;
+	line-height:33px;
+	font-size: 14px;
+	color:#666;
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0 4px;
+    margin-left: 8px;
+}
+.project-bd .project-select{
+	margin-left:0;
+	margin-right:8px;
+}
+.project-bd.weui-cell:before{
+	border-top:none;
+}
+	

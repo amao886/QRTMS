@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.CompanyMapper">
+
+    <resultMap id="ConciseResultMap" type="com.ycg.ksh.entity.service.enterprise.CompanyConcise">
+        <result column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName"/>
+    </resultMap>
+
+
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.Company" extends="ConciseResultMap">
+        <result column="FETTLE" jdbcType="INTEGER" property="fettle"/>
+        <result column="SIGN_FETTLE" jdbcType="INTEGER" property="signFettle"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="CODE_ORG" jdbcType="VARCHAR" property="codeOrg"/>
+        <result column="CODE_USC" jdbcType="VARCHAR" property="codeUsc"/>
+        <result column="LEGAL_NAME" jdbcType="VARCHAR" property="legalName"/>
+        <result column="LEGAL_ID_NO" jdbcType="VARCHAR" property="legalIdNo"/>
+        <result column="RENAME_COUNT" jdbcType="INTEGER" property="renameCount"/>
+        <result column="ADDRESS" jdbcType="VARCHAR" property="address"/>
+    </resultMap>
+
+
+    <resultMap id="companyInfo" type="com.ycg.ksh.entity.service.enterprise.CompanyIntegrationy" extends="BaseResultMap">
+        <result column="SEAL_DATE" jdbcType="VARCHAR" property="sealDate"/>
+        <result column="EMPLOYEE_NAME" jdbcType="VARCHAR" property="employeeName"/>
+        <result column="MOBILE_PHONE" jdbcType="VARCHAR" property="mobilePhone"/>
+        <result column="ID_CARD_NO" jdbcType="VARCHAR" property="idCardNo"/>
+        <result column="SEAL_TIME" jdbcType="TIMESTAMP" property="sealTime"/>
+    </resultMap>
+
+    <select id="getCompanyConciseByKey" resultMap="ConciseResultMap" parameterType="java.lang.Long">
+      SELECT ID, COMPANY_NAME FROM T_COMPANY WHERE ID = #{key}
+    </select>
+    <!-- 根据公司名称模糊查询公司编号 -->
+    <select id="listCompanyKeyByName" resultType="java.lang.Long" parameterType="java.lang.String">
+      SELECT ID FROM T_COMPANY WHERE LOCATE(#{companyName}, COMPANY_NAME) > 0
+    </select>
+
+    <!-- 根据用户编号获取所属公司信息-->
+    <select id="getCompanyByUserKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+      SELECT * FROM T_COMPANY WHERE ID = (SELECT COMPANY_ID FROM T_COMPANY_EMPLOYEE WHERE EMPLOYEE_ID = #{userId})
+    </select>
+
+    <!-- 根据公司名称获取公司信息-->
+    <select id="getCompanyByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+      SELECT * FROM T_COMPANY WHERE COMPANY_NAME = #{companyName}
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.service.CompanySearch">
+        SELECT
+        c.*
+        FROM
+        T_COMPANY c
+        <where>
+            <if test="userId != null and userId gt 0">
+                c.USER_ID = #{userId}
+            </if>
+            <if test="companyName != null and companyName !=''">
+                AND (LOCATE(#{companyName}, c.COMPANY_NAME) > 0)
+            </if>
+            <if test="companyCode != null and companyCode !=''">
+                AND ((LOCATE(#{companyCode}, c.CODE_ORG) > 0) OR (LOCATE(#{companyCode}, c.CODE_USC))
+            </if>
+            <if test="fettle != null and fettle gt 0">
+                AND c.FETTLE = #{fettle}
+            </if>
+            <if test="signFettle != null">
+                AND c.SIGN_FETTLE = #{signFettle}
+            </if>
+        </where>
+        ORDER BY c.ID
+    </select>
+
+    <select id="getCompanyLikeCompanyName" resultMap="BaseResultMap">
+        SELECT * FROM T_COMPANY WHERE COMPANY_NAME like concat('%', #{companyName}, '%')
+    </select>
+</mapper>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>发货计划详情</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/deliveryplan/deliveryPlanDetail.css" />
+
+		<style>
+			/*[v-cloak] {
+				display: none !important;
+			}*/
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background-color: #FFFFFF;">
+		<div id="deliveryPlanDeatil" v-cloak>
+			<template>
+				<div class="sendContent">
+					<div class="sendItem sendWrite">
+						<div class="weui-cells weui-cells_form">
+							<div class="title">发货信息</div>
+							<div class="weui-cell" v-if="shipper != null">
+								<div class="weui-cell__hd">发货方：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{shipper.customerName}}</p>
+								</div>
+							</div>
+							<div class="weui-cell">
+								<div class="weui-cell__hd">发货日期：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{order.deliveryTime | date}}</p>
+								</div>
+							</div>
+							<div class="weui-cell">
+								<div class="weui-cell__hd">发货计划单号：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{order.planNo}}</p>
+								</div>
+							</div>
+							<div class="weui-cell">
+								<div class="weui-cell__hd">订单编号：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{order.orderNo}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="extra != null && extra.distributeAddress != null">
+								<div class="weui-cell__hd">发货地址：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.distributeAddress}}</p>
+								</div>
+							</div>
+							<div class="title">承运信息</div>
+							<div class="weui-cell" v-if="convey != null">
+								<div class="weui-cell__hd">物流商：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{convey.customerName}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="extra != null && extra.conveyerName != null">
+								<div class="weui-cell__hd">联系人：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.conveyerName}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="extra != null && extra.conveyerContact != null">
+								<div class="weui-cell__hd">联系电话：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.conveyerContact}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="order.transportRoute != null">
+								<div class="weui-cell__hd">运输路线：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{order.transportRoute}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="order.collectTime != null">
+								<div class="weui-cell__hd">要求提货时间：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{order.collectTime | datetime}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="order.arrivalTime != null">
+								<div class="weui-cell__hd">要求到货时间：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{order.arrivalTime | datetime}}</p>
+								</div>
+							</div>
+							<div class="title">收货信息</div>
+							<div class="weui-cell" v-if="receive != null">
+								<div class="weui-cell__hd">收货客户：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{receive.customerName}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="order.receiverName != null">
+								<div class="weui-cell__hd">收货人：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{order.receiverName}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="order.receiverContact != null">
+								<div class="weui-cell__hd">联系方式：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{order.receiverContact}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="order.receiveAddress != null">
+								<div class="weui-cell__hd">收货地址：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{order.receiveAddress}}</p>
+								</div>
+							</div>
+
+							<div class="title">货物信息</div>
+							<div class="total-con">
+								<p>合计</p>
+								<div class="weui-grids">
+									<div class="weui-grid">数量</div>
+									<div class="weui-grid">箱数</div>
+									<div class="weui-grid">体积</div>
+									<div class="weui-grid">重量</div>
+									<!--数据填充到下面div即可-->
+									<div class="weui-grid">{{order.quantity}}</div>
+									<div class="weui-grid">{{order.boxCount}}</div>
+									<div class="weui-grid">{{order.volume}}</div>
+									<div class="weui-grid">{{order.weight}}</div>
+								</div>
+							</div>
+							<div class="listCon">
+								<p>明细</p>
+								<div class="listLeft">
+									<div class="goodsTitle">物料编号</div>
+									<!--物料编号循环这个goodsName-->
+									<div class="goodsName borderBottom" v-if="commodities.length > 0" v-for="(item, index) in commodities"><span class="wordwrap">{{item.commodityNo}}</span></div>
+									<div class="noMsg" v-else=""></div>
+								</div>
+								<div class="listRight wrapper" ref="wrapper">
+									<ul class="content" ref="contentWidth">
+										<li class="table-head clearfix" ref="liWidth">
+											<div class="table-th">重量(kg)</div>
+											<div class="table-th">体积(m³)</div>
+											<div class="table-th">数量(件)</div>
+											<div class="table-th">箱数</div>
+											<div class="table-th">单位</div>
+											<div class="table-th">产品描述</div>
+											<div class="table-th">备注</div>
+										</li>
+										<!--具体信息循环这个table-body-->
+										<li class="table-body clearfix" v-if="commodities.length > 0" v-for="(item, index) in commodities">
+											<div class="table-th borderBottom"><span>{{item.weight}}</span></div>
+											<div class="table-th borderBottom"><span>{{item.volume}}</span></div>
+											<div class="table-th borderBottom"><span>{{item.quantity}}</span></div>
+											<div class="table-th borderBottom"><span>{{item.boxCount}}</span></div>
+											<div class="table-th borderBottom"><span>{{item.commodityUnit}}</span></div>
+											<div :class="'table-th borderBottom line_'+index" ref="thHeight"><span>{{item.commodityName}}</span></div>
+											<div class="table-th borderBottom"><span>{{item.remark}}</span></div>
+										</li>
+										<li class="noMsg" v-else>暂无物料信息</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="title" v-if="extra != null">运输信息</div>
+							<div class="weui-cell" v-if="extra != null && extra.originStation != null">
+								<div class="weui-cell__hd">始发地：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.originStation}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="extra != null && extra.arrivalStation != null">
+								<div class="weui-cell__hd">目的地：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.arrivalStation}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="extra != null && extra.careNo != null">
+								<div class="weui-cell__hd">车牌号：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.careNo}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="extra != null && extra.driverName != null">
+								<div class="weui-cell__hd">司机姓名：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.driverName}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="extra != null && extra.driverContact != null">
+								<div class="weui-cell__hd">司机电话：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.driverContact}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="extra != null && extra.startStation != null">
+								<div class="weui-cell__hd">发站：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.startStation}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="extra != null && extra.endStation != null">
+								<div class="weui-cell__hd">到站：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.endStation}}</p>
+								</div>
+							</div>
+							<div class="title" v-if="extra != null">财务信息</div>
+							<div class="weui-cell" v-if="extra != null && extra.income != null">
+								<div class="weui-cell__hd">收入：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.income}}</p>
+								</div>
+								<div class="weui-cell__ft">元</div>
+							</div>
+							<div class="weui-cell" v-if="extra != null && extra.expenditure != null">
+								<div class="weui-cell__hd">运输成本：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{extra.expenditure}}</p>
+								</div>
+								<div class="weui-cell__ft">元</div>
+							</div>
+							<div class="title">其他信息</div>
+							<div class="weui-cell" v-if="order.remark != null">
+								<div class="weui-cell__hd">发货单备注：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{order.remark}}</p>
+								</div>
+							</div>
+							<div class="weui-cell" v-if="customDatas != null && customDatas.length > 0" v-for="(item, index) in customDatas">
+								<div class="weui-cell__hd">{{item.customName}}：</div>
+								<div class="weui-cell__bd weui-cell_primary text_right">
+									<p>{{item.customValue}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</template>
+		</div>
+
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/bscroll/bscroll.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/vue/common.vue.js"></script>
+		<script type="text/javascript" src="../../lib/vue/moment.min.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../js/deliveryplan/deliveryPlanDetail.js"></script>
+	</body>
+
+</html>

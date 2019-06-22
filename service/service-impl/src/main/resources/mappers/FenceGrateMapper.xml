@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.FenceGrateMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.FenceGrate">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="customerid" jdbcType="INTEGER" property="customerid" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="create_userid" jdbcType="INTEGER" property="createUserid" />
+    <result column="update_userid" jdbcType="INTEGER" property="updateUserid" />
+    <result column="uploadtime" jdbcType="TIMESTAMP" property="uploadtime" />
+    <result column="upload_userid" jdbcType="INTEGER" property="uploadUserid" />
+    <result column="radius" jdbcType="DOUBLE" property="radius" />
+  </resultMap>
+  
+  <select id="getRadiusByCustomerKey" resultType="java.lang.Double" parameterType="java.lang.Integer">
+  	SELECT radius FROM grate_tab WHERE customerid = #{customerKey}
+  </select>
+</mapper>

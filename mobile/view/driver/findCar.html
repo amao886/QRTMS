@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>我要找货</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/driver/findCar.css" />
+	</head>
+
+	<body ontouchstart style="background:#fafafa;">
+		<div id="findCar">
+			<template>
+			<div class="search">
+				<select class="carModel" v-model="carModel">
+					<option value="">车型</option>
+					<option value="1">厢式车</option>
+					<option value="2">平板车</option>
+					<option value="3">高栏车</option>
+					<option value="4">中栏车</option>
+					<option value="5">低栏车</option>
+					<option value="6">半封闭</option>
+					<option value="7">灌装车</option>
+					<option value="8">冷藏车</option>
+					<option value="9">集装车</option>
+					<option value="10">自卸车</option>
+					<option value="11">危险品车</option>
+					<option value="12">挂车</option>
+					<option value="13">其他</option>
+				</select>
+				<select class="carModel" v-model="carLength">
+					<option value="">车长</option>
+					<option value="1.5">1.5米</option>
+					<option value="2">2米</option>
+					<option value="4.2">4.2米</option>
+					<option value="6.8">6.8米</option>
+					<option value="7.6">7.6米</option>
+					<option value="8.6">8.6米</option>
+					<option value="9.6">9.6米</option>
+					<option value="13">13米</option>
+					<option value="15">15米</option>
+					<option value="16.5">16.5米</option>
+					<option value="17.5">17.5米</option>
+				</select>
+				<input type="text" placeholder="地点" v-model="address" />
+				<a href="javascript:;" @click="serachList">查询</a>
+			</div>
+			<div class="driverList">
+				<ul>
+					<li v-for="item in collection">
+						<div class="top clearfix">
+							<div class="headImg">
+								<img src="../../images/admin-icon.png" />
+							</div>
+							<div class="topRight">
+								<p class="releaseName">
+									<span>{{item.driverName}}</span>
+									<span class="releaseTime">{{item.releaseTime}} 发布</span>
+								</p>
+								<p class="right-info">
+									<span class="m10">{{item.license}}</span>
+									<span class="m10" v-if="item.carType==1">厢式车</span>
+									<span class="m10" v-if="item.carType==2">平板车</span>
+									<span class="m10" v-if="item.carType==3">高栏车</span>
+									<span class="m10" v-if="item.carType==4">中栏车</span>
+									<span class="m10" v-if="item.carType==5">低栏车</span>
+									<span class="m10" v-if="item.carType==6">半封闭</span>
+									<span class="m10" v-if="item.carType==7">灌装车</span>
+									<span class="m10" v-if="item.carType==8">冷藏车</span>
+									<span class="m10" v-if="item.carType==9">集装车</span>
+									<span class="m10" v-if="item.carType==10">自卸车</span>
+									<span class="m10" v-if="item.carType==11">危险品车</span>
+									<span class="m10" v-if="item.carType==12">挂车</span>
+									<span class="m10" v-if="item.carType==13">其他</span>
+									<span>{{item.length}}米</span>
+								</p>
+								<img src="../../images/phone_icon.png" class="showPhoneIcon" @click.stop="callPhone(event, item.driverPhone)" />
+							</div>
+						</div>
+						<p class="content">{{item.startTime}}{{item.start}}{{item.waitAddress}}等货</p>
+					</li>
+				</ul>
+			</div>
+			<!--加载更多-->
+			<div class="weui-loadmore hide">
+				<i class="weui-loading"></i>
+				<span class="weui-loadmore__tips">正在加载</span>
+			</div>
+			</template>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../../lib/js/json2.js"></script>
+	<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+	<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+	<script type="text/javascript" src="../../lib/function/common.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+	<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+	<script type="text/javascript" src="../../js/driver/findCar.js"></script>
+	<script>
+		//	alert($(document).height());
+		//alert($(".weui-footer").get(0).height());
+	</script>
+	</body>
+
+</html>

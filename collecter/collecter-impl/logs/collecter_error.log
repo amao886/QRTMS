@@ -1,0 +1,47 @@
+collecter 192.168.0.42 20190613212628.084 ERROR [T-1] com.ycg.ksh.common.dubbo.Service[80] - Error creating bean with name 'ksh.scheduling.schedulerFactoryBean' defined in class path resource [spring-schedule.xml]: Invocation of init method failed; nested exception is org.quartz.JobPersistenceException: Couldn't retrieve trigger: Table 'qlm_quartz.QRTZ_TRIGGERS' doesn't exist [See nested exception: java.sql.SQLSyntaxErrorException: Table 'qlm_quartz.QRTZ_TRIGGERS' doesn't exist]
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'ksh.scheduling.schedulerFactoryBean' defined in class path resource [spring-schedule.xml]: Invocation of init method failed; nested exception is org.quartz.JobPersistenceException: Couldn't retrieve trigger: Table 'qlm_quartz.QRTZ_TRIGGERS' doesn't exist [See nested exception: java.sql.SQLSyntaxErrorException: Table 'qlm_quartz.QRTZ_TRIGGERS' doesn't exist]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1699)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:573)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:495)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$$Lambda$23/525968792.getObject(Unknown Source)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:740)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at com.ycg.ksh.common.dubbo.Service.execute(Service.java:69)
+	at com.ycg.ksh.collect.Service.main(Service.java:9)
+Caused by: org.quartz.JobPersistenceException: Couldn't retrieve trigger: Table 'qlm_quartz.QRTZ_TRIGGERS' doesn't exist
+	at org.quartz.impl.jdbcjobstore.JobStoreSupport.retrieveTrigger(JobStoreSupport.java:1533)
+	at org.quartz.impl.jdbcjobstore.JobStoreSupport$12.execute(JobStoreSupport.java:1522)
+	at org.quartz.impl.jdbcjobstore.JobStoreCMT.executeInLock(JobStoreCMT.java:245)
+	at org.quartz.impl.jdbcjobstore.JobStoreSupport.executeWithoutLock(JobStoreSupport.java:3723)
+	at org.quartz.impl.jdbcjobstore.JobStoreSupport.retrieveTrigger(JobStoreSupport.java:1519)
+	at org.quartz.core.QuartzScheduler.getTrigger(QuartzScheduler.java:1530)
+	at org.quartz.impl.StdScheduler.getTrigger(StdScheduler.java:508)
+	at org.springframework.scheduling.quartz.SchedulerAccessor.addTriggerToScheduler(SchedulerAccessor.java:301)
+	at org.springframework.scheduling.quartz.SchedulerAccessor.registerJobsAndTriggers(SchedulerAccessor.java:245)
+	at org.springframework.scheduling.quartz.SchedulerFactoryBean.afterPropertiesSet(SchedulerFactoryBean.java:493)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1758)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1695)
+	... 12 common frames omitted
+Caused by: java.sql.SQLSyntaxErrorException: Table 'qlm_quartz.QRTZ_TRIGGERS' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:536)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:513)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:115)
+	at com.mysql.cj.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:1983)
+	at com.mysql.cj.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1826)
+	at com.mysql.cj.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:1923)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.executeQuery(DruidPooledPreparedStatement.java:228)
+	at org.quartz.impl.jdbcjobstore.StdJDBCDelegate.selectTrigger(StdJDBCDelegate.java:1761)
+	at org.quartz.impl.jdbcjobstore.JobStoreSupport.retrieveTrigger(JobStoreSupport.java:1531)
+	... 23 common frames omitted
+collecter 192.168.0.42 20190613212628.107 ERROR [T-14] com.ycg.ksh.common.dubbo.Service[63] - LifecycleProcessor not initialized - call 'refresh' before invoking lifecycle methods via the context: org.springframework.context.support.GenericXmlApplicationContext@1dfe2924: startup date [Thu Jun 13 21:26:23 CST 2019]; root of context hierarchy
+java.lang.IllegalStateException: LifecycleProcessor not initialized - call 'refresh' before invoking lifecycle methods via the context: org.springframework.context.support.GenericXmlApplicationContext@1dfe2924: startup date [Thu Jun 13 21:26:23 CST 2019]; root of context hierarchy
+	at org.springframework.context.support.AbstractApplicationContext.getLifecycleProcessor(AbstractApplicationContext.java:434)
+	at org.springframework.context.support.AbstractApplicationContext.stop(AbstractApplicationContext.java:1325)
+	at com.ycg.ksh.common.dubbo.Service.lambda$2(Service.java:59)
+	at com.ycg.ksh.common.dubbo.Service$$Lambda$19/320304382.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:745)

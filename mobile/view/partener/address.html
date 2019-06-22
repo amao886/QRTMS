@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>我的地址</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../../css/partener/address.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/jquery.Jcrop.min.css">
+
+</head>
+
+  <body ontouchstart style="background:#f8f8f8;">
+  	<div class="weui-tab addr-navBar">
+		  <div class="weui-navbar">
+		    <a class="weui-navbar__item weui-bar__item--on" href="#addr-tab1" id="myAddress">
+		     	我的地址
+		    </a>
+		    <a class="weui-navbar__item" href="#addr-tab2" id="usedAddress">
+		   		常用地址
+		    </a>
+		  </div>
+		  <div class="weui-tab__bd" id="addr-navBar-hook">
+		    <div id="addr-tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+		      <div class="address">
+			  		<div class="title">
+			  			<div class="weui-flex title-text">
+					      	<div class="weui-flex__item">
+					      		<p class="title-num">共<span class="color-orange" id="address-num">0</span>个地址</p>
+					      	</div>
+					      	<div class="weui-flex__item address-search">
+					      		<i class="fa fa-search" aria-hidden="true"></i>
+					      	</div>
+					    </div>
+					    <div class="search-box">
+					    	<div class="weui-flex">
+					    		<div class="search-box-return" id="search-cancel">
+										<i class="fa fa-chevron-left" aria-hidden="true"></i>
+									</div>
+									<div class="weui-flex__item relative">
+										<i class="weui-icon-search"></i>
+										<input class="task-search-input" type="text" id="searchData" name="searchData" placeholder="搜索">
+										<a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+									</div>
+									<div class="task-search-btn">
+										<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary" id="search-btn">搜索</a>
+									</div>
+								</div>
+					    </div>
+			  		</div>
+			  		<div class="content">
+			  			<p class="search-list">搜索结果共<span class="color-orange">0</span>个</p>
+			  			<div class="content-item" id="content-item">
+							<!--<div class="weui-cells">
+			  					<div class="weui-cell weui-check__label label-title" >
+			  						<div class="label-con label-flex title-con">
+				  						<div class="weui-cell__hd">
+				  							<input type="checkbox" class="weui-check" name="checkbox1" id="s870">
+				  							<i class="fa fa-square-o checkedbox"></i>
+				  						</div>
+				  						<div class="weui-cell__bd"><p>2017年11月09日</p></div>
+			  						</div>
+			  						<div class="address-delete">
+			  							<i class="fa fa-trash-o"></i>
+			  						</div>
+			  					</div>
+			  					<div class="weui-cell weui-check__label label-address">
+			  						<div class="label-con label-flex address-con">
+							        <div class="weui-cell__hd">
+							            <input type="checkbox" class="weui-check" name="checkbox1" id="871" value="871">
+							            <i class="fa fa-square-o checkedbox"></i>
+							        </div>
+							        <div class="weui-cell__bd">
+						        		<div class="address-show">
+						        			<p>上海上海市l宜川路街道中潭路中远两湾城15上海市l宜川路街道中潭路</p>
+						        			<span class="span-remark">备注:<span class="span-remark-con">有5个包裹有5个包裹</span></span>
+						        		</div>
+							        </div> 
+							    	</div>
+			  						<div class="address-edit">
+							        <i class="fa fa-pencil edit color-orange"></i>
+							     </div>  
+			  					</div>
+								</div>-->
+			  			</div>	
+			  		</div>
+			  	</div>
+		    </div>
+		    <div id="addr-tab2" class="weui-tab__bd-item">
+		      <div class="used-address" id="used-address">
+<!--		      	<div class="used-address-item">
+		      		<div class="weui-cell weui-check__label used-label-address">
+				        <div class="weui-cell__hd">
+				            <input type="checkbox" class="weui-check" name="checkbox1" id="871" value="871">
+				            <i class="fa fa-square-o checkedbox"></i>
+				        </div>
+				        <div class="weui-cell__bd">
+			        		<div class="address-show">
+			        			<p>上海上海市l宜川路街道中潭路中远两湾城15上海市l宜川路街道中潭路</p>
+			        		</div>
+				        </div> 
+	  					</div>
+	  					修改编辑部分
+	  					<div class="weui-flex used-addr-handle">
+	  						<div class="handle-item handle-edit">
+	  							<i class="fa fa-pencil"></i>修改
+	  						</div>
+	  						<div class="handle-item handle-delete">
+	  							<i class="fa fa-trash-o"></i>删除
+	  						</div>
+	  						<div class="handle-item handle-change weui-flex__item">
+	  							<span>包裹数</span>
+  								<i class="fa fa-minus-circle minus"></i>
+	  							<input type="text" value="489" class="changeVal"/>
+	  							<i class="fa fa-plus-circle plus"></i>
+	  						</div>
+	  					</div>
+		      	</div>-->
+		      	
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
+  	<!--底部导航-->
+  	<div class="weui-footer weui-footer_fixed-bottom address-bottom">
+	  	<div class="weui-flex">
+	  		<div class="weui-flex__item">
+	      		<a href="javascript:;" class="address-link add-address" id="add-addr">
+	      			<i class="fa fa-map" aria-hidden="true"></i>
+	      			<p>新建地址</p>
+	      		</a>
+	      	</div>
+	      	<div class="weui-flex__item">
+	      		<a href="javascript:;" class="address-link add-address" id="add-address">
+	      			<i class="fa fa-camera" aria-hidden="true"></i>
+	      			<p>拍照上传</p>
+	      		</a>
+	      	</div>
+	      	<div class="weui-flex__item">
+	      		<a href="javascript:;" class="address-link map" id="mapLink">
+	      			<i class="fa fa-map-marker" aria-hidden="true"></i>
+	      			<p>地图规划</p>
+	      		</a>
+	      	</div>
+	      	<div class="weui-flex__item">
+	      		<a href="javascript:;" class="address-link share" id="address-share">
+	      			<i class="fa fa-share-alt" aria-hidden="true"></i>
+	      			<p>分享</p>
+	      		</a>
+	      	</div>
+	    </div>
+	</div>
+	
+	    <!--新建编辑地址-->
+    <div class="add-edit-address hide" id="addEditAddress">
+    	<div class="add-edit-con">
+    		<div class="add-edit-head">
+    			<p>新增地址</p>
+    		</div>
+    		<div class="add-edit-body">
+    			<textarea rows="2" class="txt-item" id="txtItem" placeholder="请输入收货地址"></textarea>
+    			<textarea rows="3" class="remark-item" id="remarkItem" placeholder="请输入备注内容(选填)"></textarea>
+    		</div>
+    		<div class="add-edit-foot">
+    			<a href="javascript:;" class="addr-cancel" id="addrCancel">取消</a>
+    			<a href="javascript:;" class="addr-save" id="addrSave">保存</a>
+    		</div>
+    	</div>
+    </div>
+    
+    <!--正在加载-->
+  	<div class="address-load">
+  		<div class="weui-loadmore">
+			  <i class="weui-loading"></i>
+			</div>
+  	</div>
+  	
+  	<!--微信分享提示-->
+    <div class="weixin-tip hide" id="weixin-tip">
+    	<img src="../../images/live_weixin.png" alt="" />
+    </div>
+	
+	
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/x-jsrender" id="addressData">		
+		<div class="weui-cell weui-check__label label-address">
+				<div class="label-con label-flex address-con">
+		        <div class="weui-cell__hd">
+		            <input type="checkbox" class="weui-check" name="checkbox2" value="{{:id}}">
+		            <i class="fa fa-square-o checkedbox"></i>
+		        </div>
+		        <div class="weui-cell__bd">
+		            <div class="address-show" uid="{{:id}}">
+			        			<p>{{:address}}</p>
+			        			{{if remark == null}}
+			        			<span class="span-remark hide"></span>
+			        			{{else remark == ''}}
+			        			<span class="span-remark hide"></span>
+			        			{{else}}
+			        			<span class="span-remark">备注:<span class="span-remark-con">{{:remark}}</span></span>
+			        			{{/if}}
+			        	</div>
+		        </div> 
+		    	</div>
+				<div class="address-edit" uid="{{:id}}">
+		        <i class="fa fa-pencil edit color-orange"></i>
+		     	</div>  
+			</div>	
+</script>
+<script type="text/x-jsrender" id="usedAddr">
+	<div class="used-address-item">
+			<div class="weui-cell weui-check__label used-label-address">
+	        <div class="weui-cell__hd">
+            <input type="checkbox" class="weui-check" name="checkbox2" value="{{:id}}">
+            <i class="fa fa-square-o checkedbox"></i>
+	        </div>
+	        <div class="weui-cell__bd">
+		    		<div class="address-show">
+		    			<p>{{:address}}</p>
+		    		</div>
+	        </div> 
+			</div>
+			<!--修改编辑部分-->
+			<div class="weui-flex used-addr-handle">
+				<div class="handle-item handle-edit" uid="{{:id}}">
+					<i class="fa fa-pencil"></i>修改
+				</div>
+				<div class="handle-item handle-delete" uid="{{:id}}">
+					<i class="fa fa-trash-o"></i>删除
+				</div>
+				<div class="handle-item handle-change weui-flex__item" uid="{{:id}}">
+					<span>包裹数</span>
+					<i class="fa fa-minus-circle minus"></i>
+					{{if packageCount == null || ''}}
+					<input type="text" value="0" class="changeVal" readonly="readonly"/>
+					{{else}}
+					<input type="text" value="{{:packageCount}}" class="changeVal"/>
+					{{/if}}
+					
+					<i class="fa fa-plus-circle plus"></i>
+				</div>
+			</div>
+	</div>
+</script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/partener/address.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.Jcrop.min.js"></script>
+</body>
+</html>
+

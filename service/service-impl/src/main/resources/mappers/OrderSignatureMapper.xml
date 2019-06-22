@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.OrderSignatureMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.OrderSignature">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="ORDER_ID" jdbcType="BIGINT" property="orderId"/>
+        <result column="SIGN_ROLE" jdbcType="INTEGER" property="signRole"/>
+        <result column="COMPANY_ID" jdbcType="BIGINT" property="companyId"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="SEAL_ID" jdbcType="BIGINT" property="sealId"/>
+        <result column="PERSONAL_SEAL" jdbcType="BIGINT" property="personalSeal"/>
+    </resultMap>
+    <select id="selectByCompanyKey" resultMap="BaseResultMap">
+        SELECT * FROM T_ORDER_SIGNATURE WHERE ORDER_ID = #{arg1} AND COMPANY_ID = #{arg0}
+    </select>
+    <select id="getByOrderId" resultMap="BaseResultMap">
+        select * from T_ORDER_SIGNATURE where ORDER_ID = #{arg0} and SIGN_ROLE = #{arg1}
+  </select>
+</mapper>

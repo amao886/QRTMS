@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.SmsInfoMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.SmsInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="sendtime" jdbcType="TIMESTAMP" property="sendtime"/>
+        <result column="customerid" jdbcType="INTEGER" property="customerid"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone"/>
+    </resultMap>
+
+    <select id="querySendCountById" resultType="int" parameterType="com.ycg.ksh.entity.persistent.SmsInfo">
+    select  count(id) from smsinfo_tab where userid = #{userid}  and mobile_phone = #{mobilePhone} and TO_DAYS(sendtime) = TO_DAYS(now())
+  </select>
+</mapper>

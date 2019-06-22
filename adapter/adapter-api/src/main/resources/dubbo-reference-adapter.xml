@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<description>Spring dubbo client configuration</description>
+
+	<dubbo:reference id="ksh.net.dubbo.reference.autoMapService"
+					 interface="com.ycg.ksh.adapter.api.AutoMapService" version="1.0.0"
+					 check="false" />
+	<dubbo:reference id="ksh.net.dubbo.reference.smsService"
+					 interface="com.ycg.ksh.adapter.api.SmsService" version="1.0.0"
+					 check="false" />
+	<dubbo:reference id="ksh.net.dubbo.reference.weChatApiService"
+					 interface="com.ycg.ksh.adapter.api.WeChatApiService" version="1.0.0"
+					 check="false" />
+	<dubbo:reference id="ksh.net.dubbo.reference.baiduService"
+					 interface="com.ycg.ksh.adapter.api.BaiduService" version="1.0.0"
+					 check="false" />
+	<dubbo:reference id="ksh.net.dubbo.reference.authenticateService"
+					 interface="com.ycg.ksh.adapter.api.AuthenticateService" version="1.0.0"
+					 check="false" />
+	<dubbo:reference id="ksh.net.dubbo.reference.esignService"
+					 interface="com.ycg.ksh.adapter.api.ESignService" version="1.0.0"
+					 check="false" />
+	<dubbo:reference id="ksh.net.dubbo.reference.messageQueueService"
+					 interface="com.ycg.ksh.adapter.api.MessageQueueService" version="1.0.0"
+					 check="false" />
+
+</beans>

@@ -1,0 +1,199 @@
+body{
+	padding:10px 10px 0;
+	font-size:14px;
+}
+.track-content{
+	padding:0 24px 0 15px;
+	background:#fff;
+	min-height:100%;
+	color:#636363;
+}
+.line-part{position:relative;color:#333;}
+.line-part .float-tag{
+	float: left; 
+	width:64px;
+	height:26px;
+	line-height:26px;
+	text-align: right;
+}
+.line-part .text-tag{margin-left:70px;}
+.line-part .text-tag>.sub-tag{
+	width:100%;
+	height:26px;
+	box-sizing: border-box;
+	border:1px solid #dedede;
+	text-indent: 4px;
+ 	border-radius: 4px;
+}
+.line-btn{text-align: center;}
+.layui-btn.submitBtn{height:26px;line-height:26px;}
+
+.col-min{width:10%;}
+.col-xs-min{width:3%;min-width: 40px;}
+.col-middle{width:21%;}
+.col-max{width:34%;}
+
+/*搜索条件样式*/
+.selectCondition{position:relative;border-bottom: 1px solid #29a6f6;font-size: 0;}
+.selectCondition>select{
+	
+	height:40px;
+	color: #333;
+	/*border:1px solid #dedede;*/
+	border:none;
+	font-size:15px;
+}
+.selectCondition>select+select{margin-left:20px;}
+.selectCondition .tabSelect{
+	display: inline-block;
+	vertical-align: top;
+	font-size:15px;
+	overflow: hidden;
+}
+.selectCondition .tabSelect>li{
+	float:left;
+	margin:0 10px;
+}
+.selectCondition .tabSelect .transport-status{
+	position:relative;
+	display:block;
+	padding:0 10px;	
+	height:40px;
+	line-height:40px;
+	color:#333;
+	font-weight:400;
+	cursor: pointer;
+}
+.selectCondition .tabSelect .transport-status>input{
+	position:absolute;
+	top:0;
+	left:-9999px;
+}
+.selectCondition .tabSelect .transport-status.active{color:#31acfa}
+.selectCondition .more{
+	font-size:13px;
+	position:absolute;
+	top:11px;
+	right:0;
+	cursor:pointer;
+	z-index: 1;
+}
+.selectCondition .more .icon{
+	display: inline-block;
+	vertical-align: middle;
+	margin-left:4px;
+	width:0;
+	height:0;
+	border:6px solid transparent;
+	border-top-color: #8f8f8f;
+}
+.selectCondition .more .icon.up{
+	border-top-color:transparent;
+	border-bottom-color:#8f8f8f;
+	vertical-align:2px;
+}
+.moreCondition{
+	/*margin-top:20px;*/
+	padding:0;
+}
+/* 表格部分 */
+.handle-box{margin-top:35px;position:relative;}
+.handle-box .layui-btn{height:26px;line-height:26px;padding:0 8px;font-size:12px;border-radius:2px;}
+.table-style table{margin-top:10px;}
+.handle-box .pos_right{position:absolute;top:0;right:45px;z-index:2;}
+.handle-box .pos_right.delete-icon{
+	top: -3px;
+    right: 12px;
+    font-size: 26px;
+    color:#ff2a00;
+    cursor:pointer;
+}
+.table-style .check-all{
+	font-weight:400;
+}
+.table-style .check-all>input{
+	vertical-align:middle;
+	margin:0 5px 0 0;
+}
+.table-style .aBtn{padding:0 4px;}
+
+/*****查询部分*/
+.content-search{
+    position:relative;
+    padding:16px 0 20px;
+}
+.content-search a{
+	text-decoration:none;
+}
+.content-search .content-search-btn{
+    display: inline-block;
+    padding:0 20px;
+    margin-top:-1px;
+    min-width: 70px;
+    line-height: 28px;
+    color:#fff;
+    border-radius: 3px;
+    background:#31acfa;
+    margin-left: 30px;
+}
+.content-search>.clearfix>.fl{position:relative;}
+.content-search .labe_l{
+    display:inline-block;
+    color:#333;
+    font-size:14px;
+    width:68px; 
+    height:26px;
+    line-height:26px;
+    font-weight: 400;
+    float:left;
+}
+.content-search .tex_t{
+    position:absolute;
+    top:0;
+    left:68px;
+    width:140px;
+    height:26px;
+    border:1px solid #dedede;
+    text-indent:4px;
+    border-radius:4px;
+}
+.content-search .fl+.fl{margin-left:2%;}
+.content-search .clearfix+.clearfix {
+    margin-top: 15px;
+}
+.content-search input[type="text"]:focus{
+    border-color:#6ec5fb;
+}
+.otherSelect{
+    position:relative;
+}
+.otherSelect .more{
+    display: inline-block;
+    line-height: 26px;
+}
+
+/*****日期插件部分*/
+.content-search .reset_text .input-append{
+    width:46%;
+    position: relative;
+}
+.input-append{font-size:14px; margin-left: 70px;}
+.input-append .add-on{
+	position: absolute;
+    top: 0;
+    right: 8px;
+    line-height: 26px;
+    font-size:18px;
+}
+.input-append .icon-th:before {
+    color: #31acfa  ;
+}
+.content-search .input-append>input,
+.content-search .input-append>select{
+    width:100%;
+    height:26px;
+    line-height: 26px;
+    border:1px solid #dedede;
+    border-radius: 4px;
+    text-indent: 4px;
+}

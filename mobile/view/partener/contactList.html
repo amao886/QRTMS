@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>通讯录</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/partener/contactList.css" />
+</head>
+
+<body ontouchstart style="background:#fafafa;">
+<div class="contactList">
+	<div class="searchbox">
+		<div class="weui-flex search-pad search-hook">
+			<div class="show-search weui-flex__item relative" id="showSearch">
+				<i class="weui-icon-search"></i>
+				<span>搜索</span>
+			</div>
+			<div class="addfriend"></div>
+		</div>
+		<div class="search-bg-box" id="searchBgBox">
+			<div class="weui-flex top-pad">
+				<div class="search-box-return" id="search-cancel">
+					<i class="fa fa-chevron-left" style="line-height: 30px;" aria-hidden="true"></i>
+				</div>
+				<div class="weui-flex__item relative">
+					<!--<i class="weui-icon-search"></i>-->
+					<input class="task-search-input" type="text" id="searchData" name="searchData" placeholder="请输入搜索内容"/>
+					<a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+				</div>
+				<div class="task-search-btn" id="search-btn">
+					<span>搜索</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="teambox borderBottom">
+		<a class="weui-cell weui-cell_access" href="myProjectTeam.html">
+		    <div class="weui-cell__hd"><img src="../../images/team-icon.png" alt="" style="width:35px;margin-right:10px;display:block"></div>
+		    <div class="weui-cell__bd">
+		      <p>项目组</p>
+		    </div>
+		    <div class="weui-cell__ft"></div>
+		  </a>
+	</div>
+	<div class="listbox" id="list"></div>
+</div>
+
+<!--底部导航-->
+<div id="navBarIn"></div>
+
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../lib/function/contactListCore.js"></script>
+<script type="text/javascript" src="../../js/partener/contactList.js"></script>
+
+</body>
+</html>

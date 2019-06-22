@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>运单录入</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll_002.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll_003.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/editableselect/css/jquery.editable-select.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/partener/waybillEntryOne.css" />
+
+	</head>
+
+	<body ontouchstart class="vue-page" style="background-color: #f9f9fc;">
+		<div class="sendgood-wrapper" id="deliverGoods">
+			<!--<ul class="sendTab">
+				<li class="sendHeader headerLeft active">手动录入</li>
+				<li class="sendHeader headerRight">批量导入</li>
+			</ul>
+			<p class="import-title">批量导入</p>-->
+			<div class="sendContent">
+				<!--手动录入开始-->
+				<div class="sendItem sendWrite current">
+					<div class="weui-cells weui-cells_form chooseModle">
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发货模板：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<select class="weui-select" name="modle" id="modle">
+									<option value="">请选择发货模板</option>
+									<option v-for="template in templates" :value="template.key">{{template.name}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="weui-cells weui-cells_form sendGoods">
+						<div class="weui-cell" v-if="required.shipperName != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发货方：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<select class="weui-select" name="shipper" id="shipper">
+									<option value="">请选择发货方</option>
+									<option v-if="typeArr != null && typeArr[0].length > 0" v-for="item in typeArr[0]">{{item.name}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.deliveryTime != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发货日期：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input type="text" class="weui-input" placeholder="请选择发货日期" readonly="readonly" name="deliveryDate" id="deliveryDate" value="">
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.deliveryNo != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">送货单号：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="deliveryNumber" value="" name="deliveryNumber" type="text" placeholder="请输入送货单号" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.orderNo != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">订单编号：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="orderNumber" value="" name="orderNumber" type="text" placeholder="请输入订单编号" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.receiveName != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">收货客户：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<select class="weui-select" name="receiveCustomer" id="receiveCustomer" placeholder="请输入/选择收货客户">
+									<option v-if="typeArr != null && typeArr[1].length > 0" v-for="item in typeArr[1]" v-bind:id="item.key">{{item.name}}</option>
+								</select>
+							</div>
+							<div class="weui-cell__ft"></div>
+						</div>
+						<div class="weui-cell" v-if="required.receiverName != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">收货人：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="receive" value="" name="receive" type="text" placeholder="请输入收货人" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.receiverContact != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">联系方式：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="contact" value="" name="contact" type="text" placeholder="请输入联系方式" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.receiveAddress != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">收货地址：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="receiveAddress" value="" name="receiveAddress" type="text" placeholder="请输入收货地址" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.conveyName != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">物流商：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<select class="weui-select" name="logistics" id="logistics">
+									<option value="">请选择物流商</option>
+									<option v-if="typeArr != null && typeArr[2].length > 0" v-for="item in typeArr[2]" v-bind:id="item.key">{{item.name}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.conveyerName != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">联系人：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="contacts" value="" name="contacts" type="text" placeholder="请输入联系人" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.conveyerContact != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">联系电话：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="contactPhone" value="" name="contactPhone" type="text" placeholder="请输入联系电话" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.originStation != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">始发地：</label>
+							</div>
+							<div class="weui-cell__bd cityBox">
+								<input class="weui-input" type="text" id="startPlaceChoose" placeholder="请选择省市区/县" />
+								<input class="weui-input" id="startPlace" value="" name="startPlace" type="text" placeholder="请输入详细地址" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.arrivalStation != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">目的地：</label>
+							</div>
+							<div class="weui-cell__bd cityBox">
+								<input class="weui-input" type="text" id="endPlaceChoose" placeholder="请选择省市区/县" />
+								<input class="weui-input" id="endPlace" value="" name="endPlace" type="text" placeholder="请输入详细地址" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.careNo != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">车牌号：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="plateNumber" value="" name="plateNumber" type="text" placeholder="请输入车牌号" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.driverName != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">司机姓名：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="driverName" value="" name="driverName" type="text" placeholder="请输入司机姓名" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.driverContact != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">司机电话：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="driverPhone" value="" name="driverPhone" type="text" placeholder="请输入司机电话" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.distributeAddress != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发货地址：</label>
+							</div>
+							<div class="weui-cell__bd cityBox">
+								<input class="weui-input" type="text" id="deliveryAddressChoose" placeholder="请选择省市区/县" />
+								<input class="weui-input" id="deliveryAddress" value="" name="deliveryAddress" type="text" placeholder="请输入详细地址" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.income != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">收入：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="income" value="" name="income" type="text" placeholder="请输入收入" />
+							</div>
+							<div class="weui-cell__ft">元</div>
+						</div>
+						<div class="weui-cell" v-if="required.expenditure != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">运输成本：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="transportCost" value="" name="transportCost" type="text" placeholder="请输入运输成本" />
+							</div>
+							<div class="weui-cell__ft">元</div>
+						</div>
+						<div class="weui-cell" v-if="required.startStation != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发站：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="hairStation" value="" name="hairStation" type="text" placeholder="请输入发站" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="required.endStation != null">
+							<div class="weui-cell__hd">
+								<label class="weui-label">到站：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="arriveStation" value="" name="arriveStation" type="text" placeholder="请输入到站" />
+							</div>
+						</div>
+
+						<div class="weui-cell" v-if="optional != null && optional.length > 0" v-for="(item, index) in optional">
+							<div class="weui-cell__hd">
+								<label class="weui-label">{{item[0]}}：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" :id="index" value="" :name="index" type="text" :placeholder="'请输入'+item[0]" />
+							</div>
+						</div>
+					</div>
+					<div class='demos-content-padded btn-next'>
+						<a href="javascript:;" class="weui-btn weui-btn_primary" @click="next()">下一步</a>
+					</div>
+				</div>
+				<!--手动录入结束-->
+
+				<!--批量导入开始-->
+				<div class="sendItem sendImport">
+					<!--<img src="../../images/send-import.png" alt="" />-->
+					<div class="weui-cells">
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label"><span style="color: #ff5756;margin-right:4px;">*</span>发货模板：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<select class="weui-select color-999" name="modle" id="importModel">
+									<option value="">请选择发货模板</option>
+									<option v-for="template in templates" :value="template.key">{{template.name}}</option>
+								</select>
+							</div>
+						</div>
+						<a class="weui-cell weui-cell_access weui_cell_start" href="javascript:;">
+							<div class="weui-cell__hd">
+								<label class="weui-label"><span style="color: #ff5756;margin-right:4px;">*</span>选择文件：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<div class="relative">
+									<form id="excelFile">
+										<input class="input_file" id='inputFile' type="file" accept="application/msexcel" />
+										<p class="upload_txt color-999">请选择上传文件</p>
+									</form>
+								</div>
+								<p style="margin-top:10px;font-size:14px;color:#999;">仅支持上传.xls .xlsx格式文件</p>
+							</div>
+							<!--<div class="weui-cell__ft"></div>-->
+						</a>
+					</div>
+					<a href="javascript:;" id="importUpdate" class="btn-tag weui-btn">确认上传</a>
+				</div>
+				<!--批量导入结束-->
+			</div>
+		</div>
+
+		<!--浏览器提示-->
+		<div class="showTips">
+			<p>点击右上角，在浏览器中打开批量导入</p>
+			<img src="../../images/opennew.jpg" alt="" />
+		</div>
+
+		<!--底部导航-->
+		<!--<div id="navBarIn"></div>-->
+
+		<p class="successTips">请返回微信端继续操作</p>
+
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/fastclick.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/city-picker.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="../../lib/coordtransform-master/index.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../js/common/navBar.js"></script>
+		<script type="text/javascript" src="../../lib/layer/layer.js?time=1516074194"></script>
+		<script type="text/javascript" src="../../js/common/filter_emoji.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_002.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_004.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_003.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_005.js"></script>
+		<script type="text/javascript" src="../../lib/editableselect/js/jquery.editable-select.min.js"></script>
+		<script type="text/javascript" src="../../js/partener/waybillEntryOne.js"></script>
+		<script>
+			$(function() {
+				FastClick.attach(document.body);
+			});
+		</script>
+	</body>
+
+</html>

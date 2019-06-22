@@ -1,0 +1,186 @@
+
+/*===发货计划===*/
+body{
+	padding:10px 10px 0;
+	font-size:14px;
+}
+.custom-content{
+	padding:0 15px;
+	background:#fff;
+	height:100%;
+}
+.col-min{width:10%;}
+.col-xs-min{width:3%;min-width: 40px;}
+.col-middle{width:20%;}
+.col-max-input{width:27%;}
+a{text-decoration: none !important;outline:none;}
+.overhidden{
+	overflow:hidden
+}
+
+/*===面包屑部分===*/
+.crumbs-nav{
+	padding-top:10px;
+}
+.crumbs-nav span{
+	margin-left:10px;
+}
+
+/*===查询部分===*/
+.content-search{
+    position:relative;
+    padding:16px 0 20px;
+}
+
+.content-search .col-middle,.content-search .col-max-input{
+     position:relative;
+}
+.content-search .col-max-input>.text-exception{
+    width: 100%;
+    height:26px;
+    border:1px solid #dedede;
+    text-indent:4px;
+    border-radius:4px;
+    padding-right:43px;
+}
+ .max-input-search{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 42px;
+    padding: 0 12px;
+    border-left: 1px solid #dedede;
+    cursor: pointer;
+    background: #31acfa url(../images/serach-icon.png) no-repeat center;
+    background-size: 20px 20px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+} 
+.col-xs-min .more{
+    display: block;
+    line-height: 26px;
+}
+.content-search .labe_l{
+    display:inline-block;
+    color:#333;
+    font-size:14px;
+    width:68px; 
+    height:26px;
+    line-height:26px;
+    font-weight: 400;
+}
+.content-search .tex_t{
+    position:absolute;
+    top:0;
+    left:68px;
+    width:140px;
+    height:26px;
+    border:1px solid #dedede;
+    text-indent:4px;
+    border-radius:4px;
+}
+.content-search .fl+.fl{margin-left:2%;}
+.content-search .clearfix+.clearfix {
+    margin-top: 15px;
+}
+.content-search input[type="text"]:focus{
+    border-color:#6ec5fb;
+}
+
+/*===表格部分===*/
+.table-style table{margin-top:0px;}
+.table-style .btn-box{
+	margin-bottom:10px;
+	/* text-align:right; */
+	font-size:0;
+}
+.table-style .aModel{
+	display: inline-block;
+	vertical-align:top;
+	padding:4px 12px;
+    font-size:14px;
+    text-align:center;
+    border-radius: 3px;
+    background: #fff;
+    margin-right: 10px;
+}
+.table-style .model-download{
+	color:#31acfa;
+	border:1px solid #31acfa;
+	
+}
+.table-style .model-upload{
+	color:#95cf53;
+	border:1px solid #95cf53;
+}
+.table-style .model-download:hover,
+.table-style .model-download:active
+{
+	background:#31acfa;
+	border:1px solid #31acfa;
+	color:#fff;
+}
+.table-style .model-upload:hover,
+.table-style .model-upload:active{
+	background:#95cf53;
+	border:1px solid #95cf53;
+	color:#fff;
+}
+.custom-content table td .aHandle{
+    padding:6px 10px;
+}
+.custom-content table td .aEdit{
+	color:#ff7f00;
+}
+.custom-content table td .aCancel{
+	color:#f00;
+}
+
+/*===弹框部分===*/
+.upload-dialog-con{
+    padding:20px 0;
+}
+.upload-dialog-item{
+    margin-bottom: 15px;
+    text-align: center;
+    font-size:0;
+}
+.upload-dialog-item .input-item{
+    position:relative;
+}
+.upload-dialog-item label,
+.upload-dialog-item select,
+.upload-dialog-item input,
+.upload-dialog-item .input-item
+{
+    display: inline-block;
+    vertical-align: top;
+    font-size:14px;
+    outline:none;
+}
+.upload-dialog-item label.labe_l{
+    margin-bottom: 0;
+    line-height: 26px;
+    font-weight: 400;
+}
+.upload-dialog-item .selec_t,
+.upload-dialog-item .tex_t
+{
+    width:300px;
+    height: 26px;
+    border: 1px solid #dedede;
+    text-indent: 4px;
+   border-radius: 3px;
+
+} 
+.upload-dialog-item .fil_e{
+    position:absolute;
+    top:0;
+    left: 2px;
+    filter: alpha(opacity : 0);
+    opacity: 0;
+    z-index: 1;
+} 
+
+            

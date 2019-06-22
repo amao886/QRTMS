@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.enterprise.ComplaintMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.enterprise.Complaint">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="KEY" jdbcType="BIGINT" property="key"/>
+        <result column="COMPLAINANT" jdbcType="INTEGER" property="complainant"/>
+        <result column="COMPLAINANT_NUMBER" jdbcType="VARCHAR" property="complainantNumber"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="COMPLAINANT_CONTENT" jdbcType="VARCHAR" property="complainantContent"/>
+        <result column="ORDER_ID" jdbcType="BIGINT" property="orderId"/>
+        <result column="SHIPPER_ID" jdbcType="BIGINT" property="shipperId"/>
+        <result column="RECEIVE_ID" jdbcType="BIGINT" property="receiveId"/>
+        <result column="CONVEY_ID" jdbcType="BIGINT" property="conveyId"/>
+        <result column="RECEIVE_NAME" jdbcType="VARCHAR" property="receiveName"/>
+        <result column="SHIPPER_NAME" jdbcType="VARCHAR" property="shipperName"/>
+        <result column="CONVEY_NAME" jdbcType="VARCHAR" property="conveyName"/>
+
+    </resultMap>
+
+    <resultMap id="ResultAlliance" type="com.ycg.ksh.entity.service.enterprise.ComplaintAlliance"
+               extends="BaseResultMap">
+        <association property="order"
+                     javaType="com.ycg.ksh.entity.persistent.Order">
+            <result column="DELIVERY_NO" jdbcType="VARCHAR" property="deliveryNo"/>
+        </association>
+    </resultMap>
+
+    <select id="complaintsShipper" resultMap="ResultAlliance"
+            parameterType="com.ycg.ksh.entity.service.enterprise.ComplaintSearch">
+        select c.*,o.DELIVERY_NO from t_complaint c left join t_order o on c.ORDER_ID = o.ID
+        where c.SHIPPER_ID =#{shipperId}
+        <if test="likeString != null and likeString !=''">
+            and
+            (LOCATE(#{likeString}, o.DELIVERY_NO) > 0) OR
+            (LOCATE(#{likeString}, c.COMPLAINANT) > 0) OR
+            (LOCATE(#{likeString}, c.RECEIVE_NAME) > 0)
+        </if>
+        <if test="firstTime != null">
+            <![CDATA[ AND c.CREATE_TIME >= #{firstTime} ]]>
+        </if>
+        <if test="secondTime != null">
+            <![CDATA[ AND c.CREATE_TIME <= #{secondTime} ]]>
+        </if>
+    </select>
+
+    <select id="complaintsConvey" resultMap="ResultAlliance"
+            parameterType="com.ycg.ksh.entity.service.enterprise.ComplaintSearch">
+        select c.*,o.DELIVERY_NO from t_complaint c left join t_order o on c.ORDER_ID = o.ID
+        where c.CONVEY_ID =#{conveyId}
+        <if test="likeString != null and likeString !=''">
+            and
+            (LOCATE(#{likeString}, o.DELIVERY_NO) > 0) OR
+            (LOCATE(#{likeString}, c.COMPLAINANT) > 0) OR
+            (LOCATE(#{likeString}, c.RECEIVE_NAME) > 0)
+        </if>
+        <if test="firstTime != null">
+            <![CDATA[ AND c.CREATE_TIME >= #{firstTime} ]]>
+        </if>
+        <if test="secondTime != null">
+            <![CDATA[ AND c.CREATE_TIME <= #{secondTime} ]]>
+        </if>
+    </select>
+
+    <select id="complaintReceive" resultMap="ResultAlliance"
+            parameterType="com.ycg.ksh.entity.service.enterprise.ComplaintSearch">
+        select c.*,o.DELIVERY_NO from t_complaint c left join t_order o on c.ORDER_ID = o.ID
+        where c.RECEIVE_ID =#{receiveId}
+        <if test="likeString != null and likeString !=''">
+            and
+            (LOCATE(#{likeString}, o.DELIVERY_NO) > 0) OR
+            (LOCATE(#{likeString}, c.SHIPPER_NAME) > 0)
+        </if>
+        <if test="firstTime != null">
+            <![CDATA[ AND c.CREATE_TIME >= #{firstTime} ]]>
+        </if>
+        <if test="secondTime != null">
+            <![CDATA[ AND c.CREATE_TIME <= #{secondTime} ]]>
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,136 @@
+body {
+	font-size: 14px;
+}
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.headline {
+	height: 55px;
+	text-align: center;
+	background-color: #6A7D8F;
+	position: relative;
+	line-height: 55px;
+	color: #E7FFFF;
+	margin-bottom: 10px;
+}
+
+.headline>h1 {
+	font-size: 25px;
+	display: inline-block;
+}
+
+.jiantou {
+	position: absolute;
+	left: 30px;
+	font-size: 30px;
+	font-weight: 200;
+	color: #fff;
+}
+
+.enterprise {
+	border-bottom: #CCCCCC 1px solid;
+	height: 50px;
+	line-height: 50px;
+}
+.customerManage {
+	background-color: #FFF;
+}
+.addition {
+	height: 50px;
+	line-height: 40px;
+	position: fixed;
+	background-color: #fff;
+	width: 100%;
+	bottom: 0;
+	text-align: center;
+	display: flex;
+}
+.addition > span {
+	flex: 1;
+	font-size: 20px;
+	color: #FFF;
+	display: inline-block;
+}
+.addition span a {
+	display: block;
+	font-size: 14px;
+}
+
+.left{
+	margin-left: 10px;
+	flex: 1;
+	position: absolute;
+
+}
+.right{
+	flex: 4;
+	margin-right: 10px;
+	margin-left: 100px;
+}
+.redact,#confirmBtn  {
+	padding: 5px;
+}
+.redact a{
+	border-right: 1px solid #ccc;
+	color: #169BD5;
+}
+
+#confirmBtn a {
+	color: #169BD5;
+
+}
+.register {
+	background-color: #169BD5;
+	padding: 5px;
+}
+.register a {
+	color: #fff;
+	display: block;
+}
+.weui-dialog weui-dialog--visible {
+	height: 200px;
+}
+.weui-dialog__bd {
+	color: #000;
+	height:70px ;
+	text-align: left;
+}
+
+
+.weixin-tip{
+	position:fixed;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	z-index: 501;
+	background:rgba(0,0,0,.6);
+}
+.weixin-tip>img{
+	position: absolute;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	width:90%;
+	margin:auto;
+}
+.headline {
+	height: 55px;
+	text-align: center;
+	background-color: #6A7D8F;
+	position: relative;
+	line-height: 55px;
+	color: #E7FFFF;
+	margin-bottom: 10px;
+	display: none;
+}
+
+.oneLineText{
+	
+}

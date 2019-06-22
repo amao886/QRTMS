@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ycg.ksh.service.persistence.WaybillReceiptViewMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.WaybillReceiptView">
+        <result column="waybill_id" property="id" jdbcType="INTEGER"/>
+        <result column="delivery_number" property="deliveryNumber" jdbcType="VARCHAR"/>
+        <result column="createtime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="arrivaltime" property="arrivaltime" jdbcType="TIMESTAMP"/>
+        <result column="actual_arrival_time" property="actualArrivalTime" jdbcType="TIMESTAMP"/>
+        <result column="receipt_status" property="receiptStatus" jdbcType="INTEGER"/>
+        <result column="groupid" property="groupid" jdbcType="INTEGER"/>
+        <result column="weight" property="weight" jdbcType="DOUBLE"/>
+        <result column="barcode" property="barcode" jdbcType="VARCHAR"/>
+        <result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
+        <result column="contacts" property="contacts" jdbcType="VARCHAR"/>
+        <result column="contact_number" property="contactNumber" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="batch_number" property="batchNumber" jdbcType="VARCHAR"/>
+        <result column="uname" property="uname" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    waybill_id,delivery_number, createtime, arrivaltime, weight, receipt_status, barcode,
+    group_name, modify_time, company_name, contacts, contact_number, address, batch_number
+  </sql>
+    <select id="queryListPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from waybill_receipt_view
+        <where>
+            <if test="groupid != null and groupid gt 0">
+                AND groupid = #{groupid,jdbcType=INTEGER}
+            </if>
+            <if test="batchNumber != null and batchNumber !=''">
+                AND batch_number like concat('%', #{batchNumber,jdbcType=VARCHAR}, '%')
+            </if>
+            <!-- type=1查询库存状态为已回收和客户退回的情况 -->
+            <if test="type == 1 and receiptStatus == ''">
+                and receipt_status in (1,4)
+            </if>
+            <if test="type == 1 and receiptStatus != ''">
+                and receipt_status = #{receiptStatus,jdbcType=INTEGER}
+            </if>
+            <!-- type=2查询送达客户的情况 -->
+            <if test=" type == 2  and receiptStatus != null">
+                and receipt_status = #{receiptStatus,jdbcType=INTEGER}
+            </if>
+            <if test="waybillDeliveryNumber != null and waybillDeliveryNumber != ''">
+                and (delivery_number like concat('%', #{waybillDeliveryNumber,jdbcType=VARCHAR}, '%') or barcode like
+                concat('%', #{waybillDeliveryNumber,jdbcType=VARCHAR}, '%') )
+            </if>
+            <if test="deliverStartTime != null and deliverStartTime != '' ">
+                <![CDATA[  AND DATE_FORMAT(createtime, '%Y-%m-%d') >= #{deliverStartTime} ]]>
+            </if>
+            <if test="deliverEndTime != null and deliverEndTime != '' ">
+                <![CDATA[ AND DATE_FORMAT(createtime,'%Y-%m-%d') <= #{deliverEndTime} ]]>
+            </if>
+            <if test="sendStartTime != null and sendStartTime != '' ">
+                <![CDATA[  AND DATE_FORMAT(modify_time, '%Y-%m-%d') >= #{sendStartTime} ]]>
+            </if>
+            <if test="sendEndTime != null and sendEndTime != '' ">
+                <![CDATA[ AND DATE_FORMAT(modify_time,'%Y-%m-%d') <= #{sendEndTime} ]]>
+            </if>
+            <if test="serviceStartTime != null and serviceStartTime != '' ">
+                <![CDATA[  AND DATE_FORMAT(modify_time, '%Y-%m-%d') >= #{serviceStartTime} ]]>
+            </if>
+            <if test="serviceEndTime != null and serviceEndTime != '' ">
+                <![CDATA[ AND DATE_FORMAT(modify_time,'%Y-%m-%d') <= #{serviceEndTime} ]]>
+            </if>
+        </where>
+        ORDER BY createtime DESC
+    </select>
+
+
+    <!--回单扫描，历史记录查询-->
+    <select id="historyRecordList" resultType="com.ycg.ksh.entity.persistent.WaybillReceiptView">
+        SELECT
+        a.barcode AS barcode,
+        a.delivery_number AS deliveryNumber,
+        date_format(a.createtime, '%Y-%m-%d') AS createtime,
+        a.papery_receipt_status AS receiptStatus,
+        b.mobilephone AS uname,
+        a.contact_name as contacts,
+        a.receive_address as address,
+        a.receiver_name as receiverName,
+        a.contact_phone as contactNumber,
+        a.groupid as groupid
+        FROM
+        waybill_tab a,
+        user_tab b
+        WHERE
+        1 = 1
+        AND a.userid = b.id
+        <choose>
+            <when test="all == null or all == false">
+                <choose>
+                    <when test="groupId != null and groupId gt 0">
+                        AND a.groupid = #{groupId}
+                    </when>
+                    <otherwise>
+                        <if test="userId != null and userId gt 0">
+                            <![CDATA[ AND a.userid = #{userId} AND a.groupid <= 0 ]]>
+                            <!--AND w.groupid IN (SELECT groupid FROM group_members_tab WHERE userid = #{userId} AND status =10)-->
+                        </if>
+                    </otherwise>
+                </choose>
+            </when>
+            <otherwise>
+                AND (a.userid = #{userId} OR (a.groupid IN (SELECT groupid FROM group_members_tab WHERE userid =
+                #{userId})))
+            </otherwise>
+        </choose>
+        <if test="createtimeStart != null  and createtimeStart != '' ">
+            <![CDATA[  and date_format(a.createtime, '%Y-%m-%d') >= #{createtimeStart} ]]>
+        </if>
+        <if test="createtimeEnd != null and createtimeEnd != '' ">
+            <![CDATA[ and date_format(a.createtime, '%Y-%m-%d') <= #{createtimeEnd} ]]>
+        </if>
+        <if test="receiptStatus != '' and receiptStatus != null">
+            and a.papery_receipt_status = #{receiptStatus}
+        </if>
+        <if test="orderNumber != '' and orderNumber != null">
+            and ( a.barcode like concat('%', #{orderNumber}, '%') or a.delivery_number like concat('%', #{orderNumber},
+            '%') )
+        </if>
+        AND a.papery_receipt_status > 0
+        order by a.createtime desc
+    </select>
+
+</mapper>

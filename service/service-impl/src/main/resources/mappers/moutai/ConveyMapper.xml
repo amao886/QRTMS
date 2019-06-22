@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.moutai.MaotaiConveyMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.moutai.Convey">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="CONVEY_NAME" jdbcType="VARCHAR" property="conveyName" />
+    <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+
+  <select id="selectConveyByConveyName" resultMap="BaseResultMap">
+      select * from  MOUTAI_CONVEY where CONVEY_NAME
+          like concat('%', #{carrierUnit}, '%')
+  </select>
+
+</mapper>

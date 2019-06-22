@@ -1,0 +1,120 @@
+
+/*===整体布局===*/
+body{padding:0 20px;font-size:14px;}
+.col-min{width:18%;}
+.col-middle{width:22%;}
+.col-max{width:42%;}
+
+/*===查询部分===*/
+.content-search{
+    position:relative;
+    padding:16px 0 20px;
+}
+.content-search .content-search-btn{
+    padding:5px 20px;
+    color:#fff;
+    border-radius: 3px;
+    background:#31acfa;
+    position:absolute;
+    top:16px;
+    right:0;
+}
+.content-search>.clearfix>.fl{position:relative;}
+.content-search .labe_l{
+    display:inline-block;
+    color:#333;
+    font-size:14px;
+    width:90px; 
+    height:26px;
+    line-height:26px;
+    font-weight: 400;
+}
+.content-search .tex_t{
+    position:absolute;
+    top:0;
+    left:93px;
+    width:140px;
+    height:26px;
+    border:1px solid #dedede;
+    text-indent:4px;
+    border-radius:4px;
+}
+.content-search .fl+.fl{margin-left:2%;}
+.content-search .clearfix+.clearfix {
+    margin-top: 15px;
+}
+.content-search input[type="text"]:focus{
+    border-color:#6ec5fb;
+}
+.content_btn .sendMsg{
+    padding:5px 20px;
+    color:#fff;
+    border-radius: 3px;
+    background:#31acfa;
+    display: inline-block;
+    font-size:14px;
+}
+/*===日期插件部分===*/
+.content-search .reset_text{
+    border:none;
+    text-indent: 0;
+    border-radius: 0;
+}
+.content-search .reset_text .input-append{
+    width:46%;
+    position: relative;
+}
+.content-search .reset_text .input-append .add-on{
+    position: absolute;
+    top: 0;
+    right: 8px;
+    line-height: 26px;
+    font-size: 18px;
+}
+.input-append .icon-th:before {
+    color: #31acfa  ;
+}
+.content-search .reset_text .input-append>input{
+    width:100%;
+    height:26px;
+    line-height: 26px;
+    border:1px solid #dedede;
+    border-radius: 4px;
+    text-indent: 4px;
+}
+.to_link{
+    float:left;
+    width:8%;
+    text-align: center;
+    line-height: 26px;
+    font-size:14px;
+}
+
+/*===表格部分===*/
+.table-style table{margin-top:20px;}
+.custom-content table td .add-info{
+    padding:6px 20px;
+    background:#31acfa;
+}
+.custom-content table td .add-info:hover,
+.custom-content table td .add-info:active,
+.content-search .content-search-btn:hover,
+.content-search .content-search-btn:active{
+    background:#29a3f1;
+}
+
+/*===弹出框===*/
+#mybillsModal .mbody-content .modal-title{letter-spacing: 1px;}
+#mybillsModal .mbody-content .box-item{margin-bottom: 15px;}
+#mybillsModal .mbody-content .labe_l{font-weight:400;font-size:14px;width:102px;vertical-align: top;text-align: right;padding-right:8px;}
+#mybillsModal .mbody-content .tex_t{border:1px solid #eee;border-radius:3px;text-indent:4px;font-size:12px;width:400px;margin-right:6px;}
+#mybillsModal .mbody-content input.tex_t{height:24px;}
+#mybillsModal .mbody-content textarea.tex_t{resize: none;padding-top:4px;}
+#mybillsModal .btn-primary{
+    padding:5px 20px;
+    color:#31acfa;
+    border-color: #31acfa;
+    background-color:transparent;
+    font-size:14px;
+    border-radius: 3px;
+}

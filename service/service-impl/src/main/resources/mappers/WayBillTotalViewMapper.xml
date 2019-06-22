@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.WayBillTotalViewMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.WaybillTotalView">
+        <result column="allCount" property="allCount" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="VARCHAR"/>
+        <result column="toCount" property="toCount" jdbcType="INTEGER"/>
+        <result column="sendCount" property="sendCount" jdbcType="INTEGER"/>
+        <result column="timeCount" property="timeCount" jdbcType="INTEGER"/>
+        <result column="groupid" property="groupid" jdbcType="INTEGER"/>
+        <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        allCount,createTime,toCount,sendCount,timeCount,groupid,company_name
+    </sql>
+    <select id="listPage" resultMap="BaseResultMap"
+            parameterType="com.ycg.ksh.entity.persistent.WaybillTotalView">
+        select
+        <include refid="Base_Column_List"/>
+        from waybill_Total_view t
+        where 1=1
+        <if test="groupid!=null and groupid != ''">
+            and t.groupid = #{groupid,jdbcType=INTEGER}
+        </if>
+        <if test="companyName!=null and companyName != ''">
+            and t.company_name like concat('%', #{companyName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="startTime != null  and startTime != ''">
+            <![CDATA[  AND DATE_FORMAT(createTime, '%Y-%m-%d')>= #{startTime,jdbcType=VARCHAR}   ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <![CDATA[ AND DATE_FORMAT(createTime,'%Y-%m-%d') <= #{endTime,jdbcType=VARCHAR} ]]>
+        </if>
+        <if test="sort == 'desc'">
+            order by createTime DESC
+        </if>
+        <if test="sort == 'asc'">
+            order by createTime ASC
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,180 @@
+
+/*===濮ｅ繑妫╃紒鐔活吀===*/
+body{padding:0 20px;font-size:14px;}
+.col-min{width:30%;}
+.col-middle{width:22%;}
+.col-max{width:42%;}
+
+/*===閺屻儴顕楅柈銊ュ瀻===*/
+.content-search{
+    position:relative;
+    padding:16px 20px 20px;
+}
+.content-search .content-search-btn{
+    padding:5px 20px;
+    color:#fff;
+    border-radius: 3px;
+    background:#31acfa;
+    position:absolute;
+    top:16px;
+    right:0;
+}
+.content-search>.clearfix>.fl{position:relative;}
+.content-search .labe_l{
+    display:inline-block;
+    color:#333;
+    font-size:14px;
+    width:68px; 
+    height:26px;
+    line-height:26px;
+    font-weight: 400;
+}
+.content-search .tex_t{
+    position:absolute;
+    top:0;
+    left:76px;
+    width:140px;
+    height:26px;
+    border:1px solid #dedede;
+    text-indent:4px;
+    border-radius:4px;
+}
+.content-search .fl+.fl{margin-left:2%;}
+.content-search .clearfix+.clearfix {
+    margin-top: 15px;
+}
+.content-search input[type="text"]:focus{
+    border-color:#6ec5fb;
+}
+/*===閺冦儲婀￠幓鎺嶆闁劌鍨�===*/
+.content-search .reset_text{
+    border:none;
+    text-indent: 0;
+    border-radius: 0;
+}
+.content-search .reset_text .input-append{
+    width:46%;
+    position: relative;
+}
+.content-search .reset_text .input-append .add-on{
+    position: absolute;
+    top: 0;
+    right: 8px;
+    line-height: 26px;
+    font-size: 18px;
+}
+.input-append .icon-th:before {
+    color: #31acfa  ;
+}
+.content-search .reset_text .input-append>input{
+    width:100%;
+    height:26px;
+    line-height: 26px;
+    border:1px solid #dedede;
+    border-radius: 4px;
+    text-indent: 4px;
+}
+.to_link{
+    float:left;
+    width:8%;
+    text-align: center;
+    line-height: 26px;
+    font-size:14px;
+}
+
+/*===閸︽澘娴橀柈銊ュ瀻===*/
+#container{
+    width:100%;
+    min-height:500px;
+}
+/*===閸︽澘娴樻穱鈩冧紖濡楋拷===*/
+.map-tips{
+    position:relative;
+    width:260px;
+    padding:8px 0;
+    /*border:1px solid #c2c2c2*/;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.map-tips .tip-item{
+    font-size:14px;
+}
+.map-tips .tip-item + .tip-item{
+    margin-top:3px;
+}
+.map-tips .tip-title{   
+    width:45px;
+    color:#636363;
+}
+.tip-item-long .tip-title{
+    width:104px;
+}
+.map-tips .tip-content{
+    width:210px;
+    color:#333;
+}
+.tip-item-long .tip-content{
+    width:224px;
+}
+.map-tips .msg-tips{
+    position: absolute;
+    right:34px;
+    top:15px;
+    padding:0px 4px;
+    font-size:16px;
+    color:#ff7f00;
+    cursor: pointer;
+}
+/*===閸ョ偛宕熼幓鎰板晪===*/
+.waybill-tips{
+    position:fixed;
+    right:20px;
+    bottom: -160px;
+    z-index: 99;
+    width:280px;
+    max-height:240px;
+    background:#fff;
+}
+.waybill-tips h4{
+    width:100%;
+    height:42px;
+    line-height: 42px;
+    text-align: center;
+    font-size:18px;
+    color:#fff;
+    background:#31acfa;
+    font-weight: normal;
+    cursor: pointer;
+}
+.waybill-tips h4 .tip-icon{
+    margin-left:10px;
+}
+.waybill-tips ul{
+    padding:15px 0;
+    /*border-left:1px solid #c2c2c2;*/
+    font-size:14px;
+    text-align: center;
+}
+.waybill-tips ul li+li{
+    margin-top:2px;
+}
+.waybill-tips .wb-tips-name{
+    color:#333;
+}
+.waybill-tips .wb-tips-num{
+    color:#31acfa;
+}
+.waybill-tips .wb-tips-new{
+    color:#ff7f00;
+}
+/*闁哄啨鍎卞濠氬箵閹哄秵顐介柡宥呭槻缁憋拷*/
+.input-append{font-size:14px;}
+.input-append .add-on{
+	position: absolute;
+    top: 0;
+    right: 8px;
+    line-height: 26px;
+    font-size:18px;
+} 
+.input-append .icon-th:before{color:#31acfa;}      

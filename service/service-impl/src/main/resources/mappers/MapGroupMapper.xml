@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.MapGroupMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.MapGroup">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  
+  <resultMap id="MemberResultMap" type="com.ycg.ksh.entity.persistent.MapGroupMember">
+    <id column="group_id" jdbcType="INTEGER" property="groupId" />
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+  </resultMap>
+  
+  <insert id="insertMember" parameterType="com.ycg.ksh.entity.persistent.MapGroupMember" >
+    insert into map_group_member (group_id, user_id, role_id) values (#{groupId},#{userId},#{roleId})
+  </insert>
+  
+  <select id="getMember" resultMap="MemberResultMap">
+    select 
+    	group_id, user_id, role_id
+    from 
+    	map_group_member
+    where 
+    	group_id = #{arg0} and user_id = #{arg1}
+  </select>
+  
+  <select id="countGroup" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select 
+    	count(group_id)
+    from 
+    	map_group_member
+    where 
+    	user_id = #{userId}
+  </select>
+  
+  <select id="listByUserKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    	m.id, m.group_name, m.create_time
+    from 
+    	map_group m left join map_group_member mm on m.id = mm.group_id
+    where 
+    	mm.user_id = #{userKey}
+  </select>
+</mapper>

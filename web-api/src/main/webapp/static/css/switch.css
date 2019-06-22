@@ -1,0 +1,70 @@
+ .switch-cp input,.switch-cp label[for]{
+     -webkit-tap-highlight-color: rgba(0,0,0,0);
+ }
+ label > * {
+     pointer-events: none;
+ }
+ .switch-cp{
+     margin-bottom: 0;
+     vertical-align: top;
+ }
+ .switch-cp__input {
+     position: absolute;
+     left: -9999px;
+ }
+ .switch-cp__box {
+     display: block;
+ }
+ .switch-cp__box {
+     position: relative;
+     width: 56px;
+     height: 28px;
+     border: 1px solid #dfdfdf;
+     outline: 0;
+     border-radius: 14px;
+     box-sizing: border-box;
+     background-color: #dfdfdf;
+     -webkit-transition: background-color .1s,border .1s;
+     transition: background-color .1s,border .1s;
+ }
+ .switch-cp__box:before{
+     content: " ";
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 54px;
+     height: 26px;
+     border-radius: 13px;
+     background-color: #fdfdfd;
+     -webkit-transition: -webkit-transform .35s cubic-bezier(.45,1,.4,1);
+     transition: -webkit-transform .35s cubic-bezier(.45,1,.4,1);
+     transition: transform .35s cubic-bezier(.45,1,.4,1);
+     transition: transform .35s cubic-bezier(.45,1,.4,1),-webkit-transform .35s cubic-bezier(.45,1,.4,1);
+ }
+ .switch-cp__box:after{
+     content: " ";
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 26px;
+     height: 26px;
+     border-radius: 13px;
+     background-color: #fff;
+     box-shadow: 0 1px 3px rgba(0,0,0,.4);
+     -webkit-transition: -webkit-transform .35s cubic-bezier(.4,.4,.25,1.35);
+     transition: -webkit-transform .35s cubic-bezier(.4,.4,.25,1.35);
+     transition: transform .35s cubic-bezier(.4,.4,.25,1.35);
+     transition: transform .35s cubic-bezier(.4,.4,.25,1.35),-webkit-transform .35s cubic-bezier(.4,.4,.25,1.35);
+ }
+ .switch-cp__input:checked~.switch-cp__box{
+     border-color: #04be02;
+     background-color: #04be02;
+ }
+ .switch-cp__input:checked~.switch-cp__box:before{
+     -webkit-transform: scale(0);
+     transform: scale(0);
+ }
+ .switch-cp__input:checked~.switch-cp__box:after{
+     -webkit-transform: translateX(28px);
+     transform: translateX(28px);
+ }

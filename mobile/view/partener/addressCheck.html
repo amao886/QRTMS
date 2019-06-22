@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>地址核对</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/partener/addressCheck.css" />
+  
+</head>
+
+  <body ontouchstart style="background:#f8f8f8;">
+  	<div class="addressCheck">
+  		<div class="title">
+  			<p>已识别<span class="color-orange" id="addr-num">0</span>个地址</p>
+  		</div>
+  		<div class="content" id="content"></div>
+  	</div>
+  	<!--正在加载-->
+  	<div class="address-load">
+  		<div class="weui-loadmore">
+			  <i class="weui-loading"></i>
+			</div>
+  	</div>
+  	<!--底部导航-->
+  	<div class="weui-footer weui-footer_fixed-bottom address-bottom">
+	  	<div class="weui-flex">
+	      	<div class="weui-flex__item">
+	      		<a href="javascript:;" class="address-link add-address" id="add-address">
+	      			<i class="fa fa-camera" aria-hidden="true"></i>
+	      			<p>重新拍照</p>
+	      		</a>
+	      	</div>
+	      	<div class="weui-flex__item">
+	      		<a href="javascript:;" class="address-link map" id="saveAddr">
+	      			<i class="fa fa-floppy-o" aria-hidden="true"></i>
+	      			<p>保存地址</p>
+	      		</a>
+	      	</div>
+	    </div>
+	</div>
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/partener/addressCheck.js"></script>
+</script>
+</body>
+</html>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.support.AreaMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.support.Area">
+    <!--
+      WARNING - @mbg.generated
+    --><result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="CODE" jdbcType="INTEGER" property="code" />
+    <result column="PID" jdbcType="INTEGER" property="parentId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SUB" jdbcType="BIT" property="subordinate" />
+  </resultMap>
+  
+  <select id="selectByParentKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT ID, `CODE`, PID, `NAME`, SUB FROM T_AREA WHERE PID = #{parentKey} ORDER BY ID
+  </select>
+</mapper>

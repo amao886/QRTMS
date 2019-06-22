@@ -1,0 +1,239 @@
+.weui-cell {
+	background-color: #fff;
+}
+
+.weui-label {
+	width: 110px;
+	position: relative;
+}
+
+.weui-cell.align {
+	-webkit-box-align: flex-start;
+	-webkit-align-items: flex-start;
+	align-items: flex-start;
+}
+
+.weui-cell__bd.color-danger {
+	color: #f6383a !important;
+}
+
+.weui-cells {
+	font-size: 15px;
+}
+
+.text_right {
+	text-align: right;
+}
+
+
+/*对齐样式*/
+.w4 {
+	display: inline-block;
+	letter-spacing: 0em;
+}
+
+.w3 {
+	letter-spacing: 0.5em;
+	margin-right: -0.5em;
+}
+
+.w2 {
+	letter-spacing: 2em;
+	margin-right: -2em;
+}
+
+.sendWrite {
+	margin-top: -20px;
+	color: #333;
+}
+
+.about_custom .weui-cell {
+	padding: 10.5px 15px;
+}
+
+.weui-cell:before {
+	left: 0;
+}
+
+.weui_cell_start {
+	-webkit-align-items: start;
+	align-items: start;
+}
+
+.weui-cell_access .weui-cell__ft:after {
+	height: 8px;
+	width: 8px;
+	margin-top: -3px;
+}
+
+.weui-cells .title {
+	padding: 10px 15px;
+	background-color: rgba(242, 242, 242, 1);
+	color: #333333;
+	font-weight: 700;
+}
+
+.weui-cells_form .weui-cell__ft {
+	font-size: 14px;
+}
+
+.weui-cell__ft {
+	color: #333;
+}
+
+/*合计部分*/
+.total-con {
+	padding: 10px 15px 10px;
+	background: #fff;
+}
+
+.total-con p {
+	margin-bottom: 5px;
+}
+
+.total-con .weui-grids .weui-grid {
+	width: 25%;
+	padding: 2px 0;
+	text-align: center;
+}
+
+/*例表部分*/
+.listCon {
+	position: relative;
+	padding-top: 8px;
+	font-size: 15px;
+	text-align: center;
+	margin-bottom: 10px;
+	background: #fff;
+}
+
+.listCon p {
+	padding-left: 12px;
+	text-align: left;
+	line-height: 25px;
+	margin-bottom: 8px;
+	font-size: 16px;
+}
+
+.listLeft {
+	width: 30%;
+	position: absolute;
+	top: 41px;
+	left: 0;
+}
+
+.goodsName {
+	padding: 0 10px;
+	background: #fff;
+}
+
+.goodsTitle,
+.goodsTotal,
+.table-head>.table-th,
+.table-footer {
+	padding: 10px 0;
+	font-size: 15px;
+	background: #eee;
+}
+
+.listRight {
+	width: 70%;
+	margin-left: 30%;
+	overflow: hidden;
+}
+
+.listRight .content {
+	width: 765px;
+	background: #fff;
+}
+
+.table-body .table-th {
+	background: #fff;
+}
+
+.table-th {
+	float: left;
+	width: 85px;
+}
+
+.table-th:nth-of-type(1) {
+  	width: 85px;
+  }
+  
+  .table-th:nth-of-type(2) {
+  	width: 85px;
+  }
+  
+  .table-th:nth-of-type(3) {
+  	width: 85px;
+  }
+  
+  .table-th:nth-of-type(4) {
+  	width: 85px;
+  }
+  
+  .table-th:nth-of-type(5) {
+  	width: 85px;
+  }
+  
+  .table-th:nth-of-type(6) {
+  	width: 220px;
+  	text-indent: 10px;
+  }
+  
+  .table-th:nth-of-type(6)>input[type=text] {
+  	text-align: left;
+  	text-indent: 10px;
+  }
+  
+  .table-th:nth-of-type(7) {
+  	width: 120px;
+  	text-indent: 10px;
+  }
+  
+  .table-th:nth-of-type(7)>input[type=text] {
+  	text-align: left;
+  	text-indent: 10px;
+  }
+.noMsg {
+	height: 42px;
+	line-height: 42px;
+	text-align: left;
+	text-indent: 20px;
+	background: #fff;
+}
+
+.table-body {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: stretch;
+	-webkit-align-items: stretch;
+	align-items: stretch;
+}
+
+.table-body .table-th,
+.goodsName {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.table-body .table-th>span,
+.goodsName>span {
+	margin: auto;
+}
+
+.goodsName:before,
+.table-th:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	border-right: 1px solid #ccc;
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+	-webkit-transform: scaleX(.5);
+	transform: scaleX(.5);
+}

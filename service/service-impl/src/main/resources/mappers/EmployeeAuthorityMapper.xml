@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.EmployeeAuthorityMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.EmployeeAuthority">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="COMPANY_ID" jdbcType="BIGINT" property="companyId"/>
+        <result column="EMPLOYEE_ID" jdbcType="INTEGER" property="employeeId"/>
+        <result column="AUTHORITY_ID" jdbcType="INTEGER" property="authorityId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+	
+	<resultMap id="resultMap" type="com.ycg.ksh.entity.persistent.EmployeeAuthority" extends="BaseResultMap">
+		<result column="MENU_NAME" jdbcType="VARCHAR" property="menuName"/>
+	</resultMap>
+
+    <resultMap id="SysMenuResultMap" type="com.ycg.ksh.entity.persistent.SysMenu">
+        <result column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="P_ID" jdbcType="INTEGER" property="pId"/>
+        <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName"/>
+        <result column="MENU_URL" jdbcType="VARCHAR" property="menuUrl"/>
+        <result column="MENU_FETTLE" jdbcType="INTEGER" property="menuFettle"/>
+        <result column="MENU_ICON" jdbcType="VARCHAR" property="menuIcon"/>
+        <result column="CODE" jdbcType="VARCHAR" property="code"/>
+        <result column="MENU_TYPE" jdbcType="INTEGER" property="type"/>
+        <result column="ID_KEY" jdbcType="VARCHAR" property="idKey"/>
+    </resultMap>
+
+   <select id="listHaveAuth" resultMap="BaseResultMap">
+        select a.* from T_EMPLOYEE_AUTHORITY a LEFT JOIN  T_SYS_MENU b on a.AUTHORITY_ID = b.ID
+        where a.COMPANY_ID = #{arg0}  and a.EMPLOYEE_ID = #{arg1}  and  b.MENU_TYPE =  #{arg2}
+    </select>
+
+    <select id="listAuthorityMenu" resultMap="resultMap">
+        select a.*,b.MENU_NAME from T_EMPLOYEE_AUTHORITY a LEFT JOIN  T_SYS_MENU b on a.AUTHORITY_ID = b.ID
+        where a.COMPANY_ID = #{arg0}  and a.EMPLOYEE_ID = #{arg1} and b.MENU_FETTLE = 1
+    </select>
+
+    <!-- 批量插入 -->
+    <insert id="inserts" parameterType="java.util.List">
+        INSERT INTO T_EMPLOYEE_AUTHORITY
+        (ID, COMPANY_ID, EMPLOYEE_ID, AUTHORITY_ID, CREATE_TIME)
+        VALUES
+        <foreach collection="list" item="o" index="index" separator=",">
+            (#{o.id}, #{o.companyId}, #{o.employeeId}, #{o.authorityId}, #{o.createTime})
+        </foreach>
+    </insert>
+    
+    <select id="listSysMenu" resultMap="SysMenuResultMap">
+      SELECT M.* FROM T_EMPLOYEE_AUTHORITY EA LEFT JOIN T_SYS_MENU M ON EA.AUTHORITY_ID = M.ID WHERE EA.COMPANY_ID = #{arg0} AND EA.EMPLOYEE_ID = #{arg1} AND M.ID > 0;
+    </select>
+    
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.UserHotspotMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.UserHotspot">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="associate_type" jdbcType="INTEGER" property="associateType" />
+    <result column="associate_key" jdbcType="VARCHAR" property="associateKey" />
+    <result column="hotspot_count" jdbcType="BIGINT" property="hotspotCount" />
+  </resultMap>
+  
+  <update id="updateCount" parameterType="com.ycg.ksh.entity.persistent.UserHotspot">
+    UPDATE user_hotspot_tab SET hotspot_count = hotspot_count + 1 WHERE user_id=#{userId} AND associate_type = #{associateType} AND associate_key=#{associateKey}
+  </update>
+</mapper>

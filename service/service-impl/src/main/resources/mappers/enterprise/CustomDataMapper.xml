@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.enterprise.CustomDataMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.enterprise.CustomData">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="KEY" jdbcType="BIGINT" property="key" />
+    <result column="DATA_TYPE" jdbcType="INTEGER" property="dataType" />
+    <result column="DATA_KEY" jdbcType="VARCHAR" property="dataKey" />
+    <result column="CUSTOM_NAME" jdbcType="VARCHAR" property="customName" />
+    <result column="CUSTOM_VALUE" jdbcType="VARCHAR" property="customValue" />
+  </resultMap>
+</mapper>

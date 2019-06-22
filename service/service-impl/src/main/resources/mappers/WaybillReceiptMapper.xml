@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.WaybillReceiptMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.WaybillReceipt">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="waybillid" jdbcType="INTEGER" property="waybillid"/>
+        <result column="uname" jdbcType="VARCHAR" property="uname"/>
+    </resultMap>
+
+    <resultMap id="ReceiptImageResultMap" type="com.ycg.ksh.entity.service.MergeWayBillReceipt">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+        <result column="verify_status" property="verifyStatus"
+                jdbcType="INTEGER"/>
+        <result column="verify_remark" property="verifyRemark"
+                jdbcType="VARCHAR"/>
+        <result column="verify_uname" property="verifyUname" jdbcType="INTEGER"/>
+        <result column="verify_date" property="verifyDate" jdbcType="TIMESTAMP"/>
+        <result column="r_create_time" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="userid" property="userid" jdbcType="INTEGER"/>
+        <result column="waybillid" property="waybillid" jdbcType="INTEGER"/>
+        <result column="uname" property="uname" jdbcType="VARCHAR"/>
+        <result column="receiptid" property="receiptid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="WaybillResultMap" type="com.ycg.ksh.entity.service.MergeReceiptResult">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="barcodeid" jdbcType="INTEGER" property="barcodeid"/>
+        <result column="groupid" jdbcType="INTEGER" property="groupid"/>
+        <result column="order_summary" jdbcType="VARCHAR" property="orderSummary"/>
+        <result column="customerid" jdbcType="INTEGER" property="customerid"/>
+        <result column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="arrivaltime" jdbcType="TIMESTAMP" property="arrivaltime"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="actual_arrival_time" jdbcType="TIMESTAMP" property="actualArrivalTime"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="weight" jdbcType="DOUBLE" property="weight"/>
+        <result column="volume" jdbcType="DOUBLE" property="volume"/>
+        <result column="number" jdbcType="INTEGER" property="number"/>
+        <result column="delivery_number" jdbcType="VARCHAR" property="deliveryNumber"/>
+        <result column="papery_receipt_status" jdbcType="INTEGER" property="paperyReceiptStatus"/>
+        <result column="barcode" jdbcType="VARCHAR" property="barcode"/>
+        <result column="receiver_name" jdbcType="VARCHAR" property="receiverName"/>
+        <result column="receiver_tel" jdbcType="VARCHAR" property="receiverTel"/>
+        <result column="receive_address" jdbcType="VARCHAR" property="receiveAddress"/>
+        <result column="contact_name" jdbcType="VARCHAR" property="contactName"/>
+        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone"/>
+        <result column="longitude" jdbcType="VARCHAR" property="longitude"/>
+        <result column="latitude" jdbcType="VARCHAR" property="latitude"/>
+        <result column="fence_status" jdbcType="INTEGER" property="fenceStatus"/>
+        <result column="fence_radius" jdbcType="DOUBLE" property="fenceRadius"/>
+        <result column="position_count" jdbcType="INTEGER" property="positionCount"/>
+        <result column="receipt_count" jdbcType="INTEGER" property="receiptCount"/>
+        <result column="receipt_verify_count" jdbcType="INTEGER" property="receiptVerifyCount"/>
+        <result column="delay" jdbcType="INTEGER" property="delay"/>
+        <result column="receipt_verify_status" jdbcType="INTEGER" property="receiptVerifyStatus"/>
+        <result column="waybill_status" jdbcType="INTEGER" property="waybillStatus"/>
+        <result column="confirm_delivery_way" jdbcType="INTEGER" property="confirmDeliveryWay"/>
+        <result column="receipt_unqualify_count" jdbcType="INTEGER" property="receiptUnqualifyCount"/>
+        <result column="shipper_name" jdbcType="VARCHAR" property="shipperName"/>
+        <result column="loaction_time" jdbcType="TIMESTAMP" property="loactionTime"/>
+        <result column="start_station" jdbcType="VARCHAR" property="startStation"/>
+        <result column="end_station" jdbcType="VARCHAR" property="endStation"/>
+        <result column="shipper_address" jdbcType="VARCHAR" property="shipperAddress"/>
+        <result column="shipper_tel" jdbcType="VARCHAR" property="shipperTel"/>
+        <result column="shipper_contact_name" jdbcType="VARCHAR" property="shipperContactName"/>
+        <result column="shipper_contact_tel" jdbcType="VARCHAR" property="shipperContactTel"/>
+        <result column="bind_time" jdbcType="TIMESTAMP" property="bindTime"/>
+        <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime"/>
+        <result column="simple_start_station" jdbcType="TIMESTAMP" property="simpleStartStation"/>
+        <result column="simple_end_station" jdbcType="TIMESTAMP" property="simpleEndStation"/>
+    </resultMap>
+
+    <sql id="include_column">
+        w.id,
+        w.barcodeid,
+        w.barcode,
+        w.groupid,
+        w.order_summary,
+        w.customerid,
+        w.address,
+        w.loaction_time,
+        w.arrivaltime,
+        w.createtime,
+        w.updatetime,
+        w.actual_arrival_time,
+        w.weight,
+        w.volume,
+        w.number,
+        w.delivery_number,
+        w.papery_receipt_status,
+        w.confirm_delivery_way,
+        w.receiver_name,
+        w.receiver_tel,
+        w.receive_address,
+        w.contact_name,
+        w.contact_phone,
+        w.longitude,
+        w.latitude,
+        w.fence_status,
+        w.fence_radius,
+        w.position_count,
+        w.receipt_count,
+        w.receipt_verify_count,
+        w.receipt_unqualify_count,
+        w.receipt_verify_status,
+        w.waybill_status,
+        w.userid,
+        w.delay,
+        w.shipper_name,
+        w.start_station,
+        w.end_station,
+        w.shipper_address,
+        w.shipper_tel,
+        w.shipper_contact_name,
+        w.shipper_contact_tel,
+        w.bind_time,
+        w.delivery_time,
+        w.simple_start_station,
+        w.simple_end_station
+    </sql>
+
+    <select id="selectByWaybillId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	SELECT * FROM receipt_tab WHERE waybillid = #{waybillId} ORDER BY createtime DESC
+  </select>
+
+    <select id="listImagesByWaybillId" resultMap="ReceiptImageResultMap"
+            parameterType="java.lang.Integer">
+    SELECT
+    a.id, a.path, a.verify_date, a.verify_remark, a.verify_status, u.uname as
+    verify_uname,
+    r.id AS receiptid,r.createtime AS r_create_time, r.waybillid,
+    u.mobilephone as uname
+    FROM address_tab a
+    LEFT JOIN receipt_tab r ON a.receiptid = r.id
+    LEFT JOIN user_tab u ON r.userid = u.id
+    WHERE r.waybillid = #{waybillid,jdbcType=INTEGER}
+  </select>
+
+    <resultMap id="statisticsWaybillMap" type="com.ycg.ksh.entity.service.MergeReceiptStatistics">
+        <result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+        <result column="count_groupid" property="countGroupid" jdbcType="INTEGER"/>
+        <result column="un_recycle_count" property="unRecycleCount" jdbcType="INTEGER"/>
+        <result column="un_recycle_percent" property="unRecyclePercent" jdbcType="VARCHAR"/>
+        <result column="retired_supplier_count" property="retiredSupplierCount" jdbcType="INTEGER"/>
+        <result column="retired_Supplier_Percent" property="retiredSupplierPercent" jdbcType="VARCHAR"/>
+        <result column="recycle_count" property="recycleCount" jdbcType="INTEGER"/>
+        <result column="recycle_count_percent" property="recycleCountPercent" jdbcType="VARCHAR"/>
+        <result column="retired_clients_count" property="retiredClientsCount" jdbcType="INTEGER"/>
+        <result column="retired_clients_Percent" property="retiredClientsPercent" jdbcType="VARCHAR"/>
+        <result column="due_in" property="dueIn" jdbcType="INTEGER"/>
+        <result column="due_in_percent" property="dueInPercent" jdbcType="VARCHAR"/>
+        <result column="store" property="store" jdbcType="INTEGER"/>
+        <result column="store_percent" property="storePercent" jdbcType="VARCHAR"/>
+        <!-- <result column="end_Customer_count" property="endCustomerCount" jdbcType="INTEGER" /> -->
+        <result column="end_Customer_percent" property="endCustomerPercent" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <select id="statisticsWaybill" resultMap="statisticsWaybillMap"
+            parameterType="com.ycg.ksh.entity.service.MergeReceiptStatistics">
+        SELECT
+        g.group_name,ws.count_groupid,un_Recycle_count,g.id,
+        if(un_Recycle_count>0,CONCAT(round(un_Recycle_count/ws.count_groupid * 100,2),"%"),"") AS un_Recycle_percent,
+        retired_Supplier_count,
+        if(retired_Supplier_count>0,CONCAT(round(retired_Supplier_count/ws.count_groupid * 100,2),"%"),"")
+        retired_Supplier_percent,
+        recycle_count,
+        if(recycle_count>0,CONCAT(round(recycle_count/ws.count_groupid * 100,2),"%"),"") recycle_count_percent,
+        retired_clients_count,
+        if(retired_clients_count>0,CONCAT(round(retired_clients_count/ws.count_groupid * 100,2),"%"),"")
+        retired_clients_percent,
+        un_Recycle_count+retired_Supplier_count as due_in ,
+        if(un_Recycle_count+retired_Supplier_count>0,CONCAT(round((un_Recycle_count+retired_Supplier_count)/ws.count_groupid
+        * 100,2),"%"),"") as
+        due_in_percent,
+        recycle_count+retired_clients_count as store ,
+        if(recycle_count+retired_clients_count>0,CONCAT(round((recycle_count+retired_clients_count)/ws.count_groupid *
+        100,2),"%"),"") as store_percent,
+        end_Customer_count,
+        if(end_Customer_count>0,CONCAT(round(end_Customer_count/ws.count_groupid * 100,2),"%"),"") end_Customer_percent
+        from group_members_tab gm LEFT JOIN
+        group_tab g on g.id=gm.groupid
+        LEFT JOIN
+        (select w.groupid,
+        count(case when w.papery_receipt_status='0' then w.papery_receipt_status end) as un_Recycle_count,
+        count(case when w.papery_receipt_status='1' then w.papery_receipt_status end) as recycle_count,
+        count(case when w.papery_receipt_status='2' then w.papery_receipt_status end) as end_Customer_count ,
+        count(case when w.papery_receipt_status='3' then w.papery_receipt_status end) as retired_Supplier_count,
+        count(case when w.papery_receipt_status='4' then w.papery_receipt_status end) as retired_clients_count,
+        count(w.groupid) count_groupid
+        from waybill_tab w where 1=1
+        <if test="selectYear != null and selectYear gt 0">
+            and DATE_FORMAT(w.createtime, '%Y') = #{selectYear}
+        </if>
+        <if test="selectMonth != null and selectMonth gt 0 ">
+            and DATE_FORMAT(w.createTime,'%m') = #{selectMonth}
+        </if>
+        GROUP BY w.groupid) ws on g.id=ws.groupid
+        where 1=1
+        <if test="userid != null and userid gt 0 ">
+            and gm.userid = #{userid}
+        </if>
+        <if test="groupid != null and groupid gt 0 ">
+            and count_groupid>0
+            and g.id = #{groupid}
+        </if>
+        ORDER BY g.id desc
+    </select>
+
+    <select id="listWaybillGroupBy" parameterType="com.ycg.ksh.entity.service.MergeReceiptStatistics"
+            resultType="com.ycg.ksh.entity.service.MergeReceiptStatistics">
+        select count(1) as countGroupid,a.groupid,count(case when a.papery_receipt_status='0' then
+        a.papery_receipt_status end) as unRecycleCount,
+        count(case when a.papery_receipt_status='1' then a.papery_receipt_status end) as recycleCount,
+        count(case when a.papery_receipt_status='2' then a.papery_receipt_status end) as endCustomercount ,
+        count(case when a.papery_receipt_status='3' then a.papery_receipt_status end) as retiredSupplierCount,
+        count(case when a.papery_receipt_status='4' then a.papery_receipt_status end) as retiredClientsCount from
+        waybill_tab a where 1=1
+        <choose>
+            <when test="all == null or all == false">
+                <choose>
+                    <when test="groupid != null and groupid gt 0">
+                        AND a.groupid = #{groupid}
+                    </when>
+                    <otherwise>
+                        <if test="userid != null and userid gt 0">
+                            <![CDATA[ AND a.userid = #{userid} AND a.groupid <= 0 ]]>
+                            <!--AND w.groupid IN (SELECT groupid FROM group_members_tab WHERE userid = #{userId} AND status =10)-->
+                        </if>
+                    </otherwise>
+                </choose>
+            </when>
+            <otherwise>
+                AND (a.userid = #{userid} OR (a.groupid IN (SELECT groupid FROM group_members_tab WHERE userid =
+                #{userid})))
+            </otherwise>
+        </choose>
+        <if test="selectYear != null and selectYear gt 0">
+            and DATE_FORMAT(a.createtime, '%Y') = #{selectYear}
+        </if>
+        <if test="selectMonth != null and selectMonth gt 0 ">
+            and DATE_FORMAT(a.createTime,'%m') = #{selectMonth}
+        </if>
+        group by a.groupid
+    </select>
+
+    <select id="queryReceiptList" parameterType="com.ycg.ksh.entity.service.WaybillSerach"
+            resultMap="WaybillResultMap">
+        SELECT
+        <include refid="include_column"/>
+        FROM
+        waybill_tab w
+        <where>
+            <choose>
+                <when test="all == null or all == false">
+                    <choose>
+                        <when test="groupId != null and groupId gt 0">
+                            AND w.groupid = #{groupId}
+                        </when>
+                        <otherwise>
+                            <if test="userId != null and userId gt 0">
+                                <![CDATA[ AND w.userid = #{userId} AND w.groupid <= 0 ]]>
+                                <!--AND w.groupid IN (SELECT groupid FROM group_members_tab WHERE userid = #{userId} AND status =10)-->
+                            </if>
+                        </otherwise>
+                    </choose>
+                </when>
+                <otherwise>
+                    AND (w.userid = #{userId} OR (w.groupid IN (SELECT groupid FROM group_members_tab WHERE userid =
+                    #{userId})))
+                </otherwise>
+            </choose>
+            <if test="likeString != null and likeString !=''">
+                AND (
+                (LOCATE(#{likeString}, w.delivery_number) > 0) OR
+                (LOCATE(#{likeString}, w.barcode) > 0)
+                )
+            </if>
+            <if test="firstTime != null">
+                <![CDATA[ AND w.delivery_time >= #{firstTime} ]]>
+            </if>
+            <if test="secondTime != null">
+                <![CDATA[ AND w.delivery_time <= #{secondTime} ]]>
+            </if>
+            <if test="paperyReceiptStatus != null">
+                AND w.papery_receipt_status = #{paperyReceiptStatus}
+            </if>
+            <if test="waitFettle != null">
+                <if test="waitFettle == 1">
+                    AND w.receipt_count = 0
+                </if>
+                <if test="waitFettle == 2">
+                    AND (w.receipt_count > 0 AND w.receipt_verify_count = 0)
+                </if>
+                <if test="waitFettle == 3">
+                    AND (w.receipt_verify_count >= 1 AND w.receipt_count > w.receipt_verify_count)
+                </if>
+                <if test="waitFettle == 4">
+                    AND (w.receipt_count > 0 AND w.receipt_verify_count >= w.receipt_count AND w.receipt_unqualify_count
+                    > 0)
+                </if>
+            </if>
+        </where>
+        ORDER BY w.createtime DESC, w.waybill_status ASC
+    </select>
+
+    <select id="queryPaperyReceiptRecord" parameterType="com.ycg.ksh.entity.service.MergeOperationRecord"
+            resultType="com.ycg.ksh.entity.service.MergeOperationRecord">
+            select a.modify_time as operationTime,
+            a.user_id  as userid,
+            CASE WHEN a.receipt_status =  1 THEN '回单回收'
+             WHEN a.receipt_status =  2 THEN '送交客户'
+             WHEN a.receipt_status =  3 THEN '退供应商'
+            WHEN a.receipt_status =  4 THEN '客户退回'
+            end  as receiptAction,
+            '纸质回单' as receiptType
+             from
+             waybill_receipt_status a where  a.waybill_id = #{waybillid}
+            <if test="firstTime != null">
+                <![CDATA[ AND w.modify_time >= #{firstTime} ]]>
+            </if>
+            <if test="secondTime != null">
+                <![CDATA[ AND w.modify_time <= #{secondTime} ]]>
+            </if>
+            <if test="receiptStatus !=null and receiptStatus != '' and receiptStatus gt 0">
+               and a.receipt_status = #{receiptStatus}
+            </if>
+
+    </select>
+
+    <select id="queryElectronicReceiptRecord"
+            parameterType="com.ycg.ksh.entity.service.MergeOperationRecord"
+            resultType="com.ycg.ksh.entity.service.MergeOperationRecord">
+            select a.userid,
+            CASE WHEN  b.verify_uid is null  THEN '回单上传'  else '回单审核' end as receiptAction,
+            CASE WHEN  b.verify_uid is null  THEN  b.createtime  else b.verify_date end as operationTime,
+            '电子回单' as receiptType
+            from receipt_tab a ,address_tab b  where  a.id = b.receiptid and a.waybillid = #{waybillid}
+            <if test="electronicStatus != null and electronicStatus != '' and electronicStatus == 1">
+                and b.verify_uid is null
+            </if>
+            <if test="electronicStatus != null and electronicStatus != '' and electronicStatus == 2">
+                and b.verify_uid is not null
+            </if>
+        <if test="firstTime != null">
+            <![CDATA[ AND b.createtime >= #{firstTime} ]]>
+        </if>
+        <if test="secondTime != null">
+            <![CDATA[ AND b.createtime <= #{secondTime} ]]>
+        </if>
+    </select>
+</mapper>

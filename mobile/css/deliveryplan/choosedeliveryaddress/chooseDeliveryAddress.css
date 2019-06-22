@@ -1,0 +1,116 @@
+.searchTab {
+	margin-bottom: 15px;
+	background: #fff;
+}
+
+.weui-search-bar {
+	padding: 0;
+}
+
+.searchTab {
+	margin-bottom: 5px;
+	padding: 10px 12px;
+	background: transparent;
+}
+
+.searchTab .weui-btn_mini {
+	vertical-align: top;
+}
+
+.weui-search-bar__box {
+	background: #fff;
+}
+
+.weui-flex__item_Btn {
+	padding-left: 10px;
+}
+
+.addressList {
+	background: #FFFFFF;
+	padding: 15px 15px;
+	min-height: 60px;
+	margin-bottom: 10px;
+}
+
+.companyName {
+	color: #333333;
+}
+
+.contactInfo {
+	color: #333333;
+	margin-top: 10px;
+}
+
+.addCustomerBtn {
+	width: 60px;
+	height: 60px;
+	display: inline-block;
+	border-radius: 40px;
+	background: #0071FE;
+	opacity: 0.8;
+	position: fixed;
+	right: 5px;
+	bottom: 20px;
+	color: #fff;
+	line-height: 60px;
+	text-align: center;
+	font-size: 14px;
+	z-index: 10;
+}
+
+.weui-cell_swiped {
+    display: block;
+    padding: 0;
+}
+
+.weui-cell_swiped>.weui-cell__bd {
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+}
+
+.weui-cell__bd {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.weui-cell_swiped>.weui-cell__ft {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    color: #fff;
+}
+
+.weui-cell__ft {
+    text-align: right;
+    color: #999;
+}
+
+.weui-swiped-btn_warn {
+    background-color: #ff3b30;
+}
+
+.weui-swiped-btn {
+    display: block;
+    padding: 50px 1em;
+    line-height: 1.47058824;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.weui-swiped-btn_default {
+    background-color: #c7c7cc;
+}
+
+.weui-swiped-btn {
+    display: block;
+    padding: 50px 1em;
+    line-height: 1.47058824;
+    color: #FFFFFF;
+    cursor: pointer;
+}

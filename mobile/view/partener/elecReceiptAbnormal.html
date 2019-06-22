@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>异常签收</title>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/eleReceiptAbnormal.css" />
+<style>
+  [v-cloak]{display: none !important;}
+</style>
+
+</head>
+<body ontouchstart  class="vue-page" style="background-color: #f9f9fc;">
+  <div class="receipt-wrapper" id="receiptWrapper" v-cloak> 
+    <div v-if="listReslut != null">
+      <!--回单详情-->
+      <div class="receipt-detail">
+        <div class="weui-flex">
+          <div class="left-title">配送单号：</div>
+          <div class="weui-flex__item wordwrap">{{listReslut.deliveryNo}}</div>
+        </div>
+        <div class="weui-flex">
+          <div class="left-title">订单客户：</div>
+          <div class="weui-flex__item">{{listReslut.receive.companyName}}</div>
+        </div>
+        <div class="weui-flex">
+          <div class="left-title">收货客户：</div>
+          <div class="weui-flex__item">{{listReslut.receive.companyName}}</div>
+        </div>
+        <div class="weui-flex">
+          <div class="left-title">收货地址：</div>
+          <div class="weui-flex__item">{{listReslut.receiveAddress}}</div>
+        </div>
+        <div v-if="showMore">
+          <div class="weui-flex">
+            <div class="left-title long">物流商名称：</div>
+            <div class="weui-flex__item">{{listReslut.convey.companyName}}</div>
+          </div>
+          <div class="weui-flex">
+            <div class="left-title">日期：</div>
+            <div class="weui-flex__item">{{listReslut.createTime | date}}</div>
+          </div>
+          <div class="weui-flex">
+            <div class="left-title">订单编号：</div>
+            <div class="weui-flex__item">{{listReslut.id}}</div>
+          </div>
+          <div class="weui-flex">
+            <div class="left-title">收货人员：</div>
+            <div class="weui-flex__item">{{listReslut.receiverName}}</div>
+          </div>
+          <div class="weui-flex">
+            <div class="left-title">联系方式：</div>
+            <div class="weui-flex__item">{{listReslut.receiverContact}}</div>
+          </div>
+          <div class="weui-flex">
+            <div class="left-title">订单备注：</div>
+            <div class="weui-flex__item">{{listReslut.remark}}</div>
+          </div>
+        </div>
+        <div class="see-more" @click="showMoreFun">查看更多</div>
+      </div>
+      <!--物料详情-->
+      <template v-if="listReslut.commodities.length != 0">
+        <div class="goods-detail table-like" v-for="item in listReslut.commodities">
+          <div class="weui-flex">
+            <div class="left-title">物料编号：</div>
+            <div class="weui-flex__item wordwrap">{{item.commodityNo}}</div>
+          </div>
+          <div class="weui-flex">
+            <div class="left-title">物料名称：</div>
+            <div class="weui-flex__item wordwrap">{{item.commodityName}}</div>
+          </div>
+          <p>产品型号</p>
+          <div class="weui-grids">
+            <div class="weui-grid">单位</div>
+            <div class="weui-grid">数量</div>
+            <div class="weui-grid">箱数</div>
+            <div class="weui-grid">体积</div>
+            <div class="weui-grid">重量</div>
+            <div class="weui-grid">pcs</div>
+            <div class="weui-grid">{{item.quantity}}</div>
+            <div class="weui-grid">{{item.boxCount}}</div>
+            <div class="weui-grid">{{item.volume}}</div>
+            <div class="weui-grid">{{item.weight}}</div>
+          </div>
+        </div>
+      </template>
+      <!--合计部分-->
+      <div class="total-part table-like">
+        <p>合计</p>
+        <div class="weui-grids">
+          <div class="weui-grid">单位</div>
+          <div class="weui-grid">数量</div>
+          <div class="weui-grid">箱数</div>
+          <div class="weui-grid">体积</div>
+          <div class="weui-grid">重量</div>
+          <div class="weui-grid">pcs</div>
+          <div class="weui-grid">{{listReslut.quantity | numberFixed}}</div>
+          <div class="weui-grid">{{listReslut.boxCount | numberFixed}}</div>
+          <div class="weui-grid">{{listReslut.volume | numberFixed}}</div>
+          <div class="weui-grid">{{listReslut.weight | numberFixed}}</div>
+        </div>
+      </div>
+      <!--异常部分-->
+      <div class="abnormal-part">
+        <p>异常说明</p>
+        <textarea class="weui-textarea txtarea" v-model="abnText" placeholder="请输入异常信息"></textarea>
+        <div class="abnormalInfo hide">
+          <div class="abnormal-text"></div>
+          <div class="weui-flex abnormal-seal">
+            <div class="weui-flex__item borderRight relative">
+              <p>物流商确认</p>
+              <img class="convey-seal" src="" alt="" />
+            </div>
+            <div class="weui-flex__item relative">
+              <p>发货客户确认</p>
+              <img class="shipper-seal" src="" alt="" />
+            </div>
+          </div>
+        </div>
+        <!--异常图片上传-->
+        <div class="weui-cell hide">
+            <div class="weui-cell__bd">
+              <div class="weui-uploader">
+                <div class="weui-uploader__hd">
+                  <p class="weui-uploader__title">上传异常照片</p>
+                </div>
+                <div class="weui-uploader__bd">
+                  <ul class="weui-uploader__files clearfix" id="uploaderFiles">
+                    <!--<li class="weui-uploader__file"">
+                      <img src="../../images/timg2.png" alt="" />
+                      <span class="close-img"></span>
+                    </li>-->
+                  </ul>
+                  <div class="weui-uploader__input-box" id="uploaderRecipt">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <!--盖章部分-->
+      <div class="seal-part">
+        <div class="weui-flex relative" :class="{pTop: listReslut.convey.sealDate}">
+          <div class="left-title">物流商签字(盖章)：</div>
+          <div class="weui-flex__item">{{listReslut.convey.companyName}}</div>
+          <img v-if="listReslut.convey.sealDate" class="conveyImg" :src="listReslut.convey.sealDate | addUrl"/>
+        </div>
+        <div class="weui-flex" style="padding:8px 0;">
+          <div class="left-title">联系电话：</div>
+          <div class="weui-flex__item wordwrap">{{listReslut.convey.mobilePhone}}</div>
+        </div>
+        <div class="weui-flex">
+          <div class="left-title">温馨提示：</div>
+          <div class="weui-flex__item wordwrap">物流配送责任以签收单据为主要依据，故请您严格按照收货标准验收签字、盖章确认。如有异常情况，请及时致电九阳物流。</div>
+        </div>
+        <div class="weui-flex">
+          <div class="left-title">杭州RDC：</div>
+          <div class="weui-flex__item wordwrap">0571-81639131</div>
+        </div>
+        <div class="weui-flex">
+          <div class="left-title">济南RDC：</div>
+          <div class="weui-flex__item wordwrap">0531-66720927</div>
+        </div>
+        <div class="weui-flex">
+          <div class="left-title">广州RDC：</div>
+          <div class="weui-flex__item wordwrap">0757-87760377</div>
+        </div>      
+      </div>
+      <!--确认部分-->
+      <div class="confirm-part">
+        <div class="weui-flex">
+          <div class="left-title">收货人签名：</div>
+          <div class="weui-flex__item wordwrap">{{listReslut.receive.employeeName}}</div>
+        </div>
+        <div class="weui-flex">
+          <div class="left-title">身份证号码：</div>
+          <div class="weui-flex__item wordwrap">{{listReslut.receive.idCardNo}}</div>
+        </div>
+        <div class="weui-flex">
+          <div class="left-title">收货日期：</div>
+          <div class="weui-flex__item wordwrap">{{listReslut.receiveTime | date}}</div>
+        </div>
+        <p>我已确认此配送单信息与实际接收货物数量、型号、配送标识（防窜货码）一致。</p>
+        <div class="relative">
+          <p :class="{pBottom: listReslut.receive.sealDate}">收货单位业务章：</p>
+          <img v-if="listReslut.receive.sealDate" class="receiveImg" :src="listReslut.receive.sealDate | addUrl" alt="" />
+        </div>
+        
+      </div>
+      <!--提交异常信息-->
+      <div class="weui-footer weui-footer_fixed-bottom">
+        <div class="logistic-btn">
+          <a href="javascript:;" class="weui-btn weui-btn_primary">提交异常信息</a>
+        </div>
+      </div>
+  </div>  
+    
+    
+  </div>
+<script src="../../lib/vue/vue.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../../lib/vue/moment.min.js"></script>
+<script type="text/javascript" src="../../lib/vue/common.vue.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/fastclick.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/filter_emoji.js" ></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+<script type="text/javascript" src="../../js/partener/eleReceiptAbnormal.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.WaybillScheduleMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.WaybillSchedule">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="groupid" jdbcType="INTEGER" property="groupid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="volume" jdbcType="DOUBLE" property="volume" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiver_tel" jdbcType="VARCHAR" property="receiverTel" />
+    <result column="receive_address" jdbcType="VARCHAR" property="receiveAddress" />
+    <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="fence_status" jdbcType="INTEGER" property="fenceStatus" />
+    <result column="schedule_status" jdbcType="INTEGER" property="scheduleStatus" />
+    <result column="arrive_day" jdbcType="INTEGER" property="arriveDay" />
+    <result column="arrive_hour" jdbcType="INTEGER" property="arriveHour" />
+    <result column="radius" jdbcType="DOUBLE" property="radius" />
+  </resultMap>
+
+    <sql id="include_column">
+        id,groupid,userid,createtime,remark,weight,volume,number,arrive_day,arrive_hour,receiver_name,receiver_tel,receive_address,contact_name,contact_phone,longitude,latitude,fence_status,schedule_status
+    </sql>
+
+    <select id="queryWaybillScheduleList" resultMap="BaseResultMap"
+            parameterType="com.ycg.ksh.entity.persistent.WaybillSchedule">
+        select
+        <include refid="include_column"/>
+        from waybill_schedule a where
+        <if test="groupid != null and groupid != ''">
+            and a.groupid =#{groupid}
+        </if>
+        <if test="keyword != null  and keyword != ''">
+            and (a.receiver_name like concat('%', #{keyword}, '%') or a.contact_name like concat('%', #{keyword}, '%')
+            or a.contact_phone like concat('%', #{keyword}, '%'))
+        </if>
+        <if test="fenceStatus != null and fenceStatus !=''">
+            and a.fence_status =#{fenceStatus}
+        </if>
+        <if test="scheduleStatus != null and scheduleStatus !=''">
+            and a.schedule_status =#{scheduleStatus}
+        </if>
+        <if test="userid != null and userid !=''">
+            and a.userid =#{userid}
+        </if>
+
+    </select>
+  
+  <insert id="saveBatchSchedule" parameterType="java.util.List">
+	  insert into waybill_schedule (groupid,userid,createtime,remark,weight,volume,number,receiver_name,receiver_tel,
+	  receive_address,contact_name,contact_phone,longitude,latitude,fence_status,schedule_status,arrive_day,arrive_hour,radius) values 
+	  <foreach collection="list" item="item" index="index" separator=",">
+	  	(#{item.groupid,jdbcType=INTEGER}, #{item.userid,jdbcType=INTEGER}, #{item.createtime,jdbcType=TIMESTAMP}, 
+      	#{item.remark,jdbcType=VARCHAR}, #{item.weight,jdbcType=DOUBLE}, #{item.weight,jdbcType=DOUBLE}, #{item.volume,jdbcType=DOUBLE},
+      	#{item.number,jdbcType=INTEGER}, #{item.receiverName,jdbcType=VARCHAR},#{item.receiverTel,jdbcType=VARCHAR},#{item.receiveAddress,jdbcType=VARCHAR},
+      	#{item.contactName,jdbcType=VARCHAR},#{item.contactPhone,jdbcType=VARCHAR},#{item.longitude,jdbcType=VARCHAR},#{item.latitude,jdbcType=VARCHAR},
+      	#{item.fenceStatus,jdbcType=INTEGER},#{item.scheduleStatus,jdbcType=INTEGER},#{item.arriveDay,jdbcType=INTEGER},#{item.arriveHour,jdbcType=INTEGER},#{item.radius,jdbcType=DOUBLE})
+	  </foreach>
+   </insert>
+</mapper>

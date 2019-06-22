@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.ManagingUsersMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.ManagingUsers">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="realname" jdbcType="VARCHAR" property="realName"/>
+        <result column="user_status" jdbcType="INTEGER" property="userStatus"/>
+        <result column="user_type" jdbcType="INTEGER" property="userType"/>
+    </resultMap>
+
+    <resultMap id="ManageUserMap" type="com.ycg.ksh.entity.service.ManageUser">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="realname" jdbcType="VARCHAR" property="realName"/>
+        <result column="user_status" jdbcType="INTEGER" property="userStatus"/>
+        <result column="user_type" jdbcType="INTEGER" property="userType"/>
+    </resultMap>
+
+
+    <sql id="include_column">
+        id, user_id,username,password,createtime,last_login_time,last_login_ip,realname,user_status,user_type
+    </sql>
+
+    <select id="queryUsersList" resultMap="ManageUserMap"
+            parameterType="com.ycg.ksh.entity.persistent.ManagingUsers">
+        select
+        <include refid="include_column"/>
+        from managing_users_tab
+        where user_status = 1
+        <if test="username!=null and username != ''">
+            AND username = #{username}
+        </if>
+        <if test="realName!=null and realName!=''">
+            AND realname = #{realName}
+        </if>
+    </select>
+
+    <insert id="saveUser" parameterType="com.ycg.ksh.entity.persistent.ManagingUsers">
+        INSERT INTO  managing_users_tab (user_id,username,password,createtime,last_login_time,last_login_ip,realname,user_status,user_type)
+        VALUES (#{userId},#{username},#{password},#{createTime},#{lastLoginTime},#{lastLoginIp},#{realName},#{userStatus},#{userType})
+    </insert>
+
+    <select id="checkUserInfo" parameterType="com.ycg.ksh.entity.persistent.ManagingUsers" resultMap="BaseResultMap">
+        SELECT
+        <include refid="include_column"/>
+        FROM managing_users_tab
+        WHERE username = #{username}
+    </select>
+    <select id="loadByUserID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        SELECT
+        <include refid="include_column"/>
+        FROM
+        managing_users_tab AS m
+        WHERE
+        m.id = ( SELECT MIN(id) FROM managing_users_tab WHERE user_id = #{userKey})
+    </select>
+
+</mapper>

@@ -1,0 +1,61 @@
+.trip {
+	text-align: center;
+	margin-top: 10%;
+}
+
+.tripIcon img {
+	width: 35%;
+	max-width: 100%;
+}
+
+.tripInfo {
+	margin-top: 4%;
+	color: #999999;
+}
+
+.btn_mbottom {
+	margin-top: 20%;
+	margin-bottom: 120px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.demos-content-padded {
+	text-align: center;
+	position: relative;
+}
+
+.weui-btn_default {
+	width: 48%;
+    height: 44px;
+    border-radius: 4px;
+    line-height: 44px;
+    font-size: 15px;
+    background-color: #FFFFFF;
+    color: #333333;
+    border: 1px solid #666666;
+    float: left;
+}
+
+/*覆盖框架原样式*/
+.weui-btn_primary {
+	width: 48%;
+	height: 44px;
+	line-height: 44px;
+	border-radius: 4px;
+	background: #0071FE;
+	font-size: 15px;
+	float: right;
+}
+
+.weui-btn:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}
+
+.weui-btn+.weui-btn {
+	margin-top: 0;
+}

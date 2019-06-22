@@ -1,0 +1,46 @@
+.tip {
+	height: 40px;
+	line-height:40px ;
+	background-color: #F2F2F2;
+	padding-left: 10px;;
+}
+.weui-cell__bd {
+  margin-left: 30px;	
+}
+.weui-cell {
+	padding: 0px;
+	border-bottom: 1px solid #eee;
+	}
+.weui-cells {
+		margin-top: 5px;
+	} 
+.weui-cell:before {
+	left: 0 ;
+	border: none;
+}
+.weui-cell__hd {
+  	padding: 10px;
+}
+.weui-cell__bd {
+	padding: 10px;
+	
+}
+.weui-cells:before, .weui-cells:after{
+ border: none;	
+}
+.weui-input {
+	text-align: right;
+}
+.weui-btn_primary {
+	border-radius: 10px;
+}
+.save {
+  margin-top: 30px;	
+}
+.select {
+	padding: 0;
+}
+.info {
+	color: #999;
+	/*text-align: right;*/
+}

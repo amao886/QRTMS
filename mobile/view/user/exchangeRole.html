@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>切换身份</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/user/exchangeRole.css" />
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#FFFFFF;">
+
+		<div id="content">
+			<template>
+				<div class="changeRoleTitle">
+					<div class="mine-part-photo">
+						<img v-if="headImg!=null&&headImg!=''" :src="headImg" />
+						<img v-else src="../../images/headPortrait.png" />
+					</div>
+					<p>您当前身份</p>
+					<!-- 身份类别-->
+					<h2 v-if="identify==1">司机</h2>
+					<h2 v-else-if="identify==2">货主</h2>
+					<h2 v-else-if="identify==3">承运商</h2>
+					<h2 v-else-if="identify==4">收货方</h2>
+				</div>
+				<div class="changeRolefooter">
+					<div v-if="identitys != null">
+						<a href="javascript:;" class="weui-btn weui-btn_primary " v-for="identity in identitys" @click="changeRole(identity.key)">切换为"我是{{identity.value}}"</a>
+						<a href="peopleCenter.html" class="weui-btn weui-btn_default">返回</a>
+					</div>
+				</div>
+			</template>
+		</div>
+		<!--底部导航-->
+		<div id="navBarIn"></div>
+
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../js/user/exchangeRole.js"></script>
+	</body>
+
+</html>

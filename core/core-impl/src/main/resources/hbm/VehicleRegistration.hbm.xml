@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ycg.ksh.core.scene.domain.model.VehicleRegistration" table="t_scene_vehicle_registration">
+        <id name="orderKey" column="order_key" type="java.lang.Long"/>
+        <property name="arrivalTime" column="arrival_time" type="java.time.LocalDateTime"/>
+        <component name="deliveryCar" class="com.ycg.ksh.core.scene.domain.model.DeliveryCar">
+            <property name="deliveryNo" column="delivery_no" type="java.lang.String"/>
+            <property name="driverName" column="driver_name" type="java.lang.String"/>
+            <property name="driverContact" column="driver_contact" type="java.lang.String"/>
+            <property name="license" column="license" type="java.lang.String"/>
+        </component>
+        <component name="arrivalsCar" class="com.ycg.ksh.core.scene.domain.model.ArrivalsCar">
+            <property name="arrivalType" column="arrival_type" type="java.lang.Integer"/>
+            <property name="inDriverName" column="in_driverName" type="java.lang.String"/>
+            <property name="inDriverContact" column="in_driverContact" type="java.lang.String"/>
+            <property name="inLicense" column="in_license" type="java.lang.String"/>
+        </component>
+    </class>
+</hibernate-mapping>

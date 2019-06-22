@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.adventive.AdventiveMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.adventive.Adventive">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ACCESS_KEY" jdbcType="BIGINT" property="accessKey" />
+    <result column="PUBLIC_KEY" jdbcType="VARCHAR" property="publicKey" />
+    <result column="PRIVATE_KEY" jdbcType="VARCHAR" property="privateKey" />
+    <result column="WHITE_LIST" jdbcType="VARCHAR" property="whiteList" />
+    <result column="HIS_CODE" jdbcType="VARCHAR" property="hisCode" />
+    <result column="COMPANY_KEY" jdbcType="BIGINT" property="companyKey" />
+    <result column="FREQUENCY" jdbcType="INTEGER" property="frequency" />
+    <result column="FREQUENCY_TYPE" jdbcType="INTEGER" property="frequencyType" />
+    <result column="MAX_TIMES" jdbcType="INTEGER" property="maxTimes" />
+    <result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
+    <result column="FETTLE" jdbcType="INTEGER" property="fettle" />
+    <result column="DELIVERY_URL" jdbcType="VARCHAR" property="deliveryUrl" />
+  </resultMap>
+</mapper>

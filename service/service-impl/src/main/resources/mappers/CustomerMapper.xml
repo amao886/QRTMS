@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.CustomerMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.Customer">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="group_id" jdbcType="INTEGER" property="groupId"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="contacts" jdbcType="VARCHAR" property="contacts"/>
+        <result column="contact_number" jdbcType="VARCHAR" property="contactNumber"/>
+        <result column="tel" jdbcType="VARCHAR" property="tel"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="district" jdbcType="VARCHAR" property="district"/>
+        <result column="fullAddress" jdbcType="VARCHAR" property="fullAddress"/>
+        <result column="longitude" jdbcType="DOUBLE" property="longitude"/>
+        <result column="latitude" jdbcType="DOUBLE" property="latitude"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="arrival_day" jdbcType="INTEGER" property="arrivalDay"/>
+        <result column="arrival_hour" jdbcType="INTEGER" property="arrivalHour"/>
+        <result column="company_customer_id" jdbcType="BIGINT" property="companyCustomerId"/>
+    </resultMap>
+
+    <select id="selectCustomer" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.service.AddressSearch">
+      SELECT * FROM customer_tab c LEFT JOIN user_hotspot_tab h ON (c.userid = h.user_id AND c.id = h.associate_key AND h.associate_type = 2)
+      <where>
+          <choose>
+              <when test="groupId != null and groupId gt 0">
+                  AND c.group_id = #{groupId}
+              </when>
+              <otherwise>
+                  <![CDATA[ AND c.userid = #{userId} AND c.group_id <= 0 ]]>
+              </otherwise>
+          </choose>
+          <if test="companyName != null and companyName !=''">
+              AND LOCATE(#{companyName}, c.company_name) > 0
+          </if>
+          <if test="contacts != null and contacts !=''">
+              AND LOCATE(#{contacts}, c.contacts) > 0
+          </if>
+          <if test="contactNumber != null and contactNumber !=''">
+              AND LOCATE(#{contactNumber}, c.contact_number) > 0
+          </if>
+          <if test="fullAddress != null and fullAddress !=''">
+              AND LOCATE(#{fullAddress}, c.fullAddress) > 0
+          </if>
+          <if test="type != null and type gt 0">
+              AND c.type = #{type}
+          </if>
+      </where>
+      ORDER BY h.hotspot_count DESC, c.createtime DESC
+    </select>
+
+    <!-- 关联客户查询 -->
+    <select id="queryCustomer" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.service.AddressSearch">
+        SELECT * FROM customer_tab c
+		<where>
+           <!--  <choose>
+                <when test="groupId != null and groupId gt 0">
+                    AND c.group_id = #{groupId}
+                </when>
+                <otherwise>
+                    <![CDATA[ AND c.userid = #{userId} AND c.group_id <= 0 ]]>
+                    <![CDATA[ AND (c.userid = #{userId} OR c.group_id IN (SELECT groupid FROM group_members_tab WHERE userid = #{userId})) ]]>
+                </otherwise>
+            </choose> -->
+             <choose>
+                <when test="companyId != null and companyId != 0">
+                     AND c.company_id = #{companyId}
+                </when>
+                <when test="groupId != null and groupId != 0">
+                	 AND c.group_id = #{groupId}
+              </when>
+            </choose>
+            <if test="companyName != null and companyName !=''">
+                AND LOCATE(#{companyName}, c.company_name) > 0
+            </if>
+            <if test="contacts != null and contacts !=''">
+                AND LOCATE(#{contacts}, c.contacts) > 0
+            </if>
+            <if test="contactNumber != null and contactNumber !=''">
+                AND LOCATE(#{contactNumber}, c.contact_number) > 0
+            </if>
+            <if test="fullAddress != null and fullAddress !=''">
+                AND LOCATE(#{fullAddress}, c.fullAddress) > 0
+            </if>
+            <if test="type != null and type gt 0">
+            	 AND c.type = #{type}
+            </if>
+		</where>
+		ORDER BY c.createtime DESC
+    </select>
+    
+    <!-- 关联客户查询 -->
+    <select id="queryCompanyCustomer" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.service.AddressSearch">
+        SELECT 
+	        c.id, 
+	        c.userid, 
+	        c.contacts, 
+	        c.contact_number, 
+	        c.tel, 
+	        c.address, 
+	        c.createtime, 
+	        c.updatetime, 
+	        c.province, 
+	        c.city,  
+	        c.district,  
+	        c.fullAddress,  
+	        c.type,  
+	        c.company_customer_id,
+	        cc.NAME AS company_name 
+        FROM customer_tab c
+        LEFT JOIN T_COMPANY_CUSTOMER cc ON c.company_customer_id = cc.`KEY`
+		<where>
+            cc.OWNER_KEY = #{companyId}
+            <if test="customerType != null and customerType gt 0">
+                AND cc.TYPE = #{customerType}
+            </if>
+            <if test="companyName != null and companyName !=''">
+                AND LOCATE(#{companyName}, cc.NAME) > 0
+            </if>
+            <if test="contacts != null and contacts !=''">
+                AND LOCATE(#{contacts}, c.contacts) > 0
+            </if>
+            <if test="contactNumber != null and contactNumber !=''">
+                AND LOCATE(#{contactNumber}, c.contact_number) > 0
+            </if>
+            <if test="fullAddress != null and fullAddress !=''">
+                AND LOCATE(#{fullAddress}, c.fullAddress) > 0
+            </if>
+            <if test="type != null and type gt 0">
+            	 AND c.type = #{type}
+            </if>
+		</where>
+		ORDER BY c.createtime DESC
+    </select>
+</mapper>

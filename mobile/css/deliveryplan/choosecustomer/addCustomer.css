@@ -1,0 +1,76 @@
+.mt0 {
+	margin-top: 0;
+}
+
+.weui-label {
+	color: #666666;
+}
+
+.weui-cell input {
+	color: #333333;
+}
+
+.weui-cell:before {
+	border-top: 1px solid #DDDDDD;
+}
+
+.weui-cells:before {
+	border-top: 1px solid #DDDDDD;
+}
+
+.weui-cells:after {
+	border-bottom: 1px solid #DDDDDD;
+}
+
+/* placeholder字体颜色重置 */
+input::-webkit-input-placeholder {
+	color: #999999;
+}
+
+input:-moz-placeholder {
+	color: #999999;
+}
+
+input::-moz-placeholder {
+	color: #999999;
+}
+
+input:-ms-input-placeholder {
+	color: #999999;
+}
+
+/*覆盖框架原样式*/
+.weui-btn_primary {
+	width: 90%;
+	height: 44px;
+	line-height: 44px;
+	border-radius: 4px;
+	background: #0071FE;
+	font-size: 15px;
+}
+
+.weui-btn:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}
+
+.chooseCustomer .weui-select {
+	color: #999;
+}
+
+.weui-select {
+	height: 1.41176471em;
+	line-height: 1.41176471;
+	padding-left: 0;
+}
+
+.weui-select option {
+	color: #999;
+}
+
+.choosed {
+	color: #333 !important;
+}

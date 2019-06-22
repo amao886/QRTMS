@@ -1,0 +1,177 @@
+/*发货订单*/
+/*公共类*/
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+/*清除浮动*/
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*主要内容*/
+.d_addTop,.d_addCenter,.d_addBottom{
+    background-color: #fff;
+    padding: 15px 30px;
+    margin-bottom: 18px;
+}
+
+/*标题 发货订单*/
+.deliveryOrder{
+    font-size: 34px;
+    color: #333;
+    margin: 15px 0 45px 0;
+}
+
+#tempName{
+    border: 1px solid #999;
+    width: 445px;
+    height: 50px;
+    line-height: 50px;
+    margin-left: 20px;
+    text-indent: 2em;
+}
+/*设置结果预览*/
+.setTit{
+    margin-bottom: 35px;
+}
+.addlist{
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    width: 1006px;
+}
+.addlist li{
+    float: left;
+}
+.addlist li div{
+    border-left: 1px solid #999;
+    border-top: 1px solid #999;
+    padding: 15px 15px;
+    text-align: center;
+}
+
+/*步骤*/
+.addstep{
+    width: 410px;
+    margin-right: 2%;
+    font-size: 14px;
+}
+.addstep div{
+    margin: 25px 0;
+    color: #333;
+    font-size: 13px;
+}
+.addstep div span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #0675FF;
+    margin-right: 15px;
+}
+table{
+    width: 100%;
+    color: #333;
+}
+td{
+    border:1px solid #999999;
+    border-collapse: collapse;
+    /*width: 33.33%;*/
+    color: #333333;
+    text-align: center;
+    padding: 5px;
+}
+td:nth-child(1){
+    width: 25%;
+}
+td:nth-child(2){
+    width: 55%;
+}
+td:nth-child(3){
+    width: 10%;
+}
+td:nth-child(4){
+    width: 10%;
+}
+.customTab tr td:nth-child(2){
+    width: 35%;
+}
+.customTab tr td:nth-child(2){
+    width: 35%;
+}
+.customTab tr td:nth-child(3){
+    width: 10%;
+}
+.customTab tr td:nth-child(4){
+    width: 10%;
+}
+.customTab tr td:nth-child(5){
+    width: 10%;
+}
+.customTab tr td input{
+    width: 100%;
+}
+.customTab tr td:nth-last-child(3) span{
+    /*display: inline-block;
+    width: 20px;
+    height: 20px;*/
+    margin: 0 5px;
+    padding:0 5px;
+    border: 1px solid #999;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 17px;
+    cursor: pointer;
+}
+.customTab tr td:nth-last-child(2) span:nth-child(1){
+    padding:0px 7px 1px;
+}
+
+/*底部按钮*/
+.dabBottom{
+    margin-top: 100px;
+    margin-top: 100px;
+    width: 400px;
+}
+
+.dabBottom button{
+    padding:10px 25px;
+    color: #fff;
+    background-color: #21A1F1;
+    margin: 0 10px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+button:nth-child(1){
+    margin-left: 25%;
+}
+
+.chooseFiledCheckBox input[type="checkbox"]{
+	appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    display: none;
+}
+
+.chooseFiledCheckBox input[type="checkbox"]+span {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url(../images/icon_checkbox.png) no-repeat;
+    background-position-x: 0px;
+    background-position-y: -25px;
+    position: relative;
+    top: 3px;
+   	cursor: pointer;
+}
+
+.chooseFiledCheckBox input[type="checkbox"]:checked+span {
+    background-position: 0 0px
+}

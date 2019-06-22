@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.SysMenuMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.SysMenu">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="P_ID" jdbcType="INTEGER" property="pId"/>
+        <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName"/>
+        <result column="MENU_URL" jdbcType="VARCHAR" property="menuUrl"/>
+        <result column="MENU_FETTLE" jdbcType="INTEGER" property="menuFettle"/>
+        <result column="MENU_ICON" jdbcType="VARCHAR" property="menuIcon"/>
+        <result column="CODE" jdbcType="VARCHAR" property="code"/>
+        <result column="MENU_TYPE" jdbcType="INTEGER" property="type"/>
+        <result column="ID_KEY" jdbcType="VARCHAR" property="idKey"/>
+    </resultMap>
+
+    <resultMap id="UserMenuMap" type="com.ycg.ksh.entity.service.AuthorityMenu">
+        <result column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName"/>
+        <result column="MENU_URL" jdbcType="VARCHAR" property="menuUrl"/>
+        <result column="MENU_ICON" jdbcType="VARCHAR" property="menuIcon"/>
+        <result column="CODE" jdbcType="VARCHAR" property="code"/>
+        <result column="MENU_TYPE" jdbcType="INTEGER" property="type"/>
+        <result column="MENU_FETTLE" jdbcType="INTEGER" property="fettle"/>
+        <result column="ID_KEY" jdbcType="VARCHAR" property="idKey"/>
+    </resultMap>
+
+    <select id="listEmployeeAuthorityByPKey" resultMap="UserMenuMap">
+        SELECT
+        M.ID, M.MENU_NAME, M.MENU_URL, M.MENU_ICON, M.CODE, M.CODE, M.MENU_TYPE, M.MENU_FETTLE, M.ID_KEY
+        FROM
+        T_EMPLOYEE_AUTHORITY A LEFT JOIN T_SYS_MENU M ON M.ID = A.AUTHORITY_ID
+        WHERE
+        A.COMPANY_ID = #{arg0} AND A.EMPLOYEE_ID = #{arg1} AND M.P_ID = #{arg2}
+        <if test="arg3 != null and arg3 gt 0">
+            AND M.MENU_TYPE= #{arg3}
+        </if>
+    </select>
+    <select id="listByPKey" resultMap="UserMenuMap">
+        SELECT
+        m.ID, m.MENU_NAME, m.MENU_URL, m.MENU_ICON, m.CODE, m.MENU_TYPE, m.MENU_FETTLE, m.ID_KEY
+        FROM
+        T_SYS_MENU m
+        WHERE
+        m.P_ID = #{arg0} AND (m.MENU_FETTLE = 1 OR m.MENU_FETTLE = 3)
+        <if test="arg1 != null and arg1 gt 0">
+            AND m.MENU_TYPE= #{arg1}
+        </if>
+    </select>
+    <select id="listAll" resultMap="BaseResultMap">
+        SELECT M.* FROM T_SYS_MENU M WHERE (M.MENU_FETTLE = 1 OR M.MENU_FETTLE = 3)
+    </select>
+    <select id="listAllByRoleKey" resultMap="BaseResultMap">
+        SELECT
+        M.*
+        FROM
+        T_SYS_MENU M
+        LEFT JOIN T_SYS_ROLE_MENU RM ON M.ID = RM.M_ID
+        LEFT JOIN T_SYS_ROLE R ON R.ID = RM.R_ID
+        WHERE
+        R.ID = #{arg0} AND (M.MENU_FETTLE = 1 OR M.MENU_FETTLE = 3) AND R.ROLE_FETTLE = 1
+        <if test="arg1 != null and arg1 gt 0">
+            AND M.MENU_TYPE= #{arg1}
+        </if>
+    </select>
+    <select id="listByRoleKey" resultMap="UserMenuMap">
+        SELECT
+        m.ID, m.MENU_NAME, m.MENU_URL, m.MENU_ICON, m.CODE, m.MENU_TYPE, m.MENU_FETTLE, m.ID_KEY
+        FROM
+        T_SYS_MENU m
+        LEFT JOIN T_SYS_ROLE_MENU rm ON m.ID = rm.M_ID
+        LEFT JOIN T_SYS_ROLE r ON r.ID = rm.R_ID
+        WHERE
+        m.P_ID = #{arg1} AND r.ID = #{arg0} AND (m.MENU_FETTLE = 1 OR m.MENU_FETTLE = 3) AND r.ROLE_FETTLE = 1
+        <if test="arg2 != null and arg2 gt 0">
+            AND m.MENU_TYPE= #{arg2}
+        </if>
+    </select>
+
+    <select id="listByEmployeePid" resultMap="UserMenuMap">
+        SELECT
+        MS.ID ,
+        MS.MENU_NAME,
+        MS.MENU_URL,
+        MS.MENU_ICON,
+        MS.CODE,
+        MS.MENU_TYPE,
+        MS.ID_KEY
+        FROM T_SYS_MENU MS WHERE MS.ID
+        IN (
+        SELECT
+        M.P_ID
+        FROM
+        T_EMPLOYEE_AUTHORITY A
+        LEFT JOIN T_SYS_MENU M ON M.ID = A.AUTHORITY_ID
+        WHERE
+        A.COMPANY_ID = #{arg0} AND A.EMPLOYEE_ID = #{arg1}
+        <if test="arg2 != null and arg2 gt 0">
+            AND M.MENU_TYPE= #{arg2}
+        </if>
+        )
+    </select>
+
+</mapper>

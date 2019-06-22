@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.InvalidOrderMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.ObsoleteOrder">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="BIND_CODE" jdbcType="VARCHAR" property="bindCode" />
+    <result column="ORDER_NO" jdbcType="VARCHAR" property="orderNo" />
+    <result column="DELIVERY_NO" jdbcType="VARCHAR" property="deliveryNo" />
+    <result column="SHIPPER_ID" jdbcType="BIGINT" property="shipperId" />
+    <result column="RECEIVE_ID" jdbcType="BIGINT" property="receiveId" />
+    <result column="CLIENT_TYPE" jdbcType="INTEGER" property="clientType" />
+    <result column="CONVEY_ID" jdbcType="BIGINT" property="conveyId" />
+    <result column="RECEIVER_NAME" jdbcType="VARCHAR" property="receiverName" />
+    <result column="RECEIVER_CONTACT" jdbcType="VARCHAR" property="receiverContact" />
+    <result column="RECEIVE_ADDRESS" jdbcType="VARCHAR" property="receiveAddress" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="FETTLE" jdbcType="INTEGER" property="fettle" />
+    <result column="SIGN_FETTLE" jdbcType="INTEGER" property="signFettle" />
+    <result column="DELIVERY_TIME" jdbcType="TIMESTAMP" property="deliveryTime" />
+    <result column="RECEIVE_TIME" jdbcType="TIMESTAMP" property="receiveTime" />
+    <result column="ARRIVAL_TIME" jdbcType="TIMESTAMP" property="arrivalTime" />
+    <result column="ARRIVED_TIME" jdbcType="TIMESTAMP" property="arrivedTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="INVALID_USER_ID" jdbcType="INTEGER" property="invalidUserId" />
+    <result column="INVALID_TIME" jdbcType="TIMESTAMP" property="invalidTime" />
+    <result column="IS_RECEIPT" jdbcType="INTEGER" property="isReceipt" />
+    <result column="INSERT_TYPE" jdbcType="INTEGER" property="insertTYpe" />
+  </resultMap>
+
+  <sql id="include_column">
+    O.ID,
+    O.BIND_CODE,
+    O.ORDER_NO,
+    O.DELIVERY_NO,
+    O.SHIPPER_ID,
+    O.RECEIVE_ID,
+    O.CLIENT_TYPE,
+    O.CONVEY_ID,
+    O.RECEIVER_NAME,
+    O.RECEIVER_CONTACT,
+    O.RECEIVE_ADDRESS,
+    O.LOCATION,
+    O.FETTLE,
+    O.SIGN_FETTLE,
+    O.DELIVERY_TIME,
+    O.RECEIVE_TIME,
+    O.ARRIVAL_TIME,
+    O.REMARK,
+    O.CREATE_USER_ID,
+    O.CREATE_TIME,
+    O.UPDATE_TIME,
+    O.INVALID_USER_ID,
+    O.IS_RECEIPT,
+    O.INVALID_TIME
+  </sql>
+
+</mapper>

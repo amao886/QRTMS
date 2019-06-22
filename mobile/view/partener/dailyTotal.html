@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<title>发货统计</title>
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/dailyTotal.css" />
+
+</head>
+<body ontouchstart style="background:#fafafa;">
+	<!--状态筛选-->
+	<div class="task-status">
+		<div class="weui-flex">
+	      	<div class="task-status-item deliver-team">
+	      		<select name="" id="sel-project"></select>
+	      		<span class="select-down"></span>
+	      	</div>
+	      	<div class="task-status-item deliver-year">
+	      		<select name="" id="sel-year">
+	      			<option value="2016">2016年</option>
+	      			<option value="2017">2017年</option>
+	      			<option value="2018">2018年</option>
+	      		</select>
+	      		<span class="select-down"></span>
+	      	</div>
+	      	<div class="task-status-item deliver-month">
+	      		<select name="" id="sel-month">
+	      			<option value="1">1月</option>
+	      			<option value="2">2月</option>
+	      			<option value="3">3月</option>
+	      			<option value="4">4月</option>
+	      			<option value="5">5月</option>
+	      			<option value="6">6月</option>
+	      			<option value="7">7月</option>
+	      			<option value="8">8月</option>
+	      			<option value="9">9月</option>
+	      			<option value="10">10月</option>
+	      			<option value="11">11月</option>
+	      			<option value="12">12月</option>	
+	      		</select>
+	      		<span class="select-down"></span>
+	      	</div>
+	    </div>
+	</div>
+	<!--发货统计内容-->
+	<div class="count-con" id="countCon"></div>
+	<!--底部导航-->
+	<div id="navBarIn"></div>
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/x-jsrender" id="selectOption">
+	<option value="{{:id}}">{{:groupName}}</option>
+</script>
+<script type="text/x-jsrender" id="countList">
+	<div class="count-con-item">
+		<div class="count-con-item-con">
+			<div class="weui-flex">
+				<div class="weui-flex__item">
+					<p class="count-con-item-title"><b>{{:createTime}}</b></p>
+				</div>
+				<div class="weui-flex__item">
+					按时送达率: <span class="color-mark">{{:sendRate}}</span>
+				</div>
+			</div>
+			<div class="weui-flex">
+				<div class="weui-flex__item">
+					发货任务数：<span class="color-mark">{{:allCount}}</span>
+				</div>
+				<div class="weui-flex__item">
+					应到任务数: <span class="color-mark">{{:toCount}}</span>
+				</div>
+			</div>
+			<div class="weui-flex">
+				<div class="weui-flex__item">
+					已送达任务数：<span class="color-mark">{{:sendCount}}</span>
+				</div>
+				<div class="weui-flex__item">
+					按时送达任务数: <span class="color-mark">{{:timeCount}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../js/partener/dailyTotal.js"></script>
+<script>
+</script>
+</body>
+</html>

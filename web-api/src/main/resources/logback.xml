@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration debug="false">
+	<contextName>web-api</contextName>
+	<property name="LOG_PATH" value="${catalina.home:-.}/logs" />
+	<property name="LOG_NAME" value="web-api" />
+
+	<!-- Console -->
+	<!-- Console -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender" target="System.out">
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder" charset="UTF-8">
+			<layout class="com.ycg.ksh.common.extend.logback.FrameworkPatternLayout">
+				<pattern>%cn %host %d{yyyyMMddHHmmss.SSS} [%ower] %lo{50} - %msg%n</pattern>
+			</layout>
+		</encoder>
+		<target>System.out</target>
+	</appender>
+
+	<appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--<prudent>true</prudent>-->
+		<file>${LOG_PATH}/${LOG_NAME}_error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${LOG_NAME}_error-%d{yyyyMMdd}.%i.log.zip</fileNamePattern>
+			<maxFileSize>50MB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder" charset="UTF-8">
+			<layout class="com.ycg.ksh.common.extend.logback.FrameworkPatternLayout">
+				<pattern>%cn %host %d{yyyyMMddHHmmss.SSS} %-5level [%ower] %lo[%line] - %msg%n</pattern>
+			</layout>
+		</encoder>
+		<!-- 追加方式记录日志 -->
+		<append>true</append>
+		<!-- 临界值过滤器, 过滤掉所有低于ERROR级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+	</appender>
+
+	<appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--<prudent>true</prudent>-->
+		<file>${LOG_PATH}/${LOG_NAME}_info.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${LOG_NAME}_info-%d{yyyyMMdd}.%i.log.zip</fileNamePattern>
+			<maxFileSize>50MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>3GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder" charset="UTF-8">
+			<layout class="com.ycg.ksh.common.extend.logback.FrameworkPatternLayout">
+				<pattern>%cn %host %d{yyyyMMddHHmmss.SSS} [%ower] %lo{50} - %msg%n</pattern>
+			</layout>
+		</encoder>
+		<!-- 追加方式记录日志 -->
+		<append>true</append>
+		<!-- 临界值过滤器, 过滤掉所有低于INFO级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+	</appender>
+
+	<appender name="FILE_DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--<prudent>true</prudent>-->
+		<file>${LOG_PATH}/${LOG_NAME}_debug.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${LOG_NAME}_debug-%d{yyyyMMdd}.%i.log.zip</fileNamePattern>
+			<maxFileSize>50MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>6GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder" charset="UTF-8">
+			<layout class="com.ycg.ksh.common.extend.logback.FrameworkPatternLayout">
+				<pattern>%cn %host %d{yyyyMMddHHmmss.SSS} %-5level [%ower] %lo{50} - %msg%n</pattern>
+			</layout>
+		</encoder>
+		<!-- 追加方式记录日志 -->
+		<append>true</append>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE_ERROR" />
+		<appender-ref ref="FILE_INFO" />
+		<appender-ref ref="FILE_DEBUG" />
+	</root>
+	<logger name="com.ycg.ksh" level="DEBUG" />
+</configuration>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.ImageInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.ImageInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="exception_repor_id" jdbcType="INTEGER" property="exceptionReporId" />
+    <result column="receiptid" jdbcType="INTEGER" property="receiptid" />
+    <result column="verify_status" jdbcType="INTEGER" property="verifyStatus" />
+    <result column="verify_remark" jdbcType="VARCHAR" property="verifyRemark" />
+    <result column="verify_uid" jdbcType="INTEGER" property="verifyUid" />
+    <result column="verify_date" jdbcType="TIMESTAMP" property="verifyDate" />
+  </resultMap>
+  
+  
+  <select id="selectByReceiptId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	SELECT * FROM address_tab WHERE receiptid = #{receiptId} ORDER BY createtime DESC
+  </select>
+  
+  <select id="selectByExceptionId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	SELECT * FROM address_tab WHERE exception_repor_id = #{exceptionId} ORDER BY createtime DESC
+  </select>
+  
+  <update id="updateVerifyStatusByWaybillId">
+  	UPDATE 
+  		address_tab a 
+  	SET 
+  		a.verify_status=#{arg2}, a.verify_uid=#{arg1}, a.verify_date=now() 
+  	WHERE 
+  		EXISTS(SELECT 1 FROM receipt_tab where id = a.receiptid AND waybillid = #{arg0})
+  </update>
+  
+  <insert id="inserts" useGeneratedKeys="true" parameterType="java.util.List">
+  	<selectKey resultType="long" keyProperty="id" order="AFTER">  
+        SELECT  
+        LAST_INSERT_ID()  
+    </selectKey>  
+    insert into address_tab (path, createtime, exception_repor_id, receiptid, verify_status, verify_remark, verify_uid, verify_date)   
+    values  
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.path},#{item.createtime},#{item.exceptionReporId},#{item.receiptid},#{item.verifyStatus},#{item.verifyRemark},#{item.verifyUid},#{item.verifyDate})  
+    </foreach>
+  </insert>
+</mapper>

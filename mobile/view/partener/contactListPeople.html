@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>我的好友</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/partener/contactListPeople.css" />
+</head>
+
+<body ontouchstart style="background:#ededed;">
+<div class="contactListPeople">
+	<div class="people-item">
+		<div class="img-item">
+			<img src="../../images/contactPeople.png" alt="" />
+		</div>
+		<div class="text-item">
+			<h2 id="peopleName"></h2>
+			<p id="phoneNum"></p>
+		</div>
+		<span class="register"></span>
+	</div>
+	<div class="add-remark">
+		<a href="javascript:;" class="setRemark">设置备注</a>
+	</div>
+	<div class='demos-content-padded hide' id="btnWrapper">
+		<a href="javascript:;" class="weui-btn weui-btn_primary" id="inviteReg">邀请注册</a>
+		<a href="javascript:;" class="weui-btn weui-btn_default" id="call">打电话</a>
+	</div>
+	<!--复制内容-->
+	<input type="text" class="paste-input" id="pasteText" value="关注合同物流管理平台公众号，有货即发、中转外包、车辆定位，协作更高效。"/>
+	
+	<div class="weui-footer weui-footer_fixed-bottom">
+		<div class="weui-flex">
+			<div class="delete-people" id="deletePeople">删除好友</div>
+		</div>
+	</div>
+	
+	<!--邀请注册-->
+	<div class="add-edit-address hide" id="inviteRegBox">
+    	<div class="add-edit-con">
+    		<div class="add-edit-head">
+    			<p>邀请注册</p>
+    		</div>
+    		<div class="add-edit-body">
+    			<p style="margin-bottom: 15px;color:#999;">关注合同物流管理平台公众号，有货即发、中转外包、车辆定位，协作更高效。</p>
+    			<!--<p style="font-size:12px;color:#999;">• 短信邀请好友，每人每天最多3次</p>-->
+    		</div>
+    		<div class="add-edit-foot">
+    			<a href="javascript:;" data-clipboard-action="copy" data-clipboard-target="#pasteText" class="paste-text" id="paste">复制内容</a>
+    			<a href="javascript:;" class="send-text" id="sendText">发短信</a>
+    			<a href="javascript:;" class="addr-cancel" id="boxCancel">取消</a>
+    		</div>
+    	</div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/clipboard.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../js/partener/contactListPeople.js"></script>
+</body>
+</html>

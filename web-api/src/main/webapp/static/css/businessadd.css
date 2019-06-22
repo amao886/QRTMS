@@ -1,0 +1,43 @@
+
+/*===每日统计===*/
+body{
+	padding:10px 10px 0;
+	font-size:14px;
+}
+.custom-content{
+	padding:0 15px;
+	background:#fff;
+	height:100%;
+}
+.col-min{width:10%;}
+.col-xs-min{width:3%;min-width: 40px;}
+.col-middle{width:21%;}
+.col-max{width:34%;}
+
+.text-c{ text-align:center;}
+
+form{text-align:center;}
+.formUl{display: inline-block;text-align:left; margin:50px auto;}
+.formUl li{ margin-top:20px;}
+.formUl label{font-size:14px; font-weight:normal; width:120px; text-align:right;}
+.formUl label em{color:red; margin-right:3px;}
+.formUl div.inputBox{ display:inline;}
+.formUl div.inputBox input[type='text']{width: 300px;height: 30px; padding:0 5px;border:#eee solid 1px; }
+.formUl div.inputBox input[type='button']{width:80px;height: 30px;color:#fff;background:#31acfa; border-radius: 3px;}
+ 
+ 
+.imgUpBox .formUl li .label{width:140px;}
+.imgUpBox .imgboxCon{width:136px;position:relative; display: inline-block;vertical-align: top;}
+.imgUpBox .imgShowBox{border:1px solid #eee;width:136px;height:136px;}
+.imgUpBox .imgShowBox img{width:100%;height:99.9%;}
+.imgUpBox .imgOprateBox{position:absolute;width:100%;height:100%;left:0;top:0;}
+.imgUpBox .imgOprateBox .imgInput{width:100%;height:100%;padding:0;margin:0;position: absolute;z-index:2; cursor:pointer;opacity: 0;filter:alpha(opacity=0);  -moz-opacity:0;  -khtml-opacity: 0;}
+.imgUpBox .imgOprateBox .imgUpBtn{display:block;width:136px;height:136px;background:url(../images/imgup_btn.png) no-repeat;cursor:pointer; z-index:1;}
+.imgUpBox .imgOprateBox .imgDelBtn{width:100%;line-height:20px;text-align: center; background:#000;color:#fff;font-size:12px; opacity:0.7;position: absolute; bottom:0; left:0; display:none; cursor:pointer;z-index: 9;}
+
+/*****开通电子签收*/
+.formUl label.agreeLabel{width:100%;text-indent: 124px;}
+.formUl label.agreeLabel a{color:#31acfa;text-decoration: underline !important;}
+
+
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.SignRecordMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.SignRecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="RELATION_ID" jdbcType="BIGINT" property="relationId" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="STARTTIME" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="ENDTIME" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="SIGEN_COUNT" jdbcType="INTEGER" property="sigenCount" />
+    <result column="MODIFY_ID" jdbcType="INTEGER" property="modifyId" />
+  </resultMap>
+</mapper>

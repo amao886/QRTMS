@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>收货完成</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/partener/receiveGoodFinish.css" />
+
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#FFFFFF;">
+		<div id="reveiveGoodFinish">
+			<div class="trip">
+				<div class="tripIcon">
+					<img src="../../images/tickyellowicon.png" />
+				</div>
+				<div class="tripInfo">
+					{{tripContent}}
+				</div>
+			</div>
+	
+			<div class="demos-content-padded btn_mbottom">
+				<a href="javascript:;" class="weui-btn weui-btn_default" @click="backReceiveGoodManage">返回收货管理</a>
+				<a href="javascript:;" class="weui-btn weui-btn_primary" @click="backHome">返回首页</a>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../js/partener/receiveGoodFinish.js"></script>
+	</body>
+
+</html>

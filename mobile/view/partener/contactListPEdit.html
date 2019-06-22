@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>编辑资料</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/partener/contactListPEdit.css" />
+</head>
+
+<body ontouchstart style="background:#fafafa;">
+<div class="contactListPEdit">
+	<div class="weui-cells margin-top">
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+				<label class="weui-label"><span class="w2">姓名</span></label>
+			</div>
+			<div class="weui-cell__bd" id="friendName"></div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+				<label class="weui-label"><span class="w3">手机号</span></label>
+			</div>
+			<div class="weui-cell__bd" id="friendPhone"></div>
+		</div>
+    </div>
+	<div class="weui-cells weui-cells_form">
+	    <div class="weui-cell">
+	        <div class="weui-cell__hd"><label class="weui-label"><span class="w4">所属公司</span></label></div>
+	        <div class="weui-cell__bd">
+	          	<input class="weui-input" type="text" id="companyName" placeholder="请输入好友所在公司名称">
+	        </div>
+	    </div>
+	    <div class="weui-cell">
+	        <div class="weui-cell__hd"><label class="weui-label"><span class="w2">备注</span></label></div>
+	        <div class="weui-cell__bd">
+	          	<input class="weui-input" type="text" maxlength="10" id="remarkText" placeholder="请输入其他备注信息">
+	        </div>
+	    </div>
+    </div>
+    <p style="font-size: 12px;color: #aaa;padding: 3px 0 0 15px;">备注不能超过10个字</p>
+    <div class='demos-content-padded'>
+		<a href="javascript:;" class="weui-btn weui-btn_primary" id="saveFriend">保存</a>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../js/partener/contactListPEdit.js"></script>
+</body>
+</html>

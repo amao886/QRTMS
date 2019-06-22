@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.AppVersionMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.AppVersion">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="version_number" jdbcType="VARCHAR" property="versionNumber" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="version_type" jdbcType="VARCHAR" property="versionType" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="forced_update" jdbcType="BIT" property="forcedUpdate" />
+    <result column="description_content" jdbcType="VARCHAR" property="descriptionContent" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, version_number, url, version_type, createtime, forced_update,description_content
+  </sql>
+  <select id="queryLastEntity" resultMap="BaseResultMap">
+  	SELECT 
+  		<include refid="Base_Column_List"/>
+  	FROM
+  		app_version
+  	ORDER   BY   
+  		id   
+  	DESC   LIMIT   1
+  </select>
+</mapper>

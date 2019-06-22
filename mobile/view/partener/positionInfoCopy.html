@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>上报位置</title>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css?time=1516074194">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css?time=1516074194">
+<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css?time=1516074194">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/positionInfo.css" />
+
+</head>
+	<body>
+	<!--定位+扫码提示-->
+	<div class="head-tips head-location-success">
+      <div class="success-tip" style="display: none;">恭喜您！扫码成功</div>
+    </div>
+	<!--扫二维码图片-->
+	<div class="public_wechat" id="picShow">
+		
+	</div>
+	
+	<!--任务详情-->
+	<div class="bill-detail-con positionCopy">
+		<span class="loadBoard" id="loadBoard" style="display: none;">装货上车</span>
+		<div id="billDetailCon"></div>
+	</div>
+	
+	<!--底部操作-->
+	<div class="weui-footer weui-footer_fixed-bottom" id="weuiFoot">
+	  	<div class="footer-con clearfix">
+	  		<div class="footer-con-handle" id="toIndex">
+	      		<img src="../../images/index-new.png" alt="" />
+	      		<p>首页</p>
+	      	</div>
+	      	<div id="exceptionReport" class="footer-con-handle">
+	      		<img src="../../images/abnormal_icon.png" alt="" />
+	      		<p class="txt_highlight">异常上报</p>
+	      	</div>
+	      	<div id="receipt" class="footer-con-handle">
+	      		<img src="../../images/upload_icon.png" alt="" />
+	      		<p>上传回单</p>
+	      	</div>
+	      	<div id="scanCode" class="footer-con-handle">
+	      		<img src="../../images/sao_icon.png" alt="" />
+	      		<p>继续扫码</p>
+	      	</div> 	
+	    </div>
+	</div>
+	<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js?time=1516074194"></script>
+	<script type="text/javascript" src="../../lib/js/json2.js?time=1516074194"></script>
+	<script type="text/javascript" src="../../lib/js/jquery.cookie.js?time=1516074194"></script>
+	<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js?time=1516074194"></script>
+	<script type="text/javascript" src="../../lib/coordtransform-master/index.js?time=1516074194"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js?time=1516074194"></script>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=a4e0b28c9ca0d166b8872fc3823dbb8a"></script>
+	<script type="text/javascript" src="../../lib/js/jsrender-min.js?time=1516074194"></script>
+	<script type="text/x-jsrender" id="imgShow">
+		{{if subscribe == 0}}
+			<img src="../../images/public_img.png" />	
+		{{/if}}
+	</script>
+	<script type="text/x-jsrender" id="codeList">
+		<div class="detail-con-title clearfix">
+	        <div class="title_left fl"><span>任务详情</span></div>
+	    </div>
+	    <div class="weui-flex">
+	        <div class="txt_left">任务单号：</div>
+	        <div class="weui-flex__item txt_right">{{:barcode}}</div>
+	    </div>
+	    <div class="weui-flex">
+	        <div class="txt_left">最新位置：</div>
+	        <div class="weui-flex__item txt_right latestText"></div>
+	    </div>
+	</script>
+	<script type="text/javascript" src="../../lib/function/common.js?time=1516074194"></script>
+	<script type="text/javascript" src="../../lib/function/easy.cookie.js?time=1516074194"></script>
+	<script type="text/javascript" src="../../lib/function/easy.config.js?time=1516074194"></script>	
+	<script type="text/javascript" src="../../lib/function/easy.ajax.js?time=1516074194"></script>	
+	<script type="text/javascript" src="../../lib/function/weixin.js?time=1516074194"></script>
+	<script type="text/javascript" src="../../js/partener/positionInfoCopy.js?time=1516074194"></script>
+	</body>
+</html>

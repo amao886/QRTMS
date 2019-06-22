@@ -1,0 +1,50 @@
+.weui-cells:before {
+	border-top: none;
+}
+
+.weui-cell.txtarea {
+	padding-bottom: 20px;
+}
+
+.txtarea textarea {
+	width: 100%;
+	border: 1px solid #e6e6e6;
+	height: 130px;
+	resize: none;
+	border-radius: 6px;
+	outline: none;
+	text-indent: 10px;
+	padding-top: 6px;
+	color: #333333;
+}
+
+.complain {
+	margin-top: 0;
+	margin-bottom: 20px;
+}
+
+.btn_mbottom {
+	margin-bottom: 120px;
+}
+
+/*覆盖框架原样式*/
+.weui-btn_primary {
+	width: 90%;
+	height: 44px;
+	line-height: 44px;
+	border-radius: 4px;
+	background: #0071FE;
+	font-size: 15px;
+}
+
+.weui-btn:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}
+
+.txtarea textarea::-webkit-input-placeholder {
+	color: #666666;
+}

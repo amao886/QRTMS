@@ -1,0 +1,125 @@
+body,html{
+  height: 100%;
+  margin: 0px;
+}
+
+/*====布局开始====*/
+.line-wrapper{font-size:0;margin:20px 0;}
+.line-wrapper>.line-part{display:inline-block;}
+.line-wrapper>.line-part+.line-part{margin-left:2%;}
+.line-part{position:relative;color:#333;font-size:14px;}
+.line-part:after{
+	content: '';
+    display: block;
+    height: 0;
+    clear: both;
+}    
+.line-part .float-tag{
+	float: left; 
+	width:72px;
+	height:26px;
+	line-height:26px;
+	text-align: right;
+}
+.line-part .text-tag{margin-left:78px;}
+.line-part.large-tag .float-tag{
+	width:98px;
+}
+.line-part.large-tag .text-tag{margin-left:104px;}
+
+.line-part .text-tag>.input-tag,
+.line-part .text-tag>.select-tag
+{
+	width:100%;
+	height:26px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border:1px solid #dedede;
+	text-indent: 4px;
+	border-radius: 4px;
+}
+.line-part .text-tag>.select-tag{text-indent: 0;}
+/* 右边不是输入框，是文本的情况 */
+.line-part .text-tag>.p-tag{
+	height:26px;
+	line-height:26px;
+}
+
+/*====布局结束====*/
+.detail-content{
+	position:relative;
+	padding:0 24px 1px 15px;
+	background:#fff;
+	min-height:100%;
+	color:#333;
+}
+.title-style{padding-top:25px;font-size:16px;color:#31acfa;}
+.arrive-style{position:absolute;top:10px;right: 40px;}
+.arrive-style>button{
+	margin-left: 10px;
+	vertical-align: middle;
+	height: 28px;
+	line-height: 28px;
+	padding: 0 10px;
+    font-size: 12px;
+}
+.sendGoods,.dcontent-part{margin-bottom:30px;}
+.ul-wrapper{
+	font-size:0;
+}
+.ul-wrapper>li{
+	display:inline-block;
+	vertical-align:top;
+	width:23.5%;
+	padding:20px 10px;
+	font-size:14px;
+	color:#636363;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	background:#f6f6f6;
+	min-height:174px;
+}
+.ul-wrapper>li+li{
+	margin-left:2%;
+}
+.ul-wrapper>li>h2{
+	margin-bottom:8px;
+	font-size:20px;
+	color:#333;
+}
+.ul-wrapper>li .line-part{
+	color:#636363;
+	padding:4px 0;
+}
+.ul-wrapper>li .line-part .float-tag{
+	height:auto;
+	line-height:auto;
+}
+.ul-wrapper>li .line-part .p-tag{height:auto;line-height:auto;}
+.dcontent-part{
+	padding:20px 10px;
+	background:#f6f6f6;
+}
+.dcontent-part h2 {
+    font-size: 20px;
+    padding: 0px 0px 12px;
+}
+.docs-pictures img{
+	width: 100px !important;
+	height: 68px;
+}
+.dcontent-part .table-style th{
+	padding:10px 0;
+	background:#fafafa;
+}
+.dcontent-part .table-style td{
+	padding:7px 0;
+	background:#fff;
+}
+.dcontent-part table{margin-top:0;}
+
+
+
+

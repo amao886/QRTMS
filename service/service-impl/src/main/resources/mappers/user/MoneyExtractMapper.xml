@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.user.MoneyExtractMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.user.MoneyExtract">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="EXTRACT_ID" jdbcType="VARCHAR" property="extractId" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="EXTRACT_VALUE" jdbcType="BIGINT" property="extractValue" />
+    <result column="HANDLE_TYPE" jdbcType="INTEGER" property="handleType" />
+    <result column="APPLY_TIME" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="HANDLE_TIME" jdbcType="TIMESTAMP" property="handleTime" />
+  </resultMap>
+</mapper>

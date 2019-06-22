@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>上报位置</title>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/positionInfo.css" />
+
+</head>
+	<body>
+	<!--定位+扫码提示-->
+	<div class="head-tips head-location-success">
+      <div class="success-tip" style="display: none;">恭喜您！扫码成功</div>
+      <div class="location-tip" style="display: none;" id="locationTip"><span class="loc-icon"></span><div id="address" data-latitude="" data-longitude=""></div></div>
+    </div>
+	<!--扫二维码图片-->
+	<div class="public_wechat" id="picShow">
+		
+	</div>
+	
+	<!--任务详情-->
+	<div class="bill-detail-con" id="billDetailCon">
+
+	</div>
+	
+	<!--底部操作-->
+	<div class="weui-footer weui-footer_fixed-bottom" id="weuiFoot">
+	  	<div class="footer-con clearfix">
+	  		<div class="footer-con-handle" id="toIndex">
+	      		<img src="../../images/index-new.png" alt="" />
+	      		<p>首页</p>
+	      	</div>
+	      	<div id="exceptionReport" class="footer-con-handle">
+	      		<img src="../../images/abnormal_icon.png" alt="" />
+	      		<p class="txt_highlight">异常上报</p>
+	      	</div>
+	      	<div id="receipt" class="footer-con-handle">
+	      		<img src="../../images/upload_icon.png" alt="" />
+	      		<p>上传回单</p>
+	      	</div>
+	      	<div id="scanCode" class="footer-con-handle">
+	      		<img src="../../images/sao_icon.png" alt="" />
+	      		<p>继续扫码</p>
+	      	</div> 	
+	    </div>
+	</div>
+	<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../../lib/js/json2.js"></script>
+	<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+	<script type="text/javascript" src="../../lib/coordtransform-master/index.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=a4e0b28c9ca0d166b8872fc3823dbb8a"></script>
+	<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+	<script type="text/x-jsrender" id="imgShow">
+		{{if subscribe == true}}
+		<img src="../../images/public_img.png" class="hide" />
+		{{else}}
+		<img src="../../images/public_img.png" />
+		{{/if}}
+	</script>
+	<script type="text/x-jsrender" id="codeList">
+		<div class="detail-con-title clearfix" id="detailConTitle" uid = "{{:waybillId}}">
+	        <div class="title_left fl" id="toMyTaskDetail"><span>任务详情</span></div>
+	        <div class="title_right fr" id="toMyTask"><a href="javascript:;">查看其它任务</a></div>
+	    </div>
+	    <div class="weui-flex">
+	        <div class="txt_left">任务单号:</div>
+	        <div class="weui-flex__item txt_right">{{:barcode}}</div>
+	    </div>
+	    <div class="weui-flex">
+	        <div class="txt_left">送货单号:</div>
+	        <div class="weui-flex__item txt_right">{{:deliveryNumber}}</div>
+	    </div>
+	    <div class="weui-flex">
+	        <div class="txt_left">收货客户:</div>
+	        <div class="weui-flex__item txt_right">{{:companyName}}</div>
+	    </div>
+	    <div class="weui-flex">
+	        <div class="txt_left"><span class="add_space">联系人</span>:</div>
+	        <div class="weui-flex__item txt_right">{{:contacts}}</div>
+	    </div>
+	   <div class="weui-flex">
+	        <div class="txt_left">联系电话:</div>
+	        <div class="weui-flex__item txt_right">{{:contactNumber}}</div>
+	    </div>
+	    <div class="weui-flex">
+	        <div class="txt_left">收货地址:</div>
+	        <div class="weui-flex__item txt_right">{{:fullAddress}}</div>
+	    </div>
+	    <div class="weui-flex">
+	        <div class="txt_left">任务摘要:</div>
+	        <div class="weui-flex__item txt_right">{{:orderSummary}}</div>
+	    </div>
+	</script>
+	<script type="text/javascript" src="../../lib/function/common.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.config.js"></script>	
+	<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>	
+	<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+	<script type="text/javascript" src="../../js/partener/positionInfo.js"></script>
+	</body>
+</html>

@@ -1,0 +1,50 @@
+.err_con {
+	padding-top: 30%;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.text {
+	float: left;
+	padding-top: 25%;
+	padding-left: 5%;
+}
+
+.title {
+	color: #333333;
+	font-size: 35px;
+}
+
+.content {
+	color: #333333;
+	font-size: 14px;
+	padding-top: 5%;
+	width: 112px;
+}
+
+.icon {
+	width: 56%;
+	float: right;
+}
+
+.icon img {
+	max-width: 100%;
+}
+
+/*覆盖框架原样式*/
+.weui-btn_primary {
+	width: 90%;
+	height: 44px;
+	line-height: 44px;
+	border-radius: 4px;
+	background: #0071FE;
+	font-size: 15px;
+}
+
+.weui-btn:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}

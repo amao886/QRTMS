@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.enterprise.OrderShareMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.enterprise.OrderShare">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="SHARE_COMPANY_KEY" jdbcType="BIGINT" property="shareCompanyKey"/>
+        <result column="SHARE_COMPANY_NAME" jdbcType="VARCHAR" property="shareCompanyName"/>
+        <result column="SHARE_USER_KEY" jdbcType="INTEGER" property="shareUserKey"/>
+        <result column="SHARE_ORDER_KEY" jdbcType="BIGINT" property="shareOrderKey"/>
+        <result column="RECEIVE_COMPANY_KEY" jdbcType="BIGINT" property="receiveCompanyKey"/>
+        <result column="RECEIVE_COMPANY_NAME" jdbcType="VARCHAR" property="receiveCompanyName"/>
+        <result column="SHARE_TIME" jdbcType="TIMESTAMP" property="shareTime"/>
+    </resultMap>
+
+    <resultMap id="OrderResultMap" type="com.ycg.ksh.entity.service.enterprise.OrderAlliance">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="BIND_CODE" jdbcType="VARCHAR" property="bindCode"/>
+        <result column="ORDER_NO" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="DELIVERY_NO" jdbcType="VARCHAR" property="deliveryNo"/>
+        <result column="SHIPPER_ID" jdbcType="BIGINT" property="shipperId"/>
+        <result column="RECEIVE_ID" jdbcType="BIGINT" property="receiveId"/>
+        <result column="CLIENT_TYPE" jdbcType="INTEGER" property="clientType"/>
+        <result column="CONVEY_ID" jdbcType="BIGINT" property="conveyId"/>
+        <result column="RECEIVER_NAME" jdbcType="VARCHAR" property="receiverName"/>
+        <result column="RECEIVER_CONTACT" jdbcType="VARCHAR" property="receiverContact"/>
+        <result column="RECEIVE_ADDRESS" jdbcType="VARCHAR" property="receiveAddress"/>
+        <result column="LOCATION" jdbcType="VARCHAR" property="location"/>
+        <result column="FETTLE" jdbcType="INTEGER" property="fettle"/>
+        <result column="SIGN_FETTLE" jdbcType="INTEGER" property="signFettle"/>
+        <result column="DELIVERY_TIME" jdbcType="TIMESTAMP" property="deliveryTime"/>
+        <result column="RECEIVE_TIME" jdbcType="TIMESTAMP" property="receiveTime"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+        <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="IS_RECEIPT" jdbcType="INTEGER" property="isReceipt"/>
+        <result column="SHARE_NAME" jdbcType="VARCHAR" property="shareName"/>
+    </resultMap>
+
+    <select id="selectMySharingCompanyConcise"
+            resultType="com.ycg.ksh.entity.service.enterprise.CompanyConcise">
+        SELECT
+        DISTINCT
+            <choose>
+                <when test="arg0 == 2">
+                    (a.RECEIVE_COMPANY_KEY) as id, (a.RECEIVE_COMPANY_NAME) as companyName
+                </when>
+                <otherwise>
+                    (a.SHARE_COMPANY_KEY) as id, (a.SHARE_COMPANY_NAME) as companyName
+                </otherwise>
+            </choose>
+        FROM
+        T_ORDER_SHARE a
+        <where>
+            <choose>
+                <when test="arg0 == 2">
+                    AND a.SHARE_COMPANY_KEY = #{arg1}
+                </when>
+                <otherwise>
+                    AND a.RECEIVE_COMPANY_KEY = #{arg1}
+                </otherwise>
+            </choose>
+            <if test="arg2 != null and arg2 != ''">
+                AND LOCATE(#{arg1}, a.RECEIVE_COMPANY_NAME) > 0
+            </if>
+        </where>
+        ORDER BY a.SHARE_TIME DESC
+    </select>
+
+    <select id="selectShipperCompanyConcise"
+            resultType="com.ycg.ksh.entity.service.enterprise.CompanyConcise">
+        SELECT
+        DISTINCT c.ID, c.COMPANY_NAME
+        FROM
+        T_COMPANY c
+        LEFT JOIN T_ORDER o ON c.ID = o.SHIPPER_ID
+        LEFT JOIN T_ORDER_SHARE s ON o.ID = s.SHARE_ORDER_KEY
+        <where>
+            <choose>
+                <when test="arg0 == 1">
+                    AND s.SHARE_COMPANY_KEY = #{arg1}
+                </when>
+                <otherwise>
+                    AND s.RECEIVE_COMPANY_KEY = #{arg1}
+                </otherwise>
+            </choose>
+            <if test="arg2 != null and arg2 != ''">
+                AND LOCATE(#{likeString}, c.COMPANY_NAME) > 0
+            </if>
+        </where>
+    </select>
+    <select id="selectOrderBySomething" resultMap="OrderResultMap"
+            parameterType="com.ycg.ksh.entity.service.enterprise.ShareOrderSearch">
+        SELECT
+        o.*
+        <choose>
+            <when test="from == true">
+                , s.RECEIVE_COMPANY_NAME AS SHARE_NAME
+            </when>
+            <otherwise>
+                , s.SHARE_COMPANY_NAME AS SHARE_NAME
+            </otherwise>
+        </choose>
+        FROM
+        T_ORDER o
+        LEFT JOIN T_ORDER_SHARE s ON o.ID = s.SHARE_ORDER_KEY
+        <where>
+            <choose>
+                <when test="from == true">
+                    AND s.SHARE_COMPANY_KEY = #{companyKey}
+                </when>
+                <otherwise>
+                    AND s.RECEIVE_COMPANY_KEY = #{companyKey}
+                </otherwise>
+            </choose>
+            <if test="targetKey != null and targetKey gt 0">
+                <choose>
+                    <when test="from == true">
+                        AND s.RECEIVE_COMPANY_KEY = #{targetKey}
+                    </when>
+                    <otherwise>
+                        AND s.SHARE_COMPANY_KEY = #{targetKey}
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="likeString != null and likeString !=''">
+                AND (
+                (LOCATE(#{likeString}, o.ID) > 0) OR
+                (LOCATE(#{likeString}, o.BIND_CODE) > 0) OR
+                (LOCATE(#{likeString}, o.ORDER_NO) > 0) OR
+                (LOCATE(#{likeString}, o.DELIVERY_NO) > 0) OR
+                (LOCATE(#{likeString}, o.RECEIVER_NAME) > 0) OR
+                (LOCATE(#{likeString}, o.RECEIVE_ADDRESS) > 0)
+                )
+            </if>
+            <if test="firstTime != null">
+                <![CDATA[ AND o.CREATE_TIME >= #{firstTime} ]]>
+            </if>
+            <if test="secondTime != null">
+                <![CDATA[ AND o.CREATE_TIME <= #{secondTime} ]]>
+            </if>
+            <if test="uploadReceipt != null">
+                <choose>
+                    <when test="uploadReceipt == true">
+                        AND o.IS_RECEIPT > 0
+                    </when>
+                    <otherwise>
+                        <![CDATA[ AND o.IS_RECEIPT <= 0 ]]>
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+        ORDER BY s.SHARE_TIME DESC
+    </select>
+</mapper>

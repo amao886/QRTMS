@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.CompanyBankVerifyMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.CompanyBankVerify">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="COMPANY_ID" jdbcType="BIGINT" property="companyId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="CARD_NO" jdbcType="VARCHAR" property="cardNo" />
+    <result column="SUB_BRANCH" jdbcType="VARCHAR" property="subBranch" />
+    <result column="BANK" jdbcType="VARCHAR" property="bank" />
+    <result column="PROVICE" jdbcType="VARCHAR" property="provice" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="PRCPTCD" jdbcType="VARCHAR" property="prcptcd" />
+    <result column="CREATE_ID" jdbcType="INTEGER" property="createId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="FETTLE" jdbcType="INTEGER" property="fettle" />
+    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="CHECK_AMOUNT" jdbcType="DOUBLE" property="checkAmount" />
+    <result column="ERROR_MSG" jdbcType="VARCHAR" property="errorMsg" />
+
+  </resultMap>
+  
+  <resultMap id="resultMap" type="com.ycg.ksh.entity.service.CompanyBank" extends="BaseResultMap">
+  	<result column="COMPANY_ID" jdbcType="BIGINT" property="companyId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="CARD_NO" jdbcType="VARCHAR" property="cardNo" />
+  </resultMap>
+  <select id="queryCompanyBank"  resultMap="resultMap" parameterType="java.lang.Integer">
+  		SELECT 
+  			COMPANY_ID,NAME,CARD_NO
+  		FROM
+  			T_COMPANY_BANK_VERIFY
+  		WHERE 
+  			COMPANY_ID = 
+  		(SELECT COMPANY_ID FROM T_COMPANY_EMPLOYEE WHERE EMPLOYEE_ID = #{userId})
+  </select>
+  <!-- 根据企业编号查询 -->
+  <select id="queryByCompanyKey"  resultMap="BaseResultMap" parameterType="java.lang.Long">
+  		SELECT 
+  			*
+  		FROM
+  			T_COMPANY_BANK_VERIFY
+  		WHERE
+  		    ID = (SELECT MAX(ID) FROM T_COMPANY_BANK_VERIFY WHERE COMPANY_ID = #{companyKey})
+  </select>
+  
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.ImageStorageMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.ImageStorage">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="image_type" jdbcType="INTEGER" property="imageType"/>
+        <result column="associate_key" jdbcType="VARCHAR" property="associateKey"/>
+        <result column="storage_time" jdbcType="TIMESTAMP" property="storageTime"/>
+        <result column="storage_path" jdbcType="VARCHAR" property="storagePath"/>
+    </resultMap>
+
+    <insert id="inserts" parameterType="java.util.List">
+        insert into
+        image_storage_tab (id, image_type, associate_key, storage_path, storage_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.imageType}, #{item.associateKey}, #{item.storagePath}, #{item.storageTime})
+        </foreach>
+    </insert>
+</mapper>

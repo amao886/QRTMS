@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<title>任务单号绑定</title>
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/bindBarCodeNew.css" />
+<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+
+</head>
+<body ontouchstart style="background:#fafafa;">
+	<div class="weui-cells weui-cells_form margin-top bindBarCodeNew">
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label margin-left">任务单号绑定</label>
+			</div>
+			<div class="weui-cell__bd">
+				<p id="waybillNum"></p>
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span>*</span>送货单号</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" type="text" id="delivercode" name="delivercode" placeholder="请输入送货单号">
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span>*</span>发货人</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" type="text" id="deliverName" name="deliverName" placeholder="请输入发货人名称">
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span>*</span>收货客户</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" type="text" id="receiverName" name="receiverName" placeholder="请输入收货客户">
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span>*</span>联系人</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" type="text" id="contacts" name="contacts" placeholder="请输入联系人姓名">
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span>*</span>联系电话</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" type="tel" id="contactPhone" name="contactPhone" placeholder="请输入联系电话">
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span>*</span>联系地址</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" type="text" id="contactAddress" name="contactAddress" placeholder="请输入联系地址">
+			</div>
+		</div>
+<!--		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label" style="padding-left:12px;width:93px;">重量</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" style="background:#ddd;" type="tel" id="weight" readonly="readonly" name="weight" placeholder="请输入重量">
+			</div>
+		</div>	-->	
+<!--		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label" style="padding-left:12px;width:93px;">体积</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" style="background:#ddd;" type="tel" id="volum" readonly="readonly" name="volum" placeholder="请输入体积">
+			</div>
+		</div>	-->	
+<!--		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label" style="padding-left:12px;width:93px;">数量</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" style="background:#ddd;" type="tel" readonly="readonly" id="number" name="number" placeholder="请输入数量">
+			</div>
+		</div>-->		
+		<div class="weui-cell project-label-w">
+			<div class="weui-cell__hd">
+			  <label class="weui-label margin-left">要求到货时间</label>
+			</div>			
+		</div>
+		<div class="weui-cell project-bd">
+			<div class="weui-cell__bd" style="padding-left:12px;">
+			 	发货后<select name="arriveDay" id="arriveDay">
+			 			    <option value="">请选择第几天</option>
+							<option value="0">当天</option>
+							<option value="1">第1天</option>
+							<option value="2">第2天</option>
+							<option value="3">第3天</option>
+							<option value="4">第4天</option>
+							<option value="5">第5天</option>
+							<option value="6">第6天</option>
+							<option value="7">第7天</option>
+							<option value="8">第8天</option>
+							<option value="9">第9天</option>
+							<option value="10">第10天</option>
+							<option value="11">第11天</option>
+							<option value="12">第12天</option>
+							<option value="13">第13天</option>
+							<option value="14">第14天</option>
+							<option value="15">第15天</option>
+							<option value="16">第16天</option>
+							<option value="17">第17天</option>
+							<option value="18">第18天</option>
+							<option value="19">第19天</option>
+							<option value="20">第20天</option>
+							<option value="21">第21天</option>
+							<option value="22">第22天</option>
+							<option value="23">第23天</option>
+							<option value="24">第24天</option>
+							<option value="25">第25天</option>
+							<option value="26">第26天</option>
+							<option value="27">第27天</option>
+							<option value="28">第28天</option>
+							<option value="29">第29天</option>
+							<option value="30">第30天</option>
+							<option value="31">第31天</option>
+			 		</select>
+			 		<select class="project-select" id="arriveHour" name="arriveHour">
+			 			    <option value="">请选择时间点</option>
+							<option value="1">凌晨1点</option>
+							<option value="2">2点</option>
+							<option value="3">3点</option>
+							<option value="4">4点</option>
+							<option value="5">5点</option>
+							<option value="6">6点</option>
+							<option value="7">7点</option>
+							<option value="8">8点</option>
+							<option value="9">9点</option>
+							<option value="10">10点</option>
+							<option value="11">11点</option>
+							<option value="12">12点</option>
+							<option value="13">13点</option>
+							<option value="14">14点</option>
+							<option value="15">15点</option>
+							<option value="16">16点</option>
+							<option value="17">17点</option>
+							<option value="18">18点</option>
+							<option value="19">19点</option>
+							<option value="20">20点</option>
+							<option value="21">21点</option>
+							<option value="22">22点</option>
+							<option value="23">23点</option>
+							<option value="24">24点</option>
+			 		</select>之前
+			</div>
+		</div>
+		<!--经纬度+定位地址-->
+		<input type="hidden" id="address" />
+		<input type="hidden" id="latitude" />
+		<input type="hidden" id="longitude" />
+	</div>
+  <div class="goodsDetail">
+    <div class="goodsDetailLine">
+      <div class="gWidth">重量(kg)</div>
+      <div class="gWidth">体积(m³)</div>
+      <div class="gWidth">数量(件)</div>
+    </div>
+    <div class="goodsDetailLine">
+      <div class="gWidth one-line-hide" id="weight">0</div>
+      <div class="gWidth one-line-hide" id="volum">0</div>
+      <div class="gWidth one-line-hide" id="number">0</div>
+    </div>
+  </div>
+	<div class="weui-flex">
+    <div class="weui-flex__item p_tips">带*为必填项</div>
+    <div class="weui-flex__item" style="text-align: right;"><span class="editGoodsDetail" id="editGoodsDetail">修改物料信息</span></div>
+  </div>
+	<div class='demos-content-padded'>
+		<a href="javascript:;" id="showTooltips" class="weui-btn weui-btn_primary">确定</a>
+	</div>
+	<div id="navBarIn"></div>
+	<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../../lib/js/json2.js"></script>
+	<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+	<script type="text/javascript" src="../../lib/coordtransform-master/index.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=a4e0b28c9ca0d166b8872fc3823dbb8a"></script>
+	<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+	<script type="text/javascript" src="../../lib/function/common.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+	<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+	<script type="text/javascript" src="../../js/common/navBar.js"></script>
+	<script type="text/javascript" src="../../js/common/filter_emoji.js" ></script>
+	<script type="text/javascript" src="../../lib/function/city.js"></script>
+	<script type="text/javascript" src="../../lib/function/select.js"></script>
+	<script type="text/javascript" src="../../js/partener/bindBarCodeNew.js"></script>
+</body>
+</html>
+
+

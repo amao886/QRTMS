@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.FriendsMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.Friends">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="pid" jdbcType="INTEGER" property="pid"/>
+        <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone"/>
+        <result column="full_name" jdbcType="VARCHAR" property="fullName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="friends_type" jdbcType="INTEGER" property="friendsType"></result>
+    </resultMap>
+
+    <resultMap id="FriendUser" type="com.ycg.ksh.entity.service.FriendUser">
+        <result column="fkey" jdbcType="INTEGER" property="fkey"/>
+        <result column="owner_key" jdbcType="INTEGER" property="ownerKey"/>
+        <result column="friend_key" jdbcType="INTEGER" property="friendKey"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="remark_mobile" jdbcType="VARCHAR" property="remarkMobile"/>
+        <result column="remark_name" jdbcType="VARCHAR" property="remarkName"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="type" jdbcType="INTEGER" property="type"></result>
+        <result column="subscribe" jdbcType="INTEGER" property="subscribe"></result>
+    </resultMap>
+
+    <sql id="include_column">
+        id,
+        userid,
+        pid,
+        mobile_phone,
+        full_name,
+        create_time,
+        company,
+        update_time,
+        remark,
+        friends_type
+    </sql>
+
+    <select id="checkFriendsFlag" resultType="int" parameterType="com.ycg.ksh.entity.persistent.Friends">
+        select count(id) from friends_tab
+        <where>
+            <if test="userid != null and userid gt 0">
+                AND userid = #{userid}
+            </if>
+            <if test="pid != null and pid gt 0">
+                AND pid = #{pid}
+            </if>
+            <if test="mobilePhone != null and mobilePhone != ''">
+                AND mobile_phone = #{mobilePhone}
+            </if>
+        </where>
+    </select>
+
+    <select id="listFriends" resultMap="BaseResultMap"
+            parameterType="com.ycg.ksh.entity.service.FriendsSerach">
+        SELECT
+        <include refid="include_column"></include>
+        FROM friends_tab WHERE userid = #{userId}
+        <if test="likeString!=null and likeString !=''">
+            AND mobile_phone LIKE CONCAT('%', #{likeString,jdbcType=VARCHAR}, '%') OR full_name LIKE CONCAT('%', #{likeString,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="registered != null and registered == true">
+            AND pid > 0
+        </if>
+    </select>
+
+    <select id="getFriendUser" resultMap="FriendUser">
+        SELECT
+            f.id AS fkey,
+            f.userid AS owner_key,
+            f.mobile_phone AS remark_mobile,
+            f.full_name AS remark_name,
+            f.company AS company,
+            f.remark AS remark,
+            f.friends_type AS type,
+            u.id AS friend_key,
+            u.uname AS user_name,
+            u.mobilephone AS mobile,
+            u.createtime AS createtime,
+            u.password AS subscribe
+        FROM
+            user_tab u LEFT JOIN (SELECT * FROM friends_tab WHERE userid = #{arg0}) f ON f.pid = u.id
+        WHERE
+            u.id = #{arg1}
+    </select>
+
+    <select id="listFriendUser" resultMap="FriendUser" parameterType="com.ycg.ksh.entity.service.FriendsSerach">
+        SELECT
+            f.id AS fkey,
+            f.userid AS owner_key,
+            f.mobile_phone AS remark_mobile,
+            f.full_name AS remark_name,
+            f.company AS company,
+            f.remark AS remark,
+            f.friends_type AS type,
+            u.id AS friend_key,
+            u.uname AS user_name,
+            u.mobilephone AS mobile,
+            u.createtime AS createtime,
+            u.password AS subscribe
+        FROM
+            friends_tab f LEFT JOIN user_tab u ON f.pid = u.id
+            LEFT JOIN user_hotspot_tab h ON (f.userid = h.user_id AND f.id = h.associate_key AND h.associate_type =1)
+        WHERE
+            f.userid = #{userId}
+        <if test="registered !=null">
+            <choose>
+                <when test="registered == true">
+                    AND f.pid > 0
+                </when>
+                <when test="registered == false">
+                    <![CDATA[ AND f.pid <= 0 OR f.pid IS NULL ]]>
+                </when>
+            </choose>
+        </if>
+        <if test="likeString != null and likeString != ''">
+            AND (
+                (LOCATE(#{likeString}, f.mobile_phone) > 0) OR
+                (LOCATE(#{likeString}, u.mobilephone) > 0) OR
+                (LOCATE(#{likeString}, f.full_name) > 0) OR
+                (LOCATE(#{likeString}, f.company) > 0)
+            )
+        </if>
+        ORDER BY h.hotspot_count DESC, f.create_time DESC
+    </select>
+</mapper>

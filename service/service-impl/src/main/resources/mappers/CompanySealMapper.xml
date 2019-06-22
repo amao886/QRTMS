@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.CompanySealMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.CompanySeal">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="COMPANY_ID" jdbcType="BIGINT" property="companyId"/>
+        <result column="FETTLE" jdbcType="INTEGER" property="fettle"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="SEAL_DATA" jdbcType="LONGVARCHAR" property="sealData"/>
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName"/>
+        <result column="SEAL_TYPE" jdbcType="VARCHAR" property="sealType"/>
+        <result column="COPYWRITING" jdbcType="VARCHAR" property="copyWriting"/>
+        <result column="SECURITY_CODE" jdbcType="VARCHAR" property="securityCode"/>
+
+    </resultMap>
+
+    <sql id="referenceSql">
+          a.ID,a.COMPANY_ID,a.SEAL_DATA,a.FETTLE,a.USER_ID,a.CREATE_TIME,a.UPDATE_TIME,a.COMPANY_NAME,a.SEAL_TYPE,a.COPYWRITING,a.SECURITY_CODE
+    </sql>
+    <select id="getCompanySealByCompanyKey" resultMap="BaseResultMap">
+      SELECT   <include refid="referenceSql"/> from T_COMPANY_SEAL a where COMPANY_ID = #{companyKey}
+    </select>
+    <select id="listCompanySeals" resultMap="BaseResultMap">
+        SELECT c.* FROM T_COMPANY_SEAL c LEFT JOIN T_EMPLOYEE_SEAL e ON c.ID = e.AUTHORIZE_SEAL_ID WHERE e.COMPANY_ID = #{arg0} AND e.EMPLOYEE_ID = #{arg1} AND c.FETTLE = 1
+        <if test="arg2 != null and arg2 !=''">
+            AND c.COMPANY_NAME  like concat('%', #{arg2,jdbcType=VARCHAR}, '%')
+        </if>
+    </select>
+
+    <select id="pageCompanySeal" resultMap="BaseResultMap"
+            parameterType="com.ycg.ksh.entity.persistent.CompanySeal">
+        SELECT
+        <include refid="referenceSql"/>
+        FROM T_COMPANY_SEAL a WHERE COMPANY_ID = #{companyId}
+        <if test="companyName !=null and companyName !=''">
+            and COMPANY_NAME  like concat('%', #{companyName,jdbcType=VARCHAR}, '%')
+        </if>
+    </select>
+</mapper>

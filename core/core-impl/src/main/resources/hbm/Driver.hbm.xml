@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ycg.ksh.core.driver.domain.model.Driver" table="t_driver">
+        <id name="identify" column="driver_key" type="java.lang.Long"/>
+        <property name="name" column="driver_name" type="java.lang.String"/>
+        <property name="phone" column="driver_phone" type="java.lang.String"/>
+        <property name="registerTime" column="driver_register_time" type="java.time.LocalDateTime"/>
+        <set name="cars" cascade="all,delete-orphan" lazy="false">
+            <key column="driver_key"/>
+            <one-to-many class="com.ycg.ksh.core.driver.domain.model.DriverCar"/>
+        </set>
+        <set name="routes" cascade="all,delete-orphan" lazy="false">
+            <key column="driver_key"/>
+            <one-to-many class="com.ycg.ksh.core.driver.domain.model.DriverRoute"/>
+        </set>
+    </class>
+
+    <class name="com.ycg.ksh.core.driver.domain.model.DriverCar" table="t_driver_car">
+        <id name="id" type="java.lang.String" column="id"/>
+        <property name="driverKey" column="driver_key" type="java.lang.Long"/>
+        <property name="type" column="car_type" type="java.lang.Integer"/>
+        <property name="length" column="car_length" type="java.lang.Float"/>
+        <property name="loadValue" column="car_load_value" type="java.lang.Float"/>
+        <property name="license" column="car_license" type="java.lang.String"/>
+    </class>
+
+    <class name="com.ycg.ksh.core.driver.domain.model.DriverRoute" table="t_driver_route">
+        <id name="id" type="java.lang.String" column="id"/>
+        <property name="driverKey" column="driver_key" type="java.lang.Long"/>
+        <property name="type" column="route_type" type="java.lang.Integer"/>
+        <property name="start" column="route_start" type="java.lang.String"/>
+        <property name="end" column="route_end" type="java.lang.String"/>
+    </class>
+
+</hibernate-mapping>

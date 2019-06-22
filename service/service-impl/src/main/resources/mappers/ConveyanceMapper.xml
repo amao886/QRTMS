@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.ConveyanceMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.Conveyance">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="parent_key" jdbcType="BIGINT" property="parentKey"/>
+        <result column="waybill_key" jdbcType="INTEGER" property="waybillKey"/>
+        <result column="barcode" jdbcType="VARCHAR" property="barcode"/>
+        <result column="delivery_number" jdbcType="VARCHAR" property="deliveryNumber"/>
+        <result column="conveyance_number" jdbcType="VARCHAR" property="conveyanceNumber"/>
+        <result column="owner_key" jdbcType="INTEGER" property="ownerKey"/>
+        <result column="owner_group_key" jdbcType="INTEGER" property="ownerGroupKey"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="assign_fettle" jdbcType="INTEGER" property="assignFettle"/>
+        <result column="assign_fettle_time" jdbcType="TIMESTAMP" property="assignFettleTime"/>
+        <result column="start_station" jdbcType="VARCHAR" property="startStation"/>
+        <result column="simple_start_station" jdbcType="VARCHAR" property="simpleStartStation"/>
+        <result column="end_station" jdbcType="VARCHAR" property="endStation"/>
+        <result column="simple_end_station" jdbcType="VARCHAR" property="simpleEndStation"/>
+        <result column="conveyance_fettle" jdbcType="INTEGER" property="conveyanceFettle"/>
+        <result column="conveyance_fettle_time" jdbcType="TIMESTAMP" property="conveyanceFettleTime"/>
+        <result column="have_child" jdbcType="BIT" property="haveChild"/>
+        <result column="next_key" jdbcType="BIGINT" property="nextKey"/>
+        <result column="node_level" jdbcType="INTEGER" property="nodeLevel"/>
+        <result column="contact_name" jdbcType="VARCHAR" property="contactName"/>
+        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone"/>
+        <result column="organization" jdbcType="VARCHAR" property="organization"/>
+    </resultMap>
+
+    <resultMap id="WabyllConveyanceResultMap" type="com.ycg.ksh.entity.service.WaybillConveyance"
+               extends="BaseResultMap">
+        <association property="waybill" javaType="com.ycg.ksh.entity.persistent.Waybill">
+            <id column="w_id" jdbcType="INTEGER" property="id"/>
+            <result column="w_barcodeid" jdbcType="INTEGER" property="barcodeid"/>
+            <result column="w_groupid" jdbcType="INTEGER" property="groupid"/>
+            <result column="w_order_summary" jdbcType="VARCHAR" property="orderSummary"/>
+            <result column="w_customerid" jdbcType="INTEGER" property="customerid"/>
+            <result column="w_userid" jdbcType="INTEGER" property="userid"/>
+            <result column="w_address" jdbcType="VARCHAR" property="address"/>
+            <result column="w_arrivaltime" jdbcType="TIMESTAMP" property="arrivaltime"/>
+            <result column="w_createtime" jdbcType="TIMESTAMP" property="createtime"/>
+            <result column="w_updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
+            <result column="w_actual_arrival_time" jdbcType="TIMESTAMP" property="actualArrivalTime"/>
+            <result column="w_remark" jdbcType="VARCHAR" property="remark"/>
+            <result column="w_weight" jdbcType="DOUBLE" property="weight"/>
+            <result column="w_volume" jdbcType="DOUBLE" property="volume"/>
+            <result column="w_number" jdbcType="INTEGER" property="number"/>
+            <result column="w_delivery_number" jdbcType="VARCHAR" property="deliveryNumber"/>
+            <result column="w_papery_receipt_status" jdbcType="INTEGER" property="paperyReceiptStatus"/>
+            <result column="w_barcode" jdbcType="VARCHAR" property="barcode"/>
+            <result column="w_receiver_name" jdbcType="VARCHAR" property="receiverName"/>
+            <result column="w_receiver_tel" jdbcType="VARCHAR" property="receiverTel"/>
+            <result column="w_receive_address" jdbcType="VARCHAR" property="receiveAddress"/>
+            <result column="w_contact_name" jdbcType="VARCHAR" property="contactName"/>
+            <result column="w_contact_phone" jdbcType="VARCHAR" property="contactPhone"/>
+            <result column="w_longitude" jdbcType="VARCHAR" property="longitude"/>
+            <result column="w_latitude" jdbcType="VARCHAR" property="latitude"/>
+            <result column="w_fence_status" jdbcType="INTEGER" property="fenceStatus"/>
+            <result column="w_fence_radius" jdbcType="DOUBLE" property="fenceRadius"/>
+            <result column="w_position_count" jdbcType="INTEGER" property="positionCount"/>
+            <result column="w_receipt_count" jdbcType="INTEGER" property="receiptCount"/>
+            <result column="w_receipt_verify_count" jdbcType="INTEGER" property="receiptVerifyCount"/>
+            <result column="w_delay" jdbcType="INTEGER" property="delay"/>
+            <result column="w_receipt_verify_status" jdbcType="INTEGER" property="receiptVerifyStatus"/>
+            <result column="w_waybill_status" jdbcType="INTEGER" property="waybillStatus"/>
+            <result column="w_confirm_delivery_way" jdbcType="INTEGER" property="confirmDeliveryWay"/>
+            <result column="w_receipt_unqualify_count" jdbcType="INTEGER" property="receiptUnqualifyCount"/>
+            <result column="w_shipper_name" jdbcType="VARCHAR" property="shipperName"/>
+            <result column="w_loaction_time" jdbcType="TIMESTAMP" property="loactionTime"/>
+            <result column="w_start_station" jdbcType="VARCHAR" property="startStation"/>
+            <result column="w_end_station" jdbcType="VARCHAR" property="endStation"/>
+            <result column="w_shipper_address" jdbcType="VARCHAR" property="shipperAddress"/>
+            <result column="w_shipper_tel" jdbcType="VARCHAR" property="shipperTel"/>
+            <result column="w_shipper_contact_name" jdbcType="VARCHAR" property="shipperContactName"/>
+            <result column="w_shipper_contact_tel" jdbcType="VARCHAR" property="shipperContactTel"/>
+            <result column="w_bind_time" jdbcType="TIMESTAMP" property="bindTime"/>
+            <result column="w_delivery_time" jdbcType="TIMESTAMP" property="deliveryTime"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="StationMap" type="com.ycg.ksh.entity.service.Station">
+        <result column="start_station" jdbcType="VARCHAR" property="startStation"/>
+        <result column="simple_start_station" jdbcType="VARCHAR" property="simpleStartStation"/>
+        <result column="end_station" jdbcType="VARCHAR" property="endStation"/>
+        <result column="simple_end_station" jdbcType="VARCHAR" property="simpleEndStation"/>
+        <result column="assign_fettle" jdbcType="INTEGER" property="assignFettle"/>
+    </resultMap>
+
+    <resultMap id="ConveyanceNodeMap" type="com.ycg.ksh.entity.service.ConveyanceNode">
+        <result column="id" jdbcType="BIGINT" property="conveyanceKey"/>
+        <result column="parent_key" jdbcType="BIGINT" property="parentKey"/>
+        <result column="conveyance_fettle" jdbcType="INTEGER" property="fettle"/>
+        <result column="have_child" jdbcType="BIT" property="haveChild"/>
+    </resultMap>
+
+    <sql id="include_sql">
+        c.id, c.parent_key, c.waybill_key, c.barcode, c.delivery_number, c.conveyance_number, c.owner_group_key, c.owner_key, c.create_time, c.contact_name,
+        c.contact_phone, c.organization, c.assign_fettle, c.assign_fettle_time, c.start_station, c.simple_start_station,
+        c.end_station, c.simple_end_station, c.conveyance_fettle, c.conveyance_fettle_time, c.have_child, c.next_key, c.node_level
+    </sql>
+    <select id="listConveyanceNodeByParentKey" resultMap="ConveyanceNodeMap" parameterType="java.lang.Long">
+        SELECT c.id, c.parent_key, c.conveyance_fettle, c.have_child FROM conveyance_tab c WHERE c.parent_key = #{parentKey} AND c.conveyance_fettle > 0
+    </select>
+
+    <delete id="cancel" parameterType="java.util.List">
+        UPDATE conveyance_tab SET conveyance_fettle = 0, conveyance_fettle_time = NOW() WHERE id IN
+        <foreach item="id" collection="list" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="listStation" resultMap="StationMap" parameterType="java.util.List">
+        SELECT c.start_station, c.simple_start_station, c.end_station, c.simple_end_station, c.assign_fettle FROM conveyance_tab c WHERE
+        c.id IN
+        <foreach item="id" collection="list" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+    <insert id="inserts" parameterType="java.util.List">
+        INSERT INTO conveyance_tab (
+        id,
+        parent_key,
+        waybill_key,
+        barcode,
+        delivery_number,
+        conveyance_number,
+        owner_key,
+        owner_group_key,
+        create_time,
+        contact_name,
+        contact_phone,
+        organization,
+        assign_fettle,
+        assign_fettle_time,
+        start_station,
+        simple_start_station,
+        end_station,
+        simple_end_station,
+        conveyance_fettle,
+        conveyance_fettle_time,
+        have_child,
+        next_key,
+        node_level
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.parentKey},
+            #{item.waybillKey},
+            #{item.barcode},
+            #{item.deliveryNumber},
+            #{item.conveyanceNumber},
+            #{item.ownerKey},
+            #{item.ownerGroupKey},
+            #{item.createTime},
+            #{item.contactName},
+            #{item.contactPhone},
+            #{item.organization},
+            #{item.assignFettle},
+            #{item.assignFettleTime},
+            #{item.startStation},
+            #{item.simpleStartStation},
+            #{item.endStation},
+            #{item.simpleEndStation},
+            #{item.conveyanceFettle},
+            #{item.conveyanceFettleTime},
+            #{item.haveChild},
+            #{item.nextKey},
+            #{item.nodeLevel}
+            )
+        </foreach>
+    </insert>
+    <select id="listByWaybillKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="include_sql"/>
+        FROM
+        conveyance_tab c
+        WHERE
+        c.waybill_key = #{waybillKey}
+    </select>
+    <select id="listByParentKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        SELECT
+        <include refid="include_sql"/>
+        FROM
+        conveyance_tab c
+        WHERE
+        c.parent_key = #{parentKey} AND c.conveyance_fettle > 0
+    </select>
+    <select id="countByCode" resultType="java.lang.Integer">
+        SELECT
+         COUNT(c.barcode)
+        FROM
+        conveyance_tab c
+        WHERE
+        c.barcode = #{arg0} AND c.owner_key = #{arg1}
+    </select>
+
+    <select id="getByWaybillKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="include_sql"/>
+        FROM
+        conveyance_tab c
+        WHERE
+        c.waybill_key = #{waybillKey} AND c.parent_key = 0
+    </select>
+
+    <select id="getBySomething" resultMap="BaseResultMap"
+            parameterType="com.ycg.ksh.entity.service.ConveyanceSearch">
+        SELECT
+        <include refid="include_sql"/>
+        FROM
+        conveyance_tab c
+        <where>
+            c.id = #{conveyanceKey}
+            <choose>
+                <when test="groupKey != null and groupKey gt 0">
+                    AND c.owner_group_key = #{groupKey}
+                </when>
+                <otherwise>
+                    <![CDATA[ AND c.owner_key = #{createKey} AND c.owner_group_key <= 0 ]]>
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+    <select id="listWaybillConveyanceBySomething" resultMap="WabyllConveyanceResultMap" parameterType="com.ycg.ksh.entity.service.ConveyanceSearch">
+        SELECT
+        <include refid="include_sql"/>,
+        w.id AS w_id,
+        w.barcodeid AS w_barcodeid,
+        w.barcode AS w_barcode,
+        w.groupid AS w_groupid,
+        w.order_summary AS w_order_summary,
+        w.customerid AS w_customerid,
+        w.address AS w_address,
+        w.loaction_time AS w_loaction_time,
+        w.createtime AS w_createtime,
+        w.bind_time AS w_bind_time,
+        w.delivery_time AS w_delivery_time,
+        w.updatetime AS w_updatetime,
+        w.arrivaltime AS w_arrivaltime,
+        w.actual_arrival_time AS w_actual_arrival_time,
+        w.weight AS w_weight,
+        w.volume AS w_volume,
+        w.number AS w_number,
+        w.delivery_number AS w_delivery_number,
+        w.papery_receipt_status AS w_papery_receipt_status,
+        w.confirm_delivery_way AS w_confirm_delivery_way,
+        w.receiver_name AS w_receiver_name,
+        w.receiver_tel AS w_receiver_tel,
+        w.receive_address AS w_receive_address,
+        w.contact_name AS w_contact_name,
+        w.contact_phone AS w_contact_phone,
+        w.longitude AS w_longitude,
+        w.latitude AS w_latitude,
+        w.fence_status AS w_fence_status,
+        w.fence_radius AS w_fence_radius,
+        w.position_count AS w_position_count,
+        w.receipt_count AS w_receipt_count,
+        w.receipt_verify_count AS w_receipt_verify_count,
+        w.receipt_unqualify_count AS w_receipt_unqualify_count,
+        w.receipt_verify_status AS w_receipt_verify_status,
+        w.waybill_status AS w_waybill_status,
+        w.userid AS w_userid,
+        w.delay AS w_delay,
+        w.shipper_name AS w_shipper_name,
+        w.start_station AS w_start_station,
+        w.end_station AS w_end_station,
+        w.shipper_address AS w_shipper_address,
+        w.shipper_tel AS w_shipper_tel,
+        w.shipper_contact_name AS w_shipper_contact_name,
+        w.shipper_contact_tel AS w_shipper_contact_tel
+        FROM
+        conveyance_tab c LEFT JOIN waybill_tab w ON c.waybill_key = w.id
+        <where>
+
+            <choose>
+                <when test="conveyanceKey != null and conveyanceKey gt 0">
+                    AND c.id = #{conveyanceKey}
+                </when>
+                <otherwise>
+                    <if test="parentKey != null and parentKey gt 0">
+                        AND c.parent_key = #{parentKey}
+                    </if>
+                    <choose>
+                        <when test="groupKey != null and groupKey gt 0">
+                            AND c.owner_group_key = #{groupKey}
+                        </when>
+                        <otherwise>
+                            <![CDATA[ AND c.owner_key = #{createKey} AND c.owner_group_key <= 0 ]]>
+                        </otherwise>
+                    </choose>
+                    <choose>
+                        <when test="fettle != null">
+                            AND c.conveyance_fettle = #{fettle}
+                        </when>
+                        <otherwise>
+                            <if test="cancel != null and cancel == false">
+                                <![CDATA[ AND c.conveyance_fettle > 0 ]]>
+                            </if>
+                        </otherwise>
+                    </choose>
+                    <if test="likeString != null and likeString != ''">
+                        AND ((LOCATE(#{likeString}, c.barcode) > 0) OR (LOCATE(#{likeString}, w.delivery_number) > 0) OR (LOCATE(#{likeString}, c.conveyance_number) > 0))
+                    </if>
+                    <if test="assignFettle != null">
+                        <choose>
+                            <when test="assignFettle == 0">
+                                <![CDATA[ AND c.assign_fettle = #{assignFettle} ]]>
+                            </when>
+                            <otherwise>
+                                <![CDATA[ AND c.assign_fettle > 0 ]]>
+                            </otherwise>
+                        </choose>
+                    </if>
+                    <if test="haveChild != null">
+                        AND c.have_child = #{haveChild}
+                    </if>
+                    <if test="barcode != null and barcode !=''">
+                        AND c.barcode = #{barcode}
+                    </if>
+                    <if test="firstTime != null">
+                        <![CDATA[ AND w.bind_time >= #{firstTime} ]]>
+                    </if>
+                    <if test="secondTime != null">
+                        <![CDATA[ AND w.bind_time <= #{secondTime} ]]>
+                    </if>
+                    <if test="startStation != null and startStation != ''">
+                        AND (LOCATE(#{startStation}, c.start_station) > 0)
+                    </if>
+                    <if test="endStation != null and endStation != ''">
+                        AND (LOCATE(#{endStation}, c.end_station) > 0)
+                    </if>
+                    <if test="shipperName != null and shipperName != ''">
+                        AND (LOCATE(#{shipperName}, w.shipper_name) > 0)
+                    </if>
+                    <if test="transporter != null and transporter != ''">
+                        AND (LOCATE(#{transporter}, FROM_BASE64(c.contact_name)) > 0)
+                    </if>
+                    <if test="requirements != null">
+                        <![CDATA[ AND w.arrivaltime = #{requirements} ]]>
+                    </if>
+                    <if test="receipt != null and receipt != ''">
+                        <![CDATA[ AND w.receipt_verify_status  = #{receipt} ]]>
+                    </if>
+                    <if test="locationCount != null and locationCount != ''">
+                        <![CDATA[ AND w.position_count <= #{locationCount} ]]>
+                    </if>
+                </otherwise>
+            </choose>
+        </where>
+        ORDER BY w.bind_time DESC
+    </select>
+</mapper>

@@ -1,0 +1,44 @@
+.print-wrapper{margin-top:10px;}
+.print-item{
+    /*margin:0 auto 20px;*/
+    width:100%;
+    /*padding:35px 15px;*/
+    background:#fff;
+    color:#333;
+    font-family: '等线';
+    font-size: 15mm/*14.761mm*/;
+}
+.print-item table{
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    table-layout:fixed;
+}
+.print-item table th{width:8.333%;}
+.print-item table td{
+    width:8.333%;
+    font-size: 16px;
+    border: 1px solid #666;
+    padding: 7px 0;
+    word-break: break-all;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.print-item table td .goods-td{min-height:17px;}
+.tl-pl{
+    text-align: left;
+    padding-left:10px !important;
+}
+.nameStyle{font-size:16px;letter-spacing: 12px;padding-left:12px;}
+.p9{padding:9px 0 !important;}
+.p17{padding:17px 0 !important;}
+.borderNone{border-top:none !important;border-bottom: none !important;}
+.borderTopNone{border-top:none !important;}
+.pwidth{padding:0 15px;}
+.widthShort{display: inline-block;width:30px;text-align: center;}
+.receive{position: relative;display: inline-block;}
+.receive .seal{position:absolute;top: -28px;right: 5px;}
+
+
+

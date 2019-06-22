@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>修改物料</title>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/goodsDetail.css" />
+<style>
+  [v-cloak] {display: none;} 
+</style>
+</head>
+<body ontouchstart class="vue-page" style="background-color: #f9f9fc;color:#333;">
+  <div id="goodsDetailEdit" v-cloak>
+    <div class="weui-flex handleWrapper" v-show="!deleteStatus">
+      <div class="weui-flex__item">请添加物料</div>
+      <div class="weui-flex__item btnWrapper">
+        <a href="javascript:;" class="handleBtn" @click="addGoods">新增</a> | 
+        <a href="javascript:;" class="handleBtn" @click="showDeleteBox">删除</a>
+      </div>
+    </div>
+    <div class="weui-flex removeBox"  v-show="deleteStatus">
+      <div class="weui-flex__item">
+        <div class="labelWrapper weui-cells_checkbox" @click="toggleCheck">
+          <i class="weui-icon-checked" :class="{checked:allFlag}"></i>
+          <p style="margin-left:5px;">全部</p>
+        </div>
+      </div>
+      <div class="weui-flex__item cancelBox"><span class="cancelBtn" @click="cancelCheckAll">取消</span></div>
+    </div>
+    <div class="listCon">
+      <div class="listLeft">
+        <div class="goodsTitle">客户料号</div>
+        <div class="goodsName borderBottom" v-for="(item,index) in goodsList">
+          <div class="weui-flex">
+            <div class="leftBtn weui-cells weui-cells_checkbox" v-show="deleteStatus">
+              <label class="weui-cell weui-check__label" @click="checkOne(item,index)">
+                <i class="weui-icon-checked" :class="{checked: item.checked}"></i>
+              </label>
+            </div>
+            <div class="weui-flex__item rightText"><input type="text" :class="{'tc': deleteStatus == false}" v-model.trim="item.goodsType" /></div>
+          </div>
+        </div>
+        <div class="noMsg"  v-show="goodsList.length == 0"></div>
+        <div class="goodsTotal">总计：</div>
+      </div>
+      <div class="listRight wrapper" ref="wrapper">
+        <ul class="content" ref="contentWidth">
+          <li class="table-head clearfix" ref="liWidth">
+            <div class="table-th">重量(kg)</div>
+            <div class="table-th">体积(m³)</div>
+            <div class="table-th">数量(件)</div>
+            <div class="table-th">货物摘要</div>
+          </li>
+          <li class="table-body clearfix" v-for="(item,index) in goodsList">
+            <div class="table-th borderBottom"><input type="text" v-model.trim="item.goodsWeight" @input="weightValidate(item)"/></div>
+            <div class="table-th borderBottom"><input type="text" v-model.trim="item.goodsVolume" @input="volumeValidate(item)"/></div>
+            <div class="table-th borderBottom"><input type="text" v-model.trim="item.goodsQuantity" @input="quantityValidate(item)"/></div>
+            <div class="table-th borderBottom"><input type="text" v-model.trim="item.summary"/></div>
+          </li>
+          <li class="noMsg" v-show="goodsList.length == 0">暂无物料信息</li>
+          <li class="table-footer clearfix">
+            <div class="table-th">{{totalWeight}}</div>
+            <div class="table-th">{{totalVolume}}</div>
+            <div class="table-th">{{totalQuantity}}</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!--确认发货-->
+    <a href="javascript:;" class="weui-btn weui-btn_primary sureBtn" v-show="!deleteStatus" @click="saveBarCode">确认发货</a>
+    <!--删除-->
+    <div class="weui-footer weui-footer_fixed-bottom" v-show="deleteStatus">
+      <a href="javascript:;" class="weui-btn weui-btn_primary deleteBtn" @click="deleteGoods">删除</a>
+    </div>
+  </div>
+<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+<script type="text/javascript" src="../../lib/bscroll/bscroll.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/fastclick.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="../../lib/coordtransform-master/index.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../js/common/filter_emoji.js" ></script>
+<script type="text/javascript" src="../../js/partener/GoodsDetailEdit.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+</body>
+</html>

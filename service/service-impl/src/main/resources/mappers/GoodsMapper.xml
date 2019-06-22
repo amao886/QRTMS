@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.Goods">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="waybillid" jdbcType="INTEGER" property="waybillid" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_type" jdbcType="VARCHAR" property="goodsType" />
+    <result column="goods_quantity" jdbcType="INTEGER" property="goodsQuantity" />
+    <result column="goods_weight" jdbcType="DOUBLE" property="goodsWeight" />
+    <result column="goods_volume" jdbcType="DOUBLE" property="goodsVolume" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into goods (waybillid, goods_name, goods_type, goods_quantity, goods_weight, goods_volume, summary, create_time,update_time)   
+    values  
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.waybillid},#{item.goodsName},#{item.goodsType},
+        #{item.goodsQuantity},#{item.goodsWeight},#{item.goodsVolume},
+        #{item.summary},#{item.createTime},#{item.updateTime})  
+    </foreach>
+  </insert>
+  <delete id="deleteByWaybillId" parameterType="java.lang.Integer">
+  	DELETE FROM goods WHERE waybillid = #{waybillId}
+  </delete>
+  
+  <select id="sumByWaybillID" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+  	<![CDATA[ 
+		SELECT SUM(goods_quantity) AS quantity, SUM(goods_weight) AS weight, SUM(goods_volume) AS volume FROM goods WHERE waybillid = #{waybillId};
+	]]>
+  </select>
+</mapper>

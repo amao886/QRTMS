@@ -1,0 +1,321 @@
+/*搜索部分*/
+/*{
+	touch-action: none;
+	font-size: 14px;
+	font-family: '微软雅黑';
+}*/
+.task-list-con{
+	margin-bottom:120px;
+}
+.check-task-search{
+	padding:12px;
+	background:#f5f5f5;
+}
+.check-task-search .weui-icon-search{
+	position: absolute;
+	top:8px;
+	left:4px;
+	font-size:16px;
+}
+.task-search-input{
+	padding: 15px 32px 15px 28px;
+    width: 100%;
+    height: 1.42857143em;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.42857143em;
+    box-sizing: border-box;
+    background: #fff;
+    outline: none;
+}
+.task-search-btn{
+	padding-left:15px;
+}
+.check-task-search .weui-icon-clear{
+	position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 15px;
+    width: 32px;
+    line-height: 30px;
+    text-align: center;
+}
+
+/*=======状态选择部分==========*/
+.task-status {
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    margin-bottom: 10px;
+}
+
+/*宽度设置*/
+.task-project{
+	width:31%;
+	text-align: right;
+}
+.deliver-time{
+	width:32%;
+}
+.task-s{
+	width:17%;
+}
+
+/*字体大小设置*/
+.task-status-con,
+.task-status-con input,
+.task-status-con select{
+	font-size:14px;
+	outline: none;
+}
+.task-status-item{
+	position:relative;
+}
+.un-select-item{
+	position: absolute;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	padding:10px 0 15px 0;
+	text-align: center;
+	background:#fff;
+	color:#333;
+	z-index: -1;
+}
+/*select下拉框*/
+.task-status-item .change-value{
+	display: inline-block;
+	text-align: center;
+	padding:12px 0 15px 0; 
+	border:none;
+	color:transparent;
+	background:transparent;
+}
+/*input*/
+.task-status-item .task-s-time{
+	display: block;
+	width:100%;
+	height:46px;
+	background:transparent;
+	color:transparent;
+}
+.task-status-item .select-del{
+	position: absolute;
+	top:0;
+	right:3px;
+	height:46px;
+	line-height: 46px;
+	z-index: 2;
+	color:#b2b2b2;
+	display: none;
+}
+.task-status-item .select-down{
+	position: absolute;
+	left:50%;
+	margin-left:-6px;
+	bottom:5px;
+	width:12px;
+	height:6px;
+	background:url(../../images/select-down.png) no-repeat center;
+	background-size: 100%;
+}
+/*项目组*/
+.task-project .change-value{
+	width:100%;
+	padding-left:15px;
+	color:#333;
+	background:#fff;
+}
+/*任务状态*/
+.task-s .change-value{
+	color:#333;
+	background:#fff;
+	width:100%;
+}
+/*延迟*/
+.task-s-all .change-value{
+	width:100%;
+}
+
+/*添加active后*/
+.task-status-item.active:after{
+	content:'';
+	position: absolute;
+	left:0;
+	bottom:-1px;
+	width:100%;
+	height:2px;
+	background:#02afff;
+}
+.task-status-item.active .change-value{
+	color:#02afff !important;
+	background:#fff !important;
+}
+.task-status-item.active .select-down{
+	background:url(../../images/select-up.png) no-repeat center;
+	background-size: 100%;
+}
+.deliver-time-span.show-x + .select-del{
+	display: block;
+}
+.task-status-item.active .deliver-time-span.show-x + .select-del{
+	color:#02afff;
+}
+.task-status-item .change-value.special{
+	color:#333;
+	background:#fff;
+}
+/*.task-status-item.active .select-del{
+	display: block !important;
+}*/
+/*添加active后日期样式*/
+.task-status-item.active .deliver-time-span{
+	color:#02afff;
+}
+
+/*=======任务列表部分==========*/
+.task-list-item-title{
+	text-align: center;
+	padding:8px 0;
+	font-size:15px;
+}
+
+/*任务单列表部分通用*/
+.task-list-item-part{
+	position: relative;
+	padding:0 15px 15px 15px;
+	background:#fff;
+	border-top:1px solid #dedede;
+	border-bottom: 1px solid #dedede;
+	margin-bottom: 10px;
+	font-size:15px;
+}
+.task-list-item-part .weui-flex{
+	margin-bottom: 6px;
+}
+.task-list-item-part .task-con-title{
+	width:76px;
+	color:#666;
+}
+.task-list-item-part .title-right{
+	padding-right:92px;
+}
+.task-list-item-part .weui-flex__item{
+	padding-left:4px;
+	color:#333;
+}
+.task-list-item-part > .pbox{
+	font-size:13px;
+	color:#8f8f8f;
+}
+.upload-task-status{
+	position: absolute;
+	top:11px;
+	right:12px;
+	font-size: 13px;
+	letter-spacing: 1px;	
+}
+.status-delay{
+	right:60px;
+} 
+.span-info{
+	margin-right:12px;
+}
+.color-mark{
+	color:#ff6633;
+	margin-right:2px;
+}
+.waybill-tips{
+	top:auto;
+	right:12px;
+	bottom:12px;
+}
+.waybil-no-data{
+	text-align: center;
+	padding: 5px;
+	margin: auto; /*水平居中*/
+    margin-top:40%; 
+}
+/*picker*/
+.icon, .picker-button{color: #02afff !important;}
+/*.picker-calendar-day-selected span{background: #02afff !important;}*/
+
+/*暂无数据*/
+.no-data{
+	margin-top: 5px;
+	text-align: center;
+	color: #ccc;
+	display: none;
+}
+
+/*新增编辑按钮*/
+.taskEditBtn{
+	position: absolute;
+    right: 14px;
+    bottom: 33px;
+    padding: 0px 6px;
+    font-size: 25px;
+    color: #ff6633;   
+}
+
+/*新版优化样式*/
+.task-list-item-part{border:none;}
+.task-list-item-part .weui-flex{margin-bottom: 0;padding:3px 0;} /*将原来的css干掉*/
+.selectTab{height:40px;margin-top:54px;margin-bottom:15px;background:#fff;text-align: center;}
+.check-task-search{    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.selectTab .weui-input{
+	width:100%;
+    height:40px;
+    font-size:14px;
+    color:#666;
+    text-align:center;
+}
+.selectTab>.weui-flex__item{position:relative;}
+.selectTab>.active:after{
+	content:'';
+	position:absolute;
+	left:0;
+	right:0;
+	bottom: 0;
+	border-bottom: 2px solid #31acfa;
+    z-index: 2;
+}
+.selectTab>.active .weui-input{color:#31acfa;}
+#projectName{width:80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.task-list-item-part .borderBottom:after{
+	left:-15px;
+	right:-15px;
+}
+.task-list-item-part .padTop3{
+	padding:6px 0 3px;
+}
+.task-list-item-part .padBottom{
+	padding:3px 0 6px;
+}
+.task-list-item-part .pad8{padding:8px 0;}
+.task-list-item-part .task-con-title+.weui-flex__item{text-align: left;}
+/*开始结束时间样式*/
+.range-time{
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.6);
+    display: none;
+}
+.range-time .weui-input{
+    padding: 4px 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    height: 2em;
+    width: 80%;
+    margin-top: 10px;
+}
+

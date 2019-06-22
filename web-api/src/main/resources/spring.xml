@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd" default-lazy-init="true">
+
+	<!-- 开启AOP  cglib-->
+	<aop:config proxy-target-class="true" />
+	<context:component-scan base-package="com.ycg.ksh.api">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
+	<!-- <import resource="spring-cache.xml" /> -->
+	<import resource="redis.xml" />
+	<import resource="spring-dubbo.xml" />
+	<import resource="classpath*:dubbo-reference-service.xml" />
+	<import resource="classpath*:dubbo-reference-adapter.xml" />
+	<import resource="classpath*:dubbo-reference-collecter.xml" />
+	<import resource="classpath*:dubbo-reference-core.xml" />
+	<import resource="spring-rabbitmq.xml" />
+
+	<!-- websocket处理类 -->
+	<bean id="ksh.websocket.handler" class="com.ycg.ksh.api.common.socket.CustomWebSocketHandler"/>
+	<!-- 握手接口/拦截器 -->
+	<bean id="ksh.websocket.interceptor" class="com.ycg.ksh.api.common.socket.CustomHandshakeInterceptor"/>
+
+	<!-- 配置日志AOP -->
+	<bean id="log.aspect" class="com.ycg.ksh.api.ControllerAspect"/>
+	<aop:config>
+		<aop:aspect ref="log.aspect">
+			<aop:pointcut id="log.pointcut" expression="execution (* com.ycg.ksh.api.*.controller.*.*(..))" />
+			<aop:around pointcut-ref="log.pointcut" method="aroundAspect"/>
+		</aop:aspect>
+	</aop:config>
+
+	<bean id="ksh.application.property.configurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+       <property name="properties" ref="ksh.application.properties"/>
+    </bean>
+
+	<bean id="ksh.application.properties" class="com.ycg.ksh.common.extend.spring.PropertiesFactoryBean">
+		<property name="fileEncoding" value="UTF-8" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locationXml" value="conf/application.xml"/>
+	</bean>
+</beans>

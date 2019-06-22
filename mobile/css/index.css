@@ -1,0 +1,167 @@
+/*通用*/
+body{background:#eeeff3;}
+.green{color: #1fd282;}
+/*banner图片*/
+.banner{background:#fff;}
+.banner>.banner-img{width:100%; display: block;}
+.elec-banner{width:100%;overflow-x: hidden;}
+.elec-banner>.banner-img{width:100%;vertical-align: top;}
+/*图片导航*/
+.weui-grids{
+	background:#fff;
+}
+.weui-grid__icon{
+	width:30px;
+	height: 30px;
+}
+.weui-grid__icon + .weui-grid__label{
+	margin-top:8px;
+}
+.weui-grid__label{
+	color:#333;
+}
+.weui-grids:before{
+	border-top:none;
+}
+.weui-grid:before{
+	border-right:none;
+}
+.weui-grid:after{
+	border-bottom: none;
+}
+/*我的任务*/
+.h3{
+	font-size: 16px;
+}
+.marBottom{margin-bottom:100px;}
+.my-task{
+	/*padding-bottom: 60px;*/
+}
+.my-task h3{
+	padding: 12px;
+    margin-bottom: 0;
+    background: #fff;
+    margin-top: 15px;
+}
+.my-task .task-left{
+	padding-right:6px;
+}
+.my-task .task-left>img{
+	width:27px;
+}
+.my-task .task-right{
+	color:#636363;
+}
+.my-task .task-right h4{
+	font-weight: 400;
+	font-size: 14px;
+}
+.my-task .task-right span{
+	font-size:12px;
+	display: block;
+	margin-top:-2px;
+}
+.my-task .task-right p{
+	font-size: 13px;
+	color:#8f8f8f;
+}
+.my-task .task-right p.task-bind{
+	margin:15px 0 2px 0;
+	font-size:15px;
+	color:#333;
+}
+
+
+/*new style*/
+.commonBox{/* padding: 20px 15px;*/}
+.iconList{background: #fff; padding-bottom: 20px;   }
+.iconList li{ float:left; width:25%; text-align: center;margin-top: 20px;}
+.iconList li a{display: block;}
+.iconBox{width:54px; height:54px; display: inline-block; background:url(../images/index/bg_all_functions.png) center top/100% auto no-repeat; margin-bottom: 5px;}
+.iconBox img{width:34px;height:34px; margin-top: 10px;}
+#myIcon_0 .iconBox{background-image:url(../images/index/bg_send_goods.png);}
+#myIcon_1 .iconBox{background-image:url(../images/index/bg_tie_bill.png);}
+#myIcon_2 .iconBox{background-image:url(../images/index/bg_into_truck.png);}
+#myIcon_3 .iconBox{background-image:url(../images/index/bg_upload.png);}
+#myIcon_4 .iconBox{background-image:url(../images/index/bg_scan_position.png);}
+#myIcon_5 .iconBox{background-image:url(../images/index/bg_apply_code.png);}
+#myIcon_6 .iconBox{background-image:url(../images/index/bg_good_list.png);}
+
+
+.task-list-item-part{
+	position: relative;
+	padding:12px;
+	background:#fff;
+	border-top:1px solid #dedede;
+	border-bottom: 1px solid #dedede;
+	margin-bottom: 10px;
+	font-size:15px;
+}
+.task-list-item-part .weui-flex{
+	margin-bottom: 6px;
+}
+.task-list-item-part .task-con-title{
+	width:76px;
+	color:#666;
+}
+.task-list-item-part .title-right{
+	padding-right:92px;
+}
+.task-list-item-part .weui-flex__item{
+	padding-left:4px;
+	color:#333;
+}
+.task-list-item-part > .pbox{
+	font-size:13px;
+	color:#8f8f8f;
+}
+.upload-task-status{
+	position: absolute;
+	top:13px;
+	right:12px;
+	font-size: 13px;
+	letter-spacing: 1px;	
+}
+.status-delay{
+	right:60px;
+} 
+.span-info{
+	margin-right:12px;
+}
+.color-mark{
+	color:#ff6633;
+	margin-right:2px;
+}
+.waybill-tips{
+	top:auto;
+	right:12px;
+	bottom:12px;
+}
+.waybil-no-data{
+	text-align: center;
+	padding: 5px;
+	margin: auto; /*水平居中*/
+    margin-top:40%; 
+}
+/*picker*/
+.icon, .picker-button{color: #02afff !important;}
+/*.picker-calendar-day-selected span{background: #02afff !important;}*/
+
+/*暂无数据*/
+.no-data{
+	margin-top: 5px;
+	text-align: center;
+	color: #ccc;
+	display: none;
+}
+
+/*新增编辑按钮*/
+.taskEditBtn{
+	position: absolute;
+    right: 14px;
+    bottom: 33px;
+    padding: 0px 6px;
+    font-size: 25px;
+    color: #ff6633;
+}
+.weui-loadmore{padding-bottom: 60px;}

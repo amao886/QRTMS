@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	   default-lazy-init="true">
+
+
+	<!-- 开启AOP -->
+	<aop:config proxy-target-class="true" />
+	<context:component-scan base-package="com.ycg.ksh.core"/>
+
+	<import resource="spring-dubbo.xml" />
+	<import resource="classpath*:dubbo-reference-adapter.xml" />
+	<import resource="classpath*:dubbo-reference-service.xml" />
+	<import resource="spring-persistence.xml" />
+
+	<bean id="registrys" class="com.ycg.ksh.core.Registrys" lazy-init="false"/>
+
+	<!-- 缓存和日志AOP -->
+	<bean id="cache.log.aspect" class="com.ycg.ksh.common.aop.CacheAspect"/>
+	<aop:config>
+		<aop:pointcut id="cache.log.pointcut" expression="execution(* com.ycg.ksh.core.*.application.*.*(..))" />
+		<aop:aspect ref="cache.log.aspect">
+			<aop:around pointcut-ref="cache.log.pointcut" method="aroundAspect"/>
+		</aop:aspect>
+	</aop:config>
+
+	<bean id="ksh.application.property.configurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="properties" ref="ksh.application.properties"/>
+	</bean>
+
+	<bean id="ksh.application.properties" class="com.ycg.ksh.common.extend.spring.PropertiesFactoryBean">
+		<property name="fileEncoding" value="UTF-8" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locationXml" value="conf/application.xml"/>
+	</bean>
+</beans>

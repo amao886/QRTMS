@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.PaperyReceiptMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.PaperyReceipt">
+        <result column="waybill_id" jdbcType="INTEGER" property="waybillId"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="delivery_number" jdbcType="VARCHAR" property="deliveryNumber"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="arrivaltime" jdbcType="TIMESTAMP" property="arrivaltime"/>
+        <result column="actual_arrival_time" jdbcType="TIMESTAMP" property="actualArrivalTime"/>
+        <result column="receipt_status" jdbcType="INTEGER" property="receiptStatus"/>
+        <result column="groupid" jdbcType="INTEGER" property="groupid"/>
+        <result column="number" jdbcType="INTEGER" property="number"/>
+        <result column="weight" jdbcType="DOUBLE" property="weight"/>
+        <result column="barcode" jdbcType="VARCHAR" property="barcode"/>
+        <result column="group_name" jdbcType="VARCHAR" property="groupName"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="contacts" jdbcType="VARCHAR" property="contacts"/>
+        <result column="contact_number" jdbcType="VARCHAR" property="contactNumber"/>
+        <result column="address" jdbcType="VARCHAR" property="fulladdress"/>
+        <result column="batch_number" jdbcType="VARCHAR" property="batchNumber"/>
+        <result column="address" jdbcType="INTEGER" property="address"/>
+        <result column="volume" jdbcType="DOUBLE" property="volume"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    waybill_id, delivery_number, createtime, arrivaltime, weight, receipt_status, barcode,
+    group_name, modify_time, company_name, contacts, contact_number, address, batch_number, address, number, volume
+  </sql>
+    <select id="listInventoryReceipt" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from waybill_receipt_view where receipt_status in (1,4)
+        <if test="arg0.groupid != null and arg0.groupid != ''">
+            and groupid = #{arg0.groupid,jdbcType=INTEGER}
+        </if>
+        <if test="arg0.groupid == null">
+            and groupid in (SELECT groupid from group_members_tab where status = 10 AND userid =
+            #{arg0.userId,jdbcType=INTEGER})
+        </if>
+        <if test="arg0.receiptStatus != '' and arg0.receiptStatus != null">
+            and receipt_status = #{arg0.receiptStatus,jdbcType=INTEGER}
+        </if>
+        <if test="arg0.batchNumber != null and arg0.batchNumber !=''">
+            and batch_number like concat('%', #{arg0.batchNumber,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="arg0.deliveryNumber != null and arg0.deliveryNumber != ''">
+            and (delivery_number like concat('%', #{arg0.deliveryNumber,jdbcType=VARCHAR}, '%') or barcode like
+            concat('%', #{arg0.deliveryNumber,jdbcType=VARCHAR}, '%') )
+        </if>
+        <if test="arg2.stime != null">
+            <![CDATA[  AND DATE_FORMAT(createtime, '%Y-%m-%d') >= DATE_FORMAT(#{arg2.stime}, '%Y-%m-%d') ]]>
+        </if>
+        <if test="arg2.etime != null">
+            <![CDATA[ AND DATE_FORMAT(createtime, '%Y-%m-%d') <= DATE_FORMAT(#{arg2.etime}, '%Y-%m-%d') ]]>
+        </if>
+        <if test="arg1.stime != null">
+            <![CDATA[  AND DATE_FORMAT(modify_time, '%Y-%m-%d') >= DATE_FORMAT(#{arg1.stime}, '%Y-%m-%d')]]>
+        </if>
+        <if test="arg1.etime != null">
+            <![CDATA[ AND DATE_FORMAT(modify_time, '%Y-%m-%d') <= DATE_FORMAT(#{arg1.etime}, '%Y-%m-%d')]]>
+        </if>
+        ORDER BY createtime DESC
+    </select>
+
+    <select id="listPaperyReceipt" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from waybill_receipt_view where 1=1
+        <if test="arg0.groupid != null and arg0.groupid != ''">
+            and groupid = #{arg0.groupid,jdbcType=INTEGER}
+        </if>
+        <if test="arg0.groupid == null">
+            and groupid in (SELECT groupid from group_members_tab where status = 10 AND userid =
+            #{arg0.userId,jdbcType=INTEGER})
+        </if>
+        <if test="arg0.batchNumber != null and arg0.batchNumber !=''">
+            and batch_number like concat('%', #{arg0.batchNumber,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="arg0.receiptStatus != '' and arg0.receiptStatus != null">
+            and receipt_status = #{arg0.receiptStatus,jdbcType=INTEGER}
+        </if>
+        <if test="arg0.deliveryNumber != null and arg0.deliveryNumber != ''">
+            and (delivery_number like concat('%', #{arg0.deliveryNumber,jdbcType=VARCHAR}, '%') or barcode like
+            concat('%', #{arg0.deliveryNumber,jdbcType=VARCHAR}, '%') )
+        </if>
+        <if test="arg2.stime != null">
+            <![CDATA[  AND DATE_FORMAT(createtime, '%Y-%m-%d') >= DATE_FORMAT(#{arg2.stime}, '%Y-%m-%d') ]]>
+        </if>
+        <if test="arg2.etime != null">
+            <![CDATA[ AND DATE_FORMAT(createtime, '%Y-%m-%d') <= DATE_FORMAT(#{arg2.etime}, '%Y-%m-%d') ]]>
+        </if>
+        <if test="arg1.stime != null">
+            <![CDATA[  AND DATE_FORMAT(modify_time, '%Y-%m-%d') >= DATE_FORMAT(#{arg1.stime}, '%Y-%m-%d')]]>
+        </if>
+        <if test="arg1.etime != null">
+            <![CDATA[ AND DATE_FORMAT(modify_time, '%Y-%m-%d') <= DATE_FORMAT(#{arg1.etime}, '%Y-%m-%d')]]>
+        </if>
+        ORDER BY createtime DESC
+    </select>
+
+    <select id="exportReceiptImages" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from waybill_receipt_view where 1=1
+        <if test="arg0.groupid != null and arg0.groupid != ''">
+            and groupid = #{arg0.groupid,jdbcType=INTEGER}
+        </if>
+        <if test="arg1.stime != null">
+            <![CDATA[  AND DATE_FORMAT(createtime, '%Y-%m-%d') >= DATE_FORMAT(#{arg1.stime}, '%Y-%m-%d') ]]>
+        </if>
+        <if test="arg1.etime != null">
+            <![CDATA[ AND DATE_FORMAT(createtime, '%Y-%m-%d') <= DATE_FORMAT(#{arg1.etime}, '%Y-%m-%d') ]]>
+        </if>
+    </select>
+</mapper>

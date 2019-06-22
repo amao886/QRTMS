@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.enterprise.VehicleDesignateMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.enterprise.VehicleDesignate">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="KEY" jdbcType="BIGINT" property="key"/>
+        <result column="CONTACT" jdbcType="VARCHAR" property="contact"/>
+        <result column="CONTACT_NUMBER" jdbcType="VARCHAR" property="contactNumber"/>
+        <result column="CONVEY_ID" jdbcType="BIGINT" property="conveyId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="LAST_COMPANY_KEY" jdbcType="INTEGER" property="lastCompanyKey"/>
+        <result column="V_ID" jdbcType="INTEGER" property="vId"/>
+    </resultMap>
+</mapper>

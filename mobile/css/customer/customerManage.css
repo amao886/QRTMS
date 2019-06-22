@@ -1,0 +1,118 @@
+body {
+	font-size: 14px;
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.form {
+	background-color: #fff;
+}
+
+.transportation {
+	display: flex;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom: #CCCCCC 1px solid;
+	min-height: 45px;
+	margin: auto;
+}
+
+.enterprise {
+	flex: 2;
+	margin: auto;
+	padding-left: 10px;
+}
+
+.carriage {
+	flex: 1;
+	margin: auto;
+}
+
+.carriage>a {
+	display: inline-block;
+	width: 100%;
+	height: 25px;
+	line-height: 25px;
+	border-radius: 2px;
+	text-align: center;
+	margin-left: 5px;
+}
+
+.clientele {
+	background-color: #ccc;
+	font-weight: 800;
+}
+
+
+/* .carriage  a {
+	font-weight: 800;
+	color: #fff;
+} */
+
+.register {
+	flex: 1;
+	text-align: center;
+	margin: auto;
+}
+
+.isRegister {
+	color: #000;
+}
+
+.unRegister {
+	color: red;
+}
+
+.addition {
+	text-align: center;
+	height: 50px;
+	background-color: #169BD5;
+	line-height: 50px;
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	margin-top: 30px;
+}
+
+.addition a {
+	color: #fff;
+}
+
+.form {
+	margin-bottom: 50px;
+}
+
+.weui-flex__item {
+	padding-left: 30px;
+	color: #333333;
+}
+
+.searchTab {
+	margin-bottom: 10px;
+	padding: 12px;
+	background: #fff;
+	align-items: center;
+	-webkit-align-items: center;
+}
+
+.searchSelect.active {
+	border-bottom: 1px solid #31acfa;
+	color: #31acfa;
+}
+
+.searchSelect.borderBottom {
+	color: #0071FE;
+}
+
+.searchSelect.borderBottom:after {
+	border-bottom: 5px solid #0071FE;
+	margin-bottom: -15px;
+	margin-left: 2%;
+	margin-right: 2%;
+}

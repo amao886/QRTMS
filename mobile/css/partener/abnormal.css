@@ -1,0 +1,38 @@
+.weui-cells:before{border-top:none;}
+.weui-cell.txtarea{padding-bottom: 20px;}
+.txtarea textarea{
+	width:100%;
+	border:1px solid #e6e6e6;
+	height:130px;
+	resize: none;
+	border-radius: 6px;
+	outline:none;
+	text-indent: 10px;
+	padding-top:6px;
+}
+#uploaderFiles,#uploaderRecipt{
+	display: inline-block;
+}
+.upload .weui-cell:before{border-top:none;}
+.upload{margin-top:0;margin-bottom: 20px;}
+.upload .weui-uploader__bd{overflow: visible;font-size:0;}
+.upload .weui-uploader__hd{padding-bottom: 20px;}
+.upload .weui-uploader__input-box{border-radius: 6px;float: none;}
+.weui-uploader__file{position:relative;border-radius:6px;}
+.weui-uploader__file>img{display:block;width:100%;height:100%;border-radius: 6px;}
+.weui-uploader__file>.close-img{
+	position: absolute;
+	top:-6px;
+	right:-6px;
+	width:22px;
+	height:22px;
+	color:#f40;
+	background:url(../../images/del-icon.png) no-repeat center;
+	background-size: 100%;
+}
+.img-name-p {
+    display: none;
+}
+.btn_mbottom{
+	margin-bottom: 120px;
+}

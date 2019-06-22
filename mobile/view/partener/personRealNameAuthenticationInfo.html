@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>个人实名认证</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/partener/personRealNameAuthenticationInfo.css" />
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#FFFFFF;">
+		<div id="personauthInfo" v-cloak>
+			<div v-if="listResult">
+				<div class="weui-tab__bd-item mine-part  weui-tab__bd-item--active">
+					<div class="weui-panel">
+						<div class="weui-panel__bd">
+							<div class="weui-media-box weui-media-box_small-appmsg">
+								<div class="weui-cells">
+									<div class="weui-cell">
+										<div class="weui-cell__hd">姓名</div>
+										<div class="weui-cell__bd weui-cell_primary text_right">
+											<p>{{listResult.name}}</p>
+										</div>
+									</div>
+									<div class="weui-cell">
+										<div class="weui-cell__hd">身份证</div>
+										<div class="weui-cell__bd weui-cell_primary text_right">
+											<p>{{listResult.idCardNo}}</p>
+										</div>
+									</div>
+									<div class="weui-cell">
+										<div class="weui-cell__hd">我的银行卡</div>
+										<div class="weui-cell__bd weui-cell_primary text_right">
+											<p>{{listResult.brankCardNo}}</p>
+										</div>
+									</div>
+									<div class="weui-cell">
+										<div class="weui-cell__hd">银行卡预留手机号</div>
+										<div class="weui-cell__bd weui-cell_primary text_right">
+											<p>{{listResult.mobilePhone}}</p>
+										</div>
+									</div>
+									<div class="weui-cell clearfix" style="display: block;">
+										<div class="weui-cell__hd">我的签章</div>
+										<div class="noSetSetSignature padding10"  v-if="personals.length == 0">
+											<div>
+												<div class="signature-btn clearfix">
+													<a href="javascript:;" class="weui-btn weui-btn_primary fl" id="setSignature" @click="setMySignature()">设置我的签章</a>
+													<!--<a href="javascript:;" class="weui-btn weui-btn_primary fl" id="setSignName">设置我的签名</a>
+											<a href="javascript:;" class="weui-btn weui-btn_primary fr" id="setSignature">设置我的签章</a>-->
+												</div>
+											</div>
+										</div>
+										<div class="alreadySetSignature padding10 clearfix" v-else="personals.length > 0">
+											<div class="signName" v-for="(item, index) in personals">
+												<img :src="pathPrefix+'/'+item.sealImgPath" />
+											</div>
+										</div>
+									</div>
+									<a class="weui-cell clearfix" style="display: block;" v-if="enterprises.length > 0">
+										<div class="weui-cell__hd">我有权使用的企业章</div>
+										<div class="companySignature">
+											<div class="companySignatureList clearfix">
+												<ul>
+													<li class="companyListItem"  v-for="(item, index) in enterprises">
+														<div>
+															<div>
+																<img class="companySignaturePic" id="companySignatureFontPic0" :src="pathPrefix+'/'+item.sealData" />
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../js/common/navBar.js"></script>
+		<script type="text/javascript" src="../../js/partener/personRealNameAuthenticationInfo.js"></script>
+
+	</body>
+
+</html>

@@ -1,0 +1,137 @@
+
+/*===每日统计===*/
+body{
+	padding:10px 10px 0;
+	font-size:14px;
+}
+.custom-content{
+	padding:0 15px;
+	background:#fff;
+	height:100%;
+}
+.col-min{width:10%;}
+.col-xs-min{width:3%;min-width: 40px;}
+.col-middle{width:21%;}
+.col-max{width:34%;}
+
+/*===查询部分===*/
+.content-search{
+    position:relative;
+    padding:16px 0 20px;
+}
+.content-search a{
+	text-decoration:none;
+}
+.content-search .content-search-btn{
+    display: inline-block;
+    padding:0 20px;
+    margin-top:-1px;
+    min-width: 70px;
+    line-height: 28px;
+    color:#fff;
+    border-radius: 3px;
+    background:#31acfa;
+}
+.content-search>.clearfix>.fl{position:relative;}
+.content-search .labe_l{
+    display:inline-block;
+    color:#333;
+    font-size:14px;
+    width:68px; 
+    height:26px;
+    line-height:26px;
+    font-weight: 400;
+}
+.content-search .tex_t{
+    position:absolute;
+    top:0;
+    left:68px;
+    width:140px;
+    height:26px;
+    border:1px solid #dedede;
+    text-indent:4px;
+    border-radius:4px;
+}
+.content-search .fl+.fl{margin-left:2%;}
+.content-search .clearfix+.clearfix {
+    margin-top: 15px;
+}
+.content-search input[type="text"]:focus{
+    border-color:#6ec5fb;
+}
+.otherSelect{
+    position:relative;
+}
+.otherSelect .more{
+    display: inline-block;
+    line-height: 26px;
+}
+/*===按钮选择部分===*/
+.timeSelect{
+    
+}
+.timeSelect .singleSelect{
+    display: inline-block;
+    padding:7px 0px;
+    width:90px;
+    background:#e6e6e6;
+    color:#636363;
+    text-align: center;
+    cursor: pointer;
+    margin-right:15px;
+}
+.timeSelect .singleSelect.curr{
+	color: #fff;
+    background: #31acfa;
+}
+
+/*===日期插件部分===*/
+.content-search .reset_text{
+    border:none;
+    text-indent: 0;
+    border-radius: 0;
+}
+.content-search .reset_text .input-append{
+    width:46%;
+    position: relative;
+}
+.content-search .reset_text .input-append .add-on{
+    position: absolute;
+    top: 0;
+    right: 8px;
+    line-height: 26px;
+    font-size: 18px;
+}
+.input-append .icon-th:before {
+    color: #31acfa  ;
+}
+.content-search .reset_text .input-append>input{
+    width:100%;
+    height:26px;
+    line-height: 26px;
+    border:1px solid #dedede;
+    border-radius: 4px;
+    text-indent: 4px;
+}
+.to_link{
+    float:left;
+    width:8%;
+    text-align: center;
+    line-height: 26px;
+    font-size:14px;
+}
+
+/*===表格部分===*/
+.table-style table{margin-top:20px;}
+.custom-content table td .add-info{
+    padding:3px 20px;
+    background:#31acfa;
+}
+.custom-content table td .add-info:hover,
+.custom-content table td .add-info:active,
+.content-search .content-search-btn:hover,
+.content-search .content-search-btn:active{
+    background:#29a3f1;
+}
+
+            

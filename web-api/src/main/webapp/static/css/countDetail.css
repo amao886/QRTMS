@@ -1,0 +1,54 @@
+/*===每日统计详情===*/
+body{padding:0 20px;}
+.col-min{width:30%;}
+.content-search{
+    position:relative;
+    padding:16px 0 20px;
+}
+.content-search .content-search-btn{
+    padding:5px 20px;
+    color:#fff;
+    border-radius: 3px;
+    background:#31acfa;
+    position:absolute;
+    top:57px;
+    right:15%;
+    font-size:14px;
+}
+.content-search .clearfix+.clearfix{margin-top:15px;}
+.content-search .clearfix .fl{position:relative;}
+.content-search .labe_l{
+    display:inline-block;
+    color:#333;
+    font-size:14px;
+    width:68px; 
+    height:26px;
+    line-height:26px;
+    font-weight:400;
+}
+.content-search .tex_t{
+    position:absolute;
+    font-size:14px;
+    top:0;
+    left:68px;
+    width:140px;
+    height:26px;
+    border:1px solid #dedede;
+    text-indent:4px;
+    border-radius:4px;
+}
+.content-search .tex_t.selec_t{font-size:14px;}
+.content-search .fl+.fl{margin-left:5%;}
+.content_btn{border-top:1px solid #eee;padding-top:20px;}
+.content_btn .sendMsg{
+    padding:5px 20px;
+    color:#fff;
+    border-radius: 3px;
+    background:#597ecf;
+    display: inline-block;
+    font-size:14px;
+}
+
+/*表格样式*/
+
+

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+     <!--引入配置文件-->
+    <!-- <context:property-placeholder location="classpath:system.properties" ignore-unresolvable="true"></context:property-placeholder> -->    
+	<!-- jedis 配置 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<!--最小空闲数 -->
+		<property name="minIdle" value="${redis.minIdle}" />
+		<!--最大空闲数 -->
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<!--最大连接数 -->
+		<property name="maxTotal" value="${redis.maxTotal}" />
+		<!--最大建立连接等待时间 -->
+		<property name="maxWaitMillis" value="${redis.maxWaitMillis}" />
+		<!--是否在从池中取出连接前进行检验,如果检验失败,则从池中去除连接并尝试取出另一个 -->
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
+	<!--redis链接密码-->
+    <bean id="redisPassword" class="org.springframework.data.redis.connection.RedisPassword">
+        <constructor-arg name="thePassword" value="${redis.auth}"/>
+    </bean>
+    
+	<!-- redisCluster配置 -->
+	<bean id="redisStandaloneConfiguration"
+		class="org.springframework.data.redis.connection.RedisStandaloneConfiguration">
+		<property name="hostName" value="${redis.host}"/>
+		<property name="port" value="${redis.port}"/>
+		<property name="password" ref="redisPassword"/>
+		<property name="database" value="${redis.dbIndex}"/>
+	</bean>
+	<!-- redis服务器中心 -->
+	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<constructor-arg name="standaloneConfig" ref="redisStandaloneConfiguration"/>
+	</bean>	
+	<!-- 缓存序列化方式 -->
+	<bean id="keySerializer"
+		class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+	<bean id="valueSerializer"
+		class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+	<!-- 缓存 -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
+		<property name="enableTransactionSupport" value="true" />
+		<property name="keySerializer" ref="keySerializer" />
+		<property name="valueSerializer" ref="valueSerializer" />
+		<property name="hashKeySerializer" ref="keySerializer" />
+		<property name="hashValueSerializer" ref="valueSerializer" />
+	</bean>
+	
+	<!-- 缓存管理 -->
+	<!-- <bean id="redisHelper" class="com.ycg.ksh.common.extend.cache.redis.RedisHelper">
+		<property name="redisTemplate" ref="redisTemplate" />
+	</bean> -->
+	
+	<bean id="cache.local.permanent.service" class="com.ycg.ksh.common.extend.cache.redis.RedisCacheManager">
+		<property name="redisTemplate" ref="redisTemplate" />
+		<property name="regionName" value="cache.local.permanent" />
+	</bean>
+</beans>

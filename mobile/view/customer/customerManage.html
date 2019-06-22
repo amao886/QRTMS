@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>客户管理</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/customer/customerManage.css" />
+
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#f2f2f2;">
+		<div id="box">
+			<template>
+				<div class="searchTab">
+					<div class="weui-flex">
+						<div class="searchSelect weui-flex__item roleTypeTxt" :class="{'borderBottom' : roleType == 0}" uid="0" @click="chooseRoleType(0)">货主</div>
+						<div class="searchSelect weui-flex__item roleTypeTxt" :class="{'borderBottom' : roleType == 1}" uid='1' @click="chooseRoleType(1)">承运商</div>
+						<div class="searchSelect weui-flex__item roleTypeTxt" :class="{'borderBottom' : roleType == 2}" uid='2' @click="chooseRoleType(2)">收货客户</div>
+					</div>
+				</div>
+				<div class="form">
+					<div class="transportation" v-for="item in list " :key="item.key " @click="toDetail(item.key)">
+						<span class="fl enterprise " v-text='item.name'> </span>
+						<span class="register fr">
+							<div v-if="item.companyKey <= 0 && item.companyKey==''"  class="unRegister">未注册</div>
+							<div v-else  class="isRegister">已注册</div>
+						</span>
+					</div>
+				</div>
+				<div class="addition">
+					<a href="./addCustomer.html">添加客户</a>
+				</div>
+			</template>
+		</div>
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../js/customer/addCustomer.js"></script>
+	</body>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el: '#box',
+			data: {
+				//是否注册
+				isRegister: true,
+				unRegister: true,
+				roleType: 0,
+				type: 1,
+				list: []
+			},
+			methods: {
+				toDetail: function(key) {
+					window.location.href = './customerDetail.html?id=' + key;
+				},
+				chooseRoleType: function(id) {
+					var _this = this;
+
+					_this.roleType = id;
+
+					if(id == 0) {
+						_this.type = 1;
+					} else if(id == 1) {
+						_this.type = 3;
+					} else if(id == 2) {
+						_this.type = 2;
+					}
+					
+					_this.getCustomerList();
+				},
+				getCustomerList: function() {
+					var _this = this;
+
+					var param = {
+						userHost: 'true',
+						type: _this.type
+					};
+					EasyAjax.ajax_Post_Json({
+						url: 'enterprise/customer/list',
+						data: JSON.stringify(param)
+					}, function(res) {
+						_this.list = res.customers;
+						_this.id = res.customers.key;
+					});
+				}
+			},
+			created: function() {
+				var _this = this;
+
+				_this.getCustomerList();
+			}
+		})
+	</script>
+
+</html>

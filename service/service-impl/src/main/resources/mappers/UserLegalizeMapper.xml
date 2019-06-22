@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.UserLegalizeMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.UserLegalize">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="MOBILE_PHONE" jdbcType="VARCHAR" property="mobilePhone"/>
+        <result column="ID_CARD_NO" jdbcType="VARCHAR" property="idCardNo"/>
+        <result column="LEGALIZE_TIME" jdbcType="TIMESTAMP" property="legalizeTime"/>
+        <result column="BRANK_CARD_NO" jdbcType="VARCHAR" property="brankCardNo"/>
+        <result column="FETTLE" jdbcType="INTEGER" property="fettle"/>
+    </resultMap>
+
+    <select id="checkIdCardCount" resultType="java.lang.Integer">
+     SELECT count(id) from T_USER_LEGALIZE where ID_CARD_NO = #{arg0}
+  </select>
+</mapper>

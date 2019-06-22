@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>发货管理</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll_002.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll_003.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/partener/transportManageList.css" />
+	</head>
+
+	<body ontouchstart style="background-color: #F5F6F9;">
+		<div class="transSearch-wrapper transportList" id="transSearchWrapper">
+			<div class="searchTab">
+				<div class="weui-flex">
+					<div class="searchSelect weui-flex__item all borderBottom" uid="0">全部</div>
+					<div class="searchSelect weui-flex__item transportStatusTxt" uid='1'>运输中</div>
+					<div class="searchSelect weui-flex__item transportStatusTxt" uid="2">已到货</div>
+					<div class="weui-flex__item choose">
+						<div class="splitLine"></div>
+						<div class="filterIcon">
+							<img src="../../images/filtericon.png" />
+						</div>
+						筛选
+					</div>
+				</div>
+				<div class="chooseCon">
+					<div class="chooseBox">
+						<!--搜索部分-->
+						<div class="searchInput weui-search-bar__box">
+							<input type="text" placeholder="系统单号/送货单号/发货方/物流商" id="inputSearch">
+							<i class="weui-icon-clear" id="iconClear"></i>
+						</div>
+						<!--筛选部分-->
+						<div class="choosePart">
+							<h2 class="chooseTitle">发货日期</h2>
+							<ul class="dateSts">
+								<li class="active">
+									<label for="date0">全部</label>
+									<input type="radio" name="dateType" id="date0" value="0" />
+								</li>
+								<li>
+									<label for="date1">近三天</label>
+									<input type="radio" name="dateType" id="date1" value="1" />
+								</li>
+								<li>
+									<label for="date2">近一周</label>
+									<input type="radio" name="dateType" id="date2" value="2" />
+								</li>
+								<li>
+									<label for="date3">近一月</label>
+									<input type="radio" name="dateType" id="date3" value="3" />
+								</li>
+								<li>
+									<label id="showDate" for="date4">其他日期</label>
+									<input type="radio" name="dateType" id="date4" value="4">
+								</li>
+							</ul>
+						</div>
+						<div class="choosePart bindCodeSts">
+							<h2 class="chooseTitle">二维码绑单</h2>
+							<ul class="billSts">
+								<li class="active">
+									<label for="code0">全部</label>
+									<input type="radio" name="bindCodeType" id="code0" value="0" />
+								</li>
+								<li>
+									<label for="code1">未绑二维码</label>
+									<input type="radio" name="bindCodeType" id="code1" value="1" />
+								</li>
+								<li>
+									<label for="code2">已绑二维码</label>
+									<input type="radio" name="bindCodeType" id="code2" value="2" />
+								</li>
+							</ul>
+						</div>
+						<div class="choosePart writeSts">
+							<h2 class="chooseTitle">签收状态</h2>
+							<ul class="signSts">
+								<li class="active">
+									<label for="sign0">全部</label>
+									<input type="radio" name="signStatus" id="sign0" value="0" />
+								</li>
+								<li>
+									<label for="sign1">正常签收</label>
+									<input type="radio" name="signStatus" id="sign1" value="1" />
+								</li>
+								<li>
+									<label for="sign2">异常签收</label>
+									<input type="radio" name="signStatus" id="sign2" value="2" />
+								</li>
+							</ul>
+						</div>
+						<div class="operateBtn">
+							<div class="btnPart">
+								<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default cancelBtn">取消</a>
+								<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary confirmBtn">确定</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--管理详情-->
+			<div class="manageList-wrapper transport-wrap">
+				
+			</div>
+
+			<!--加载更多-->
+			<div class="weui-loadmore hide">
+				<i class="weui-loading"></i>
+				<span class="weui-loadmore__tips">正在加载</span>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+		<script type="text/x-jsrender" id="listData">
+			<div class="manage-detail" onclick="toPage({{:id}})">
+				<div class="weui-flex">
+					<div class="left-title">发货日期</div>
+					<div class="weui-flex__item wordwrap">{{:~dateFormatCommon(deliveryTime,3)}}</div>
+					<div class="weui-flex__item wordwrap">
+						{{if fettle == 1}}
+						<img src="../../images/transportingicon.png" class="showStatusPic" /> {{else fettle == 3}}
+						<img src="../../images/arrivegoodicon.png" class="showStatusPic" /> {{else fettle == 4}}
+						<img src="../../images/signedicon.png" class="showStatusPic" /> {{/if}}
+					</div>
+				</div>
+				<div class="weui-flex">
+					<div class="left-title">送货单号</div>
+					<div class="weui-flex__item wordwrap">{{:deliveryNo}}</div>
+				</div>
+				<div class="weui-flex">
+					<div class="left-title">
+						{{if isUserType == 1 }}
+						<span class="w3">物流商</span>{{else isUserType == 2}}
+						<span class="w3">发货方</span>{{else isUserType == 3}}
+						<span class="w3">发货方</span>{{/if}}
+					</div>
+					{{if isUserType == 1 }}
+					<div class="weui-flex__item">{{:convey.companyName}}</div>{{else isUserType == 2}}
+					<div class="weui-flex__item">{{:shipper.companyName}}</div>{{else isUserType == 3}}
+					<div class="weui-flex__item">{{:shipper.companyName}}</div>{{/if}}
+				</div>
+				<div class="weui-flex">
+					<div class="left-title">
+						{{if isUserType == 1 }}
+						<span>收货客户</span>{{else isUserType == 2}}
+						<span>收货客户</span>{{else isUserType == 3}}
+						<span class="w3">物流商</span>{{/if}}
+					</div>
+					{{if isUserType == 1 }}
+					<div class="weui-flex__item wordwrap" style="margin-right: -85px;">{{:receive.companyName}}</div>{{else isUserType == 2}}
+					<div class="weui-flex__item wordwrap" style="margin-right: -85px;">{{:receive.companyName}}</div>{{else isUserType == 3}}
+					<div class="weui-flex__item wordwrap" style="margin-right: -85px;">{{:convey.companyName}}</div>{{/if}}
+
+					{{if isUserType == 3 && evaluation == null }}
+					<div class="weui-flex__item wordwrap notEvaluate">
+						<img src="../../images/favourablecomment_icon.png" class="showFavourablePic" onclick="evaluateSubmit({{:id}}, 1, event)"/>
+						<img src="../../images/negativecomment_icon.png" class="showNegativePic" onclick="evaluateSubmit({{:id}}, 0, event)"/>
+					</div>{{else isUserType == 3 && evaluation != null}}
+					<div class="weui-flex__item wordwrap alreadyEvaluate">
+						{{if evaluation == 0 }}
+						<img src="../../images/negativecommentchoosed_icon.png" class="showNegativePic" />{{else evaluation == 1}}
+						<img src="../../images/favourablecommentchooseed_icon.png" class="showFavourablePic" />{{/if}}
+					</div>{{/if}}
+				</div>
+			</div>
+		</script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../js/common/filter_emoji.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_002.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_004.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_003.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_005.js"></script>
+		<script type="text/javascript" src="../../js/partener/transportManageList.js"></script>
+	</body>
+
+</html>

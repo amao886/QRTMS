@@ -1,0 +1,115 @@
+/*管理详情*/
+.manage-detail {
+	position: relative;
+	padding: 10px 0;
+	background: #fff;
+}
+
+.manage-detail .left-title {
+	overflow: hidden;
+	text-align: center;
+	width: 6em;
+	color: #333333;
+}
+
+.manage-detail .left-title>span {
+	display: block;
+}
+
+.manage-detail .left-title .w3 {
+	letter-spacing: 0.5em;
+	margin-right: -0.5em;
+}
+
+.manage-detail .weui-flex {
+	padding: 0 20px 0 0;
+	position: relative;
+}
+
+.manage-detail .weui-flex:before {
+	content: ':';
+	position: absolute;
+	top: 0px;
+	left: 85px;
+	z-index: 2;
+	color: #333333;
+}
+
+.manage-detail .weui-flex.paddingTop:before {
+	top: 10px;
+}
+
+.manage-detail .weui-flex__item {
+	padding-left: 5px;
+	color: #333333;
+}
+
+.manageList-wrapper .weui-flex {
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+.site-wrap .weui-flex {
+	position: relative;
+}
+
+.remarkInfo {
+	margin-top: 15px;
+	background: #FFFFFF;
+}
+
+.remarkInfo-detail {
+	position: relative;
+    padding: 10px 16px;
+}
+
+.remarkInfo-detail .weui-flex {
+	position: relative;
+}
+
+.remarkInfo-detail .left-title {
+	overflow: hidden;
+	text-align: center;
+	color: #333333;
+}
+
+.remarkInfo-detail .left-title>span {
+	display: block;
+}
+
+.remarkInfo-detail .weui-flex:before {
+	content: ':';
+	position: absolute;
+	top: 0px;
+	left: 35px;
+	z-index: 2;
+	color: #333333;
+}
+
+.remarkInfo-detail .weui-flex.paddingTop:before {
+	top: 10px;
+}
+
+.remarkInfo-detail .weui-flex__item {
+	padding-left: 15px;
+	color: #333333;
+}
+
+.remarkInfo .weui-flex {
+	background: #fff;
+	margin-bottom: 0 !important;
+}
+
+.spliteLine {
+	width:96%;
+	height:1px;
+	margin:0 0 0 4%;
+	padding:0;
+	background-color:#D5D5D5;
+	overflow:hidden;
+}
+
+.remark-wrap .weui-flex {
+	margin-top: 5px;
+	margin-bottom: 10px !important;
+}

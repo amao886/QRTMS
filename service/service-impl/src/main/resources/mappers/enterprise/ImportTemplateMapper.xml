@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.enterprise.ImportTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.enterprise.ImportTemplate">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="KEY" jdbcType="BIGINT" property="key" />
+    <result column="COMPANY_KEY" jdbcType="BIGINT" property="companyKey" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="FETTLE" jdbcType="INTEGER" property="fettle" />
+    <result column="USER_KEY" jdbcType="INTEGER" property="userKey" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="START_ROW" jdbcType="INTEGER" property="startRow" />
+    <result column="START_COLUMN" jdbcType="INTEGER" property="startColumn" />
+    <result column="EMPTY_COLUMN" jdbcType="VARCHAR" property="emptyColumn" />
+    <result column="MERGE_TYPE" jdbcType="INTEGER" property="mergeType" />
+    <result column="CATEGORY" jdbcType="INTEGER" property="category" />
+  </resultMap>
+</mapper>

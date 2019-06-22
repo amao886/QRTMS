@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>出库</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<link href="css/index.css" rel="stylesheet" type="text/css" />
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+
+	<body style="background: #F5F5F5;">
+
+		<header id="header" class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">出库</h1>
+			<button type="button" class="mui-btn mui-pull-right btnLoginout" onclick="loginOut()">退出登录</button>
+		</header>
+
+		<div class="mui-content" id="getScanCode" v-cloak>
+			<template>
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#scanCodeTakeout">
+						扫码出库
+					</a>
+					<a class="mui-control-item" href="#lookSummary">
+						查看汇总
+					</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="scanCodeTakeout" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<a class="mui-navigate-right" @click="gotoPage(1)">
+											<span class="listTitle">发货客户</span>
+											<span class="listContent">{{deliverCustomer}}</span>
+										</a>
+									</li>
+									<li class="mui-table-view-cell">
+										<a class="mui-navigate-right" @click="gotoPage(2)">
+											<span class="listTitle">收货客户</span>
+											<span class="listContent">{{receiveCustomer}}</span>
+										</a>
+									</li>
+									<li class="mui-table-view-cell">
+										<span class="listInputTitle">送货单号</span>
+										<input class="mui-badge listInput" name="deliveryNo" type="text" placeholder="请输入送货单号" v-model.trim="deliverNo" @input="deliveryNoValidate">
+									</li>
+									<li class="mui-table-view-cell">
+										<span class="listInputTitle">发货日期</span>
+										<input class="mui-badge listInput" name="sendGoodDate" type="text" placeholder="请选择发货日期" readonly :value="sendGoodDate" @click="chooseDate">
+									</li>
+								</ul>
+								<div class="spliteLine"></div>
+
+								<div class="MT10 mui-clearfix">
+									<div class="spliteLine"></div>
+									<div class="scanCodeCount">
+										<span class="scanCodeInputTitle">设置默认扫码数量</span>
+										<input class="scanCodeInput" name="scanCodeCount" type="text" v-model.trim="defaultQuantity" @input="quantityValidate">
+									</div>
+								</div>
+								<div class="spliteLine"></div>
+
+								<div class="MT10 BgWhite">
+									<div class="spliteLine"></div>
+									<div style="padding: 0 10px;">
+										<table class="table">
+											<tr>
+												<th>
+													批次
+												</th>
+												<th>
+													品名
+												</th>
+												<th>
+													数量
+												</th>
+												<th>
+													操作
+												</th>
+											</tr>
+											<tr v-if="goodDetailList.length <= 0">
+												<td colspan="4" style="text-align: center;">暂无数据</td>
+											</tr>
+											<tr v-if="goodDetailList.length > 0" v-for="(item, index) in goodDetailList">
+												<td>
+													{{item.batchNumber}}
+												</td>
+												<td>
+													{{item.materialName}}
+												</td>
+												<td>
+													<input class="scanCodeTableInput" name="scanCodeTableCount" type="text" v-model.trim="item.outboundQuantity" @input="quantityTableValidate(item, index)">
+												</td>
+												<td>
+													<div @click="deleteGood(index)">删除</div>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="operateBtn mui-clearfix">
+									<button type="button" class="mui-btn btnReset" @click="reset">重置</button>
+									<button type="button" class="mui-btn mui-btn-primary btnSubmit" data-loading-text = "提交中" data-loading-icon-position="left" @click="submit">提交</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="lookSummary" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<a>
+											<span class="listTitle">发货客户</span>
+											<span class="listContent clearListContent">{{deliverCustomer}}</span>
+										</a>
+
+									</li>
+									<li class="mui-table-view-cell">
+										<a>
+											<span class="listTitle">收货客户</span>
+											<span class="listContent clearListContent">{{receiveCustomer}}</span>
+										</a>
+
+									</li>
+									<li class="mui-table-view-cell">
+										<a>
+											<span class="listInputTitle">送货单号</span>
+											<span class="listContent clearListContent">{{deliverNo}}</span>
+										</a>
+									</li>
+									<li class="mui-table-view-cell">
+										<a>
+											<span class="listInputTitle">发货日期</span>
+											<span class="listContent clearListContent">{{sendGoodDate}}</span>
+										</a>
+									</li>
+								</ul>
+								<div class="spliteLine"></div>
+
+								<div class="MT10 BgWhite">
+									<div class="spliteLine"></div>
+									<table class="showTable">
+										<tr>
+											<th>
+												品名
+											</th>
+											<th>
+												数量
+											</th>
+										</tr>
+										<tr v-if="goodDetailSummaryList.length <= 0">
+												<td colspan="2" style="text-align: center;">暂无数据</td>
+											</tr>
+										<tr v-if="goodDetailSummaryList.length > 0" v-for="goodDetailSummaryLists in goodDetailSummaryList">
+											<td>
+												{{goodDetailSummaryLists.materialName}}
+											</td>
+											<td>
+												{{goodDetailSummaryLists.outboundQuantity}}
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</template>
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.picker.min.js"></script>
+		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="js/json2.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/mui.cookie.js"></script>
+		<script type="text/javascript" src="js/mui.config.js"></script>
+		<script type="text/javascript" src="js/mui.ajax.js"></script>
+		<script type="text/javascript" src="js/scanCode.js"></script>
+		<script type="text/javascript" src="js/loginOut.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+	</body>
+
+</html>

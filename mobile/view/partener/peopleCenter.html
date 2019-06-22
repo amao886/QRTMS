@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>我的</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/partener/peopleCenter.css" />
+
+</head>
+
+<body ontouchstart style="background:#fafafa;">
+ <div class="weui-tab" id="content">
+    <div class="weui-tab__bd">
+    	
+		<div id="tab3" class="weui-tab__bd-item mine-part  weui-tab__bd-item--active">
+        	<div class="mine-part-photo">
+        		<img src="../../images/timg2.png"/>
+        	</div>       	
+            <div class="weui-panel centerBox">
+		    <!--内容放置处-->
+	        </div>
+	        <div class="weui-panel">
+			    <div class="weui-panel__bd">
+			      <div class="weui-media-box weui-media-box_small-appmsg">
+			        <div class="weui-cells">
+			            <a class="weui-cell weui-cell_access" href="applyResource.html">
+			                <div class="weui-cell__hd"></div>
+			                <div class="weui-cell__bd weui-cell_primary">
+			                    <p>申请二维码</p>
+			                </div>
+			                <span class="weui-cell__ft"></span>
+			            </a>
+			            <a class="weui-cell weui-cell_access" href="attentionUS.html">
+				            <div class="weui-cell__hd"></div>
+				            <div class="weui-cell__bd weui-cell_primary">
+				                <p>关注公众号</p>
+				            </div>
+				            <span class="weui-cell__ft"></span>
+			            </a>
+			        </div>
+			      </div>
+			    </div>
+			</div>  
+			
+			<div class="weui-panel">
+			    <div class="weui-panel__bd">
+			      <div class="weui-media-box weui-media-box_small-appmsg">
+			        <div class="weui-cells">
+			            <a class="weui-cell weui-cell_access" href="about.html">
+				            <div class="weui-cell__hd"></div>
+				            <div class="weui-cell__bd weui-cell_primary">
+				                <p>关于合同物流管理平台</p>
+				            </div>
+				            <span class="weui-cell__ft"></span>
+				        </a>
+			        </div>
+			      </div>
+			    </div>
+			</div>
+			
+			<div class="weui-panel personAuthBox">
+		    <!--内容放置处-->
+	        </div>
+			
+			<div class="weui-panel myCompanyBox">
+		    <!--内容放置处-->
+	        </div>
+	        
+	        <div class="weui-panel">
+			    <div class="weui-panel__bd">
+			      <div class="weui-media-box weui-media-box_small-appmsg">
+			        <div class="weui-cells">
+			            <a class="weui-cell weui-cell_access" href="myWallet.html">
+				            <div class="weui-cell__hd"></div>
+				            <div class="weui-cell__bd weui-cell_primary">
+				                <p>我的钱包</p>
+				            </div>
+				            <span class="weui-cell__ft"></span>
+				        </a>
+			        </div>
+			      </div>
+			    </div>
+			</div>
+			<div class="weui-panel">
+			    <div class="weui-panel__bd">
+			      <div class="weui-media-box weui-media-box_small-appmsg">
+			        <div class="weui-cells">
+			            <a class="weui-cell weui-cell_access" href="myIntegral.html">
+				            <div class="weui-cell__hd"></div>
+				            <div class="weui-cell__bd weui-cell_primary">
+				                <p>我的积分</p>
+				            </div>
+				            <span class="weui-cell__ft"></span>
+				        </a>
+			        </div>
+			      </div>
+			    </div>
+			</div>
+        </div>
+    </div>
+</div>
+
+<!--底部导航-->
+<div id="navBarIn"></div>
+
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/x-jsrender" id="peopleCenterInfo">
+    <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_small-appmsg">
+        <div class="weui-cells">
+          <a class="weui-cell weui-cell_access" href="javascript:;">
+            <div class="weui-cell__hd">姓　　名</div>
+            <div class="weui-cell__bd weui-cell_primary text_right">
+              <p id="userName">{{:unamezn}}</p>
+            </div>
+            <span class="weui-cell__ft"></span>
+          </a>
+          <a class="weui-cell weui-cell_access" href="javascript:;">
+            <div class="weui-cell__hd">手机号码</div>
+			<div class="weui-cell__bd weui-cell_primary text_right">
+              <p id="phone">{{:mobilephone}}</p>
+            </div>
+            <span class="weui-cell__ft"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+</script>
+<script type="text/x-jsrender" id="peopleAuthInfo">
+    <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_small-appmsg">
+        <div class="weui-cells">
+          <a class="weui-cell weui-cell_access" href="javascript:;">
+            <div class="weui-cell__hd">个人认证</div>
+            <div class="weui-cell__bd weui-cell_primary text_right">
+            	{{if null != fettle && fettle > 0 tmpl="#j-alreadyAuthTpl" }}
+              	{{else tmpl="#j-notAuthTpl" }}
+              	{{/if}}
+            </div>
+            <span class="weui-cell__ft"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+</script>
+<script type="text/x-jsrender" id="j-notAuthTpl">
+    <p id="authStatusNot">未认证</p>
+</script>
+<script type="text/x-jsrender" id="j-alreadyAuthTpl">
+    <p id="authStatusAlready">已认证</p>
+</script>
+<script type="text/x-jsrender" id="myCompanyInfo">
+    <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_small-appmsg">
+        <div class="weui-cells">
+          <div class="weui-cell">
+            <div class="weui-cell__hd">我的企业</div>
+            <div class="weui-cell__bd weui-cell_primary text_right">
+              <p id="myCompany">{{:companyName}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../js/partener/peopleCenter.js"></script>
+<script>
+//	alert($(document).height());
+//alert($(".weui-footer").get(0).height());
+</script>
+</body>
+</html>

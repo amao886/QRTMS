@@ -1,0 +1,111 @@
+/*===客户管理===*/
+body{
+	padding:10px 10px 0;
+	font-size:14px;
+}
+.custom-content{
+	padding:0 15px;
+	background:#fff;
+	min-height:100%;
+}
+.p-relative{position:relative;}
+.col-middle{width:22%;}
+.col-min{width:30%;}
+.col-max{width:28%;}
+.content-search{
+	position:relative;
+	padding:16px 0 20px;
+}
+.content-search .content-search-btn{
+	padding: 5px 20px;
+    color: #fff;
+    border-radius: 3px;
+    background: #31acfa;
+    position: absolute;
+    top: 61px;
+    right: 15%;
+    font-size: 14px;
+}
+.content-search .clearfix .fl{position:relative;}
+.content-search .labe_l{
+	display:inline-block;
+	color:#333;
+	font-size:14px;
+	width:68px; 
+	height:26px;
+	line-height:26px;
+    font-weight: 400;
+}
+.content-search .tex_t{
+	position:absolute;
+	top:0;
+	left:68px;
+	width:140px;
+	height:26px;
+	border:1px solid #dedede;
+	text-indent:4px;
+	border-radius:4px;
+}
+.content-search .tex_t:focus{
+	border-color:#6ec5fb;
+}
+.content-search .fl+.fl{margin-left:5%;}
+.content-search .clearfix+.clearfix {
+    margin-top: 20px;
+}
+.table-style table{margin-top:20px;}
+.custom-content .edit .add-edit{
+	padding:5px 20px;
+	color:#fff;
+	border-radius: 3px;
+	background:#31acfa;
+	display: inline-block;
+}
+.custom-content table td .add-info{
+    padding: 0; 
+    color: #fff;
+    border-radius: 0;
+    background: transparent;
+}
+.custom-content table td .add-info>span{
+	display:inline-block;
+	width:27px;
+	height:27px;
+	background:url(../images/custom_edit.png) no-repeat center;
+	background-size:24px;
+	margin-top:3px;
+}
+.custom-content .edit .add-edit:active,.custom-search .custom-search-btn:active{
+	background:#31acfa;
+}
+
+
+.model-base-box .p-relative .relative-box{
+	display: inline-block;
+	width:340px;
+}
+.model-base-box .p-relative>label{
+	display: inline-block;
+	width:80px;
+	text-align: right;
+	margin-right: 6px;
+}
+.model-base-box .p-relative .relative-box>select{
+	width:125px;
+}
+
+
+.line-item {
+	display: inline-block;
+	width: 180px;
+	margin-left: 21px;
+}
+
+/******/
+.tabBtnCon{margin-top:15px;}
+.tabBtnCon .tabBtn{cursor:pointer;display:inline-block;padding:6px 15px;background: #e6e6e6; margin-right:15px;}
+.tabBtnCon .tabBtn.curr{color: #fff; background: #31acfa;}
+
+.topInfo{ margin-top:20px;} 
+.topInfo span{margin-top:10px;float:left;}
+.topInfo a{float:right;margin-right:15px;}

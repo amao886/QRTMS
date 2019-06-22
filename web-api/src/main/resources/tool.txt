@@ -1,0 +1,4 @@
+添加企业-自动生成印章数据
+special/backstage/company/save
+参数
+{"companyName":"后台测试公司", "codeOrg":"12321321332465443", "legalName":"法人姓名", "legalIdNo":"456789456123654458"}

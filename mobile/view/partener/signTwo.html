@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>签署</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/partener/signTwo.css" />
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#FFFFFF;">
+		<div id="signatureTwo" v-cloak>
+			<div v-if="listResult">
+				<div class="chooseStyle">
+					<p>1.请选择使用的个人签章（单选）</p>
+					<div class="personSignature">
+						<div class="personSignatureList clearfix">
+							<ul>
+								<li class="personListItem" v-if="personals.length > 0" v-for="(item, index) in personals">
+									<div @click="choosePersonSignature(item.id,index);">
+										<div>
+											<img class="personSignaturePic" :id="'personSignatureFontPic'+index" :src="pathPrefix+'/'+item.sealImgPath" />
+											<img class="personSignatureChoosedPic" src="../../images/signaturechoosedicon.png" />
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<p style="margin-top: 50px;">2.请选择使用的企业章（单选）</p>
+					<div class="companySignature">
+						<div class="companySignatureList clearfix">
+							<ul>
+								<li class="companyListItem" v-if="enterprises.length > 0" v-for="(item, index) in enterprises">
+									<div @click="chooseCompanySignature(item.id,index);">
+										<div>
+											<img class="companySignaturePic" :id="'companySignatureFontPic'+index" :src="pathPrefix+'/'+item.sealData" />
+											<img class="companySignatureChoosedPic" src="../../images/signaturechoosedicon.png" />
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class='demos-content-padded' style="margin-top:50px;">
+					<a href="javascript:;" id="showTooltips" class="weui-btn weui-btn_primary" @click="submitInfo()">提交</a>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../js/common/navBar.js"></script>
+		<script type="text/javascript" src="../../js/partener/signTwo.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.RolePermissionMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.RolePermission">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="roleid" jdbcType="INTEGER" property="roleid" />
+    <result column="permissionid" jdbcType="INTEGER" property="permissionid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  
+  <select id="queryRolePermission" resultMap="BaseResultMap">
+  	SELECT 
+  		rp.*
+  	FROM
+  		role_permission_tab rp
+  	GROUP BY 
+  		rp.roleid
+  </select>
+  <!-- 删除角色对应所有权限 -->
+  <delete id="deleteByRoleId" parameterType="java.lang.Integer" >
+    delete from role_permission_tab
+    where roleid = #{roleid,jdbcType=INTEGER}
+  </delete>
+</mapper>

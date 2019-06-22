@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>到车登记</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/sitemanagement/registrVehicleTwo.css" />
+
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#F5F5F5;">
+		<div id="registrVehicleTwoWrapper" v-cloak>
+			<template>
+				<div class="manageList-wrapper site-wrap">
+					<div class="manage-detail">
+						<div class="weui-flex">
+							<div class="left-title">送货单号</div>
+							<div class="weui-flex__item wordwrap">{{showDeliveryNo}}</div>
+						</div>
+						<div class="weui-flex">
+							<div class="left-title">
+								<span class="w3">车牌号</span>
+							</div>
+							<div class="weui-flex__item wordwrap">{{showPlateNo}}</div>
+						</div>
+						<div class="weui-flex">
+							<div class="left-title">司机姓名</div>
+							<div class="weui-flex__item">{{showDriverName}}</div>
+						</div>
+						<div class="weui-flex">
+							<div class="left-title">司机电话
+							</div>
+							<div class="weui-flex__item wordwrap">{{showDriverPhone}}</div>
+						</div>
+					</div>
+
+					<div class="remarkInfo">
+						<div class="remarkInfo-detail">
+							<div class="weui-flex">
+								<div class="left-title">备注</div>
+							</div>
+						</div>
+						<div class="spliteLine"></div>
+						<div class="weui-cells weui-cells_radio">
+							<label class="weui-cell weui-check__label" for="dispatchCarState0" @change="choose(dispatchCarStatus)">
+							<div class="weui-cell__hd">
+								<input type="radio" class="weui-check" name="dispatchCarState" id="dispatchCarState0" value="0" checked="checked" v-model="dispatchCarStatus">
+								<span class="weui-icon-checked"></span>
+							</div>
+							<div class="weui-cell__bd">
+								<p>到车车辆与派车信息一致</p>
+							</div>
+						</label>
+							<label class="weui-cell weui-check__label" for="dispatchCarState1" @change="choose(dispatchCarStatus)">
+							<div class="weui-cell__hd">
+								<input type="radio" name="dispatchCarState" class="weui-check" value="1" id="dispatchCarState1" v-model="dispatchCarStatus">
+								<span class="weui-icon-checked"></span>
+							</div>
+							<div class="weui-cell__bd">
+								<p>到车车辆与派车信息不一致</p>
+							</div>
+						</label>
+							<div id="show0"></div>
+							<label class="weui-cell weui-check__label" for="dispatchCarState2" @change="choose(dispatchCarStatus)">
+							<div class="weui-cell__hd">
+								<input type="radio" name="dispatchCarState" class="weui-check" value="2" id="dispatchCarState2" v-model="dispatchCarStatus">
+								<span class="weui-icon-checked"></span>
+							</div>
+							<div class="weui-cell__bd">
+								<p>无派车信息，手动记录到场车辆信息</p>
+							</div>
+						</label>
+						</div>
+						<div id="show1"></div>
+						<div class="dispatchCarInfo" :class="{'hide' : dispatchCarStatus == 0}">
+							<div class="manage-detail remark-wrap">
+								<div class="weui-flex">
+									<div class="left-title">
+										<span class="w3">车牌号</span>
+									</div>
+									<div class="weui-flex__item wordwrap">
+										<input class="weui-input" v-model="plateNo">
+									</div>
+								</div>
+								<div class="weui-flex">
+									<div class="left-title">司机姓名</div>
+									<div class="weui-flex__item">
+										<input class="weui-input" v-model="driverName">
+									</div>
+								</div>
+								<div class="weui-flex">
+									<div class="left-title">司机电话
+									</div>
+									<div class="weui-flex__item wordwrap">
+										<input class="weui-input" v-model="driverPhone">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class='demos-content-padded'>
+						<a href="javascript:;" class="weui-btn weui-btn_primary" @click="submit">提交</a>
+					</div>
+				</div>
+			</template>
+		</div>
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../js/sitemanagement/registrVehicleTwo.js"></script>
+	</body>
+
+</html>

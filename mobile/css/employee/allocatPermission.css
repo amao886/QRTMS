@@ -1,0 +1,244 @@
+.mine-part .weui-panel {
+	border-top: 1px solid #E0E0E0;
+}
+
+/* placeholder字体颜色重置 */
+input::-webkit-input-placeholder {
+	color: #999999;
+}
+
+input:-moz-placeholder {
+	color: #999999;
+}
+
+input::-moz-placeholder {
+	color: #999999;
+}
+
+input:-ms-input-placeholder {
+	color: #999999;
+}
+
+.weui-label {
+	color: #333333;
+}
+
+.weui-input {
+	color: #666666;
+}
+
+.mine-part .text_right {
+	text-align: right;
+	padding-right: 10px;
+	color: #666666;
+}
+
+.weui-cells {
+	background-color: #FAFAFA;
+}
+
+.weui-cell__hd {
+	color: #333333;
+}
+
+.weui-cell_access .weui-cell__ft:after {
+	border-color: #AFAFAF;
+}
+
+.weui-cell:before {
+	border-top: 1px solid #E0E0E0;
+	left: 0;
+}
+
+.cell {
+	margin-top: -10px;
+	padding: 10px 15px;
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.weui-footer {
+	padding: 10px;
+	bottom: 0;
+	background: #fff;
+	z-index: 3;
+}
+
+.weui-switch-cp__input:checked~.weui-switch-cp__box,
+.weui-switch:checked {
+	border-color: #1AAD19;
+	background-color: #1AAD19;
+}
+
+.allocatpermission-btn>a {
+	width: 45%;
+	font-size: 15px;
+}
+
+.allocatpermission-btn>a.weui-btn_plain-primary {
+	line-height: normal;
+	padding: 6px 0;
+	text-align: center;
+	color: #333333;
+	border: 1px solid #333333;
+}
+
+.allocatpermission-btn .weui-btn_plain-primary:not(.weui-btn_plain-disabled):active {
+	color: #797979;
+	border-color: #797979;
+}
+
+.allocatpermission-btn>a.weui-btn_primary {
+	margin-top: 0;
+	line-height: normal;
+	height: auto;
+	padding: 7px 0;
+	color: #fff;
+	border-radius: 5px;
+	margin-right: 10px;
+}
+
+.allocatpermission-btn>a.weui-btn_plain-primary,
+.allocatpermission-btn>a.weui-btn_primary {
+	padding: 10px 0;
+}
+
+.allocatpermission-btn>a.weui-btn_plain-primary {
+	margin-top: 0;
+	margin-left: 10px;
+}
+
+.weui-btn_primary {
+	background: #0071FE;
+	border: 1px solid #0071FE;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+	border-color: #0059C7;
+}
+
+.weui-cell__bd {
+	color: #333333;
+}
+
+.subTitle {
+	color: #666666;
+	font-size: 15px;
+}
+
+.chooseGroup {
+	color: #666666;
+	font-size: 15px;
+	margin-left: 15px;
+	margin-bottom: 10px;
+}
+
+.chooseItem {
+	float: left;
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+.checkBoxParent {
+	width: 18px;
+	height: 18px;
+	position: relative;
+	top: 0;
+	left: 0;
+	background: transparent;
+	float: right;
+}
+
+.chooseTripText {
+	float: left;
+	font-size: 14px;
+	margin-right: 10px;
+	position: relative;
+}
+
+.checkBoxParent label {
+	cursor: pointer;
+	position: absolute;
+	left: 18px;
+	padding-left: 8px;
+	font-size: 14px;
+}
+
+.checkBoxParent label:after {
+	opacity: 0;
+	content: '\2713';
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	top: -25px;
+	left: -18px;
+	background: #0071FE;
+	color: #F1F6FA;
+	text-align: center;
+	text-indent: .15em;
+	line-height: 18px;
+}
+
+.checkBoxParent input[type=checkbox]:checked+label::after {
+	opacity: 1;
+}
+
+.checkBoxParent input[type=checkbox] {
+	border: 1px solid #B3B3B3;
+	width: 18px;
+	height: 18px;
+	top: 0;
+	right: 0px;
+}
+
+.checkBoxChild {
+	width: 110px;
+	height: 30px;
+	position: relative;
+	background: transparent;
+	text-align: center;
+}
+
+.checkBoxChild label {
+	cursor: pointer;
+	position: absolute;
+	width: 100px;
+	height: 20px;
+	top: 0px;
+	left: 0px;
+	padding: 5px;
+	color: #333333;
+	border: 1px solid #B3B3B3;
+}
+
+.checkBoxChild label:after {
+	position: absolute;
+	width: 100px;
+	height: 20px;
+	top: -1px;
+	left: -1px;
+	opacity: 0;
+	padding: 5px;
+	content: attr(data-afterContent);
+	border: 1px solid #0071FE;
+	color: #0071FE;
+}
+
+.checkBoxChild input[type=checkbox]:checked+label::after {
+	opacity: 1;
+}
+
+.weui-icon-clear {
+	right: 10px;
+	bottom: 0;
+	left: auto;
+	font-size: 16px;
+	position: absolute;
+	margin-bottom: 15px;
+}

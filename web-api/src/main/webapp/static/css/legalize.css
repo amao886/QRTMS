@@ -1,0 +1,161 @@
+/*====布局开始====*/
+.line-wrapper{font-size:0;}
+.line-wrapper>.line-part{display:inline-block;}
+.line-wrapper>.line-part+.line-part{margin-left:2%;}
+.line-part{position:relative;color:#333;font-size:14px;}
+.line-part .float-tag{
+    float: left;
+    width:74px;
+    height:26px;
+    line-height:26px;
+    text-align: right;
+}
+.line-part .text-tag{margin-left:80px;}
+.line-part.large-tag .float-tag{
+    width:94px;
+}
+.line-part.large-tag .text-tag{margin-left:98px;}
+
+.line-part .text-tag>.input-tag,
+.line-part .text-tag>.select-tag,
+.line-part .text-tag>.p-tag
+{
+    width:100%;
+    height:26px;
+    line-height:26px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border:1px solid #dedede;
+    text-indent: 4px;
+    border-radius: 4px;
+}
+.line-part .text-tag>.p-tag{border:none;text-indent:0;}
+.line-part .text-tag>.select-tag{text-indent: 0;}
+/*====布局结束====*/
+
+/*重置*/
+.line-part{margin-bottom: 20px;}
+.line-part .float-tag{ width:120px;height:30px;line-height:30px;}
+.line-part .text-tag{margin-left:125px;width:350px;}
+.line-part .text-tag>.input-tag,
+.line-part .text-tag>.select-tag{
+    height:30px;
+    line-height:30px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+/*重置结束*/
+.legalize-con{width:650px;margin:0 auto;padding:20px 0;text-align: center;}
+.people-confirm,.company-confirm,.public-confirm{margin:0 auto;display:inline-block;}
+.company-confirm .float-tag{width:135px;}
+.company-confirm .text-tag{margin-left:145px;width:350px;}
+.company-confirm .tips{text-align: left;color:#636363;font-size:12px;}
+.public-confirm .float-tag{width:206px;}
+.public-confirm .text-tag{margin-left:220px;width:350px;}
+.public-confirm .agreeLabel{text-align: right;}
+.public-confirm .agreeLabel label{font-weight:400;font-size:12px;cursor: pointer;}
+.public-confirm .agreeLabel input[type=checkbox]{vertical-align: -3px;}
+.public-confirm .agreeLabel a{color:#31acfa;text-decoration: underline !important;}
+.public-confirm .cityBox{font-size:0;}
+.public-confirm .cityBox > .select-tag{
+    display: inline-block;
+    vertical-align: top;
+    width:170px;
+    font-size:14px;
+}
+.public-confirm .cityBox>select +  select{margin-left:10px;}
+
+.get-code{font-size:0;text-align: right;}
+.get-code>input[type=text]{
+    width:220px;
+    height:30px;
+    font-size:14px;
+    text-indent:4px;
+    border:1px solid #dedede;
+    border-radius: 2px;
+}
+.get-code-btn{
+    margin-left:20px;
+    width:110px;
+    line-height:28px;
+    border:1px solid #31acfa;
+    color:#31acfa;
+    border-radius: 2px;
+    font-size:14px;
+    background:#fff;
+}
+.get-code-btn.active{
+    background:#ddd;
+    border-color:#ddd;
+    color:#666;
+}
+.save-btn{margin-top:50px;text-align: right;}
+.save-btn .layui-btn{padding:0;width:350px;font-size:16px;}
+.public-confirm .save-btn .layui-btn{background:#ccc;}
+.public-confirm .save-btn .layui-btn.active{background:rgb(30, 159, 255);}
+.confirm-progress{
+    position:relative;
+    height:120px;
+    margin-bottom:40px;
+    background:url("../images/confirmProcess.png") no-repeat 60px top;
+    background-size: 82%;
+}
+.confirm-progress.half{
+    background:url("../images/confirmHalf.png") no-repeat 60px top;
+    background-size: 82%;
+}
+.confirm-progress.done{
+    background:url("../images/confirmDone.png") no-repeat 60px top;
+    background-size: 82%;
+}
+.confirm-progress>span{
+    position:absolute;
+    top:88px;
+}
+.confirm-progress span.people{
+    left:70px;
+}
+.confirm-progress span.company{
+    left:286px;
+}
+.confirm-progress span.public{
+    left:500px;
+}
+
+/*企业信息验证页*/
+.company-validate{padding-top:10px;}
+.company-validate .company-title{
+    padding: 20px 30px;
+    background: #f5f5f5;
+}
+.company-validate .company-title img{width:120px;}
+.company-validate .company-name,
+.company-validate .validate-info{display: inline-block;vertical-align: middle;}
+.company-validate .company-name{
+    position:relative;
+    margin:0 100px 0 20px;
+}
+.company-validate .company-name h3{font-size:24px;color:#333;}
+.company-validate .validate-info{font-size:16px;color:#636363;}
+.company-validate .validate-info a{margin-left:4px;text-decoration: underline !important;color:#31acfa;}
+.company-validate .company-name .status{position:absolute;top: -8px;right: -52px;font-size:14px;color:#31acfa;}
+.company-validate .company-name .status.ing{color:#eb6100;}
+.company-validate .company-name .status.error{color:#FF5722;}
+.company-validate .company-name .status.done{color:#99cc00;}
+.company-validate .un-validate{
+    text-align: center;
+    margin-top:150px;
+    font-size:16px;
+}
+.company-validate .un-validate > a{margin-left:10px;padding:2px 12px;border:1px solid #31acfa;color:#31acfa;border-radius: 3px;font-size:16px;}
+.company-validate .validate{margin:60px 0 20px;padding-left:178px;}
+.company-validate .validate p{color:#636363;font-size:12px;}
+.company-validate .line-part .text-tag>.p-tag{height:30px;line-height:30px;}
+.company-validate .line-part .float-tag{width:98px;text-align: left;}
+.company-validate .line-part .text-tag{margin-left:102px;}
+.company-validate .large-tag .float-tag{width:128px;}
+.company-validate .large-tag .text-tag{margin-left:132px;}
+.company-validate .short-tag .float-tag{width:76px;}
+.company-validate .short-tag .text-tag{margin-left:76px;}

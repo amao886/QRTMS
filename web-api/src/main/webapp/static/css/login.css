@@ -1,0 +1,86 @@
+@CHARSET "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+html, body {
+	height: 100%;
+	font-family: 'Microsoft Yahei';
+	overflow:hidden;
+}
+
+.bg {
+	width: 100%;
+	height: 100%;
+	background-image: url(../images/login_bg.png);
+	background-repeat: no-repeat;
+	background-position: center 22%;
+	background-size: 100%;
+	background-color:#fafafa;
+}
+
+.bg .logo {
+	text-align: center;
+	position: absolute;
+	top: 6%;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+
+.bg .logo>h2 {
+	color: #333;
+	font-weight: 400;
+	font-size: 32px;
+}
+
+.bg .logo>p {
+	color: #666;
+}
+
+.bg .logo>img {
+	width: 140px;
+}
+
+.bg .loginBoxBg {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    text-align: center;
+}
+.loginCon{position:relative;z-index:2;}
+.loginBox{display:inline-block; padding:20px;margin-top:50px;background:#fff;border:#ddd solid 5px; box-shadow:0 0 10px #999;position:relative;}
+.loginList{padding:0 30px;}
+.loginList li{margin-top:20px;}
+.loginList label{width:60px;text-align:left;}
+.loginList input{width:200px;height: 26px;line-height: 26px;border-radius: 2px; border:#ddd solid 1px;}
+.loginList .loginBtn{display: inline-block;padding: 0 20px;min-width: 80px;line-height: 28px;color: #fff;border-radius: 3px;background: #31acfa;}
+.loginList li div{display:inline;}
+.loginList li div img{width:68px;}
+.loginBox .changeBox{width:42px; height:42px; position:absolute; right:0; top:0px; background:url("../../manage/images/qrCode_conner.png") left top no-repeat;}
+.loginBox .changeBox.first{width: 0;height: 0; border-top: 42px solid #31acfa;border-left: 42px solid transparent;}
+
+@media ( max-width : 1400px) {
+	.bg{
+		background-position: center 40%;
+	}
+	.bg .logo {
+		top: 6%;
+	}
+	.bg .logo>img {
+		width: 106px;
+	}
+	.bg .logo>h2 {
+		font-size: 20px;
+	}
+	.bg .logo>p, .bg .loginBoxBg>p {
+		font-size: 14px;
+	}
+	.bg .loginBoxBg {
+		top: 40%;
+	}
+}

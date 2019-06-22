@@ -1,0 +1,72 @@
+.vue-page{font-size:15px;color:#333;}
+.receipt-wrapper{margin-bottom: 120px;}
+/*回单详情*/
+.receipt-detail,.goods-detail,.abnormal-part,.seal-part,.confirm-part,.total-part{
+	position:relative;
+	margin-bottom: 12px;
+	padding: 10px 15px;
+	background:#fff;
+}
+.receipt-detail .left-title{width:84px;}
+.receipt-detail .left-title.long{width:92px;}
+.see-more{position:absolute;top:10px;right:15px;color:#31acfa;}
+.goods-detail>p{padding:4px 0 2px;}
+.table-like{padding-bottom: 15px;}
+.table-like .weui-grid{width:25%;padding:2px 0;text-align: center;}
+.confirm-part>p{padding-top:10px;font-weight: 700;}
+.logistic-btn .weui-btn_primary{width:100%;}
+.pTop{padding:20px 0 10px;}
+.pBottom{padding:20px 0;}
+.conveyImg,.receiveImg{
+	position:absolute;
+	top:0;
+	left:135px;
+	width:20%;
+	z-index: 2;
+}
+.logistic-btn>a{padding:10px 0;}
+.recept-btn>a.weui-btn_plain-primary,
+.recept-btn>a.weui-btn_primary{padding:10px 0;}
+.recept-btn>a.weui-btn_plain-primary{margin-top:0;}
+/*合计部分*/
+.total-part p{padding-bottom: 4px;}
+.total-part .checkDetail{
+	position: absolute;
+    top: 0;
+    right: 0;
+    color: #31acfa;
+}
+
+/*异常说明*/
+.abnormal-part>p{padding-bottom: 4px;}
+.confirm-part>p{padding-top:10px;font-weight: 700;}
+.abnormal-part .txtarea{
+    width: 100%;
+    border: 1px solid #e6e6e6;
+    height: 92px;
+    resize: none;
+    border-radius: 6px;
+    outline: none;
+    text-indent: 10px;
+    padding-top: 6px;
+}
+.abnormal-seal .weui-flex__item{text-align: center;height:80px;}
+.abnormal-seal img{
+	position:absolute;
+	top:0;
+	left: 50%;
+    width: 45%;
+    transform: translateX(-50%);
+}
+.abnormal-part .weui-cell{
+	padding:10px 0;
+}
+.abnormal-part .weui-cell:before{border-top:none;}
+.abnormal-part .weui-uploader__input-box{
+	background:url(../../images/upload-add.png) no-repeat center;
+	background-size:44px;
+	border:none;
+}
+.abnormal-part .weui-uploader__hd{padding-bottom: 0;}
+.weui-uploader__input-box:after, 
+.weui-uploader__input-box:before{background-color:transparent;}

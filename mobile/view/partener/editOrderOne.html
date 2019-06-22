@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>修改信息</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll_002.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/mobiscroll/css/mobiscroll_003.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/deliveryplan/generateInvoiceOne.css" />
+
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background-color: #f9f9fc;">
+		<div class="sendgood-wrapper" id="editOrder" v-cloak>
+			<div class="sendContent">
+				<!--手动录入开始-->
+				<div class="sendItem sendWrite">
+					<div class="weui-cells weui-cells_form">
+						<div class="title">发货信息</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发货方：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="shipper" :value="order.shipperName" name="shipper" type="text" placeholder="请选择发货方" readonly />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发货日期：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input type="text" class="weui-input" placeholder="请选择发货日期" readonly="readonly" name="deliveryDate" id="deliveryDate"  :value="order.deliveryTime | date">
+							</div>
+						</div>
+						<div class="weui-cell hide">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发货计划单号：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="deliveryPlanNumber" :value="order.planNo" name="deliveryPlanNumber" type="text" placeholder="请输入发货计划单号" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">订单编号：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="orderNumber" :value="order.orderNo" name="orderNumber" type="text" placeholder="请输入订单编号" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">送货单号：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="deliveryNumber" :value="order.deliveryNo" name="deliveryNumber" type="text" placeholder="请输入送货单号" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发货地址：</label>
+							</div>
+							<div class="weui-cell__bd cityBox">
+								<input class="weui-input" type="text" id="deliveryAddressChoose" placeholder="请选择省市区/县" :value="distributeArea" />
+								<input class="weui-input" id="deliveryAddress" :value="distributeAddress[3]" name="deliveryAddress" type="text" placeholder="请输入详细地址" />
+							</div>
+						</div>
+						<div class="title">承运信息</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">物流商：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="logistics" :value="order.conveyName" name="logistics" type="text" placeholder="请选择物流商" readonly />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">联系人：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="contacts" :value="extra.conveyerName" name="contacts" type="text" placeholder="请输入联系人" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">联系电话：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="contactPhone" :value="extra.conveyerContact" name="contactPhone" type="text" placeholder="请输入联系电话" />
+							</div>
+						</div>
+						<div class="weui-cell hide">
+							<div class="weui-cell__hd">
+								<label class="weui-label">运输路线：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="transportRoute" value="" name="transportRoute" type="text" placeholder="请输入运输路线" />
+							</div>
+						</div>
+						<div class="weui-cell hide">
+							<div class="weui-cell__hd">
+								<label class="weui-label">要求提货时间：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input type="text" class="weui-input" placeholder="请选择提货时间" readonly="readonly" name="deliveryTime" id="deliveryTime" value="">
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">要求到货时间：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input type="text" class="weui-input" placeholder="请选择到货时间" readonly="readonly" name="arrivalTime" id="arrivalTime" :value="order.arrivalTime | datetime">
+							</div>
+						</div>
+						<div class="title">收货信息</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">收货客户：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="receiveCustomer" :value="order.receiveName" name="receiveCustomer" type="text" placeholder="请选择收货客户" readonly />
+							</div>
+							<span class="weui-cell__ft"></span>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">收货人：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="receive" :value="order.receiverName" name="receive" type="text" placeholder="请输入收货人" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">联系方式：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="contact" :value="order.receiverContact" name="contact" type="text" placeholder="请输入联系方式" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">收货地址：</label>
+							</div>
+							<div class="weui-cell__bd cityBox">
+								<input class="weui-input" type="text" id="receiveAddressChoose" placeholder="请选择省市区/县" :value="receiveArea" />
+								<input class="weui-input" id="receiveAddress" :value="receiveAddress[3]" name="receiveAddress" type="text" placeholder="请输入收货地址" />
+							</div>
+						</div>
+						<div class="title">运输信息</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">始发地：</label>
+							</div>
+							<div class="weui-cell__bd cityBox">
+								<input class="weui-input" type="text" id="startPlaceChoose" placeholder="请选择省市区/县" :value="originStationArea" />
+								<input class="weui-input" id="startPlace" value="" name="startPlace" type="text" placeholder="请输入详细地址" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">目的地：</label>
+							</div>
+							<div class="weui-cell__bd cityBox">
+								<input class="weui-input" type="text" id="endPlaceChoose" placeholder="请选择省市区/县" :value="arrivalStationArea" />
+								<input class="weui-input" id="endPlace" value="" name="endPlace" type="text" placeholder="请输入详细地址" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">车牌号：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="plateNumber" :value="extra.careNo" name="plateNumber" type="text" placeholder="请输入车牌号" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">司机姓名：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="driverName" :value="extra.driverName" name="driverName" type="text" placeholder="请输入司机姓名" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">司机电话：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="driverPhone" :value="extra.driverContact" name="driverPhone" type="text" placeholder="请输入司机电话" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发站：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="hairStation" :value="extra.startStation" name="hairStation" type="text" placeholder="请输入发站" />
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">到站：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="arriveStation" :value="extra.endStation" name="arriveStation" type="text" placeholder="请输入到站" />
+							</div>
+						</div>
+						<div class="title">财务信息</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">收入：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="income" :value="extra.income" name="income" type="text" placeholder="请输入收入" />
+							</div>
+							<div class="weui-cell__ft">元</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">运输成本：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="transportCost" :value="extra.expenditure" name="transportCost" type="text" placeholder="请输入运输成本" />
+							</div>
+							<div class="weui-cell__ft">元</div>
+						</div>
+						<div class="title">其他信息</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发货单备注：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" id="invoiceRemark" :value="order.remark" name="invoiceRemark" type="text" placeholder="请输入发货单备注" />
+							</div>
+						</div>
+						<div class="weui-cell" v-if="customDatas != null && customDatas.length > 0" v-for="(item, index) in customDatas">
+							<div class="weui-cell__hd">
+								<label class="weui-label">{{item[0]}}：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input" :id="index" :value="item[1]" :name="index" type="text" :placeholder="'请输入'+item[0]" />
+							</div>
+						</div>
+					</div>
+					<div class='demos-content-padded'>
+						<a href="javascript:;" class="weui-btn weui-btn_primary" @click="next">下一步</a>
+					</div>
+				</div>
+				<!--手动录入结束-->
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/fastclick.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/city-picker.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="../../lib/coordtransform-master/index.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/vue/common.vue.js"></script>
+		<script type="text/javascript" src="../../lib/vue/moment.min.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_002.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_004.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_003.js"></script>
+		<script type="text/javascript" src="../../lib/mobiscroll/js/mobiscroll_005.js"></script>
+		<script type="text/javascript" src="../../js/partener/editOrderOne.js"></script>
+		<script>
+			$(function() {
+				FastClick.attach(document.body);
+			});
+		</script>
+	</body>
+
+</html>

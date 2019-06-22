@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.depot.InboundOrderMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.depot.InboundOrder">
+        <result column="KEY" jdbcType="BIGINT" property="key"/>
+        <result column="COMPANY_KEY" jdbcType="BIGINT" property="companyKey"/>
+        <result column="BATCH_NUMBER" jdbcType="VARCHAR" property="batchNumber"/>
+        <result column="DELIVERY_NO" jdbcType="VARCHAR" property="deliveryNo"/>
+        <result column="CUSTOMER_ID" jdbcType="BIGINT" property="customerId"/>
+        <result column="CUSTOMER_NAME" jdbcType="VARCHAR" property="customerName"/>
+        <result column="MATERIAL_NAME" jdbcType="VARCHAR" property="materialName"/>
+        <result column="DELIVERY_TIME" jdbcType="TIMESTAMP" property="deliveryTime"/>
+        <result column="PICKING_QUANTITY" jdbcType="INTEGER" property="pickingQuantity"/>
+        <result column="PICKING_NO" jdbcType="VARCHAR" property="pickingNo"/>
+        <result column="DELIVERY_QUANTITY" jdbcType="INTEGER" property="deliveryQuantity"/>
+        <result column="LICENSE_PLATE" jdbcType="VARCHAR" property="licensePlate"/>
+        <result column="STORAGE_TIME" jdbcType="TIMESTAMP" property="storageTime"/>
+        <result column="IMPORT_TIMES" jdbcType="INTEGER" property="importTimes"/>
+        <result column="OPERATOR_ID" jdbcType="INTEGER" property="operatorId"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <resultMap id="ResultAllianceMap" type="com.ycg.ksh.entity.service.depot.DepotAlliance">
+        <result column="KEY" jdbcType="BIGINT" property="key"/>
+        <result column="COMPANY_KEY" jdbcType="BIGINT" property="companyKey"/>
+        <result column="BATCH_NUMBER" jdbcType="VARCHAR" property="batchNumber"/>
+        <result column="DELIVERY_NO" jdbcType="VARCHAR" property="deliveryNo"/>
+        <result column="CUSTOMER_ID" jdbcType="BIGINT" property="customerId"/>
+        <result column="CUSTOMER_NAME" jdbcType="VARCHAR" property="customerName"/>
+        <result column="MATERIAL_NAME" jdbcType="VARCHAR" property="materialName"/>
+        <result column="DELIVERY_TIME" jdbcType="TIMESTAMP" property="deliveryTime"/>
+        <result column="PICKING_QUANTITY" jdbcType="INTEGER" property="pickingQuantity"/>
+        <result column="PICKING_NO" jdbcType="VARCHAR" property="pickingNo"/>
+        <result column="DELIVERY_QUANTITY" jdbcType="INTEGER" property="deliveryQuantity"/>
+        <result column="LICENSE_PLATE" jdbcType="VARCHAR" property="licensePlate"/>
+        <result column="STORAGE_TIME" jdbcType="TIMESTAMP" property="storageTime"/>
+        <result column="IMPORT_TIMES" jdbcType="INTEGER" property="importTimes"/>
+        <result column="OPERATOR_ID" jdbcType="INTEGER" property="operatorId"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <select id="selectByBatchNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT * FROM T_INBOUND_ORDER WHERE BATCH_NUMBER=#{batchNumber};
+    </select>
+    <select id="listInboundOrder" parameterType="com.ycg.ksh.entity.service.depot.DepotSearch"
+            resultMap="ResultAllianceMap">
+        select
+        a.KEY,
+        a.COMPANY_KEY,
+        a.BATCH_NUMBER,
+        a.DELIVERY_NO,
+        a.CUSTOMER_ID,
+        a.CUSTOMER_NAME,
+        a.MATERIAL_NAME,
+        a.DELIVERY_TIME,
+        a.PICKING_QUANTITY,
+        a.PICKING_NO,
+        a.DELIVERY_QUANTITY,
+        a.LICENSE_PLATE,
+        a.STORAGE_TIME,
+        a.IMPORT_TIMES,
+        a.OPERATOR_ID,
+        a.UPDATE_TIME from T_INBOUND_ORDER a
+        <where>
+            a.COMPANY_KEY =#{companyKey}
+            <if test="firstTime != null">
+                <![CDATA[ AND a.STORAGE_TIME >= #{firstTime} ]]>
+            </if>
+            <if test="secondTime != null">
+                <![CDATA[ AND a.STORAGE_TIME <= #{secondTime} ]]>
+            </if>
+            <if test="likefirst !=null and likefirst !=''">
+                and ( (LOCATE(#{likefirst}, a.BATCH_NUMBER) > 0) or
+                (LOCATE(#{likefirst}, a.DELIVERY_NO) > 0) or
+                (LOCATE(#{likefirst}, a.LICENSE_PLATE) > 0)
+                )
+            </if>
+            <if test="likesecond !=null and likesecond != ''">
+                and (
+                (LOCATE(#{likesecond}, a.CUSTOMER_NAME) > 0) or
+                (LOCATE(#{likesecond}, a.MATERIAL_NAME) > 0)
+                )
+            </if>
+        </where>
+        ORDER BY
+        a.UPDATE_TIME DESC
+    </select>
+
+    <delete id="deletes" parameterType="java.lang.Long">
+        DELETE FROM T_INBOUND_ORDER WHERE `KEY` IN
+        <foreach collection="inbounds" item="key" separator="," open="(" close=")">
+            #{key}
+        </foreach>
+        ;
+
+    </delete>
+</mapper>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>我要发货</title>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/sendGoods.css" />
+
+</head>
+<body ontouchstart style="background-color: #f9f9fc;">
+	<div class="sendgood-wrapper">
+		<ul class="sendTab">
+			<li class="sendHeader headerLeft active">手动录入</li>
+			<li class="sendHeader headerRight">批量导入</li>
+		</ul>
+		<p class="import-title">批量导入</p>
+		<div class="sendContent">
+			<!--手动录入开始-->
+			<div class="sendItem sendWrite current">
+				<div class="weui-cells weui-cells_form sendGoods">		
+					<!--项目组部分-->
+					<div class="weui-cell weui-cell_select weui-cell_select-after">
+				        <div class="weui-cell__hd">
+				          <label class="weui-label">项目组：</label>
+				        </div>
+				        <div class="weui-cell__bd">
+				          <select class="weui-select" name="select2" id="projectTeam">
+				          	<option value="">请选择项目组</option>
+				          </select>
+				        </div>
+				    </div>
+				    <!--发货信息部分-->
+					<div class="about_custom">
+						<a class="weui-cell weui-cell_access cell_link">
+		            <div class="weui-cell__hd">
+		              <p class="relative"><i class="need-remark">*</i>发货信息：</p>
+		            </div>
+		            <div class="weui-cell__bd chooseCustom" id="sendSelect" onclick="chooseCustom(this,2)">请选择发货信息</div>
+		            <div class="weui-cell__ft"></div>
+		        </a>           
+		        <div class=""  id="sendInf"><!--渲染收货客户数据--></div>
+					</div>
+					<!--收货信息部分-->
+					<div class="about_custom">
+						<a class="weui-cell weui-cell_access cell_link">
+	            <div class="weui-cell__hd">
+	              <p class="relative"><i class="need-remark">*</i>收货信息：</p>
+	            </div>
+	            <div class="weui-cell__bd chooseCustom" id="receiveSelect" onclick="chooseCustom(this,1)">请选择收货信息</div>
+	            <div class="weui-cell__ft"></div>
+				    </a> 
+				    <div class=""  id="receiveInf">	<!--渲染收货客户数据--></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label"><i class="need-remark">*</i>送货单号：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" id="deliveryNumber" value="" name="deliveryNumber" type="text" placeholder="请输入送货单号" />
+						</div>
+					</div>
+					<!-- 运输线路 -->
+          <div class="weui-cell transport-way">
+            <div class="weui-cell__hd">
+              <label class="weui-label"><i class="need-remark">*</i>运输路线：</label>
+            </div>
+            <div class="weui-cell__bd cityBox">
+              <input class="weui-input" id="startCity" name="startCity" type="text" placeholder="始发地" readonly />
+              <input class="weui-input" id="endCity" name="endCity" type="text" placeholder="目的地" readonly /> 
+            </div>
+          </div>
+					<!--<div class="weui-cell unit-weight">
+						<div class="weui-cell__hd">
+							<label class="weui-label">重量：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" id="weight" value="" name="weight" type="text" placeholder="请输入重量" />
+						</div>
+					</div>-->
+					<!--<div class="weui-cell unit-vol">
+						<div class="weui-cell__hd">
+							<label class="weui-label">体积：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" id="volume" value="" name="volume" type="text" placeholder="请输入体积" />
+						</div>
+					</div>-->
+					<!--<div class="weui-cell unit-num">
+						<div class="weui-cell__hd">
+							<label class="weui-label">数量：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" id="number" value="" name="number" type="tel" placeholder="请输入数量" />
+						</div>
+					</div>-->
+					<!-- 订单摘要 -->
+					<div class="weui-cell align">
+						<div class="weui-cell__hd">
+							<label class="weui-label">订单摘要：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<textarea class="weui-textarea" name="orderSummary" id="textarea"
+								placeholder="请输入订单摘要" rows="4"></textarea>
+							<div class="weui-textarea-counter">
+								<span id='count'>0</span>/<span id='count_max'>50</span>
+							</div>
+						</div>
+					</div>
+					<!--要求到货时间-->
+					<div class="weui-cell project-label-w">
+						<div class="weui-cell__hd">
+						  <label class="weui-label" style="width:130px;">要求到货时间：</label>
+						</div>			
+					</div>
+					<div class="weui-cell project-bd">
+						<div class="weui-cell__bd">
+						 	发货后<select name="arriveDay" id="arrivalDay">
+						 			    <option value="">请选择第几天</option>
+										<option value="0">当天</option>
+										<option value="1">第1天</option>
+										<option value="2">第2天</option>
+										<option value="3">第3天</option>
+										<option value="4">第4天</option>
+										<option value="5">第5天</option>
+										<option value="6">第6天</option>
+										<option value="7">第7天</option>
+										<option value="8">第8天</option>
+										<option value="9">第9天</option>
+										<option value="10">第10天</option>
+										<option value="11">第11天</option>
+										<option value="12">第12天</option>
+										<option value="13">第13天</option>
+										<option value="14">第14天</option>
+										<option value="15">第15天</option>
+										<option value="16">第16天</option>
+										<option value="17">第17天</option>
+										<option value="18">第18天</option>
+										<option value="19">第19天</option>
+										<option value="20">第20天</option>
+										<option value="21">第21天</option>
+										<option value="22">第22天</option>
+										<option value="23">第23天</option>
+										<option value="24">第24天</option>
+										<option value="25">第25天</option>
+										<option value="26">第26天</option>
+										<option value="27">第27天</option>
+										<option value="28">第28天</option>
+										<option value="29">第29天</option>
+										<option value="30">第30天</option>
+										<option value="31">第31天</option>
+						 		</select>
+						 		<select class="project-select" id="arrivalHour" name="arriveHour">
+						 			    <option value="">请选择时间点</option>
+										<option value="1">凌晨1点</option>
+										<option value="2">2点</option>
+										<option value="3">3点</option>
+										<option value="4">4点</option>
+										<option value="5">5点</option>
+										<option value="6">6点</option>
+										<option value="7">7点</option>
+										<option value="8">8点</option>
+										<option value="9">9点</option>
+										<option value="10">10点</option>
+										<option value="11">11点</option>
+										<option value="12">12点</option>
+										<option value="13">13点</option>
+										<option value="14">14点</option>
+										<option value="15">15点</option>
+										<option value="16">16点</option>
+										<option value="17">17点</option>
+										<option value="18">18点</option>
+										<option value="19">19点</option>
+										<option value="20">20点</option>
+										<option value="21">21点</option>
+										<option value="22">22点</option>
+										<option value="23">23点</option>
+										<option value="24">24点</option>
+						 		</select>之前
+						</div>
+					</div>
+				</div>
+				<p class="p_tips">带*为必填项</p>
+				<div class='demos-content-padded'>
+					<a href="javascript:;" id="showTooltips" class="weui-btn weui-btn_primary">下一页</a>
+				</div>
+			</div>
+			<!--手动录入结束-->
+			
+			<!--批量导入开始-->
+			<div class="sendItem sendImport">
+				<!--<img src="../../images/send-import.png" alt="" />-->
+				<div class="weui-cells">
+			    <div class="weui-cell weui-cell_select weui-cell_select-after">
+              <div class="weui-cell__hd">
+                <label class="weui-label">项目组：</label>
+              </div>
+              <div class="weui-cell__bd">
+                <select class="weui-select color-999" name="select2" id="importProjectTeam">
+                  <option value="">请选择项目组</option>
+                </select>
+              </div>
+          </div>
+          <div class="about_custom" id="aboutCustom">
+            <a class="weui-cell weui-cell_access cell_link">
+              <div class="weui-cell__hd">
+                <label class="weui-label"><span style="color: #ff5756;margin-right:4px;">*</span>发货客户：</label>
+              </div>
+              <div class="weui-cell__bd chooseCustom" id="importChooseCustom" onclick="chooseCustom(this,2)">请选择发货客户信息</div>
+              <div class="weui-cell__ft"></div>
+            </a>           
+            <div id='importSendMsg'><!--渲染发货客户数据--></div>
+          </div>
+          <a class="weui-cell weui-cell_access weui_cell_start" href="javascript:;">
+            <div class="weui-cell__hd">
+              <label class="weui-label"><span style="color: #ff5756;margin-right:4px;">*</span>选择文件：</label>
+            </div>
+            <div class="weui-cell__bd">
+              <div class="relative">
+                <form id="excelFile">
+                  <input class="input_file" id='inputFile' type="file" accept="application/msexcel" />
+                  <p class="upload_txt color-999">请选择上传文件</p>
+                </form>
+              </div>
+              <p style="margin-top:10px;font-size:14px;color:#999;">仅支持上传.xls .xlsx格式文件</p>              
+            </div>
+            <!--<div class="weui-cell__ft"></div>-->
+          </a>
+      </div>
+				<a href="javascript:;" id="importUpdate" class="btn-tag weui-btn">确认上传</a>
+			</div>
+			<!--批量导入结束-->
+		</div>
+	</div>
+	
+	<!--浏览器提示-->
+	<div class="showTips">
+	  <p>点击右上角，在浏览器中打开批量导入</p>
+	  <img src="../../images/open.jpg" alt="" />
+	</div>
+
+	<!--底部导航-->
+	<div id="navBarIn"></div>
+	
+	<p class="successTips">请返回微信端继续操作</p>
+
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/fastclick.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="../../lib/coordtransform-master/index.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/x-jsrender" id="groupsName">
+	<option value="{{:id}}">{{:groupName}}</option>
+</script>
+<script type="text/x-jsrender" id="showCustomInf">
+<div class="show_custom editpage">
+	<div class="weui-flex">		
+		{{if type == 2}}
+		<div class="d_left"><span class="w4 showPersonType">发货人</span>：</div>
+		<input type="hidden" id="sendId" value="{{:id}}">
+		{{else}}
+		<div class="d_left"><span class="w4 showPersonType">收货人</span>：</div>
+		<input type="hidden" id="receiveId" value="{{:id}}">
+		{{/if}}
+		<div class="weui-flex__item d_right">{{:companyName}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="d_left"><span class="w3">联系人</span>：</div>
+		<div class="weui-flex__item d_right contactName">{{:contacts}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="d_left"><span class="w4">联系电话</span>：</div>
+		<div class="weui-flex__item d_right contactPhone">{{:contactNumber}}</div>
+	</div>
+	 <div class="weui-flex seat">
+	    <div class="d_left"><span class="w2">座机</span>：</div>
+	    <div class="weui-flex__item d_right receiverTel">{{:tel}}</div>
+	 </div>
+	
+	<div class="weui-flex">
+		<div class="d_left"><span class="w4">收货地址</span>：</div>
+		<div class="weui-flex__item d_right receiveAddress">{{:fullAddress}}</div>
+	 </div>
+ </div>
+</script>
+<!--根据任务单id查询-->
+<script type="text/x-jsrender" id="taskIdInfo">
+<div class="show_custom">		
+	<div class="weui-flex">
+		<div class="d_left"><span class="w4 showPersonType">收货人</span>：</div>
+		<input type="hidden" id="receiveId" value="{{:id}}">
+		<div class="weui-flex__item d_right">{{:receiverName}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="d_left"><span class="w3">联系人</span>：</div>
+		<div class="weui-flex__item d_right contactName">{{:contactName}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="d_left"><span class="w4">联系电话</span>：</div>
+		<div class="weui-flex__item d_right contactPhone">{{:contactPhone}}</div>
+	</div>
+	 <div class="weui-flex">
+	    <div class="d_left"><span class="w2">座机</span>：</div>
+	    <div class="weui-flex__item d_right receiverTel">{{:receiverTel}}</div>
+	 </div>
+	
+	<div class="weui-flex">
+		<div class="d_left"><span class="w4">收货地址</span>：</div>
+		<div class="weui-flex__item d_right receiveAddress">{{:receiveAddress}}</div>
+	 </div>
+ </div>
+</script>
+<!--发货信息模版-->
+<script type="text/x-jsrender" id="shipperInfo">
+<div class="show_custom">		
+	<div class="weui-flex">
+		<div class="d_left"><span class="w4 showPersonType">发货人</span>：</div>
+		<input type="hidden" id="sendId" value="{{:id}}">
+		<div class="weui-flex__item d_right">{{:shipperName}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="d_left"><span class="w3">联系人</span>：</div>
+		<div class="weui-flex__item d_right contactName">{{:shipperContactName}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="d_left"><span class="w4">联系电话</span>：</div>
+		<div class="weui-flex__item d_right contactPhone">{{:shipperContactTel}}</div>
+	</div>
+	 <div class="weui-flex">
+	    <div class="d_left"><span class="w2">座机</span>：</div>
+	    <div class="weui-flex__item d_right receiverTel">{{:shipperTel}}</div>
+	 </div>
+	
+	<div class="weui-flex">
+		<div class="d_left"><span class="w4">收货地址</span>：</div>
+		<div class="weui-flex__item d_right receiveAddress">{{:shipperAddress}}</div>
+	 </div>
+ </div>
+</script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../lib/layer/layer.js?time=1516074194"></script>
+<script type="text/javascript" src="../../js/common/filter_emoji.js" ></script>
+<script type="text/javascript" src="../../js/partener/sendGoods.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+</body>
+</html>

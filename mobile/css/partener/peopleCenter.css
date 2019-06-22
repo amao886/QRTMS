@@ -1,0 +1,115 @@
+/*首页部分*/
+
+.mine-part-photo{
+	width:90px;
+	height:90px;
+	/*background:#fff;*/
+	/*border-radius: 50%;*/
+	margin:0 auto 10px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.mine-part-photo>img{  
+	margin:auto;
+	width:70%;
+	
+	
+}
+
+
+/*公共部分*/
+/*.text_center{text-align: center;}
+.barCode-title{
+	padding:20px 15px;
+	color:#636363;
+}
+.barCode-title .weui-flex__item{margin-left:10px;}
+.barCode-title .weui-flex__item .c_orange{color:#ff7f00;margin-left:4px;}
+.barCode-title .s_more{letter-spacing: -4px;}
+.barCode-list{padding:0 15px 10px;}
+.barCode-list{margin-bottom: 60px;}
+.barCode-list-part{
+	padding:12px 10px;
+	border-radius: 8px;
+	background:#fff;
+	margin-bottom: 10px;
+	border:1px solid #dedede;
+	position:relative;
+}
+.barCode-list-part .part_top{margin-bottom: 4px;}
+.barCode-list-part .part_bottom{color:#636363;font-size:15px;}
+.barCode-list-part .weui-flex__item>div{padding-left:4px;}
+.barCode-list-part .listpart_share{
+	position:absolute;
+	top:12px;
+	right:12px;
+	width:28px;
+	height:26px;
+	background:url(../images/share.png) no-repeat;
+	background-size: 100%;
+}
+.barCode-list-part .listpart_share:active{
+	width:28px;
+	height:26px;
+	background:url(../images/share_active.png) no-repeat;
+	background-size: 100%;
+}*/
+/*tab2部分*/
+
+#tab2 .tab2_title{padding:30px 0 20px 15px;background:#30aafa;}
+#tab2 .t_date,#tab2 .t_search{position: relative;}
+#tab2 .t_date>input,#tab2 .t_search>input{background:transparent;outline: none;border:none;font-size:18px;color:#fff;padding:10px 0;}
+#tab2 .t_date>input{width:150px;}
+#tab2 .t_date .t_sel{
+	position: absolute;
+	top:50%;
+	margin-top:-4px;
+	right:6px;
+	width:16px;
+	height:8px;
+	background:url(../images/t_sel.png) no-repeat;
+	background-size:100%;
+}
+#tab2 .t_search{
+	border:1px solid #9bdbfd;
+	border-top-left-radius: 22px;
+	border-bottom-left-radius: 22px;
+	background:#61c8fc;
+	border-right-style:none;
+}
+#tab2 .t_search>input{width:152px;margin-left:38px;}
+#tab2 .t_search .t_sea{
+	width:22px;
+	height:41px;
+	position: absolute;
+	top:-1px;
+	left:10px;
+	background:url(../images/search.png) no-repeat 0 center;
+	background-size: 100% auto;
+}
+/*tab2选项卡地址*/
+#tab2 .tabbtn{text-align: center;padding-bottom: 15px;margin-bottom: 10px;}
+#tab2 .tabbtn{padding:10px 0;border-bottom: 2px solid transparent;color:#fff;}
+#tab2 .tabbtn.current{border-bottom: 2px solid #ffff00;}
+
+#tab2 .tabBtn{background:#30aafa;margin-bottom: 10px;}
+#tab2 .tabBtn .tab_ul{padding:0 15px;}
+#tab2 .barCode-title{padding:3px 10px;}
+#tab2 .barCode-list{margin-bottom: 0;padding:5px 15px 0;}
+#tab2 .tabCon{margin-bottom: 80px;}
+
+
+/*我的部分*/
+#tab3 .mine-part-photo{
+	margin:20px auto;
+}
+#tab3.mine-part .weui-panel{border-top:1px solid #e5e5e5;}
+#tab3.mine-part .text_right{text-align: right;padding-right:20px;}
+
+#authStatusNot{
+	color: #ff9900;
+}
+#authStatusAlready{
+	color: #00cc00;
+}

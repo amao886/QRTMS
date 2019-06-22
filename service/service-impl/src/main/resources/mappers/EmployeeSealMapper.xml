@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.EmployeeSealMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.EmployeeSeal">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="COMPANY_ID" jdbcType="BIGINT" property="companyId"/>
+        <result column="EMPLOYEE_ID" jdbcType="INTEGER" property="employeeId"/>
+        <result column="AUTHORIZE_SEAL_ID" jdbcType="BIGINT" property="authorizeSealId"/>
+        <result column="AUTHORIZE_TIME" jdbcType="TIMESTAMP" property="authorizeTime"/>
+    </resultMap>
+
+    <sql id="include_column">
+        ID,
+        COMPANY_ID,
+        EMPLOYEE_ID,
+        AUTHORIZE_SEAL_ID,
+        AUTHORIZE_TIME
+    </sql>
+
+    <select id="getEmployeeSealId" resultType="java.lang.Long">
+        SELECT
+         AUTHORIZE_SEAL_ID
+        FROM T_EMPLOYEE_SEAL
+        WHERE EMPLOYEE_ID =#{arg0} and COMPANY_ID = #{arg1}
+        ORDER BY AUTHORIZE_TIME
+    </select>
+</mapper>

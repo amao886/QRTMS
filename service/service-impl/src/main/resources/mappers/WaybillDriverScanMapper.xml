@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.WaybillDriverScanMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.WaybillDriverScan">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="waybillid" jdbcType="INTEGER" property="waybillid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  
+  <sql id="include_column" >
+    d.id,
+	d.waybillid,
+	d.userid,
+	d.status,
+	d.createtime
+  </sql>
+  
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    SELECT
+		<include refid="include_column"/>
+	FROM
+		driver_waybill_status_tab d
+	WHERE 
+		d.waybillid= #{arg0} AND d.userid = #{arg1}
+  </select>
+</mapper>

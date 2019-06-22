@@ -1,0 +1,131 @@
+.weui-cell {
+	background-color: #fff;
+}
+
+.weui-label {
+	width: 110px;
+	position: relative;
+}
+
+.weui-cell.align {
+	-webkit-box-align: flex-start;
+	-webkit-align-items: flex-start;
+	align-items: flex-start;
+}
+
+.weui-cell__bd.color-danger {
+	color: #f6383a !important;
+}
+
+.demos-content-padded {
+	margin: 20px 0 130px;
+}
+
+.weui-cells {
+	font-size: 15px;
+}
+
+
+/*对齐样式*/
+
+.w4 {
+	display: inline-block;
+	letter-spacing: 0em;
+}
+
+.w3 {
+	letter-spacing: 0.5em;
+	margin-right: -0.5em;
+}
+
+.w2 {
+	letter-spacing: 2em;
+	margin-right: -2em;
+}
+
+.chooseModle {
+	display: block;
+}
+
+
+/*手动录入*/
+
+.sendWrite {
+	margin-top: -20px;
+	color: #333;
+}
+
+.sendWrite .weui-select {
+	height: 1.41176471em;
+	line-height: 1.41176471;
+}
+
+.about_custom .weui-cell {
+	padding: 10.5px 15px;
+}
+
+.weui-cell:before {
+	left: 0;
+}
+
+.cityBox .weui-input+.weui-input {
+	margin-top: 4px;
+}
+
+.demos-content-padded {
+	padding: 0;
+}
+
+.weui_cell_start {
+	-webkit-align-items: start;
+	align-items: start;
+}
+
+.bgWhite {
+	background: #fff;
+}
+
+label {
+	max-width: 100%;
+	margin-bottom: 0;
+	font-weight: 500;
+}
+
+.weui-cell_access .weui-cell__ft:after {
+	height: 8px;
+	width: 8px;
+	margin-top: -3px;
+}
+
+.weui-cells .title {
+	padding: 10px 15px;
+	background-color: rgba(242, 242, 242, 1);
+	color: #333333;
+	font-weight: 700;
+}
+
+.weui-cells_form .weui-cell__ft {
+    font-size: 14px;
+}
+
+.weui-cell__ft {
+    color: #333;
+}
+
+/*覆盖框架原样式*/
+.weui-btn_primary {
+	width: 90%;
+	height: 44px;
+	line-height: 44px;
+	border-radius: 4px;
+	background: #0071FE;
+	font-size: 15px;
+}
+
+.weui-btn:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}

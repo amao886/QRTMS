@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.plan.PlanCommodityMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.plan.PlanCommodity">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="PLAN_ID" jdbcType="BIGINT" property="planId" />
+    <result column="COMMODITY_NO" jdbcType="VARCHAR" property="commodityNo" />
+    <result column="COMMODITY_NAME" jdbcType="VARCHAR" property="commodityName" />
+    <result column="QUANTITY" jdbcType="INTEGER" property="quantity" />
+    <result column="BOX_COUNT" jdbcType="INTEGER" property="boxCount" />
+    <result column="VOLUME" jdbcType="DOUBLE" property="volume" />
+    <result column="WEIGHT" jdbcType="DOUBLE" property="weight" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="COMMODITY_TYPE" jdbcType="VARCHAR" property="commodityType" />
+    <result column="COMMODITY_UNIT" jdbcType="VARCHAR" property="commodityUnit" />
+  </resultMap>
+  
+  <select id="listKeyByPlanKey" resultType="java.lang.Long" parameterType="java.lang.Long">
+    SELECT ID FROM T_PLAN_COMMODITY WHERE PLAN_ID = #{planKey}
+  </select>
+</mapper>

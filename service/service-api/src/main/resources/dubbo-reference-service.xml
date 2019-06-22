@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <description>Spring dubbo client configuration</description>
+
+    <dubbo:reference id="ksh.core.dubbo.reference.userService"
+                     interface="com.ycg.ksh.service.api.UserService" version="1.0.0"
+                     check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.barCodeService"
+                     interface="com.ycg.ksh.service.api.BarCodeService"
+                     version="1.0.0" check="false">
+        <dubbo:method name="buildPDF" timeout="300000"/>
+    </dubbo:reference>
+    <dubbo:reference id="ksh.core.dubbo.reference.waybillService"
+                     interface="com.ycg.ksh.service.api.WaybillService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.mapAddressService"
+                     interface="com.ycg.ksh.service.api.MapAddressService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.wechatService"
+                     interface="com.ycg.ksh.service.api.WechatService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.receiptService"
+                     interface="com.ycg.ksh.service.api.ReceiptService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.exceptionService"
+                     interface="com.ycg.ksh.service.api.ExceptionService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.waybillTrackService"
+                     interface="com.ycg.ksh.service.api.WaybillTrackService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.sysRequestSerialService"
+                     interface="com.ycg.ksh.service.api.SysRequestSerialService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.projectGroupService"
+                     interface="com.ycg.ksh.service.api.ProjectGroupService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.waybillScheduleService"
+                     interface="com.ycg.ksh.service.api.WaybillScheduleService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.friendsService"
+                     interface="com.ycg.ksh.service.api.FriendsService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.goodsService"
+                     interface="com.ycg.ksh.service.api.GoodsService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.customerService"
+                     interface="com.ycg.ksh.service.api.CustomerService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.fenceGrateService"
+                     interface="com.ycg.ksh.service.api.FenceGrateService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.permissionService"
+                     interface="com.ycg.ksh.service.api.PermissionService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.wayBillTotalService"
+                     interface="com.ycg.ksh.service.api.WayBillTotalService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.driverService"
+                     interface="com.ycg.ksh.service.api.DriverService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.conveyanceService"
+                     interface="com.ycg.ksh.service.api.ConveyanceService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.routeService"
+                     interface="com.ycg.ksh.service.api.RouteService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.accessoryService"
+                     interface="com.ycg.ksh.service.api.AccessoryService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.remindersThingsService"
+                     interface="com.ycg.ksh.service.api.RemindersThingsService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.businessStatisticsService"
+                     interface="com.ycg.ksh.service.api.BusinessStatisticsService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.summaryService"
+                     interface="com.ycg.ksh.service.api.SummaryService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.managingUsersService"
+                     interface="com.ycg.ksh.service.api.ManagingUsersService"
+                     version="1.0.1" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.orderService"
+                     interface="com.ycg.ksh.service.api.OrderService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.companyService"
+                     interface="com.ycg.ksh.service.api.CompanyService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.messageService"
+                     interface="com.ycg.ksh.service.api.MessageService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.fileService"
+                     interface="com.ycg.ksh.service.api.FileService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.moutaiService"
+                     interface="com.ycg.ksh.service.api.MoutaiService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.appVersionService"
+                     interface="com.ycg.ksh.service.api.AppVersionService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.supportService"
+                     interface="com.ycg.ksh.service.api.SupportService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.locationTrackService"
+                     interface="com.ycg.ksh.service.api.LocationTrackService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.signRelationService"
+                     interface="com.ycg.ksh.service.api.SignRelationService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.adventiveService"
+                     interface="com.ycg.ksh.service.api.adventive.AdventiveService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.templateService"
+                     interface="com.ycg.ksh.service.api.TemplateService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.customDataService"
+                     interface="com.ycg.ksh.service.api.CustomDataService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.financeService"
+                     interface="com.ycg.ksh.service.api.FinanceService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.activityService"
+                     interface="com.ycg.ksh.service.api.ActivityService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.transferService"
+                     interface="com.ycg.ksh.service.api.TransferService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.depotOutboundService"
+                     interface="com.ycg.ksh.service.api.DepotOutboundService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.planOrderService"
+                     interface="com.ycg.ksh.service.api.PlanOrderService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.vehicleService"
+                     interface="com.ycg.ksh.service.api.VehicleService"
+                     version="1.0.0" check="false"/>
+    <dubbo:reference id="ksh.core.dubbo.reference.complaintService"
+                     interface="com.ycg.ksh.service.api.ComplaintService"
+                     version="1.0.0" check="false"/>
+</beans>

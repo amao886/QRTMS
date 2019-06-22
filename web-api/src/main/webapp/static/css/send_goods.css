@@ -1,0 +1,203 @@
+  	body,html{height:100%;}
+  	label{font-weight:400 !important;}
+	.track-content{
+		padding:0 24px 0 15px;
+		background:#fff;
+		min-height:100%;
+		color:#333;
+	}	
+	/*====布局开始====*/
+	.line-wrapper{font-size:0;}
+	.line-wrapper>.line-part{display:inline-block;}
+	.line-wrapper>.line-part+.line-part{margin-left:2%;}
+	.line-part{position:relative;color:#333;font-size:14px;}
+	.line-part .float-tag{
+		float: left; 
+		width:74px;
+		height:26px;
+		line-height:26px;
+		text-align: right;
+	}
+	.line-part .text-tag{margin-left:80px;}
+	.line-part.large-tag .float-tag{
+		width:94px;
+	}
+	.line-part.large-tag .text-tag{margin-left:98px;}
+	
+	.line-part .text-tag>.input-tag,
+	.line-part .text-tag>.select-tag
+	{
+		width:100%;
+		height:26px;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		border:1px solid #dedede;
+		text-indent: 4px;
+		border-radius: 4px;
+	}
+	.line-part .text-tag>.select-tag{text-indent: 0;}
+	/*====布局结束====*/
+	
+	/*地址部分*/
+	.address-box .text-tag{
+		font-size:0;
+	}
+	.address-box .text-tag>input,
+	.address-box .text-tag>label
+	{
+		display: inline-block;
+		vertical-align: top;
+		font-size:14px;
+		height:26px;
+	}
+	.address-box .text-tag>input{
+		border:1px solid #dedede;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+	}
+	.address-box .text-tag>input{width:25%;text-indent:4px;border-radius: 4px;}
+	.address-box .text-tag>label{width:26%;line-height:26px;}
+	.address-box .text-tag .ml2{
+		margin-left:1%;
+	}
+	.require-icon{color:#f00;}
+	
+	/*标题部分*/
+	.part-wrapper>.title{margin:40px 0 20px;}
+	.part-wrapper>.title h2,
+	.part-wrapper>.title span{
+		display: inline-block;
+		font-size:16px;
+	}
+	.part-wrapper>.title span{
+		margin-left:25px;
+		line-height:21px;
+		font-size:14px;
+		color:#31acfa;
+		cursor: pointer;
+	}
+	/*项目组部分*/
+	.project-wrapper{padding-top:20px;}
+	.text-tag .select-tag.width-auto{width:auto !important;}
+	
+	/*其他信息*/
+	.text-tag.inline_block{
+		font-size: 0;
+	}
+	.other-info .inline_block .manage-wrapper,
+	.text-tag.inline_block>.under_line{
+		display: inline-block;
+		font-size:14px;
+	}
+	.other-info .text-tag.inline_block>.manage-wrapper{width:47%;}
+	.other-info .text-tag.inline_block>.manage-wrapper>.input-tag{
+		width: 100%;
+	    height: 26px;
+	    box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    border: 1px solid #dedede;
+	    text-indent: 4px;
+	    border-radius: 4px;
+	}
+	.text-tag.inline_block>.under_line{width:6%;position: relative;}
+	.text-tag.inline_block>.under_line:after{
+		content:'';
+		position:absolute;
+		top:-5px;
+		left:20%;
+		width:60%;
+		border-top:1px solid #dedede;
+	}
+	.line-part .text-tag.ml_more{margin-left:108px;}
+	.txtarea{
+		width:50%;
+		padding-top:4px;
+		border:1px solid #dedede;
+		border-radius: 3px;
+		text-indent: 6px;
+		resize: none;
+	}
+	.wrap-word{
+		display:inline-block;
+		vertical-align:top;
+		color:#636363;
+		line-height:26px;
+	}
+	/* 表格部分 */
+	.table-style .table-handle{margin-top:40px;}
+	.table-style .table-handle th:last-of-type,
+	.table-style .table-handle td:last-of-type{border-color:transparent;background:transparent;}
+	.table-style .table-handle th{
+		padding:10px 0;
+		border-bottom:1px solid #dedede;
+	}
+	.table-style .table-handle th+th{border-left:none !important;}
+ 	.table-style .table-handle td{
+		padding:0;
+	} 
+	.td-input{
+		width:100%;
+		font-size:13px;
+		height:30px;
+		text-indent:4px;
+	}
+	.handle-icon{
+		display: inline-block;
+	    width: 24px;
+	    height: 24px;
+	    line-height: 24px;
+	    border-radius: 50%;
+	    background: #31acfa;
+	    color: #fff;
+	    text-align: center;
+	    font-size: 24px;
+	    cursor:pointer;
+	}
+	.handle-icon.minus-ico{line-height:21px;}
+	
+	/* 提交按钮 */
+	.btnBox{
+		margin-top:45px;
+		padding-bottom:20px;
+		text-align:center;
+	}
+	.btnBox .layui-btn{
+		padding:0 36px;
+	}
+	.btnBox .layui-btn+.layui-btn{
+		margin-left:40px;
+	}
+	.layui-btn-primary:hover{
+		border-color:#1E9FFF;
+		color:#1E9FFF;
+	}
+	
+	/*弹出框部分*/
+	.model-box{
+		padding:20px;
+	}
+	.model-box h2{
+		margin-bottom:20px;
+		font-size:14px;
+		font-weight:400;
+	}
+	.model-box .layui-btn-sm{
+		height: 26px;
+	    line-height: 26px;
+	    padding: 0 15px;
+	}
+	.model-box .page-box{
+		margin-top:20px;
+	}
+	.model-box .table-style th,
+	.model-box .table-style td{
+		font-size:12px;
+	}
+	/*城市选择插件*/
+	.dizhi_t{top:32px;}
+	
+	
+	

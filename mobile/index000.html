@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="可视化系统">
+<meta name="Description" content="可视化系统">
+<title>首页</title>
+<link href="lib/font-awesome-fa/font-awesome.min.css" rel="stylesheet" media="screen">
+<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="lib/weui/css/jquery-weui.min.css">
+<link href="lib/css/animate.min.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+
+</head>
+<body>
+	<!--banner-->
+	<div class="banner">
+		<img class="banner-img" src="images/banner.png" alt="扫码关注公众号" />
+	</div>
+	<!--图标导航-->
+	<div class="commonBox" id="vue-common-function">
+		<ul class="iconList clearfix">	
+	        <li class="" v-for="(item,index) in collection">
+	        	<a @click="jumpLink(item.num)" :key="item.num" :id="'myIcon_'+index" :data-num="item.num">
+		        	<div class="iconBox">
+		        		<img v-bind:src="'images/index/w_'+ item.num +'.png'" alt="">
+		        	</div>
+		        	<p class="weui-grid__label"  v-if="item.num=='101'">我要发货</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='102'">发货清单</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='103'">发货监控</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='104'">客户管理</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item.num=='201'">扫码绑单</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='202'">发车报告</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='203'">装车卸货</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item.num=='301'">货主查货</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='302'">收货人查货</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='303'">扫码定位</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='304'">批报位置</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item.num=='401'">上传回单</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='402'">收货人签收</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item.num=='501'">项目管理</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='502'">申请二维码</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='503'">货主管理</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item.num=='601'">定位设置</p>
+		        	<p class="weui-grid__label"  v-else-if="item.num=='602'">路径规划</p>
+	        	</a>
+	        </li>
+	        <li>
+	        	<a href="view/partener/function.html">
+		        	<div class="iconBox">
+		        		<img src="images/index/w_all.png" alt="">
+		        	</div>
+		        	<p class="weui-grid__label">全部功能</p>		        	
+	        	</a>	        	
+	        </li>
+	    </ul>
+	</div>
+		
+	<!--我的任务-->	
+	<div class="my-task padding" id="vue-task-list">
+		<h3 class="h3" v-show="attachment.length > 0">近三天任务</h3>
+		<div class="task-list-item" v-for="(item, index) in attachment" v-if="attachment.length > 0">
+			<div class="task-list-item-con">
+				<div class="task-list-item-part" @click="toDetail(item.id,item.waybillStatus)">
+					<div class="weui-flex">
+						<div class="task-con-title">送货单号 :</div>
+						<div class="weui-flex__item one-line-hide title-right">{{item.deliveryNumber}}</div>
+					</div>
+					<div class="weui-flex">
+						<div class="task-con-title">发货人 :</div>
+						<div class="weui-flex__item one-line-hide">{{item.shipperName}}</div>
+					</div>
+					<div class="weui-flex">
+						<div class="task-con-title">收货客户 :</div>
+						<div class="weui-flex__item one-line-hide">{{item.receiverName}}</div>
+					</div>
+					<div class="weui-flex">
+						<div class="task-con-title">收货地址 :</div>
+						<div class="weui-flex__item more-line-hide">{{item.endStation | address}}{{item.receiveAddress}}</div>
+					</div>
+					<div class="weui-flex">
+						<div class="task-con-title">任务摘要 :</div>
+						<div class="weui-flex__item one-line-hide">{{item.orderSummary}}</div>
+					</div>
+					<div class="weui-flex">
+						<div class="task-con-title">最新位置 :</div>
+						<div class="weui-flex__item">{{item.address}}</div>
+					</div>
+					<div class="weui-flex">
+						<div class="task-con-title" style="width:136px;">最新位置上传时间 :</div>
+						<div class="weui-flex__item">{{item.loactionTime | ShorTime}}</div>
+					</div>
+					<div class="weui-flex">
+						<div class="task-con-title">发站:</div>
+						<div class="weui-flex__item">{{item.startStation | address}}</div>
+					</div>
+					<div class="weui-flex">
+						<div class="task-con-title">到站:</div>
+						<div class="weui-flex__item">{{item.endStation | address}}</div>
+					</div>
+	
+					<div class="pbox">发货时间：<span class="upload-task-time1">{{item.createtime | ShorTime}}</span></div>
+					<div class="pbox">要求到货时间：<span class="upload-task-time2">{{item.arrivaltime | ShorTime}}</span></div>
+					<div class="pbox">实际送达时间：<span class="upload-task-time2">{{item.actualArrivalTime | ShorTime}}</span></div>
+					<div class="pbox">
+						<span class="span-info">已运：<em class="color-mark">{{item.transportDays}}</em>天</span>
+						<span class="span-info">定位次数：<em class="color-mark">{{item.positionCount}}</em>次</span>
+					</div>					
+					<span class="upload-task-status status-delay color-red" v-if="item.delay == 0 || item.delay == 1">已延迟</span>
+					
+					<span class="upload-task-status color-green" v-if="item.waybillStatus == 20">已绑定</span>
+					<span class="upload-task-status color-blue" v-if="item.waybillStatus == 30">运输中</span>
+					<span class="upload-task-status color-lightorange" v-if="item.waybillStatus == 35">已到货</span>
+					<span class="upload-task-status color-gray" v-if="item.waybillStatus == 40">确认到货</span>
+					<template>
+						<template v-if="item.group != null">
+							<a class="taskEditBtn toGoodsPage" v-if="item.userid == userid && item.waybillStatus == 20" :href="'view/partener/editBarCode.html?taskId='+item.id+'&groupId='+item.groupid">
+								<i class="fa fa-pencil-square-o"></i>
+							</a>
+						</template>
+						<template v-else>
+							<a class="taskEditBtn toGoodsPage" v-if="item.userid == userid && item.waybillStatus == 20" :href="'view/partener/editBarCode.html?taskId='+item.id">
+								<i class="fa fa-pencil-square-o"></i>
+							</a>
+						</template>
+					</template>
+	
+					<!--运输中 字体颜色color-blue,  已绑定 color-green , 已完成  color-gray-->
+				</div>
+			</div>
+		</div>
+		<p v-else-if="attachment.length == 0" style="text-align:center;padding:10px 0;font-size:15px;">暂无数据。。。</p>
+	</div>
+		
+	<!-- 底部导航部分 -->
+	<div id="navBar"></div>
+<script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="lib/js/json2.js"></script>
+<script type="text/javascript" src="lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="lib/vue/vue.js"></script>
+<script type="text/javascript" src="lib/vue/moment.min.js"></script>
+<script type="text/javascript" src="lib/vue/commin.vue.js"></script>
+
+<script type="text/javascript" src="lib/js/jsrender-min.js"></script>
+<script type="text/javascript" src="lib/function/common.js"></script>
+<script type="text/javascript" src="lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="lib/function/easy.config.js"></script>
+<script type="text/javascript" src="lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="lib/function/weixin.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+	var vm = {
+		commonFunc : new Vue({
+            el: '#vue-common-function',
+            data: {total:7,
+            	   collection:[
+	            	{num:"101"},
+	            	{num:"102"},
+	            	{num:"201"},
+	            	{num:"202"},
+	            	{num:"301"},
+	            	{num:"302"},
+	            	{num:"401"},
+	            	]
+            	},
+            methods:{
+            	/*listCode:function(num){
+                    var parmas = {likeString: $("#list-wait-code").find("input[name='likeString']").val(), num : num};
+                    $.util.json(base_url + '/backstage/driver/list/wait/code', parmas, function (data) {
+                        if (data.success) {//处理返回结果
+                            v.listCode.prePage = data.page.prePage;
+                            v.listCode.nextPage = data.page.nextPage;
+                            v.listCode.total = data.page.total;
+                            v.listCode.collection = data.page.collection;
+                            if(v.listCode.collection && v.listCode.collection.length > 0){
+                                $('#detail-wait-code').show();
+                                selectCode(v.listCode.collection[0].barcode);
+                            }else{
+                                $('#detail-wait-code').hide();
+                            }
+                        } else {
+                            $.util.error(data.message);
+                        }
+                    });
+                },
+                setMyId: function (index){
+				   return "person_" +index				
+				},*/
+				jumpLink: function(num){
+					
+					var _url = "";
+					switch(num){
+						case "101": _url = "view/partener/sendGoods.html?index=index"; break;
+						case "102": _url = "view/partener/projectTeamTask.html?index=index"; break;
+						case "103": _url = "view/partener/sendMonitor.html"; break;
+						case "104": _url = "view/partener/chooseCustom.html"; break;
+						
+						case "201": $("#swapCircle").trigger("click"); break;//扫一扫
+						case "202": break;//无
+						case "203": _url = "view/partener/loadGoods.html?index=index"; break;
+						
+						case "301": _url = "view/partener/projectTeamTask.html?index=index"; break;
+						case "302": _url = "view/partener/checkStock.html?index=index"; break;
+						case "303": $("#swapCircle").trigger("click"); break;//扫一扫
+						case "304": _url = "view/partener/loadGoods.html?index=index"; break;
+						
+						case "401": _url = "view/partener/upload.html?showClose=10&waybillId="+""+"&index=index"; break;
+						case "402": break;//无
+						
+						case "501": _url = "view/partener/myProjectTeam.html"; break;
+						case "502": _url = "view/partener/applyResource.html"; break;
+						case "503": break;//无
+						
+						case "601": break;//同APP，暂无
+						case "602": _url = "view/partener/address.html"; break;
+					}
+
+					if(_url){
+						window.location.href =  _common.version(_url);
+					}
+				}
+				
+            },
+            computed: {
+                /*codes: function () {
+                    $.each(this.collection, function (i, item) {
+                        if(item.loadTime){
+                            item.loadTime = moment(item.loadTime).format('YYYY-MM-DD HH:mm');
+                        }
+                    });
+                    return this.collection;
+                }*/
+            },
+        	mounted: function(){
+        		//this.listCode();
+        	}
+        }),
+        myTaskList : new Vue({
+            el: '#vue-task-list',
+            data: {userid:null,attachment:[]},
+            methods:{
+            	taskList:function(options){
+                    var baseValue = {
+				        num: options.num,
+				        size: options.size,
+				        groupId: options.groupId || '',
+				        createtime: options.createtime || '',
+				        delay: options.delay || '',
+				        fettles: options.fettles || '',
+				        likeString: options.likeString || '',
+				        rptFettles: options.rptFettles || ''
+				    }
+				    EasyAjax.ajax_Post_Json({
+				        url: 'mobile/wayBill/group/search',
+				        data: JSON.stringify(baseValue)
+				    }, function (res) {
+				        var results = res.page.attachment;
+				        vm.myTaskList.userid = res.userid
+				        if(results != null){
+				        	vm.myTaskList.attachment = vm.myTaskList.classify(results)
+				        }
+				        
+				        console.info(vm.myTaskList.attachment);
+				        				        								        					       	
+				    });
+                },
+                toDetail:function(uid,status){
+                	window.location.href = _common.version('view/partener/myTaskDetails.html?waybillId=' + uid + '&sts=' + status);
+                },
+                classify:function(datas){
+                	var arrays = [], i = 0;
+				    $.each(datas, function(index, v, array){        
+				        $.each(v,function(i,item){
+				        	arrays.push(item)
+				        })
+				    });
+				    return arrays;
+                }
+            },
+            computed: {
+                //attachment: function () { return classify(this.attachment); }
+            },
+        	mounted: function(){
+        		this.taskList({
+                    num: 1,
+                    size: 20,
+                    groupId: "",
+                    createtime: "",
+                    likeString: "",
+                    fettles: "",
+                    delay: ""
+                });
+                
+        	}
+        })
+        
+	}
+	
+/*function classify(datas){
+    var arrays = [], i = 0;
+    $.each(datas, function(index, v, array){        
+        $.each(v,function(i,item){
+        	arrays.push(item)
+        })
+    });
+    return arrays;
+}*/
+
+
+</script>
+</body>
+</html>

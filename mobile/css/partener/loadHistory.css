@@ -1,0 +1,62 @@
+/*搜索部分*/
+.check-task-search{
+	padding:12px;
+	background:#f5f5f5;
+}
+.check-task-search .weui-icon-search{
+	position: absolute;
+	top:8px;
+	left:4px;
+	font-size:16px;
+}
+.task-search-input{
+	padding: 14px 32px 14px 28px;
+    width: 100%;
+    height: 1.42857143em;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.42857143em;
+    box-sizing: border-box;
+    background: #fff;
+    outline: none;
+}
+.task-search-btn{
+	padding-left:15px;
+}
+.check-task-search .weui-icon-clear{
+	position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 15px;
+    width: 32px;
+    line-height: 30px;
+    text-align: center;
+}
+
+/*****定位*/
+.flexBetween,.flexAround{
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+	flex-wrap: nowrap;justify-content:space-between;
+	-webkit-justify-content:space-between;}
+.flexAround{justify-content:space-around;-webkit-justify-content:space-around;}
+.locationBox{padding:5px 10px;background: #fffae5;font-size:12px;}
+.locationBox div *{display: inline-block; vertical-align:middle;}
+
+.roundCss{-webkit-animation: e 1s steps(12) infinite;animation: e 1s steps(12) infinite;}
+.ml10{margin-left:10px;}
+/*****列表样式*/
+.goods-list-con{margin-bottom: 140px;}
+a.weui-media-box{padding: 10px 15px;} 
+p.weui-media-box__desc{line-height:24px;font-size:14px; color: #666;}
+.weui-panel__hd{font-size: 15px;color:#31acfa;}
+.weui-media-box_appmsg .weui-media-box__hd{margin-right:0;}
+.unloadBtn{display: inline-block;width:60px;height:60px;font-size:18px;color:#fff;  background: #3bc66e;border-radius: 50%;}
+.noData{max-width: 60%;margin: 100px 20% 0;}
+
+.fontS{font-size:12px !important; color: #888 !important;}

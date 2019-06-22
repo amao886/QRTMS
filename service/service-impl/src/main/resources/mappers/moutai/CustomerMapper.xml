@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.moutai.MaotaiCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.moutai.Customer">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="CUSTOMER_NO" jdbcType="VARCHAR" property="customerNo" />
+    <result column="CUSTOMER_NAME" jdbcType="VARCHAR" property="customerName" />
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="CONTACT_NAME" jdbcType="VARCHAR" property="contactName" />
+    <result column="CONTACT_PHONE" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="FAX" jdbcType="VARCHAR" property="fax" />
+    <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <!-- 批量插入 -->
+  <insert id="inserts" parameterType="java.util.List">
+    INSERT INTO MOUTAI_CUSTOMER
+    (CUSTOMER_NO, CUSTOMER_NAME, PROVINCE, CITY, ADDRESS, CONTACT_NAME, CONTACT_PHONE, FAX, CREATE_USER_ID, CREATE_TIME)
+    VALUES
+    <foreach collection="list" item="o" index="index" separator=",">
+      (#{o.customerNo}, #{o.customerName}, #{o.province}, #{o.city}, #{o.address}, #{o.contactName}, #{o.contactPhone}, #{o.fax}, #{o.createUserId}, #{o.createTime})
+    </foreach>
+  </insert>
+  
+  <select id="listKeys" resultType="java.lang.String">
+    SELECT CUSTOMER_NO FROM MOUTAI_CUSTOMER
+  </select>
+
+
+  <select id="queryCustomerList" parameterType="com.ycg.ksh.entity.persistent.moutai.Customer" resultMap="BaseResultMap">
+    select * from  MOUTAI_CUSTOMER
+    <where>
+      <if test="customerNo != null and customerNo != '' ">
+        and CUSTOMER_NO like  concat('%', #{customerNo}, '%')
+      </if>
+      <if test="customerName!=null and customerName != ''">
+        and CUSTOMER_NAME LIKE concat('%', #{customerName}, '%')
+      </if>
+      <if test="contactName!=null and contactName != ''">
+        and CONTACT_NAME LIKE concat('%', #{contactName}, '%')
+      </if>
+      <if test="contactPhone!=null and contactPhone != ''">
+        and CONTACT_PHONE LIKE concat('%', #{contactPhone}, '%')
+      </if>
+    </where>
+    ORDER BY `CREATE_TIME` desc
+  </select>
+
+    <delete id="deleteBatchBycustomerNos">
+        DELETE FROM MOUTAI_CUSTOMER
+        <where>
+            <foreach collection="customerNos" open=" and CUSTOMER_NO in(" close=")"
+                     item="customerNo" separator=",">
+                #{customerNo}
+            </foreach>
+        </where>
+    </delete>
+
+</mapper>

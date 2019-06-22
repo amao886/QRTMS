@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.SysRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+    <result column="ROLE_FETTLE" jdbcType="INTEGER" property="roleFettle" />
+    <result column="ROLE_CATEGORY" jdbcType="INTEGER" property="roleCategory" />
+  </resultMap>
+
+  <select id="getRole" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT r.* FROM T_SYS_ROLE r LEFT JOIN managing_users_tab m ON r.ID = m.user_type WHERE m.user_id = #{userKey};
+  </select>
+</mapper>

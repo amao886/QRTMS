@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>签章授权</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/employee/signatureAuth.css" />
+		<style type="text/css">
+			
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#f2f2f2;">
+		<div id="main">
+			<template>
+			<!-- 头部提示-->
+			 <div class="topTip">
+			 <p>请选择授权给{{employeeName}}的企业章</p>   
+			 </div>
+			 <!--签章图片--> 
+			 <div class="signaturePicture clearfix">
+			 	<div class="imgItem " v-for="(item,index) in list"  :key="item.id"  @click="toggleClass($event)" :class="{active:isTrue(item.id)}">
+			 		
+			 		<img :src="imagePath+'/'+item.sealData" :data-seals = "item.id"/>
+			 		
+			 	</div>
+			 	
+			 </div>
+       <!-- 授权-->
+  
+		  <div class="authorization weui-footer_fixed-bottom" v-if="employeeType==0">
+		  	 <a href="javascript:;" class="weui-btn weui-btn_primary " @click="authorization($event)">确定将选择的签章授权使用</a>
+		  </div>
+		  </template>
+		</div>
+
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../js/employee/signatureAuth.js"></script>
+	</body>
+	
+
+</html>

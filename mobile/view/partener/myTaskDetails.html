@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<title>任务详情</title>
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/myTaskDetails.css" />
+</head>
+
+<body ontouchstart style="background:#fafafa;">
+	<!--导航-->
+	<div class="weui-tab">
+		<!--导航条-->
+	    <div class="weui-navbar">
+	        <a class="weui-navbar__item weui-bar__item--on" href="#task-tab1">
+	          	任务详情
+	        </a>
+	        <a class="weui-navbar__item" href="#task-tab2">
+	          	查看轨迹
+	        </a>
+	        <a class="weui-navbar__item" href="#task-tab3">
+	         	查看回单
+	        </a>
+	        <a class="weui-navbar__item" href="#task-tab4">
+	         	异常信息
+	        </a>
+	    </div>
+	    <!--导航内容-->
+	    <div class="weui-tab__bd" id="taskDetailsCon">
+	    	<!--任务详情-->
+
+	    </div>
+    </div>
+	<!--底部导航-->
+	<div class="weui-footer weui-footer_fixed-bottom" id="footer-con">
+	  	
+	</div>
+	<!--img放大-->
+	<div class="weui-gallery" style="display: none" id="gallery">
+      <span class="weui-gallery__img"></span>
+    </div>
+    
+    <!--微信分享提示-->
+    <div class="weixin-tip hide" id="weixin-tip">
+    	<img src="../../images/live_weixin.png" alt="" />
+    </div>
+<script type="text/javascript" src="../../lib/bscroll/bscroll.js"></script>	
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=7304d9bce8ee4bc4ec9c6c510c46477f"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/x-jsrender" id="taskDetails">
+<div id="task-tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+	<!--提示信息-->
+	<div class="task-detail-tips">
+		<div class="weui-flex">
+			<div class="weui-flex__item">
+				<div class="status-div">
+				{{if waybill.waybillStatus == 10}}
+				<p class="arriveStatus">未绑定</p>
+				{{else waybill.waybillStatus == 20}}
+				<p class="arriveStatus">已绑定</p>
+				{{else waybill.waybillStatus == 30}}
+				<p class="arriveStatus">运输中</p>
+				{{else waybill.waybillStatus == 35}}
+				<p class="arriveStatus">已送达</p>
+				{{else waybill.waybillStatus == 40}}
+				<p class="arriveStatus">已到货</p>
+				{{else}}
+				  <!--没有回单状态的时候，什么都不干-->
+				{{/if}}
+				{{if waybill.haveType != "" && waybill.haveType != null}}
+					{{if waybill.delay == 0 || waybill.delay == 1}}
+					<span style="color:red;">(已延迟)</span>
+					{{/if}}
+				{{/if}}
+				</div>
+				
+				{{if waybill.haveType == 0}}
+				<span>来自<span>项目组</span></span>
+				{{else waybill.haveType == 1}}
+				<span>来自<span>扫码</span></span>				
+				{{else waybill.haveType == 2}}
+				<span>来自<span>分享</span></span>
+				
+				{{/if}}
+			</div>
+			<div class="weui-flex__item">
+				<p class="color-mark">{{:waybill.transportDays}}</p>
+				<span>已运天数</span>
+			</div>
+			<div class="weui-flex__item">
+				<p class="color-mark">{{:waybill.positionCount}}</p>
+				<span>定位次数</span>
+			</div>
+		</div>
+	</div>
+	<!--任务详情内容-->
+  	<div class="task-list-item-con" id="userId" uUser={{:waybill.userid}}>
+		<div class="task-list-item-part">
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w4">送货单号</span> :</div>
+				<div class="weui-flex__item wordwrap">{{:waybill.deliveryNumber}}</div>
+			</div>		
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w3">发货人</span> :</div>
+				<div class="weui-flex__item">{{:~ifNull(waybill.shipperName)}}</div>
+			</div>
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w4">收货客户</span> :</div>
+				<div class="weui-flex__item">{{:~ifNull(waybill.receiverName,1)}}</div>
+			</div>
+			<div class="weui-flex"> 
+				<div class="task-con-title"><span class="w4">收货地址</span> :</div>
+				<div class="weui-flex__item">{{:~address(waybill.endStation)}}{{:~ifNull(waybill.receiveAddress,1)}}</div>
+			</div>
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w4">任务摘要</span> :</div>
+				<div class="weui-flex__item" id="useOrderS" uorderS='{{:waybill.orderSummary}}'>{{:waybill.orderSummary}}</div>
+			</div>
+			<!--物料开始-->
+			<div class="listCon">
+        {{if waybill.goods}}
+          <div class="title-wrapper">
+            <div class="goodsTitle">客户物料</div>
+            {{for waybill.goods}}
+            <div class="goodsName">{{:goodsType}}</div>
+            {{/for}}
+            <div class="goodsCalc">总计：</div>
+          </div>
+          <div class="part-wrapper">
+            <ul class="ul-content">
+              <li class="table-thead clearfix">
+                <div class="table-th">重量(kg)</div>
+                <div class="table-th">体积(m³)</div>
+                <div class="table-th">数量(件)</div>
+                <div class="table-th">货物摘要</div>
+              </li>
+              {{for waybill.goods}}
+              <li class="table-tbody clearfix">
+                <div class="table-th">{{:goodsWeight}}</div>
+                <div class="table-th">{{:goodsVolume}}</div>
+                <div class="table-th">{{:goodsQuantity}}</div>
+                <div class="table-th tHeight">{{:goodsName}}</div>
+              </li>
+              {{/for}}
+              <li class="table-footer clearfix">
+                <div class="table-th totalWeight">0</div>
+                <div class="table-th totalVolume">0</div>
+                <div class="table-th totalQuantity">0</div>
+              </li>
+            </ul>
+          </div>
+        {{/if}}
+			</div>
+			<!--物料结束-->
+			<div class="weui-flex" style="padding-top:12px;" id="addbt-hook">
+				<div class="task-con-title"><span class="w3">收货人</span> :</div>
+				{{if waybill.contactName == null}}
+				<div class="weui-flex__item">--</div>
+				{{else}}
+				<div class="weui-flex__item">{{:waybill.contactName}}</div>
+				{{/if}}
+			</div>
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w2">手机</span> :</div>
+				{{if waybill.contactPhone == null}}
+				<div class="weui-flex__item">--</div>
+				{{else}}
+				<div class="weui-flex__item">{{:waybill.contactPhone}}</div>
+				{{/if}}
+			</div>
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w2">座机</span> :</div>
+				<div class="weui-flex__item">{{:~ifNull(waybill.receiverTel)}}</div>
+				
+			</div>
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w4">任务单号</span> :</div>
+				<div class="weui-flex__item" id="useBarcode" ubarcode='{{:waybill.barcode}}'>{{:waybill.barcode}}</div>
+			</div>
+			<div class="weui-flex">
+				<div class="light-color"><span class="w5">要求到货时间</span> :</div>
+				<div class="weui-flex__item">{{:~dateFormatCommon(waybill.arrivaltime,2)}}</div>
+			</div>
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w4">发货时间</span> :</div>
+				<div class="weui-flex__item" id="useBindTime" uBindT="{{:waybill.createtime}}">{{:~dateFormatCommon(waybill.createtime,2)}}</div>
+			</div>
+			<div class="weui-flex">
+				<div class="light-color"><span class="w5">实际送达时间</span> :<br /></div>
+				<div class="weui-flex__item">{{:~dateFormatCommon(waybill.actualArrivalTime,2)}}</div>
+			</div>	
+			
+			<div class="weui-flex bordertop" style="padding-top:12px;">
+				<div class="task-con-title"><span class="w4">货主名称</span> :</div>
+				<div class="weui-flex__item">{{:~ifNull(waybill.shipperName)}}</div>
+			</div>
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w3">联系人</span> :</div>
+				<div class="weui-flex__item">{{:~ifNull(waybill.shipperContactName)}}</div>
+			</div>
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w4">联系电话</span> :</div>
+				<div class="weui-flex__item">{{:~ifNull(waybill.shipperContactTel)}}</div>
+			</div>
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w4">固定电话</span> :</div>
+				<div class="weui-flex__item">{{:~ifNull(waybill.shipperTel)}}</div>
+			</div>
+			<div class="weui-flex">
+				<div class="task-con-title"><span class="w4">发货地址</span> :</div>
+				<div class="weui-flex__item">{{:~address(waybill.startStation)}}{{:~ifNull(waybill.shipperAddress)}}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--查看轨迹-->
+<div id="task-tab2" class="weui-tab__bd-item">
+		<!--这里放跟踪信息-->
+		<span id="changeMap">切换地图>></span>
+		<div id="trackBox">
+			<ul class="trackList">
+				{{for waybill.tracks}}
+					<li>
+						<p>{{:locations}}</p>
+						<span>{{:~dateFormatCommon(createtime,1)}}</span>
+					</li>
+				{{else}}
+					<li class="noData">
+						<p>暂无信息...</p>					
+					</li>
+				{{/for}}			
+			</ul>
+		</div>
+	
+  	<!--这里放地图-->
+  	<div class="transport-map hide" id="transport-map">
+  		
+  	</div>  	
+</div>
+<!--查看回单-->
+<div id="task-tab3" class="weui-tab__bd-item">
+  	<div class="check-waybill">
+  		<div class="task-list-item-con">
+  			<!--回单循环开始-->
+  			{{if waybill.receiptCount == 0}}
+  			<p style="text-align: center;padding:10px 0;">暂无信息。。。</p>
+  			{{else}}
+  			  <!--<p style="display: none;">暂无信息。。。</p>-->
+	  			{{for waybill.receipts}}
+	  			<div class="task-list-item-part">
+				    <div class="weui-flex">
+				      <div class="task-con-title"><span class="w4">上传时间</span> :</div>
+				      <div class="weui-flex__item part_right">{{:~dateFormatCommon(createtime,1)}}</div>
+				    </div>
+				    <div class="weui-flex">
+				      <div class="task-con-title"><span class="w3">上传人</span> :</div>
+				      <div class="weui-flex__item part_right">{{:user.mobilephone}}</div>
+				    </div> 
+				    <ul class="waybill-img clearfix">
+				    	{{for images}}
+				    	<li><img class="show-img" src="{{:#parent.parent.parent.parent.data.imagePath}}{{:path}}" imgSrc="{{:#parent.parent.parent.parent.data.imagePath}}{{:path}}" alt="" /></li>
+				    	{{/for}}
+				    </ul>
+	        </div> <!--回单循环结束-->
+	        {{/for}}
+  			{{/if}}
+  			
+  		</div>
+  	</div>
+</div>
+<!--异常信息-->
+<div id="task-tab4" class="weui-tab__bd-item">
+  	<div class="check-waybill">
+  		<div class="task-list-item-con">
+  			<!--回单循环开始-->
+  			{{if waybill.exceptions == null}}
+  				<p style="text-align: center;padding:10px 0;">暂无信息。。。</p>
+  			{{else}}
+  				<!--<p style="display: none;">暂无信息。。。</p>-->
+	  			{{for waybill.exceptions}}
+	  			<div class="task-list-item-part">
+	  				<div class="weui-flex">
+				      	<div class="task-con-title"><span class="w4">异常情况</span> :</div>
+				      	<div class="weui-flex__item">{{:content}}</div>
+				    </div>
+				    <div class="weui-flex">
+				      	<div class="task-con-title"><span class="w4">上报时间</span> :</div>
+				      	<div class="weui-flex__item part_right">{{:~dateFormatCommon(createtime)}}</div>
+				    </div>
+				    <div class="weui-flex">
+				      	<div class="task-con-title"><span class="w3">上报人</span> :</div>
+				      	<div class="weui-flex__item part_right">{{:user.mobilephone}}</div>
+				    </div> 
+				    <ul class="waybill-img clearfix">
+				    	{{for images}}
+				    	<li><img class="show-img" src="{{:#parent.parent.parent.parent.data.imagePath}}{{:path}}" imgSrc="{{:#parent.parent.parent.parent.data.imagePath}}{{:path}}" alt="" /></li>
+				    	{{/for}}
+				    </ul>
+	        </div> <!--回单循环结束-->
+	        {{/for}}  			  			
+  			{{/if}}
+  			
+  		</div>
+  	</div>
+</div>
+</script>
+<script type="text/x-jsrender" id="footerInfo">
+	<div class="weui-flex">
+      	<div class="weui-flex__item">
+      		<a href="javascript:;" class="db" id="share-a">
+	      		<div class="weui-grid__icon footer-item">
+		          	<img src="../../images/f-share-icon.png" alt="">
+		        </div>
+		        <p class="footer-item-text color-share">分享</p>
+	        </a>
+      	</div>
+      	<div class="weui-flex__item">
+      		<a href="javascript:;" class="db" id="upload" uid="{{:waybill.id}}">
+      			<div class="weui-grid__icon footer-item">
+		          	<img src="../../images/f-upload-icon.png" alt="">
+		        </div>
+		        <p class="footer-item-text color-orange">上传回单</p>
+      		</a>
+      	</div>
+      	<div class="weui-flex__item">
+      		<a href="javascript:;" class="db" id="abnormal" uid="{{:waybill.id}}">
+      			<div class="weui-grid__icon footer-item">
+		          	<img src="../../images/f-abnormal-icon.png" alt="">
+		        </div>
+		        <p class="footer-item-text color-red">异常上报</p>
+      		</a>
+      	</div>
+      	{{if (waybill.isGroupMermer != null) && (waybill.isGroupMermer == true)}}
+      	<div class="weui-flex__item" id="arriveItem">
+      		<a href="javascript:;" class="db" id="isConfirm" uid="{{:waybill.id}}">
+      			<div class="weui-grid__icon footer-item">
+		          	<img src="../../images/f-sure-cion.png" alt="">
+		        </div>
+		        <p class="footer-item-text color-blue">确认到货</p>
+      		</a>
+      	</div>
+      	{{/if}}
+    </div>	
+</script>
+<script type="text/x-jsrender" id="mapTips">
+	<div class="map-tips">	
+		<div class="tip-item">
+			<span class="tip-title">定位地址：</span>
+			<span class="tip-content">{{:locations}}</span>
+		</div>
+		<div class="tip-item">
+			<span class="tip-title">定位时间：</span>
+			<span class="tip-content">{{:~dateFormatCommon(createtime)}}</span>
+		</div>
+		<div class="tip-item">
+			<span class="tip-title">联系人：</span>
+			<span class="tip-content">{{:user.mobilephone}}</span>
+		</div>
+	</div>
+</script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../js/partener/myTaskDetails.js"></script>
+</body>
+
+</html>

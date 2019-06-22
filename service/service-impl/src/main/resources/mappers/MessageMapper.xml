@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.Message">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="MSG_TITLE" jdbcType="VARCHAR" property="msgTitle" />
+    <result column="MSG_CONTEXT" jdbcType="VARCHAR" property="msgContext" />
+    <result column="MSG_TYPE" jdbcType="INTEGER" property="msgType" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ADJUNCT" jdbcType="VARCHAR" property="adjunct" />
+  </resultMap>
+</mapper>

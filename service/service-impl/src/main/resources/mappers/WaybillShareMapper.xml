@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.WaybillShareMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.WaybillShare">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="acceptid" jdbcType="INTEGER" property="acceptid" />
+    <result column="jurisdiction" jdbcType="INTEGER" property="jurisdiction" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="waybillid" jdbcType="INTEGER" property="waybillid" />
+    <result column="shareid" jdbcType="INTEGER" property="shareid" />
+    <result column="paramid" jdbcType="INTEGER" property="paramid" />
+  </resultMap>
+  <sql id="include_column" >
+    s.id,
+	s.acceptid,
+	s.jurisdiction,
+	s.createtime,
+	s.waybillid,
+	s.shareid,
+	s.paramid
+  </sql>
+  
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    SELECT
+		<include refid="include_column"/>
+	FROM
+		share_user_jurisdiction_tab s
+	WHERE 
+		s.waybillid= #{arg0} AND s.acceptid = #{arg1}
+  </select>
+</mapper>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>我的</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/user/peopleCenter.css" />
+</head>
+<body ontouchstart style="background:#fafafa;">
+
+	 <div class="weui-tab" id="content"> 
+    <div class="weui-tab__bd">
+    	
+		<div id="tab3" class="weui-tab__bd-item mine-part  weui-tab__bd-item--active" v-for="item in list" :key = 'item.id'>
+			<template>
+        	<div id="per-title">
+        	 <div class="title-left">
+        	   	 	 <div class="mine-part-photo">
+        		    <img  src="../../images/headPortrait.png" v-if="item.headImg == null ||item.headImg =='' "  />
+        		    <img  v-else :src="item.headImg"/>
+        	        </div>    
+        	<div class="perInfo">
+        		<p class="uName">{{item.unamezn}}</p>
+                <p class="uPhone">{{item.mobilephone}}</p>
+        	</div>
+        	   	 </div>
+        	 <div class="edit">
+        	   <a href="personInfo.html">
+        	   	<i class="fa fa-pencil"></i>
+        	   </a>
+        	 </div>
+         </div>
+             <!--我的企业/实名认证-->
+             <div class="weui-panel personAuthBox">
+		            <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_small-appmsg">
+        <div class="weui-cells">
+          <a class="weui-cell weui-cell_access myCompany" href="javascript:;" v-if="item.identity!=1" @click="EditCompany">
+            <div class="weui-cell__hd">我的企业</div>
+            <div class="weui-cell__bd weui-cell_primary text_right">    	
+            </div>
+           <span class="myCompanyBox weui-cell__ft" v-if="item.companyName !='' ">{{item.companyName}}</span>
+		  <span class="myCompanyBox weui-cell__ft" v-else>暂无企业</span>
+          </a>
+          <a class="weui-cell weui-cell_access" href="javascript:;" @click="myEmployee" v-if="item.identity!=1">
+            <div class="weui-cell__hd">企业员工</div>
+            <div class="weui-cell__bd weui-cell_primary text_right">
+            	
+            </div>  
+            <span class="weui-cell__ft" v-if='item.employeeCount!=null'>已添加{{item.employeeCount}}人</span>
+            <span class="weui-cell__ft" v-else>已添加0人</span>
+          </a>
+          <a class="weui-cell weui-cell_access" href="javascript:;" @click="Authentication">
+            <div class="weui-cell__hd">实名认证</div>
+            <div class="weui-cell__bd weui-cell_primary text_right">
+            	 <p id="authStatusNot" v-if="item.fettle==0">未认证</p>
+            	   <p id="authStatusAlready" v-if="item.fettle>0">已认证</p>
+            </div>
+            <span class="weui-cell__ft"></span>
+          </a>
+        </div>
+      </div>
+    </div>      
+	        </div>   
+	         <div class="weui-panel myWallet" v-show="item.identity==1">
+			   <div class="weui-panel__bd">
+			      <div class="weui-media-box weui-media-box_small-appmsg">
+			        <div class="weui-cells">
+			            <a class="weui-cell weui-cell_access" href="myWallet.html">
+				            <div class="weui-cell__hd"></div>
+				            <div class="weui-cell__bd weui-cell_primary">
+				                <p>我的钱包</p>
+				            </div>
+				            <span class="weui-cell__ft" v-if="money!= 0">{{money}}</span>
+				            <span class="weui-cell__ft" v-else>0.00</span>
+				        </a>
+				          <a class="weui-cell weui-cell_access" href="myIntegral.html">
+				            <div class="weui-cell__hd"></div>
+				            <div class="weui-cell__bd weui-cell_primary">
+				                <p>我的积分</p>
+				            </div>
+				            <span class="weui-cell__ft">{{item.integral}}</span>
+				        </a>
+			        </div>
+			      </div>
+			    </div>
+			</div>
+	        <div class="weui-panel aboutQLM">  
+			   <!-- 申请二维码/关注公众号/关于合同物流管理平台-->
+			   <div class="weui-panel__bd">
+			      <div class="weui-media-box weui-media-box_small-appmsg">
+			        <div class="weui-cells">
+			              <a class="weui-cell weui-cell_access" href="applyResource.html" v-if="item.identity==2 || item.identity==3">
+			                <div class="weui-cell__hd"></div>
+			                <div class="weui-cell__bd weui-cell_primary">
+			                    <p>申请二维码</p>
+			                </div> 
+			                <span class="weui-cell__ft"></span>
+			            </a>
+			           
+			              <a class="weui-cell weui-cell_access" href="about.html">
+				            <div class="weui-cell__hd"></div>
+				            <div class="weui-cell__bd weui-cell_primary">
+				                <p>关于合同物流管理平台</p>
+				            </div>
+				            <span class="weui-cell__ft"></span>
+				        </a>
+			        </div>
+			      </div>
+			   </div>    
+			</div> 	
+			<div class="weui-panel driver">
+			  <div class="weui-panel__bd">
+			      <div class="weui-media-box weui-media-box_small-appmsg">
+			        <div class="weui-cells">
+			           <a class="weui-cell weui-cell_access changeRole"  v-if="item.identity==1&&item.registerDriver==false" @click="applicationDriver">
+				            <div class="weui-cell__hd"></div>
+				            <div class="weui-cell__bd weui-cell_primary">
+				                <p class="">申请成为司机</p>
+				              
+				            </div>
+				            <span class="weui-cell__ft"></span>
+				          
+				        </a>
+				        <a class="weui-cell weui-cell_access changeRole" href="javascript:;" v-if="item.identity==1&&item.registerDriver==true" @click="dirverInformation">
+				            <div class="weui-cell__hd"></div>
+				            <div class="weui-cell__bd weui-cell_primary">
+				                <p class="">司机资料</p>
+				              
+				            </div>
+				            <span class="weui-cell__ft"></span>
+				           
+				        </a>
+			        </div>
+			      </div>
+			   </div>
+			</div>
+			<div class="weui-panel changeRole">
+			  <div class="weui-panel__bd">
+			      <div class="weui-media-box weui-media-box_small-appmsg">
+			        <div class="weui-cells">
+			           <a class="weui-cell weui-cell_access changeRole" href="javascript:;" @click="changeRole(item.identity,item.headImg)">
+				            <div class="weui-cell__hd"></div>
+				            <div class="weui-cell__bd weui-cell_primary">
+				                <p>切换身份</p>
+				            </div>
+				              <!--1:司机  2:发货方  3:承运方  4:收货方-->
+					       <span class="weui-cell__ft" v-if="item.identity==1">我是司机</span>
+					       <span class="weui-cell__ft" v-else-if="item.identity==2">我是货主</span>
+					       <span class="weui-cell__ft" v-else-if="item.identity==3">我是承运商</span>
+					       <span class="weui-cell__ft" v-else-if="item.identity==4">我是收货方</span>
+				        </a>
+			        </div>
+			      </div>
+			   </div>
+			</div>
+	</template>
+        </div>
+    </div>
+</div>
+
+<!--底部导航-->
+<div id="navBarIn"></div>
+
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/user/peopleCenter.js"></script>
+<script>
+//	alert($(document).height());
+//alert($(".weui-footer").get(0).height());
+</script>
+</body>
+</html>

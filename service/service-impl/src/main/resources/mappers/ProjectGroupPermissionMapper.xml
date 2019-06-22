@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.ProjectGroupPermissionMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.ProjectGroupPermission">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="permissionname" jdbcType="VARCHAR" property="permissionname" />
+    <result column="permissioncode" jdbcType="VARCHAR" property="permissioncode" />
+  </resultMap>
+  
+  <select id="selectByGroupUser" resultMap="BaseResultMap">
+  	SELECT
+		p.id, p.permissionname, p.permissioncode
+	FROM
+		permission_tab p
+	LEFT JOIN 
+		role_permission_tab rp ON p.id = rp.permissionid
+	LEFT JOIN 
+		user_role_tab ur ON rp.roleid = ur.roleid
+	WHERE
+		ur.groupid = #{arg0} AND ur.userid = #{arg1};
+  </select>
+  
+  <select id="selectByRoleKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	SELECT
+		p.id, p.permissionname, p.permissioncode
+	FROM
+		permission_tab p
+	LEFT JOIN 
+		role_permission_tab rp ON p.id = rp.permissionid
+	WHERE
+		rp.roleid = #{rKey};
+  </select>
+  
+</mapper>

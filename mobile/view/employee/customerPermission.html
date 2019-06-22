@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>客户权限</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/employee/customerPermission.css" />
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#FFFFFF;">
+		<div id="box">
+			<div style="padding-bottom: 58px;">
+				<div class="searchTab">
+					<div class="weui-flex">
+						<div class="searchInput weui-search-bar__box">
+							<i class="weui-icon-search"></i>
+							<input type="text" placeholder="客户名称" id="inputSearch" v-model="likeName" @input="inputText">
+							<i class="weui-icon-clear" id="iconClear" @click="clearText" :class="{'hide' : isNull(likeName)}"></i>
+						</div>
+						<div class="weui-flex__item choose" @click="openFilterView">
+							<div class="filterIcon">
+								<img src="../../images/filtericon.png" />
+							</div>
+							筛选
+						</div>
+					</div>
+					<div class="chooseCon" :class="{'show' : isShowFilterView}" @click="closeFilterView($event)">
+						<div class="chooseBox">
+							<div class="choosePart">
+								<h2 class="chooseTitle">客户类型</h2>
+								<ul>
+									<li :class="{'active' : customerType == 0}" @click="chooseCustomerType(0)">
+										<label for="customerType0">全部</label>
+										<input type="radio" name="customerType" id="customerType0" value="0" />
+									</li>
+									<li :class="{'active' : customerType == 1}" @click="chooseCustomerType(1)">
+										<label for="customerType1">货主</label>
+										<input type="radio" name="customerType" id="customerType1" value="1" />
+									</li>
+									<li :class="{'active' : customerType == 2}" @click="chooseCustomerType(2)">
+										<label for="customerType2">承运商</label>
+										<input type="radio" name="customerType" id="customerType2" value="2" />
+									</li>
+									<li :class="{'active' : customerType == 3}" @click="chooseCustomerType(3)">
+										<label for="customerType3">收货方</label>
+										<input type="radio" name="customerType" id="customerType3" value="3" />
+									</li>
+								</ul>
+							</div>
+							<div class="choosePart">
+								<h2 class="chooseTitle">注册状态</h2>
+								<ul>
+									<li :class="{'active' : signinState == 0}" @click="chooseSigninState(0)">
+										<label for="signinState0">全部</label>
+										<input type="radio" name="signinState" id="signinState0" value="0" />
+									</li>
+									<li :class="{'active' : signinState == 1}" @click="chooseSigninState(1)">
+										<label for="signinState1">未注册</label>
+										<input type="radio" name="signinState" id="signinState1" value="1" />
+									</li>
+									<li :class="{'active' : signinState == 2}" @click="chooseSigninState(2)">
+										<label for="signinState2">已注册</label>
+										<input type="radio" name="signinState" id="signinState2" value="2" />
+									</li>
+								</ul>
+							</div>
+							<div class="btnPart">
+								<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default cancelBtn" @click="cancel">取消</a>
+								<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary confirmBtn" @click="confirm">确定</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="weui-cells weui-cells_checkbox" style="margin-top: 0;" v-for="item in list " :key="item.key ">
+					<label class="weui-cell weui-check__label">
+		            	<div class="weui-cell__bd">
+		                	<p v-text='item.name'></p>
+		                </div>
+		                <div class="weui-cell__hd" @click="toggle(item.key)">
+		           			<input type="checkbox" :value="item.key" :key="item.key" :data-seals = "item.key" class="weui-check" name="checkbox1" v-model="item.checked">
+		                    <i class="weui-icon-checked"  ></i>
+		                </div>
+            		</label>
+				</div>
+			</div>
+			<div class="weui-footer weui-footer_fixed-bottom">
+			<div class="logisticBtn">
+				<a href="javascript:;" class="weui-btn weui-btn_default" @click="cancelBack">取消</a>
+				<a href="javascript:;" class="weui-btn weui-btn_primary" @click="submit">保存</a>
+			</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../../lib/js/json2.js"></script>
+	<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+	<script type="text/javascript" src="../../lib/function/common.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+	<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+	<script type="text/javascript" src="../../js/employee/customerPermission.js"></script>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el: '#box',
+			data: {
+				isShowFilterView: false,
+				customerType: 0,
+				signinState: 0,
+				employeeId: _common.getUrlParam('employeeId'),
+				likeName: '',
+				type: '',
+				status: '',
+				reg: '',
+				list: [],
+				authoritys: null,
+			},
+			created: function() {
+				this.load();
+			},
+			methods: { //点击事件
+				toggle: function(key) {
+					var _this = this;
+					_this.list.forEach(function(c, i) {
+						if(c.key === key) {
+							var isChecked = c.checked;
+							c.checked = isChecked;
+						}
+					})
+				},
+				//点击提交数据
+				submit: function() {
+					var _this = this;
+					var keys = [];
+					_this.list.forEach(function(c, i) {
+						if(c.checked) {
+							keys.push(c.key);
+						}
+					})
+					var parmas = {
+						customerKeys: keys.join(','),
+						employeeKey: _this.employeeId,
+					}
+					EasyAjax.ajax_Post_Json({
+						url: '/enterprise/customer/employee/authority/modify',
+						data: JSON.stringify(parmas)
+					}, function(res) {
+						console.log(res);
+						if(res.success) {
+							$.toast(res.message, function() {
+								window.location.href = './allocatPermission.html?employeeId=' + _this.employeeId
+							})
+						}
+
+					})
+				},
+				selected: function(customers, authoritys) {
+					if(authoritys && authoritys.length > 0) {
+						try {
+							var map = new Map();
+							authoritys.forEach(function(a, i) {
+								if(!map.has(a)) {
+									map.set(a, i);
+								}
+							})
+							customers.forEach(function(c, i) {
+								c.checked = map.has(c.key);
+							});
+						} catch(e) {
+							console.error(e);
+						}
+					}
+					return customers;
+				},
+				load: function() {
+					var _this = this;
+					EasyAjax.ajax_Post_Json({
+						url: 'enterprise/customer/list',
+						data: JSON.stringify({
+							likeName: _this.likeName,
+							type: _this.type,
+							reg: _this.reg
+						})
+					}, function(res) {
+						var customers = res.customers;
+						_this.id = res.customers.key;
+						if(_this.authoritys) {
+							_this.list = _this.selected(customers, _this.authoritys);
+						} else {
+							EasyAjax.ajax_Post_Json({
+								url: 'enterprise/customer/employee/authority/' + _this.employeeId,
+							}, function(res) {
+								_this.authoritys = res.authoritys;
+								_this.list = _this.selected(customers, _this.authoritys);
+							});
+						}
+					});
+				},
+				cancelBack: function() {
+					var _this = this;
+					window.location.href = './allocatPermission.html?employeeId=' + _this.employeeId
+				},
+				openFilterView: function() {
+					var _this = this;
+
+					_this.isShowFilterView = true;
+				},
+				closeFilterView: function(ev) {
+					var _this = this;
+
+					if(ev.target === $('.chooseCon')[0]) {
+						_this.isShowFilterView = false;
+
+						var filterData = sessionStorage.getItem("customerPFilterData");
+						if(filterData) {
+							var dataObj = JSON.parse(filterData);
+
+							_this.customerType = dataObj.customerType;
+							_this.signinState = dataObj.signinState;
+						} else {
+							_this.customerType = 0;
+							_this.signinState = 0;
+						}
+					}
+				},
+				chooseCustomerType: function(id) {
+					var _this = this;
+
+					_this.customerType = id;
+
+					if(id == 0) {
+						_this.type = '';
+					} else if(id == 1) {
+						_this.type = '1';
+					} else if(id == 2) {
+						_this.type = '3';
+					} else if(id == 3) {
+						_this.type = '2';
+					}
+				},
+				chooseSigninState: function(id) {
+					var _this = this;
+
+					_this.signinState = id;
+
+					if(id == 0) {
+						_this.reg = '';
+					} else if(id == 1) {
+						_this.reg = '2';
+					} else if(id == 2) {
+						_this.reg = '1';
+					}
+				},
+				clearText: function() {
+					var _this = this;
+
+					_this.likeName = '';
+
+					_this.load();
+				},
+				cancel: function() {
+					var _this = this;
+
+					_this.isShowFilterView = false;
+
+					var filterData = sessionStorage.getItem("customerPFilterData");
+					if(filterData) {
+						var dataObj = JSON.parse(filterData);
+
+						_this.customerType = dataObj.customerType;
+						_this.signinState = dataObj.signinState;
+					} else {
+						_this.customerType = 0;
+						_this.signinState = 0;
+					}
+				},
+				confirm: function() {
+					var _this = this;
+
+					_this.isShowFilterView = false;
+
+					var filterData = {
+						customerType: _this.customerType,
+						signinState: _this.signinState
+					}
+					sessionStorage.setItem("customerPFilterData", JSON.stringify(filterData));
+
+					_this.load();
+				},
+				inputText: function() {
+					var _this = this;
+
+					_this.load();
+				},
+				isNull: function(text) {
+					return !text && text !== 0 && typeof text !== "boolean" ? true : false;
+				}
+			}
+		})
+	</script>
+
+</html>

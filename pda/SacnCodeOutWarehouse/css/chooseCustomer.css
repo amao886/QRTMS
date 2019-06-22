@@ -1,0 +1,17 @@
+.mui-content>.mui-table-view:first-child {
+	margin-top: 0;
+}
+
+.mui-table-view-cell:after {
+	left: 0;
+	background-color: #E0E0E0
+}
+
+.explain {
+	padding: 15px;
+	background: #fff;
+}
+
+.mTop15 {
+	margin-top: 15px;
+}

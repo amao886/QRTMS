@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.CompanyTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.CompanyTemplate">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="COMPANY_ID" jdbcType="BIGINT" property="companyId" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="CSS_STRING" jdbcType="LONGVARCHAR" property="cssString" />
+    <result column="HTML_STRING" jdbcType="LONGVARCHAR" property="htmlString" />
+  </resultMap>
+  
+  <select id="getByCompanyKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT * FROM T_COMPANY_TEMPLATE WHERE COMPANY_ID = #{companyKey}
+  </select>
+</mapper>

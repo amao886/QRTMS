@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>上传回单</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/partener/upload.css" />
+</head>
+
+<body ontouchstart style="background:#f9f9fc;">
+<div class="upload-task">
+	<div class="upload-task-title clearfix" id="upload-task-title" style="display: none;">
+		<span class="up-task-icon" id="up-task-icon">扫码识别</span>
+		<a class="up-task-check" href="javascript:;" id="toSearchList">列表选择</a>
+	</div>
+	<!--选中回单后内容展示部分，用 hide 隐藏了，去掉hide即可-->
+	<div id="show-task-list" class="showTaskList">
+		<span class="upload-task-close fa fa-close hide" id="uploadTaskClose" ></span>
+		<div class="upload-task-content" id="uploadTaskContent"></div>
+	</div>
+</div>
+<!--提示信息开始-->
+<div class="img_tips">
+  <div class="tip-part">
+    <img src="../../images/example.png" alt="" />
+    <p>回单要求字体清晰可见，照片端正居中</p>
+  </div> 
+  <a href="javascript:;" class="imgTipsBtn">已明白图片要求，上传图片</a>
+</div>
+<!--提示信息结束-->
+
+<div class="weui-cells weui-cells_form upload">
+	<div class="weui-cell">
+		<div class="weui-cell__bd">
+			<div class="weui-uploader">
+<!--				<div class="weui-uploader__hd">
+					<p class="weui-uploader__title">上传回单照片</p>
+				</div>-->
+				<div class="weui-uploader__bd txtCenter remove-hook">
+					<ul class="weui-uploader__files upImage-hook" id="uploaderFiles">
+						<!--<li class="weui-uploader__file">
+							<img src="../../images/timg2.png" alt="" />
+							<span class="close-img"></span>
+						</li>-->
+					</ul>
+					<div class="weui-uploader__input-box uploadBtn" id="uploaderRecipt"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<p class="weui-uploader__title upload-tip-text" style="text-align: center;padding-bottom: 12px;">上传回单照片</p>
+</div>
+<div class='demos-content-padded'>
+	<a href="javascript:;" id="uploadTooltips" class="weui-btn weui-btn_primary gridentBtn">确定上传</a>
+</div>
+
+<!--img放大-->
+<div class="weui-gallery" id="gallery">
+  <img src="" id="galleryImg" />
+</div>
+
+<!--底部导航-->
+<div id="navBarIn"></div>
+
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/x-jsrender" id="showTask">		
+	<div class="weui-flex" id="chooseId" uid="{{:id}}">
+		<div class="task-con-title">任务单号 :</div>
+		{{if barcode == null}}
+		<div class="weui-flex__item one-line-hide"></div>
+		{{else}}
+		<div class="weui-flex__item one-line-hide">{{:barcode}}</div>
+		{{/if}}
+	</div>
+	<div class="weui-flex">
+		<div class="task-con-title">送货单号 :</div>
+		<div class="weui-flex__item one-line-hide">{{:deliveryNumber}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="task-con-title">收货客户 :</div>
+		<div class="weui-flex__item one-line-hide">{{:receiverName}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="task-con-title">收货地址 :</div>
+		<div class="weui-flex__item more-line-hide">{{:receiveAddress}}</div>
+	</div>
+	<div class="weui-flex">
+		<div class="task-con-title">任务摘要 :</div>
+		<div class="weui-flex__item one-line-hide">{{:orderSummary}}</div>
+	</div>
+	<p>发货时间：<span>{{:~dateFormatCommon(createtime,2)}}</span></p>
+	{{if arrivaltime != null}}
+	<p>要求到货时间：<span>{{:~dateFormatCommon(arrivaltime,2)}}</span></p>
+	{{/if}}	
+	{{if actualArrivalTime != null}}
+	<p>实际送达时间：<span>{{:~dateFormatCommon(actualArrivalTime,2)}}</span></p>	
+	{{/if}}
+</script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../lib/layer/layer.js"></script>
+<script type="text/javascript" src="../../js/partener/upload.js"></script>
+</body>
+</html>

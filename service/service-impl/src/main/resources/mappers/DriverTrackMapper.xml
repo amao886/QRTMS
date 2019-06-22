@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.DriverTrackMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.DriverTrack">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="report_time" jdbcType="TIMESTAMP" property="reportTime" />
+    <result column="report_loaction" jdbcType="VARCHAR" property="reportLoaction" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+  </resultMap>
+  
+  <sql id="include_sql">
+  	t.id, t.report_time, t.report_loaction, t.user_id, t.longitude, t.latitude
+  </sql>
+  <select id="selectLast" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	SELECT 
+  		<include refid="include_sql"/>
+  	FROM
+  		driver_track_tab t
+  	WHERE
+  		t.id = ( SELECT MAX(id) FROM driver_track_tab WHERE user_id = #{userId})
+  </select>
+  <select id="selectByBarcode" resultMap="BaseResultMap">
+    	SELECT d.* FROM driver_track_tab d LEFT JOIN transition_track_tab t ON d.id = t.driver_track_id WHERE t.barcode = #{barcode} ORDER BY d.report_time DESC
+  </select>
+</mapper>

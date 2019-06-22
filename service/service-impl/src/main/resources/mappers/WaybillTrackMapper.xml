@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.WaybillTrackMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.WaybillTrack">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="waybillid" jdbcType="INTEGER" property="waybillid"/>
+        <result column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="longitude" jdbcType="DOUBLE" property="longitude"/>
+        <result column="latitude" jdbcType="DOUBLE" property="latitude"/>
+        <result column="locations" jdbcType="VARCHAR" property="locations"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+    </resultMap>
+
+    <insert id="saveTrack" parameterType="java.util.List">
+        insert into track_tab (waybillid, userid, longitude, latitude, locations, createtime)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.waybillid},#{item.userid},#{item.longitude},#{item.latitude},
+            #{item.locations},#{item.createtime})
+        </foreach>
+    </insert>
+</mapper>

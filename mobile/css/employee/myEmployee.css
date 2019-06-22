@@ -1,0 +1,38 @@
+
+#app {
+	position: relative;
+}
+.weui-cell__hd {
+	flex: 2;
+}
+.weui-cell__bd {
+	text-align: center;
+	flex: 2;
+}
+.allocationPermissions {
+	color:#169BD5;
+	flex: 2;
+	text-align: right;
+}
+.weui-cell:before {
+ 	left: 0;
+ 	border-top: 1px solid #E4E4E4;
+}
+.weui-cell_access:active {
+	background-color: #FFF
+}
+.addEmployee {
+	background-color: #169BD5;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 40px;
+	width: 100%;
+	line-height: 40px;
+	text-align: center;
+	color: #fff;
+	/*border-radius: 10px 10px 0 0;*/
+}
+.weui-cells {
+	margin-top: 8px;
+}

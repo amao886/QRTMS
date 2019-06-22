@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<common>
+		<!-- global settings -->
+		<global.secret value="QYWPV9XDY4H7CVK730" />
+		<!-- 旧版手机端默认常用功能 -->
+		<system.mobile.commonly value="101#201#203#401#303#502#102" />
+		<!-- 新版非司机手机端默认常用功能 -->
+		<system.mobile.commonlykeys value="105#201#505#104#204" />
+		<!-- 新版司机手机端默认常用功能 -->
+		<system.mobile.drivercommonlykeys value="203#303#401#602#506#507" />
+		<system.esign.enable value="false"/><!-- 电子签收是否启用 -->
+
+
+		<!-- Dubbo Service settings -->
+		<dubbo.server.application.name value="ksh_sevice" />
+		<dubbo.server.protocol.port value="52371" />
+		<dubbo.server.timeout value="30000" />
+
+		<!-- redis settings -->
+		<redis.server.port value="6379" />
+		<redis.server.timeout value="2000" />
+		<redis.server.database value="1" />
+
+		<redis.client.pool.maxTotal value="-1" />
+		<redis.client.pool.maxIdle value="8" />
+		<redis.client.pool.maxWaitMillis value="3000" />
+		<redis.client.pool.minIdle value="0" />
+		
+		<!-- redis stand-alone -->
+		<redis.maxTotal value="1024"/>
+		<redis.maxIdle value="200"/>
+		<redis.minIdle value="2"/>
+		<redis.maxWaitMillis value="1000"/>
+		<redis.testOnBorrow value="false"/>
+		<redis.testOnReturn value="false"/>
+		<redis.timeout value="3000"/>
+		<redis.expiration value="600"/>
+		<redis.dbIndex value="0"/>
+
+		<!-- Database settings -->
+		<data.source.jdbc.driver value="com.mysql.cj.jdbc.Driver" />
+		<data.source.jdbc.initialSize value="0" />
+		<data.source.jdbc.maxActive value="20" />
+		<data.source.jdbc.maxIdle value="20" />
+		<data.source.jdbc.minIdle value="1" />
+		<data.source.jdbc.maxWait value="60000" />
+	</common>
+	<environment>
+		<local>
+			<!-- Database settings -->
+			<data.source.jdbc.url value="jdbc:mysql://192.168.0.119:3306/qlm?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;allowMultiQueries=true" />
+			<data.source.jdbc.username value="admin" />
+			<data.source.jdbc.password value="admin666" />
+
+			<!-- zookeeper settings -->
+			<zookeeper.cluster.hoststr value="192.168.0.42:2181" />
+			<!-- redis settings -->
+			<redis.server.database value="2" />
+			<redis.server.address value="192.168.0.119:7001,192.168.0.119:7002,192.168.0.119:7003" />
+			<redis.cluster.max.redirects value="3" />
+			<!-- redis singleton setting -->
+			<redis.host value="127.0.0.1"/>
+            <redis.port value="6379"/>
+            <redis.auth value="foobared"/>
+			<rabbitmq>
+				<vhost value="gewei_vhost_ycd"/>
+				<addresses value="192.168.0.114:5672"/>
+				<username value="user_ycd"/>
+				<password value="ycdgeweiit.com%"/>
+			</rabbitmq>
+
+            <!-- file settings  -->
+			<static.path.prefix value="http://51rong.51vip.biz:8089/res" />
+            <system.file.root value="D:/storage" />
+
+            <!-- weixin settings http://www.fty628.top -->
+            <weixin.callback.domain value="http://51rong.51vip.biz" />
+            <front.host.domain value="http://51rong.51vip.biz/wechat" />
+		</local>
+		<dev>
+		    <system.esign.enable value="true"/><!-- 电子签收是否启用 -->
+			<!-- Database settings -->
+			<data.source.jdbc.url value="jdbc:mysql://192.168.0.148:3306/qlm?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;allowMultiQueries=true" />
+			<data.source.jdbc.username value="root" />
+			<data.source.jdbc.password value="cy123456@163.com" />
+
+			<!-- zookeeper settings -->
+			<zookeeper.cluster.hoststr value="58.221.6.82:21810" />
+			<!-- redis settings -->
+			<redis.server.address value="172.16.35.71:6380,172.16.35.71:6381,172.16.35.72:6380,172.16.35.72:6381,172.16.35.73:6380,172.16.35.73:6381" />
+			<redis.cluster.max.redirects value="3" />
+			<!-- redis singleton setting -->
+			<redis.host value="192.168.0.148"/>
+            <redis.port value="6379"/>
+            <redis.auth value="cy123456"/>
+			<rabbitmq>
+				<vhost value="gewei_vhost_ycd"/>
+				<addresses value="58.221.6.82:56720"/>
+				<username value="user_ycd"/>
+				<password value="ycdgeweiit.com%"/>
+			</rabbitmq>
+
+			<!-- file settings  -->
+			<static.path.prefix value="http://www.wq5000.xyz/res" />
+			<system.file.root value="/opt/storage" />
+			<!-- weixin settings -->
+			<weixin.callback.domain value="http://www.wq5000.xyz" />
+			<front.host.domain value="http://www.wq5000.xyz/wechat" />
+		</dev>
+		<uat>
+			<!-- Database settings -->
+			<data.source.jdbc.url value="jdbc:mysql://172.16.36.80:3306/track_prod?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;allowMultiQueries=true" />
+			<data.source.jdbc.username value="root" />
+			<data.source.jdbc.password value="mysql@test" />
+			<!-- zookeeper settings -->
+			<zookeeper.cluster.hoststr value="172.16.36.82:2181,172.16.36.83:2181" />
+			<!-- redis settings -->
+			<redis.server.address value="172.16.36.82:6380,172.16.36.83:6380,172.16.36.85:6380" />
+			<redis.cluster.max.redirects value="3" />
+
+			<rabbitmq>
+				<vhost value="/"/>
+				<addresses value="172.16.235.5:5672"/><!-- 队列地址 -->
+				<username value="admin"/>
+				<password value="admin"/>
+			</rabbitmq>
+
+			<!-- file settings  -->
+			<static.path.prefix value="http://kshtest.ycgwl.com/res" />
+			<system.file.root value="/opt/storage" />
+			<!-- weixin settings -->
+			<weixin.callback.domain value="http://kshtest.ycgwl.com" />
+			<front.host.domain value="http://kshtest.ycgwl.com/wechat" />
+		</uat>
+		<prod>
+			<system.esign.enable value="true"/><!-- 电子签收是否启用 -->
+			<!-- Database settings -->
+			<data.source.jdbc.url value="jdbc:mysql://172.16.42.22:3306/track?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;useSSL=false&amp;allowMultiQueries=true" />
+			<data.source.jdbc.username value="ycg_ksh_mysql" />
+			<data.source.jdbc.password value="YCG_qlm" />
+			<!-- zookeeper settings -->
+			<zookeeper.cluster.hoststr value="172.16.42.10:2181,172.16.42.11:2181,172.16.42.12:2181" />
+			<!-- redis settings -->
+			<redis.server.address value="172.16.235.14:6380,172.16.235.15:6380,172.16.235.16:6380" />
+			<!--<redis.server.address value="172.16.42.16:7000,172.16.42.25:7000,172.16.42.24:7000,172.16.42.19:7000,172.16.42.17:7000,172.16.42.20:7000" />-->
+			<redis.cluster.max.redirects value="3" />
+			<!-- redis stand-alone -->
+			<redis.host value="192.168.0.119"/>
+            <redis.port value="7002"/>
+            <redis.auth value="qqamredis@#$"/>
+			<rabbitmq>
+				<vhost value="wuliu_vhost_qianlima"/>
+				<addresses value="172.16.254.214:5672"/>
+				<username value="qianlima"/>
+				<password value="Qq@qianlima~~"/>
+			</rabbitmq>
+
+			<!-- file settings  -->
+			<static.path.prefix value="http://qlm.scmjia.com/res" />
+			<system.file.root value="/opt/storage" />
+			<!-- weixin settings -->
+			<weixin.callback.domain value="http://qlm.scmjia.com" />
+			<front.host.domain value="http://qlm.scmjia.com/wechat" />
+		</prod>
+	</environment>
+
+</configuration>

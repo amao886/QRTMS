@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.WaybillMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.Waybill">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="barcodeid" jdbcType="INTEGER" property="barcodeid" />
+        <result column="groupid" jdbcType="INTEGER" property="groupid" />
+        <result column="order_summary" jdbcType="VARCHAR" property="orderSummary" />
+        <result column="customerid" jdbcType="INTEGER" property="customerid" />
+        <result column="userid" jdbcType="INTEGER" property="userid" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="arrivaltime" jdbcType="TIMESTAMP" property="arrivaltime" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="actual_arrival_time" jdbcType="TIMESTAMP" property="actualArrivalTime" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="weight" jdbcType="DOUBLE" property="weight" />
+        <result column="volume" jdbcType="DOUBLE" property="volume" />
+        <result column="number" jdbcType="INTEGER" property="number" />
+        <result column="delivery_number" jdbcType="VARCHAR" property="deliveryNumber" />
+        <result column="papery_receipt_status" jdbcType="INTEGER" property="paperyReceiptStatus" />
+        <result column="barcode" jdbcType="VARCHAR" property="barcode" />
+        <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+        <result column="receiver_tel" jdbcType="VARCHAR" property="receiverTel" />
+        <result column="receive_address" jdbcType="VARCHAR" property="receiveAddress" />
+        <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+        <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+        <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+        <result column="fence_status" jdbcType="INTEGER" property="fenceStatus" />
+        <result column="fence_radius" jdbcType="DOUBLE" property="fenceRadius" />
+        <result column="position_count" jdbcType="INTEGER" property="positionCount" />
+        <result column="receipt_count" jdbcType="INTEGER" property="receiptCount" />
+        <result column="receipt_verify_count" jdbcType="INTEGER" property="receiptVerifyCount" />
+        <result column="delay" jdbcType="INTEGER" property="delay" />
+        <result column="receipt_verify_status" jdbcType="INTEGER" property="receiptVerifyStatus" />
+        <result column="waybill_status" jdbcType="INTEGER" property="waybillStatus" />
+        <result column="confirm_delivery_way" jdbcType="INTEGER" property="confirmDeliveryWay" />
+        <result column="receipt_unqualify_count" jdbcType="INTEGER" property="receiptUnqualifyCount" />
+        <result column="shipper_name" jdbcType="VARCHAR" property="shipperName" />
+        <result column="loaction_time" jdbcType="TIMESTAMP" property="loactionTime" />
+        <result column="start_station" jdbcType="VARCHAR" property="startStation" />
+        <result column="end_station" jdbcType="VARCHAR" property="endStation" />
+        <result column="shipper_address" jdbcType="VARCHAR" property="shipperAddress" />
+        <result column="shipper_tel" jdbcType="VARCHAR" property="shipperTel" />
+        <result column="shipper_contact_name" jdbcType="VARCHAR" property="shipperContactName" />
+        <result column="shipper_contact_tel" jdbcType="VARCHAR" property="shipperContactTel" />
+        <result column="bind_time" jdbcType="TIMESTAMP" property="bindTime" />
+        <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime" />
+        <result column="simple_start_station" jdbcType="TIMESTAMP" property="simpleStartStation" />
+        <result column="simple_end_station" jdbcType="TIMESTAMP" property="simpleEndStation" />
+    </resultMap>
+
+    <resultMap id="baseResultPositionMap" type="com.ycg.ksh.entity.service.MergeWaybill" extends="BaseResultMap">
+        <result column="type" property="haveType" jdbcType="INTEGER"/><!-- 任务单来源 -->
+        <result column="shareid" property="shareId" jdbcType="VARCHAR"/><!-- 任务单来源 -->
+        <result column="uname" property="shareName" jdbcType="VARCHAR"/><!-- 任务单来源 -->
+    </resultMap>
+    <sql id="include_column">
+        w.id,
+        w.barcodeid,
+        w.barcode,
+        w.groupid,
+        w.order_summary,
+        w.customerid,
+        w.address,
+        w.loaction_time,
+        w.arrivaltime,
+        w.createtime,
+        w.updatetime,
+        w.actual_arrival_time,
+        w.weight,
+        w.volume,
+        w.number,
+        w.delivery_number,
+        w.papery_receipt_status,
+        w.confirm_delivery_way,
+        w.receiver_name,
+        w.receiver_tel,
+        w.receive_address,
+        w.contact_name,
+        w.contact_phone,
+        w.longitude,
+        w.latitude,
+        w.fence_status,
+        w.fence_radius,
+        w.position_count,
+        w.receipt_count,
+        w.receipt_verify_count,
+        w.receipt_unqualify_count,
+        w.receipt_verify_status,
+        w.waybill_status,
+        w.userid,
+        w.delay,
+        w.shipper_name,
+        w.start_station,
+        w.end_station,
+        w.shipper_address,
+        w.shipper_tel,
+        w.shipper_contact_name,
+        w.shipper_contact_tel,
+        w.bind_time,
+        w.delivery_time,
+        w.simple_start_station,
+        w.simple_end_station
+    </sql>
+    <select id="selectGroupKeyById" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        SELECT groupid FROM waybill_tab WHERE id= #{waybillId}
+    </select>
+    <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="include_column"/>
+        FROM
+        waybill_tab w
+        WHERE
+        w.barcode= #{barcode}
+    </select>
+    <select id="countByCode" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT
+          COUNT(w.barcode)
+        FROM
+        waybill_tab w
+        WHERE
+        w.barcode= #{barcode}
+    </select>
+
+    <select id="countWaitBind" resultType="java.lang.Integer">
+        SELECT
+            COUNT(w.id)
+        FROM
+          waybill_tab w
+        <where>
+            w.waybill_status = 10
+            <choose>
+                <when test="arg1!= null and arg1 gt 0">
+                    AND w.groupid = #{arg1}
+                </when>
+                <otherwise>
+                    <![CDATA[ AND w.userid = #{arg0} AND w.groupid <= 0 ]]>
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="include_column"/>
+        FROM
+        waybill_tab w
+        WHERE
+        w.id= #{arg0} AND w.userid = #{arg1}
+    </select>
+
+    <select id="listBySomething" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.service.WaybillSerach">
+        SELECT
+            <include refid="include_column"/>
+        FROM
+        waybill_tab w
+        <where>
+            <choose>
+                <when test="all == null or all == false">
+                    <choose>
+                        <when test="groupId != null and groupId gt 0">
+                            AND w.groupid = #{groupId}
+                        </when>
+                        <otherwise>
+                            <if test="userId != null and userId gt 0">
+                                <![CDATA[ AND w.userid = #{userId} AND w.groupid <= 0 ]]>
+                                <!--AND w.groupid IN (SELECT groupid FROM group_members_tab WHERE userid = #{userId} AND status =10)-->
+                            </if>
+                        </otherwise>
+                    </choose>
+                </when>
+                <otherwise>
+                    AND (w.userid = #{userId} OR (w.groupid IN (SELECT groupid FROM group_members_tab WHERE userid = #{userId})))
+                </otherwise>
+            </choose>
+            <if test="likeString != null and likeString !=''">
+                AND (
+                (LOCATE(#{likeString}, w.delivery_number) > 0) OR
+                (LOCATE(#{likeString}, w.barcode) > 0) OR
+                (LOCATE(#{likeString}, w.receiver_name) > 0) OR
+                (LOCATE(#{likeString}, w.receive_address) > 0) OR
+                (LOCATE(#{likeString}, w.order_summary) > 0)
+                )
+            </if>
+            <if test="mobilphone != null and mobilphone != ''">
+                <![CDATA[ AND w.contact_phone = #{mobilphone} ]]>
+            </if>
+            <if test="firstTime != null">
+                <![CDATA[ AND w.createtime >= #{firstTime} ]]>
+            </if>
+            <if test="secondTime != null">
+                <![CDATA[ AND w.createtime <= #{secondTime} ]]>
+            </if>
+            <if test="deliveryTimeStart != null">
+            <![CDATA[ AND w.delivery_time >= #{deliveryTimeStart} ]]>
+            </if>
+            <if test="deliveryTimeEnd != null">
+                <![CDATA[ AND w.delivery_time <= #{deliveryTimeEnd} ]]>
+            </if>
+            <if test="startStation != null and startStation != ''">
+                <![CDATA[ AND LOCATE(#{startStation}, w.start_station) > 0 ]]>
+            </if>
+            <if test="endStation != null and endStation != ''">
+                <![CDATA[ AND  LOCATE(#{endStation}, w.end_station) > 0 ]]>
+            </if>
+            <if test="delay != null and delay gt 0">
+                <![CDATA[ AND w.delay = #{delay} ]]>
+            </if>
+            <if test="waybillFettles != null">
+                AND w.waybill_status IN
+                <foreach collection="waybillFettles" item="fettle" separator="," open="(" close=")">
+                    #{fettle}
+                </foreach>
+            </if>
+            <if test="receiptFettles != null">
+                AND w.receipt_verify_status IN
+                <foreach collection="receiptFettles" item="fettle" separator="," open="(" close=")">
+                    #{fettle}
+                </foreach>
+            </if>
+            <if test="waitFettle != null">
+                <if test="waitFettle == 0">
+                    AND (w.receipt_count = 0 OR w.receipt_count > w.receipt_verify_count OR w.receipt_unqualify_count > 0)
+                </if>
+                <if test="waitFettle == 1">
+                    AND w.receipt_count = 0
+                </if>
+                <if test="waitFettle == 2">
+                    AND (w.receipt_count > 0 AND w.receipt_verify_count = 0)
+                </if>
+                <if test="waitFettle == 3">
+                    AND (w.receipt_verify_count >= 1 AND w.receipt_count > w.receipt_verify_count)
+                </if>
+                <if test="waitFettle == 4">
+                    AND (w.receipt_count > 0 AND w.receipt_verify_count >= w.receipt_count AND w.receipt_unqualify_count
+                    > 0)
+                </if>
+                <if test="waitFettle == 5">
+                    AND w.receipt_count > w.receipt_verify_count
+                </if>
+            </if>
+        </where>
+        ORDER BY w.createtime DESC, w.waybill_status ASC
+    </select>
+
+    <select id="listBySomethingConveyance" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.service.WaybillSerach">
+        SELECT
+        DISTINCT w.id AS _id, <include refid="include_column"/>
+        FROM
+            waybill_tab w
+        <where>
+            <choose>
+                <when test="all == null or all == false">
+                    <choose>
+                        <when test="groupId != null and groupId gt 0">
+                            AND w.groupid = #{groupId}
+                        </when>
+                        <otherwise>
+                            <if test="userId != null and userId gt 0">
+                                <![CDATA[ AND (w.userid = #{userId} AND w.groupid <= 0) ]]>
+                            </if>
+                        </otherwise>
+                    </choose>
+                </when>
+                <otherwise>
+                    AND (w.userid = #{userId} OR (w.groupid IN (SELECT groupid FROM group_members_tab WHERE userid = #{userId})))
+                </otherwise>
+            </choose>
+            <if test="likeString != null and likeString !=''">
+                AND (
+                    (LOCATE(#{likeString}, w.delivery_number) > 0) OR
+                    (LOCATE(#{likeString}, w.barcode) > 0) OR
+                    (LOCATE(#{likeString}, w.receiver_name) > 0) OR
+                    (LOCATE(#{likeString}, w.receive_address) > 0) OR
+                    (LOCATE(#{likeString}, w.order_summary) > 0)
+                )
+            </if>
+            <if test="mobilphone != null and mobilphone != ''">
+                <![CDATA[ AND w.contact_phone = #{mobilphone} ]]>
+            </if>
+            <if test="firstTime != null">
+                <![CDATA[ AND w.createtime >= #{firstTime} ]]>
+            </if>
+            <if test="secondTime != null">
+                <![CDATA[ AND w.createtime <= #{secondTime} ]]>
+            </if>
+            <if test="startStation != null and startStation != ''">
+                <![CDATA[ AND LOCATE(#{startStation}, w.start_station) > 0 ]]>
+            </if>
+            <if test="endStation != null and endStation != ''">
+                <![CDATA[ AND  LOCATE(#{endStation}, w.end_station) > 0 ]]>
+            </if>
+            <if test="delay != null and delay gt 0">
+                <![CDATA[ AND w.delay = #{delay} ]]>
+            </if>
+            <if test="waybillFettles != null">
+                AND w.waybill_status IN
+                <foreach collection="waybillFettles" item="fettle" separator="," open="(" close=")">
+                    #{fettle}
+                </foreach>
+            </if>
+            <if test="receiptFettles != null">
+                AND w.receipt_verify_status IN
+                <foreach collection="receiptFettles" item="fettle" separator="," open="(" close=")">
+                    #{fettle}
+                </foreach>
+            </if>
+            <if test="waitFettle != null">
+                <if test="waitFettle == 0">
+                    AND (w.receipt_count = 0 OR w.receipt_count > w.receipt_verify_count OR w.receipt_unqualify_count >
+                    0)
+                </if>
+                <if test="waitFettle == 1">
+                    AND w.receipt_count = 0
+                </if>
+                <if test="waitFettle == 2">
+                    AND (w.receipt_count > 0 AND w.receipt_verify_count = 0)
+                </if>
+                <if test="waitFettle == 3">
+                    AND (w.receipt_verify_count >= 1 AND w.receipt_count > w.receipt_verify_count)
+                </if>
+                <if test="waitFettle == 4">
+                    AND (w.receipt_count > 0 AND w.receipt_verify_count >= w.receipt_count AND w.receipt_unqualify_count
+                    > 0)
+                </if>
+                <if test="waitFettle == 5">
+                    AND w.receipt_count > w.receipt_verify_count
+                </if>
+            </if>
+        </where>
+        ORDER BY w.createtime DESC, w.waybill_status ASC
+    </select>
+
+    <select id="listTotalBySomething" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.service.WaybillSerach">
+        SELECT
+        <include refid="include_column"/>
+        FROM
+        waybill_tab w
+        <where>
+            <choose>
+                <when test="groupId != null and groupId gt 0">
+                    AND w.groupid = #{groupId}
+                </when>
+                <otherwise>
+                    <![CDATA[ AND w.userid = #{userId}  and w.groupid <= 0 ]]>
+                </otherwise>
+            </choose>
+            <if test="likeString != null and likeString !=''">
+                AND (
+                (LOCATE(#{likeString}, w.delivery_number) > 0) OR
+                (LOCATE(#{likeString}, w.barcode) > 0) OR
+                (LOCATE(#{likeString}, w.receiver_name) > 0) OR
+                (LOCATE(#{likeString}, w.receive_address) > 0) OR
+                (LOCATE(#{likeString}, w.order_summary) > 0)
+                )
+            </if>
+            <if test="mobilphone != null and mobilphone != ''">
+                <![CDATA[ AND w.contact_phone = #{mobilphone} ]]>
+            </if>
+            <if test="firstTime != null">
+                <![CDATA[ AND w.createtime >= #{firstTime} ]]>
+            </if>
+            <if test="secondTime != null">
+                <![CDATA[ AND w.createtime <= #{secondTime} ]]>
+            </if>
+            <if test="delay != null and delay gt 0">
+                <![CDATA[ AND w.delay = #{delay} ]]>
+            </if>
+            <if test="waybillFettles != null">
+                AND w.waybill_status IN
+                <foreach collection="waybillFettles" item="fettle" separator="," open="(" close=")">
+                    #{fettle}
+                </foreach>
+            </if>
+            <if test="waybillFettles == null">
+                <![CDATA[ AND w.waybill_status <> 10 ]]>
+            </if>
+            <if test="receiptFettles != null">
+                AND w.receipt_verify_status IN
+                <foreach collection="receiptFettles" item="fettle" separator="," open="(" close=")">
+                    #{fettle}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY w.delay, w.createtime DESC
+    </select>
+
+    <!--我的任务  -->
+    <select id="queryMyTaskPage" resultMap="baseResultPositionMap" parameterType="com.ycg.ksh.entity.service.WaybillSerach">
+        select * from
+        (SELECT
+            a.id,
+            a.barcodeid,
+            a.barcode,
+            a.order_summary,
+            a.address,
+            a.loaction_time,
+            a.receiver_name,
+            a.start_station,
+            a.end_station,
+            a.receive_address,
+            a.createtime as createtime,
+            a.actual_arrival_time,
+            a.arrivaltime,
+            a.delivery_number,
+            a.groupid,
+            a.longitude,
+            a.latitude,
+            a.waybill_status,
+            a.delivery_time,
+            a.shipper_name,
+            a.delay,
+            '' AS uname,
+            '' AS shareid,
+            1 AS TYPE,
+            (SELECT COUNT(1) from track_tab tr where tr.waybillid = a.id and tr.userid = dws.userid) as position_count
+        FROM waybill_tab a INNER JOIN driver_waybill_status_tab dws ON dws.waybillid = a.id
+        WHERE dws.userid = #{userId,jdbcType=INTEGER}
+        UNION SELECT
+            a.id,
+            a.barcodeid,
+            a.barcode,
+            a.order_summary,
+            a.address,
+            a.loaction_time,
+            a.receiver_name,
+            a.start_station,
+            a.end_station,
+            a.receive_address,
+            a.createtime AS createtime,
+            a.actual_arrival_time,
+            a.arrivaltime,
+            a.delivery_number,
+            a.groupid,
+            a.longitude,
+            a.latitude,
+            a.waybill_status,
+            a.delivery_time,
+            a.shipper_name,
+            a.delay,
+            u.uname,
+            c.shareid,
+            2 AS TYPE,
+            a.position_count
+        FROM waybill_tab a INNER JOIN share_user_jurisdiction_tab c ON a.id=c.waybillid LEFT JOIN user_tab u ON c.shareid = u.id
+        WHERE c.acceptid=#{userId,jdbcType=INTEGER} AND c.waybillid NOT IN
+        (SELECT s.waybillid FROM driver_waybill_status_tab s WHERE s.userid=#{userId,jdbcType=INTEGER} ) GROUP BY a.id )
+        t where 1=1
+        <if test="likeString!=null and likeString !=''">
+            and (t.delivery_number like concat('%', #{likeString,jdbcType=VARCHAR}, '%') or
+            t.order_summary like concat('%', #{likeString,jdbcType=VARCHAR}, '%') or
+            t.receiver_name like concat('%', #{likeString,jdbcType=VARCHAR}, '%') or
+            t.receive_address like concat('%', #{likeString,jdbcType=VARCHAR}, '%'))
+        </if>
+
+        <if test="firstTime != null">
+            <![CDATA[ AND t.createtime >= #{firstTime} ]]>
+        </if>
+        <if test="secondTime != null">
+            <![CDATA[ AND t.createtime <= #{secondTime} ]]>
+        </if>
+        <if test="waybillFettles != null">
+            AND t.waybill_status IN
+            <foreach collection="waybillFettles" item="fettle" separator="," open="(" close=")">
+                #{fettle}
+            </foreach>
+        </if>
+        <if test="delay != null and delay gt 0">
+            <![CDATA[ AND t.delay = #{delay} ]]>
+        </if>
+        order by t.createtime desc
+    </select>
+
+    <update id="updateDelayStatus">
+        UPDATE  waybill_tab SET  delay =#{arg0} where id = #{arg1}
+    </update>
+
+    <update id="batchUpdateDelayStatus">
+        UPDATE
+          waybill_tab
+        SET
+          delay=#{arg0}
+        WHERE id IN
+        <foreach collection="arg1" item="wkey" separator="," open="(" close=")">
+            #{wkey,jdbcType=INTEGER}
+        </foreach>
+    </update>
+    <!-- 批量导入 -->
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into waybill_tab
+        (groupid, order_summary, createtime, updatetime, receiver_name, receive_address, contact_phone, contact_name, shipper_name)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.groupid}, #{item.orderSummary}, #{item.createtime}, #{item.updatetime}, #{item.receiverName}, #{item.receiveAddress}, #{item.contactPhone}, #{item.contactName}, #{item.shipperName})
+        </foreach>
+    </insert>
+    <update id="updateArrivalTime" parameterType="java.lang.Integer">
+         UPDATE  waybill_tab SET  arrivaltime = NULL where id = #{waybillid}
+    </update>
+    <update id="updateWaybillStatusById" parameterType="com.ycg.ksh.entity.persistent.Waybill" >
+        update waybill_tab
+        set papery_receipt_status = #{paperyReceiptStatus,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

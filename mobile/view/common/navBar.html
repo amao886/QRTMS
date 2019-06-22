@@ -1,0 +1,109 @@
+<style>
+.weui-footer{
+	background:#fff;
+	padding:5px 0 2px 0;
+	border-top:1px solid #e6e6e6;
+}
+.weui-flex__item>a{
+	display: block;
+}
+.weui-footer_fixed-bottom{
+	bottom:0;
+	z-index: 3;
+}
+.weui-footer .footer-item{
+	width:22px;
+	height:22px;
+	margin:0 auto;
+}
+/*.weui-footer .footer-item>img{
+	display: block;
+    width: 100%;
+    height: 100%;
+}*/
+/*图标*/
+.weui-footer .footer-item .img-icon{
+	display: block;
+	width:100%;
+	height:100%;
+}
+
+.my-index .img-icon{	
+	background:url(images/index.png) no-repeat;
+	background-size:22px;
+	background-position: 0 -35px;	
+}
+.swap-circle .img-icon{
+	background:url(images/swap.png) no-repeat;
+	background-size:22px;
+	background-position: 0 -35px;
+}
+.contact-list .img-icon{
+	background:url(images/concact.png) no-repeat;
+	background-size:27px;
+	background-position: 0 -35px;
+}
+.people-center .img-icon{
+	background:url(images/mine.png) no-repeat;
+	background-size:22px;
+	background-position: 0 -35px;
+}
+.a-hook.active .footer-item-text{
+	color:#31acfa;
+}
+.a-hook.active .img-icon{
+	background-position: 0 0px;
+}
+/*.contact-list.active .img-icon{
+	background-position:0 2px;
+}*/
+.footer-item-text{
+	margin-top:3px;
+	display: block;
+    text-align: center;
+    color: #636363;
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+</style>
+<div class="weui-footer weui-footer_fixed-bottom">
+  	<div class="weui-flex">
+      	<div class="weui-flex__item">
+      		<a href="javascript:;" class="a-hook active my-index" id="myIndex">
+	      		<div class="weui-grid__icon footer-item">
+		          	<!--<img src="../../images/index-new.png" alt="">-->
+		          	<span class="img-icon"></span>
+		        </div>
+		        <p class="footer-item-text">首页</p>
+	        </a>
+      	</div>
+      	<div class="weui-flex__item footer-swap">
+      		<a href="javascript:;" class="a-hook swap-circle" id="swapCircle">
+      			<div class="weui-grid__icon footer-item">
+		          	<!--<img src="../../images/people-center.png" alt="">-->
+		          	<span class="img-icon"></span>
+		        </div>
+		        <p class="footer-item-text">扫一扫</p>
+      		</a>
+      	</div>
+      	<!--<div class="weui-flex__item">
+      		<a href="javascript:;" class="a-hook contact-list" id="conList">
+      			<div class="weui-grid__icon footer-item"style="width:27px;">
+		          	<span class="img-icon"></span>
+		        </div>
+		        <p class="footer-item-text">通讯录</p>
+      		</a>
+      	</div>-->
+      	<div class="weui-flex__item">
+      		<a href="javascript:;" class="a-hook people-center" id="peopleCenter">
+      			<div class="weui-grid__icon footer-item">
+		          	<!--<img src="../../images/people-center.png" alt="">-->
+		          	<span class="img-icon"></span>
+		        </div>
+		        <p class="footer-item-text">我的</p>
+      		</a>
+      	</div>
+    </div>
+</div>

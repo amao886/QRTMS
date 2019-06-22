@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>发货详情</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/partener/transportManageList.css" />
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+			
+			.transportList .all,
+			.transportList .choose {
+				flex: 0 0 75px;
+				width: 75px;
+			}
+			
+			.transportList .searchSelect {
+				margin: 0 20px;
+			}
+			
+			.manageList-wrapper .weui-flex {
+				padding-left: 0;
+				padding-right: 0;
+			}
+			
+			.manage-detail .weui-flex:before {
+				left: 90px;
+			}
+			
+			.manage-detail .left-title .w4 {
+				letter-spacing: 0.3em;
+				margin-right: -0.3em;
+			}
+			
+			.manage-detail .left-title {
+				width: 5.5em;
+			}
+			
+			.transSearch-wrapper {
+				margin-bottom: 0px;
+			}
+			
+			.fa-pencil {
+				color: #0071FE;
+			}
+			
+			#deliveryNo {
+				width: 80%;
+				font-size: 16px;
+			}
+			
+			.btnPart .weui-btn_default {
+				float: none;
+			}
+			
+			.btnPart .weui-btn_primary {
+				float: left;
+			}
+			
+			.pTop10 {
+				padding-top: 10px;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background-color: #F5F6F9;">
+		<div id="transportDetailsCon" v-cloak>
+			<!--导航-->
+			<div class="weui-tab">
+				<template>
+					<!--导航条-->
+					<div class="weui-navbar">
+						<a class="weui-navbar__item weui-bar__item--on" href="#task-tab1">
+							发货信息
+						</a>
+						<a class="weui-navbar__item" href="#task-tab2">
+							运输跟踪
+						</a>
+						<a class="weui-navbar__item" href="#task-tab3">
+							回单照片
+						</a>
+					</div>
+					<!--导航内容-->
+					<div class="weui-tab__bd">
+						<!--运输管理详情-->
+						<div id="task-tab1" class="weui-tab__bd-item weui-tab__bd-item--active" style="background:#FFFFFF;margin-top: 10px;">
+							<div class="manageList-wrapper transport-wrap" id="releaseGoodsInfo">
+								<div class="manage-detail">
+									<div class="weui-flex">
+										<div class="left-title"><span class="w4">系统单号</span></div>
+										<div class="weui-flex__item wordwrap">{{bindCode}}</div>
+										<div class="weui-flex__item wordwrap">
+											<img src="../../images/transportingicon.png" class="showStatusPic" v-if="fettle == 1" />
+											<img src="../../images/arrivegoodicon.png" class="showStatusPic" v-else-if="fettle == 3" />
+											<img src="../../images/signedicon.png" class="showStatusPic" v-else-if="fettle == 4" />
+										</div>
+									</div>
+									<div class="weui-flex">
+										<div class="left-title"><span class="w4">送货单号</span></div>
+										<div class="weui-flex__item wordwrap">
+											<input type="text" id="deliveryNo" readonly @blur='submit' v-model="deliveryNo" />
+											<span @click="editSave($event)" v-if="fettle != 4">
+											  	<i class="fa fa-pencil" ></i>
+											  </span>
+
+										</div>
+									</div>
+									<div class="weui-flex">
+										<div class="left-title">物流商名称</div>
+										<div class="weui-flex__item">{{conveyName}}</div>
+									</div>
+									<div class="weui-flex">
+										<div class="left-title"><span class="w4">收货客户</span></div>
+										<div class="weui-flex__item">{{receiveName}}</div>
+									</div>
+									<div class="weui-flex">
+										<div class="left-title"><span class="w4">收货地址</span></div>
+										<div class="weui-flex__item">{{receiveAddress}}</div>
+									</div>
+									<div class="weui-flex">
+										<div class="left-title"><span class="w4">收货人员</span></div>
+										<div class="weui-flex__item">{{receiverName}}</div>
+									</div>
+									<div class="weui-flex">
+										<div class="left-title"><span class="w4">联系方式</span></div>
+										<div class="weui-flex__item">{{receiverContact}}</div>
+									</div>
+								</div>
+
+								<div class="manageDetail">
+									<div class="total-con">
+										<p>合计</p>
+										<div class="weui-grids">
+											<!--数据填充到下面div即可-->
+											<div class="weui-grid gridContent">{{quantity}}</div>
+											<div class="weui-grid gridContent">{{boxCount}}</div>
+											<div class="weui-grid gridContent">{{volume}}</div>
+											<div class="weui-grid gridContent">{{weight}}</div>
+											<div class="weui-grid gridTitle">数量</div>
+											<div class="weui-grid gridTitle">箱数</div>
+											<div class="weui-grid gridTitle">体积</div>
+											<div class="weui-grid gridTitle">重量</div>
+										</div>
+									</div>
+									<div class="listCon">
+										<p>明细</p>
+										<div class="listLeft">
+											<div class="goodsTitle">物料编号</div>
+											<!--物料编号循环这个goodsName-->
+											<div class="goodsName borderBottom" v-if="commodities!=null && commodities.length > 0" v-for="(item, index) in commodities"><span class="wordwrap">{{item.commodityNo}}</span></div>
+											<div class="noMsg" v-else=""></div>
+										</div>
+										<div class="listRight wrapper" ref="wrapper">
+											<ul class="content" ref="contentWidth">
+												<li class="table-head clearfix" ref="liWidth">
+													<div class="table-th">数量</div>
+													<div class="table-th">箱数</div>
+													<div class="table-th">物料描述</div>
+													<div class="table-th">体积</div>
+													<div class="table-th">重量</div>
+													<div class="table-th">单位</div>
+												</li>
+												<!--具体信息循环这个table-body-->
+												<li class="table-body clearfix" v-if="commodities!=null && commodities.length > 0" v-for="(item, index) in commodities">
+													<div class="table-th borderBottom"><span>{{item.quantity}}</span></div>
+													<div class="table-th borderBottom"><span>{{item.boxCount}}</span></div>
+													<div :class="'table-th borderBottom line_'+index" ref="thHeight"><span>{{item.commodityName}}</span></div>
+													<div class="table-th borderBottom"><span>{{item.volume}}</span></div>
+													<div class="table-th borderBottom"><span>{{item.weight}}</span></div>
+													<div class="table-th borderBottom borderLeftNone"><span>pcs</span></div>
+												</li>
+												<li class="noMsg" v-else="">暂无物料信息</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+
+								<div class="feedbackInfo" v-show="complainantContent != null || fettle >= 4">
+									<p>反馈信息</p>
+									<div class="manage-detail pTop10">
+										<div class="weui-flex" v-show="fettle >= 4">
+											<div class="left-title"><span class="w4">到货时间</span></div>
+											<div class="weui-flex__item">{{arrivedTime | datetime}}</div>
+										</div>
+										<div class="weui-flex" v-show="fettle >= 4">
+											<div class="left-title"><span class="w4">签收时间</span></div>
+											<div class="weui-flex__item">{{receiveTime | datetime}}</div>
+										</div>
+										<div class="weui-flex" v-show="fettle >= 4 && signFettle != 0">
+											<div class="left-title"><span class="w4">收货结果</span></div>
+											<div class="weui-flex__item">
+												<div class="signStatus" v-if="signFettle == 1">
+													完好收货
+												</div>
+												<div v-else-if="signFettle == 2">
+													<div class="signStatus">
+														异常收货
+													</div>
+													<div class="adnormalContent" v-show="exception != null && exception.type != null">
+														<div v-if="exception.type == 1">
+															异&nbsp;&nbsp;常&nbsp;&nbsp;类&nbsp;&nbsp;&nbsp;型&nbsp;&nbsp;:&nbsp;&nbsp;货物破损
+														</div>
+														<div v-esle-if="exception.type == 2">
+															异&nbsp;&nbsp;常&nbsp;&nbsp;类&nbsp;&nbsp;&nbsp;型&nbsp;&nbsp;:&nbsp;&nbsp;货物数量不对
+														</div>
+													</div>
+													<div class="adnormalContent" v-show="exception != null && exception.content != null">
+														异常情况描述&nbsp;&nbsp;:&nbsp;&nbsp;{{exception.content}}
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="weui-flex" v-show="complainantContent != null">
+											<div class="left-title"><span class="w2">投诉</span></div>
+											<div class="weui-flex__item" v-show="complainantContent != null">{{complainantContent}}</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="btnPart" v-show="fettle < 4 && fromComplainPage == 'false' && (userType == 1 || (userType == 2 && insertType == 3))">
+									<a href="javascript:;" class="weui-btn weui-btn_primary" @click="editOrder(userType)">编辑</a>
+									<a href="javascript:;" class="weui-btn weui-btn_default" @click="deleteOrder(userType)">删除</a>
+								</div>
+
+								<div class="operateBtnPart" v-show="fromComplainPage == 'false' && userType == 3">
+									<!--3个按钮  -->
+									<a href="javascript:;" class="weui-btn weui-btn_primary oneBtn" @click="complain" v-if="fettle == 4 && complaint == null">投诉</a>
+									<div v-else-if="fettle < 4">
+										<a href="javascript:;" class="weui-btn weui-btn_default small" @click="complain" v-if="complaint == null">投诉</a>
+										<a href="javascript:;" class="weui-btn weui-btn_default" :class="{'twoBtn' : complaint != null}" @click="abnormalSign">异常收货</a>
+										<a href="javascript:;" class="weui-btn weui-btn_primary" :class="{'twoBtn' : complaint != null}" id="normalSign">完好收货</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="task-tab2" class="weui-tab__bd-item">
+							<div id="trackBox">
+								<ul class="trackList">
+									<li class="clearfix" v-if="operates!=null && operates.length > 0" v-for="(item, index) in operates">
+										<div class="showDateTime">
+											<p class="date">{{item.createTime | formatDate}}</p>
+											<p class="time">{{item.createTime | formatTime}}</p>
+										</div>
+										<div class="timeLine">
+										</div>
+										<div class="traceInfo">
+											<p class="content">{{item.logContext}}</p>
+											<p v-if="item.user != null">{{item.user.unamezn}} 联系电话：{{item.user.mobilephone}}</p>
+										</div>
+									</li>
+									<li class="noData" v-else="">
+										<p>暂无信息...</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div id="task-tab3" class="weui-tab__bd-item">
+							<div class="check-waybill">
+								<div class="task-list-item-con">
+									<!--回单图片循环开始-->
+									<div class="task-list-item-part" v-if="imageStorages!=null && imageStorages.length > 0">
+										<ul class="waybill-img clearfix">
+											<li v-for="(item, index) in imageStorages">
+												<img class="show-img" :src="imagePath+item.storagePath" alt="" @click="lookBigPic(imagePath+item.storagePath)" />
+											</li>
+										</ul>
+									</div>
+									<!--回单循环结束-->
+									<p style="text-align: center;padding:10px 0;" v-else="">暂无信息。。。</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</template>
+			</div>
+			<!--img放大-->
+			<div class="weui-gallery" style="display: none" id="gallery">
+				<span class="weui-gallery__img"></span>
+			</div>
+
+			<div class="actionsheetWidget" id="actionsheetWidget">
+				<div class="weui-mask" id="mask"></div>
+				<div class="weui-actionsheet" id="actionsheet">
+					<div class="weui-actionsheet__title">
+						<p class="weui-actionsheet__title-text">完成收货，请对此运单进行评价</p>
+					</div>
+					<div class="weui-actionsheet__menu">
+						<div class="weui-actionsheet__cell" @click="evaluate(1)">
+							<img src="../../images/favourablecomment_icon.png" class="showEvaluateIcon" />
+						</div>
+						<div class="weui-actionsheet__cell" @click="evaluate(0)">
+							<img src="../../images/negativecomment_icon.png" class="showEvaluateIcon" />
+						</div>
+					</div>
+					<div class="weui-actionsheet__action">
+						<div class="weui-actionsheet__cell" id="actionsheetCancel">取消</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/vue/common.vue.js"></script>
+		<script type="text/javascript" src="../../lib/vue/moment.min.js"></script>
+		<script type="text/javascript" src="../../lib/bscroll/bscroll.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/fastclick.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../js/common/navBar.js"></script>
+		<script type="text/javascript" src="../../js/common/filter_emoji.js"></script>
+		<script type="text/javascript" src="../../js/partener/transportManageDetail.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,173 @@
+/*====布局开始====*/
+.line-wrapper{font-size:0;}
+.line-wrapper>.line-part{display:inline-block;}
+.line-wrapper>.line-part+.line-part{margin-left:2%;}
+.line-part{position:relative;color:#333;font-size:14px; margin-right: 10px;}
+.line-part .float-tag{
+    float: left;
+    width:74px;
+    height:26px;
+    line-height:26px;
+    text-align: right;
+}
+.line-part .text-tag{margin-left:80px;}
+.line-part.large-tag .float-tag{
+    width:94px;
+}
+.line-part.large-tag .text-tag{margin-left:98px;}
+
+.line-part .text-tag>.input-tag,
+.line-part .text-tag>.select-tag,
+.line-part .text-tag>.p-tag
+{
+    width:100%;
+    height:26px;
+    line-height:26px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border:1px solid #dedede;
+    text-indent: 4px;
+    border-radius: 4px;
+}
+.line-part .text-tag>.p-tag{border:none;text-indent:0;}
+.line-part .text-tag>.select-tag{text-indent: 0;}
+/*====布局结束====*/
+
+/*员工管理*/
+.employee{padding-top:42px;}
+.employee-title{height: 72px;position:fixed;top:0;left:15px;padding-top:10px;font-size:0;background:#fff;z-index:10;}
+.employee-title .left,.employee-title .right{display: inline-block;vertical-align: top;font-size:14px;}
+.employee-title .left{width:30%;margin-right:4%;}
+.form-control{box-shadow: none;-webkit-box-shadow: none;}
+.employee-title .right>a{display:inline-block;height:32px;line-height:32px;padding:0 14px;border-radius: 3px;background: #31acfa;color:#fff;}
+.employee-title .right>a:active{background:#23a3f3;}
+.content-left{position:fixed;top:72px;bottom:0px;background:#fafafa;width:320px;overflow: hidden;z-index:99;}
+.content-right{margin-left:320px;min-height:200px;}
+.content-left .content h3{padding:20px 0 0 20px;margin-bottom: 15px;font-size:16px;color:#333;}
+.content-left .content li{position: relative;cursor: pointer;}
+.content-left .content li.active{background:#eee;}
+.content-left .content .head_img{
+    position: absolute;
+    top: 13px;
+    left: 20px;
+    bottom: 4px;
+    width: 30px;
+    /* background: url(../images/head_img.png) no-repeat center; */
+    background-size: 30px 30px;
+    border-radius: 50%;
+}
+.content-left .content p{padding:10px 0 10px 60px;}
+.content-right{
+    margin-top: 30px;
+    /*border:1px solid #e0e0e0;*/
+    border-bottom: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.employee-info>img{
+    width:60px;
+    border-radius: 50%;
+}
+.employee-info .text{
+    margin-left:20px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size:16px;
+    height: 62px;
+}
+
+.employee-info .text form{
+    position: absolute;
+    top: 25%;
+    height: 62px;
+    margin-top: -32px; /* negative half of the height */
+}
+
+.employee-info .name,.employee-info .phone{
+    position:relative;
+    height:24px;
+ }
+.employee-info .name>span,
+.employee-info .phone>span{
+    display: inline-block;
+    vertical-align: middle;
+}
+.employee-info .name .edit,.employee-info .name .save{
+    height:100%;
+    line-height:24px;
+    padding:0 10px;
+    cursor: pointer;
+    color:#FF5722;
+    letter-spacing: 2px;
+    margin-left:15px;
+}
+.employee-info .name .save{color:#31acfa;}
+.employee-info .span-text{line-height:24px;width:160px;text-indent: 4px;}
+.input-name,.input-phone{
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    width:160px;
+    border:1px solid #dedede;
+    border-radius: 2px;
+    text-indent: 4px;
+}
+.employee-info .phone{
+    margin-top:5px;
+}
+.part-item{font-size:0;}
+.part-item .line{ margin-bottom: 10px;}
+.part-item .line-part{display:inline-block;width:120px;font-size:14px;}
+.part-item .line-part label{padding:5px 0;font-weight:400;cursor: pointer;}
+.part-item .line-part input[type=checkbox]{vertical-align: -2px;margin:0 6px 0 0;}
+.part-item .line-part label.fw7{font-weight:700;}
+.part{margin-bottom: 20px;}
+.part h4{font-size:16px;}
+
+.sign-content,.account-content{margin-top:15px;position:relative;}
+.menu-content .menu-con{padding-top:10px;}
+.menu-content>h3,.sign-content>h3,.account-content>h3{
+    padding: 10px 0;
+    font-size: 20px;
+    text-indent: 36px;
+    background: url(../images/menu-icon.png) no-repeat left center;
+    background-size: 26px;
+    color: #333;
+}
+.sign-content>h3{
+    background: url(../images/sign-icon.png) no-repeat left center;
+    background-size: 26px;
+}
+.account-content>h3{
+    background: url(../images/account-icon.png) no-repeat left center;
+    background-size: 26px;
+}
+.account-content label{padding:5px 0;font-weight:400;cursor: pointer;}
+.account-content label + label{margin-left:40px;}
+.account-content .line-part input[type=radio]{vertical-align: -2px;margin:0 6px 0 0;}
+.signBtn{position:absolute;bottom:10px;left:138px;text-decoration: underline !important;color:#31acfa;}
+.signBtn:hover{color:#229be7;}
+.btn-content{margin-top:20px;text-align: center;}
+
+/*弹出框样式设置*/
+.addBox{
+    padding: 20px;
+}
+.addBox .part{padding-left:0;}
+.addBox .sign-content,.addBox .account-content{margin-top:10px;}
+.addBox .sign-content>h3,.addBox .account-content>h3{
+    background:transparent;
+    font-size:16px;
+    text-indent: 0;
+}
+.addBox .signBtn{
+    left:86px;
+}
+.addBox .line-wrapper{margin-bottom: 25px;}
+.addBox .line-wrapper> .line-part{width:44%;}
+.addBox .line-part .float-tag{width:60px;text-align: center;}
+.addBox .line-part .text-tag{margin-left:60px;}
+.addBox .line .line-part{width:100px;}
+.addBox .line .line-part.short{width:72px;}

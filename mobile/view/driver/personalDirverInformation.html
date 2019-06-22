@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>司机资料 </title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/driver/personalDriverInformation.css" />
+	</head>
+
+	<body ontouchstart style="background:#FFFFFF;">
+		<div class="driverInformation" id="driverInformation">
+			<p class="tip">司机信息</p>
+			<div class="weui-cells weui-cells_form" v-for="item in driver">
+				<template>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+					<div class="weui-cell__bd">
+						<p class="info">{{item.name}}</p>
+						<!--<input class="weui-input"  v-model='driverName' readonly="readonly">-->
+					</div>
+				</div>
+				<div class="weui-cell ">
+					<div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
+					<div class="weui-cell__bd">
+						<p class="info">{{item.phone}}</p>
+						<!--<input class="weui-input"  placeholder="" v-model='driverNumber' readonly="readonly">-->
+					</div>
+				</div>
+				<div class="weui-cell ">
+					<div class="weui-cell__hd"><label class="weui-label">常走路线类型</label></div>
+					<div class="weui-cell__bd">
+						<p class="info" v-if='item.routes[0].type==2'>长途</p>
+						<p class="info" v-if='item.routes[0].type==1'>短途</p>
+						<!--<input class="weui-input"  placeholder="示例:上海到北京" v-model='routeType' readonly="readonly">-->
+					</div>
+				</div>
+				<div class="weui-cell ">
+					<div class="weui-cell__hd"><label class="weui-label">路线起点</label></div>
+					<div class="weui-cell__bd">
+						<p class="info">{{start}}</p>
+						<!--<input class="weui-input"  placeholder="示例:上海到北京" v-model='startAddress' readonly="readonly">-->
+					</div>
+				</div>
+				<div class="weui-cell ">
+					<div class="weui-cell__hd"><label class="weui-label">路线终点</label></div>
+					<div class="weui-cell__bd">
+						<p class="info">{{end}}</p>
+						<!--<input class="weui-input"  placeholder="示例:上海到北京" v-model='endAddress' readonly="readonly">-->
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">车牌号</label></div>
+					<div class="weui-cell__bd">
+						<p class="info">{{item.cars[0].license}}</p>
+						<!--<input class="weui-input" placeholder="沪A1212" v-model='carNo' readonly="readonly">-->
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">车型</label></div>
+					<div class="weui-cell__bd">
+						<p  class="info" v-if="item.cars[0].type==1">厢式车</p>
+						<p  class="info" v-if="item.cars[0].type==2">平板车</p>
+						<p  class="info" v-if="item.cars[0].type==3">高栏车</p>
+						<p  class="info" v-if="item.cars[0].type==4">中栏车</p>
+						<p  class="info" v-if="item.cars[0].type==5">低栏车</p>
+						<p  class="info" v-if="item.cars[0].type==6">半封闭</p>
+						<p  class="info" v-if="item.cars[0].type==7">灌装车</p>
+						<p  class="info" v-if="item.cars[0].type==8">冷藏车</p>
+						<p  class="info" v-if="item.cars[0].type==9">集装车</p>
+						<p  class="info" v-if="item.cars[0].type==10">自卸车</p>
+						<p  class="info" v-if="item.cars[0].type==11">危险品车</p>
+						<p  class="info" v-if="item.cars[0].type==12">挂车</p>
+						<p class="info" v-if="item.cars[0].type==13">其他</p>
+						<!--<input class="weui-input" placeholder="示例:厢式车" v-model='carModel' readonly="readonly">-->
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">车长</label></div>
+					<div class="weui-cell__bd">
+						<p class="info">{{item.cars[0].length}}米</p>
+						<!--<input class="weui-input" placeholder="示例:6.3米" v-model='carLength' readonly="readonly">-->
+					</div>
+				</div>
+				
+				</template>
+			</div>
+			<div class="save">
+				<a href="javascript:;" class="weui-btn weui-btn_primary" @click="editInformation">编辑资料</a>
+			</div>
+		</div>
+	</body>
+
+	<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../../lib/js/json2.js"></script>
+	<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+	<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+	<script type="text/javascript" src="../../lib/function/common.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+	<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+	<script type="text/javascript" src="../../js/driver/personalDriverInformation.js"></script>
+	<script>
+		//	alert($(document).height());
+		//alert($(".weui-footer").get(0).height());
+	</script>
+	</body>
+
+</html>

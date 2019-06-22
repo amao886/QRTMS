@@ -1,0 +1,52 @@
+/*===客户管理===*/
+body{
+	padding:10px 10px 0;
+	font-size:14px;
+}
+.custom-content{
+	padding:0 15px;
+	background:#fff;
+	min-height:100%;
+}
+.p-relative{position:relative;}
+.col-middle{width:22%;}
+.col-min{width:30%;}
+.col-max{width:28%;}
+
+/*****路由列表*/
+.appendInput{width:100%;text-align:center;background:#fff;border-bottom:#f1f1f1 solid 1px;position:fixed; top:0;z-index:9999;padding: 20px 0;}
+.appendInput *{display:inline; vertical-align: middle;}
+.routeInput{width:280px; height:32px;border:#eee solid 1px;padding:0 5px;}
+.appendInput label{font-size: 16px;font-weight: normal;}
+.appendInput button{margin-left:30px;}
+
+.routeCon{text-align:center;}
+.routeCon .routeBox{width:350px;display: inline-block;text-align:left;margin-top:100px;}
+.routeLeft{float:left;}
+
+.route.routePoint{cursor:pointer;}
+.route .routeLeft .circle{display:block;width:40px;height:40px;line-height:40px;border-radius:50%;text-align:center;font-size: 16px;color:#fff;background:#e55d63}
+.route.first .routeLeft .circle{background:#31acfa}
+.route.last .routeLeft .circle{background:#ffad08}
+.route .routeLeft .line{width:1px; height:140px;background:#ccc;margin-left:20px;}
+.routeRight{float: left;margin:0 0 0 10px; }
+.route.first .routeRight{margin: 40px 0 0 10px;}
+.routeRight .routeTips{margin-top:50px;}
+.assignBtn{color:#31acfa;cursor:pointer;}
+.assignBtn:hover{color:#31acfa;}
+
+.editBox{width:300px;position: relative;border: #eee solid 1px;padding:20px 12px;border-radius:5px;margin-top: 10px;}
+.formUl li:last-child{margin-top:10px;}
+.formUl li a{font-weight:normal;float:left;width: 80px;display:inline-block;line-height:24px;}
+.formUl li span{height:24px;border-bottom:#ccc solid 1px;width: 160px;display: inline-block;line-height:24px;}
+/*.formUl .inputBox span{display:inline-block;padding:2px 0;width: 60px; border:#eee solid 1px; margin-right:5px;text-align:center;cursor:pointer;}
+.formUl .inputBox span.curr{ border:#31acfa solid 1px;color:#31acfa;cursor:default;}*/
+.editBox .closeBtn{display:inline-block;width:17px;height:17px;background:url("../images/ly_icon.png") 0 -34px/16px auto no-repeat;position: absolute;right:5px;top: 6px;cursor:pointer;}
+.editBox .changeBtn{position: absolute;right: 5px;bottom: 20px;padding: 3px 5px;font-size: 12px !important;}
+
+.submitBtn{width:120px;margin-right:20px;}
+#cancelBtn{cursor:pointer;}
+
+
+
+

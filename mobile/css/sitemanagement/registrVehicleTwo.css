@@ -1,0 +1,194 @@
+/*管理详情*/
+.manage-detail {
+	position: relative;
+	padding: 10px 0;
+	background: #fff;
+}
+
+.manage-detail .left-title {
+	overflow: hidden;
+	text-align: center;
+	width: 6em;
+	color: #333333;
+}
+
+.manage-detail .left-title>span {
+	display: block;
+}
+
+.manage-detail .left-title .w3 {
+	letter-spacing: 0.5em;
+	margin-right: -0.5em;
+}
+
+.manage-detail .weui-flex {
+	padding: 0 20px 0 0;
+	position: relative;
+}
+
+.manage-detail .weui-flex:before {
+	content: ':';
+	position: absolute;
+	top: 0px;
+	left: 85px;
+	z-index: 2;
+	color: #333333;
+}
+
+.manage-detail .weui-flex.paddingTop:before {
+	top: 10px;
+}
+
+.manage-detail .weui-flex__item {
+	padding-left: 5px;
+	color: #333333;
+}
+
+.manageList-wrapper .weui-flex {
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+.site-wrap .weui-flex {
+	position: relative;
+}
+
+.remarkInfo {
+	margin-top: 15px;
+	background: #FFFFFF;
+	padding-bottom: 10px;
+}
+
+.remarkInfo-detail {
+	position: relative;
+    padding: 10px 16px;
+}
+
+.remarkInfo-detail .weui-flex {
+	position: relative;
+}
+
+.remarkInfo-detail .left-title {
+	overflow: hidden;
+	text-align: center;
+	color: #333333;
+}
+
+.remarkInfo-detail .left-title>span {
+	display: block;
+}
+
+.remarkInfo-detail .weui-flex:before {
+	content: ':';
+	position: absolute;
+	top: 0px;
+	left: 35px;
+	z-index: 2;
+	color: #333333;
+}
+
+.remarkInfo-detail .weui-flex.paddingTop:before {
+	top: 10px;
+}
+
+.remarkInfo-detail .weui-flex__item {
+	padding-left: 15px;
+	color: #333333;
+}
+
+.remarkInfo .weui-flex {
+	background: #fff;
+	margin-bottom: 0 !important;
+}
+
+.spliteLine {
+	width:96%;
+	height:1px;
+	margin:0 0 0 4%;
+	padding:0;
+	background-color:#D5D5D5;
+	overflow:hidden;
+}
+
+.remark-wrap .weui-flex {
+	margin-top: 5px;
+	margin-bottom: 10px !important;
+}
+
+.weui-cells_radio .weui-cell__hd {
+    padding-right: .35em;
+}
+
+.weui-cells_radio .weui-check:checked+.weui-icon-checked:before {
+    content: '\EA06';
+    color: #0071FE;
+    font-size: 23px;
+}
+
+.weui-cells_radio .weui-icon-checked:before {
+    content: '\EA01';
+    color: #999999;
+    font-size: 23px;
+    display: block;
+}
+
+.weui-cell__bd p {
+	color: #333333;
+	padding-top: 5px;
+}
+
+.weui-cell {
+	margin-bottom: -5px;
+}
+
+.weui-cells {
+	margin-top: 0;
+}
+
+.weui-cells:before {
+	border-top:none;
+}
+
+.weui-cell:before {
+	border-top:none;
+}
+
+.weui-cells:after {
+	border-bottom:none;
+}
+
+.weui-input{
+	border: 1px solid #D9D9D9;
+	padding: 0 5px;
+}
+
+.dispatchCarInfo {
+	margin: -8px 38px 0 38px;
+}
+
+.weui-check__label:active {
+	background-color: transparent;
+}
+
+.demos-content-padded {
+	margin:20px 0;
+	padding-bottom: 0;
+}
+
+/*覆盖框架原样式*/
+.weui-btn_primary {
+	width: 90%;
+	height: 44px;
+	line-height: 44px;
+	border-radius: 4px;
+	background: #0071FE;
+	font-size: 15px;
+}
+
+.weui-btn:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.user.ResourceChangeMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.user.ResourceChange">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="CHANGE_ID" jdbcType="BIGINT" property="changeId" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="RES_TYPE" jdbcType="INTEGER" property="resType" />
+    <result column="CHANGE_CAUSE" jdbcType="INTEGER" property="changeCause" />
+    <result column="CHANGE_VALUE" jdbcType="BIGINT" property="changeValue" />
+    <result column="CHANGE_TIME" jdbcType="TIMESTAMP" property="changeTime" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>我要找车</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/driver/lookingGoods.css" />
+	</head>
+
+	<body ontouchstart style="background:#fafafa;">
+		<div id="lookingGoods">
+			<template>
+			<!--<div  class="search">
+    		<input type="text" data-toggle='date' />
+    		<input class="weui-input" type="text" id="startPlaceChoose" placeholder="请选择省市区/县"  />
+    	</div>-->
+			<div class="driverList">
+				<ul>
+					<li v-for="item in collection">
+						<div class="top clearfix">
+							<div class="headImg">
+								<img src="../../images/admin-icon.png" />
+							</div>
+							<div class="topRight">
+								<p class="releaseName">
+								<span>{{item.driverName}}</span>
+								<span class="releaseTime">{{item.releaseTime}} 发布</span>
+								</p>
+								<p class="right-info">
+									 <span class="m10">{{item.license}}</span>
+									<span class="m10" v-if="item.carType==1">厢式车</span>
+						             <span  class="m10" v-if="item.carType==2">平板车</span>
+									<span class="m10" v-if="item.carType==3">高栏车</span>
+									<span class="m10" v-if="item.carType==4">中栏车</span>
+									<span class="m10" v-if="item.carType==5">低栏车</span>
+									<span class="m10" v-if="item.carType==6">半封闭</span>
+									<span class="m10" v-if="item.carType==7">灌装车</span>
+									<span class="m10" v-if="item.carType==8">冷藏车</span>
+									<span class="m10" v-if="item.carType==9">集装车</span>
+									<span class="m10" v-if="item.carType==10">自卸车</span>
+									<span class="m10" v-if="item.carType==11">危险品车</span>
+									<span class="m10" v-if="item.carType==12">挂车</span>
+									<span class="m10" v-if="item.carType==13">其他</span>
+									<span>{{item.length}}米</span>
+								</p>
+								<span class="effective"  v-if="item.status==1">有效</span>
+								<span class="invalid" v-if="item.status==2">失效</span>
+
+							</div>
+						</div>
+						<p class="content">{{item.startTime}}{{item.start}}{{item.waitAddress}}等货</p>
+					</li>
+
+				</ul>
+			</div>
+			<!--加载更多-->
+			<div class="weui-loadmore hide">
+				<i class="weui-loading"></i>
+				<span class="weui-loadmore__tips">正在加载</span>
+			</div>
+			<a href="javascript:;" class="lookingGoods" @click="lookingGoods">
+				我要找货
+			</a>
+			</template>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+
+	<script type="text/javascript" src="../../lib/js/json2.js"></script>
+	<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+	<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+	<script type="text/javascript" src="../../lib/vue/common.vue.js"></script>
+	<script type="text/javascript" src="../../lib/vue/moment.min.js"></script>
+	<script type="text/javascript" src="../../lib/function/common.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+	<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+	<script type="text/javascript" src="../../js/driver/lookingGoods.js"></script>
+	<script>
+		//	alert($(document).height());
+		//alert($(".weui-footer").get(0).height());
+	</script>
+	</body>
+
+</html>

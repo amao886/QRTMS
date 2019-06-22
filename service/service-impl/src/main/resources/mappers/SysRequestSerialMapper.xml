@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.SysRequestSerialMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.SysRequestSerial">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="app_type" jdbcType="VARCHAR" property="appType"/>
+        <result column="date_time" jdbcType="TIMESTAMP" property="dateTime"/>
+        <result column="uri_key" jdbcType="VARCHAR" property="uriKey"/>
+        <result column="standard_uri" jdbcType="VARCHAR" property="standardUri"/>
+        <result column="uri" jdbcType="VARCHAR" property="uri"/>
+        <result column="time" jdbcType="BIGINT" property="time"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <result column="host" jdbcType="VARCHAR" property="host"/>
+        <result column="user_key" jdbcType="VARCHAR" property="userKey"/>
+        <result column="os" jdbcType="VARCHAR" property="os"/>
+        <result column="browser" jdbcType="VARCHAR" property="browser"/>
+        <result column="agent_string" jdbcType="VARCHAR" property="agentString"/>
+        <result column="content_type" jdbcType="VARCHAR" property="contentType"/>
+        <result column="class_name" jdbcType="VARCHAR" property="className"/>
+        <result column="signature" jdbcType="VARCHAR" property="signature"/>
+        <result column="args" jdbcType="VARCHAR" property="args"/>
+        <result column="exception" jdbcType="VARCHAR" property="exception"/>
+        <result column="session_key" jdbcType="VARCHAR" property="sessionKey"/>
+        <result column="return_value" jdbcType="VARCHAR" property="returnValue"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+		`app_type`, `date_time`, `uri_key`, `standard_uri`, `uri`, `time`, `method`, `host`, `user_key`, `os`, `browser`,
+		`agent_string`, `content_type`, `class_name`, `signature`, `args`, `exception`, `session_key`, `return_value`
+  </sql>
+    <select id="queryPage" resultMap="BaseResultMap"
+            parameterType="com.ycg.ksh.common.entity.RequestSerial">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_request_serial
+        <if test="appType!=null and appType !='all'">
+            where app_type = #{appType,jdbcType=VARCHAR}
+        </if>
+        ORDER BY date_time DESC;
+    </select>
+</mapper>

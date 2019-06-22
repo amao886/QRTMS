@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.CompanyEmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.CompanyEmployee">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="COMPANY_ID" jdbcType="BIGINT" property="companyId"/>
+        <id column="EMPLOYEE_ID" jdbcType="INTEGER" property="employeeId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="EMPLOYEE_TYPE" jdbcType="INTEGER" property="employeeType"/>
+        <result column="EMPLOYEE_NAME" jdbcType="VARCHAR" property="employeeName"/>
+        <result column="USER_FETTLE" jdbcType="INTEGER" property="userFettle"/>
+    </resultMap>
+    
+    <select id="firstAdminCompany" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select * from  T_COMPANY_EMPLOYEE where EMPLOYEE_ID = (select min(EMPLOYEE_ID) from  T_COMPANY_EMPLOYEE where COMPANY_ID = #{companyKey} and EMPLOYEE_TYPE = 1)
+    </select>
+    <select id="listAdminCompany" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select * from  T_COMPANY_EMPLOYEE where COMPANY_ID = #{companyKey} and EMPLOYEE_TYPE = 1
+    </select>
+</mapper>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>电子签收</title>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/checkGoodsDetail.css" />
+<style>
+  [v-cloak] {display: none !important;} 
+</style>
+</head>
+<body ontouchstart class="vue-page" style="background-color: #f9f9fc;color:#333;">	
+  <div id="checkgGoodsDetail"  v-cloak>
+    <div class="total-con">
+      <div class="relative">
+        <p>合计</p>
+        <a class="returnPage" @click="toLink()">返回</a>
+      </div>
+      
+      <div class="weui-grids">
+        <div class="weui-grid">数量</div> 
+        <div class="weui-grid">箱数</div> 
+        <div class="weui-grid">体积</div> 
+        <div class="weui-grid">重量</div>
+        <!--数据填充到下面div即可-->
+        <div class="weui-grid">{{quantity}}</div> 
+        <div class="weui-grid">{{boxCount}}</div> 
+        <div class="weui-grid">{{volume}}</div> 
+        <div class="weui-grid">{{weight}}</div>
+      </div>
+    </div>
+    <template>
+    <div class="listCon">
+      <p>明细</p>
+      <div class="listLeft">
+        <div class="goodsTitle">物料编号</div>
+        <!--物料编号循环这个goodsName-->
+        <div class="goodsName borderBottom" v-if="commodities.length > 0"  v-for="(item, index) in commodities"><span class="wordwrap">{{item.orderId}}</span></div>        
+        <div class="noMsg" v-else=""></div>
+      </div>
+      <div class="listRight wrapper" ref="wrapper">
+        <ul class="content" ref="contentWidth">
+          <li class="table-head clearfix" ref="liWidth">
+            <div class="table-th">数量</div>
+            <div class="table-th">箱数</div>
+            <div class="table-th">物料描述</div>           
+            <div class="table-th">体积</div>
+            <div class="table-th">重量</div>
+            <div class="table-th">单位</div>
+          </li>
+          <!--具体信息循环这个table-body-->
+          <li class="table-body clearfix" v-if="commodities.length > 0" v-for="(item, index) in commodities" >
+            <div class="table-th borderBottom"><span>{{item.quantity}}</span></div>
+            <div class="table-th borderBottom"><span>{{item.boxCount}}</span></div>
+            <div :class="'table-th borderBottom line_'+index" ref="thHeight"><span>{{item.commodityName}}</span></div>           
+            <div class="table-th borderBottom"><span>{{item.volume}}m³</span></div>
+            <div class="table-th borderBottom"><span>{{item.weight}}kg</span></div>
+            <div class="table-th borderBottom borderLeftNone"><span>pcs</span></div>
+          </li>
+          
+          <li class="noMsg" v-else="">暂无物料信息</li>
+        </ul>
+      </div>
+    </div>
+    </template>
+  </div>
+<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+<script type="text/javascript" src="../../lib/bscroll/bscroll.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/fastclick.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="../../lib/coordtransform-master/index.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/partener/chekcGoodsDetail.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+</body>
+</html>

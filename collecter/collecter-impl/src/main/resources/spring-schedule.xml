@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 每天 -->
+    <bean id="ksh.scheduling.jobDetail.daySummaryBegin" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.ycg.ksh.collect.schedule.DaySummaryBeginSchedule"/>
+        <property name="durability" value="true"/>
+        <property name="requestsRecovery" value="true"/>
+    </bean>
+
+    <bean id="ksh.scheduling.jobTrigger.daySummaryBegin" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="ksh.scheduling.jobDetail.daySummaryBegin"/>
+        <property name="cronExpression" value="10 0 0 * * ? *"/><!--  10 0 0 * * ? *  -->
+    </bean>
+
+
+
+    <!-- 任务调度=====数据库连接池 -->
+    <bean id="ksh.data.source.schedule" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <!-- 数据库基本信息配置 -->
+        <property name="url" value="${data.source.schedule.jdbc.url}" />
+        <property name="username" value="${data.source.jdbc.username}" />
+        <property name="password" value="${data.source.jdbc.password}" />
+        <property name="driverClassName" value="${data.source.jdbc.driver}" />
+        <property name="maxActive" value="${data.source.jdbc.maxActive}" />
+        <property name="initialSize" value="${data.source.jdbc.initialSize}" />
+        <property name="maxWait" value="${data.source.jdbc.maxWait}" />
+        <property name="minIdle" value="${data.source.jdbc.minIdle}" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+    </bean>
+
+    <bean id="ksh.scheduling.schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="dataSource" ref="ksh.data.source.schedule"/>
+        <property name="jobFactory">
+            <bean class="com.ycg.ksh.common.extend.spring.AutowiringSpringBeanJobFactory"/>
+        </property>
+        <!--可选，QuartzScheduler 启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了 -->
+        <property name="overwriteExistingJobs" value="true"/>
+        <!--必须的，QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动 -->
+        <property name="startupDelay" value="30"/>
+        <!-- 设置自动启动 -->
+        <property name="autoStartup" value="true"/>
+        <property name="applicationContextSchedulerContextKey" value="applicationContextKey"/>
+        <property name="triggers">
+            <list>
+                <ref bean="ksh.scheduling.jobTrigger.daySummaryBegin"/>
+            </list>
+        </property>
+    </bean>
+</beans> 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.SignAssociateMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.SignAssociate">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="OBJECT_TYPE" jdbcType="INTEGER" property="objectType" />
+    <result column="OBJECT_KEY" jdbcType="VARCHAR" property="objectKey" />
+    <result column="THIRD_TYPE" jdbcType="VARCHAR" property="thirdType" />
+    <result column="THIRD_OBJECT_KEY" jdbcType="VARCHAR" property="thirdObjectKey" />
+    <result column="OPERATE_ID" jdbcType="INTEGER" property="operateId" />
+    <result column="OPERATE_TIME" jdbcType="TIMESTAMP" property="operateTime" />
+  </resultMap>
+</mapper>

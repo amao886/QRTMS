@@ -1,0 +1,102 @@
+
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.headline {
+	height: 55px;
+	text-align: center;
+	background-color: #6A7D8F;
+	position: relative;
+	line-height: 55px;
+	color: #E7FFFF;
+	margin-bottom: 15px;
+
+	}
+
+.headline>h1 {
+	font-size: 25px;
+	display: inline-block;
+}
+
+.jiantou {
+	position: absolute;
+	left: 30px;
+	font-size: 30px;
+	font-weight: 200;
+	color: #fff;
+}
+.enterprise {
+	border-bottom: 1px solid #ccc;
+	height: 70px;
+	line-height: 70px;
+	display: flex;
+
+}
+.customerDetail-color {
+	background-color: #fff;
+}
+.addition {
+	position: fixed;
+	background-color: #169BD5;
+	width: 100%;
+	bottom: 0;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	color: #FFFFFF;
+}
+.addition> a {
+	color: #FFF;
+}
+.left{
+margin-left: 10px;
+flex: 1;
+
+}
+.none{
+	border: none;
+	font-size: 16px;
+	width: 50%;
+
+}
+.right{
+	text-align: right;
+	flex: 4;
+}
+.redact,#confirmBtn  {
+	padding: 5px;
+}
+.redact a{
+	border-right: 1px solid #ccc;
+	color: #169BD5;
+}
+
+#confirmBtn a {
+	color: #169BD5;
+
+}
+.register {
+	background-color: #169BD5;
+	padding: 5px;
+}
+.register a {
+	color: #fff;
+	display: block;
+}
+.weui-dialog weui-dialog--visible {
+             height: 200px;
+}
+.weui-dialog__bd {
+	color: #000;
+	height:70px ;
+	text-align: left;
+}
+.weui-cell_warn{
+	color: #000000;
+}

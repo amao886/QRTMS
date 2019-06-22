@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>电子签收</title>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/electronicSearch.css" />
+<style>
+</style>
+
+</head>
+<body ontouchstart style="background-color: #f9f9fc;">
+  <div class="eleSearch-wrapper" id="eleSearchWrapper">
+    <div class="searchTab">
+      <div class="weui-flex">
+        <div class="searchSelect weui-flex__item">
+          <input class="weui-input one-line-hide" type="text" id="searchTime" value="日期" readonly>
+        </div>
+        <div class="searchSelect weui-flex__item">
+          <input class="weui-input one-line-hide" id="signStatus" type="text" value="收货方未签" readonly>
+        </div>
+        <div class="searchSelect weui-flex__item">
+          <input class="weui-input one-line-hide" id="abnormalStatus" type="text" value="全部" readonly>
+        </div>
+        <div class="weui-search-bar__box searchIcon">
+          <i class="weui-icon-search"></i>
+        </div>
+      </div>
+      <div class="searchInput weui-search-bar__box">
+        <input type="text" placeholder="送货单号/发货客户/客户名称" id="inputSearch">
+        <i class="weui-icon-clear" id="iconClear"></i>
+      </div>
+    </div>
+    <!--回单详情-->
+    <div class="sendOrder-wrapper">
+      <!--jsRender循环这个weui-flex即可-->
+      <!--<div class="weui-flex">
+        <div class="">送货单号：</div>
+        <div class="weui-flex__item wordwrap">12342343242432</div>
+      </div>-->
+    </div>
+    <!--加载更多-->
+    <div class="weui-loadmore hide">
+      <i class="weui-loading"></i>
+      <span class="weui-loadmore__tips">正在加载</span>
+    </div>
+  </div>
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/x-jsrender" id="listData">
+  <div class="weui-flex" onclick="toPage({{:id}})">
+    <div class="">送货单号：</div>
+    <div class="weui-flex__item wordwrap">{{:deliveryNo}}</div>
+  </div>
+</script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/filter_emoji.js" ></script>
+<script type="text/javascript" src="../../js/partener/elecSearchDate.js"></script>
+
+</body>
+</html>

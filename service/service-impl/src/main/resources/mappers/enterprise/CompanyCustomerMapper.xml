@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.enterprise.CompanyCustomerMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.enterprise.CompanyCustomer">
+        <result column="KEY" jdbcType="BIGINT" property="key"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="OWNER_KEY" jdbcType="BIGINT" property="ownerKey"/>
+        <result column="COMPANY_KEY" jdbcType="BIGINT" property="companyKey"/>
+        <result column="USER_KEY" jdbcType="INTEGER" property="userKey"/>
+        <result column="TYPE" jdbcType="INTEGER" property="type"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="SOURCE_TYPE" jdbcType="INTEGER" property="sourceType"/>
+        <result column="SCAN_PHONE" jdbcType="VARCHAR" property="scanPhone"/>
+    </resultMap>
+
+    <resultMap id="CustomerAddressResultMap" type="com.ycg.ksh.entity.service.enterprise.CustomerAddress">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="KEY" jdbcType="BIGINT" property="customerId"/>
+        <result column="NAME" jdbcType="VARCHAR" property="customerName"/>
+        <result column="TYPE" jdbcType="INTEGER" property="type"/>
+        <result column="contacts" jdbcType="VARCHAR" property="contacts"/>
+        <result column="contact_number" jdbcType="VARCHAR" property="contactNumber"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="district" jdbcType="VARCHAR" property="district"/>
+        <result column="fullAddress" jdbcType="VARCHAR" property="fullAddress"/>
+    </resultMap>
+
+    <resultMap id="CustomerConciseResultMap" type="com.ycg.ksh.entity.service.enterprise.CustomerConcise">
+        <result column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="CUSTOMER_NAME" jdbcType="VARCHAR" property="customerName"/>
+        <result column="COMPANY_KEY" jdbcType="BIGINT" property="companyKey"/>
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName"/>
+    </resultMap>
+
+    <select id="getByOwnerKeyAndName" resultMap="BaseResultMap">
+        SELECT * FROM T_COMPANY_CUSTOMER WHERE `KEY` = (SELECT MAX(`KEY`) FROM T_COMPANY_CUSTOMER WHERE OWNER_KEY=#{arg0} AND `NAME` = #{arg1})
+    </select>
+    
+    <select id="loadCustomerConcise" resultMap="CustomerConciseResultMap" parameterType="java.lang.Long">
+        SELECT cc.`KEY` AS ID, cc.`NAME` AS CUSTOMER_NAME, c.ID AS COMPANY_KEY, c.COMPANY_NAME AS COMPANY_NAME FROM T_COMPANY_CUSTOMER cc LEFT JOIN T_COMPANY c ON cc.COMPANY_KEY = c.ID WHERE cc.`KEY` = #{customerKey};
+    </select>
+    
+    <!-- 根据客户名称模糊查询编号 -->
+    <select id="listKeyByCompanyKey" resultType="java.lang.Long">
+        SELECT
+        IF (COMPANY_KEY > 0, COMPANY_KEY, `KEY`) as companyKeys
+        FROM
+        T_COMPANY_CUSTOMER WHERE
+        OWNER_KEY =#{arg0}
+        <if test="arg1 != null and arg1 != ''">
+            AND LOCATE(#{arg1}, `NAME`) > 0
+        </if>
+    </select>
+    <!-- 根据客户名称模糊查询编号 -->
+    <select id="listKeyByName" resultType="java.lang.Long">
+        SELECT
+        IF (
+        COMPANY_KEY,
+        COMPANY_KEY,
+        `KEY`
+        ) as companyKeys
+        FROM
+        T_COMPANY_CUSTOMER a
+        LEFT JOIN T_EMPLOYEE_CUSTOMER b ON a.`KEY` = b.CUSTOMER_KEY
+        WHERE
+        b.EMPLOYEE_KEY =#{arg0}
+        <if test="arg1 != null and arg1 != ''">
+            AND LOCATE(#{arg1}, a.`NAME`) > 0
+        </if>
+    </select>
+
+    <select id="selectBySomething" resultMap="BaseResultMap"
+            parameterType="com.ycg.ksh.entity.service.enterprise.CustomerSearch">
+        SELECT * FROM T_COMPANY_CUSTOMER c LEFT JOIN user_hotspot_tab h ON (c.KEY = h.associate_key AND h.associate_type
+        = 4 AND h.user_id = #{userKey})
+        WHERE c.OWNER_KEY = #{ownerKey} AND c.STATUS = #{status}
+        <if test="likeName != null and likeName !=''">
+            AND LOCATE(#{likeName}, c.NAME) > 0
+        </if>
+        <if test="type != null and type gt 0">
+            AND c.TYPE = #{type}
+        </if>
+        <if test="reg != null">
+            <if test="reg == true">
+                AND c.COMPANY_KEY > 0
+            </if>
+            <if test="reg == false">
+                <![CDATA[ AND (c.COMPANY_KEY IS NULL OR c.COMPANY_KEY <= 0) ]]>
+            </if>
+        </if>
+        <if test="customerKeys != null and customerKeys.size > 0">
+            AND c.`KEY` IN
+            <foreach collection="customerKeys" item="ckey" separator="," open="(" close=")">
+                #{ckey}
+            </foreach>
+        </if>
+        ORDER BY h.hotspot_count DESC
+    </select>
+
+    <select id="selectCustomerAddressBySomething" resultMap="CustomerAddressResultMap"
+            parameterType="com.ycg.ksh.entity.service.AddressSearch">
+        SELECT
+        cc.`KEY`,
+        cc.TYPE,
+        cc.`NAME`,
+        c.id,
+        c.contacts,
+        c.contact_number,
+        c.province,
+        c.city,
+        c.district,
+        c.address,
+        c.fullAddress
+        FROM customer_tab c
+        LEFT JOIN T_COMPANY_CUSTOMER cc ON c.company_customer_id = cc.`KEY`
+        LEFT JOIN user_hotspot_tab uh ON (cc.`KEY` = uh.associate_key AND uh.associate_type = 4 AND uh.user_id =
+        #{userId})
+        <where>
+            cc.OWNER_KEY = #{companyId}
+            <if test="customerId != null and customerId gt 0">
+                AND cc.`KEY` = #{customerId}
+            </if>
+            <if test="customerType != null and customerType gt 0">
+                AND cc.TYPE = #{customerType}
+            </if>
+            <if test="companyName != null and companyName !=''">
+                AND LOCATE(#{companyName}, cc.`NAME`) > 0
+            </if>
+            <if test="contacts != null and contacts !=''">
+                AND LOCATE(#{contacts}, c.contacts) > 0
+            </if>
+            <if test="contactNumber != null and contactNumber !=''">
+                AND LOCATE(#{contactNumber}, c.contact_number) > 0
+            </if>
+            <if test="fullAddress != null and fullAddress !=''">
+                AND LOCATE(#{fullAddress}, c.fullAddress) > 0
+            </if>
+            <if test="type != null and type gt 0">
+                AND c.type = #{type}
+            </if>
+            <if test="customerKeys != null and customerKeys.size > 0">
+                AND cc.`KEY` IN
+                <foreach collection="customerKeys" item="ckey" separator="," open="(" close=")">
+                    #{ckey}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY uh.hotspot_count DESC
+    </select>
+
+</mapper>

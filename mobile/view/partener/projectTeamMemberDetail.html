@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>成员详情</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/partener/projectTeamDetail.css" />
+
+</head>
+
+<body ontouchstart style="background:#fafafa;">
+	<div class="weui-cells" id="userInfoCon" style="margin-top:0;">
+		<!-- 用户信息    -->
+    </div>
+    <!--底部导航-->
+    <div id="navBarIn"></div>
+
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/x-jsrender" id="userInfo">
+	<div class="weui-cell">
+		<div class="weui-cell__bd">
+		  <p>用户名称</p>
+		</div>
+		<div class="weui-cell__ft">{{:unamezn}}</div>
+	</div>
+	<div class="weui-cell">
+		<div class="weui-cell__bd">
+		  <p>手机号</p>
+		</div>
+		<div class="weui-cell__ft">{{:mobilephone}}</div>
+	</div>
+	<div class="weui-cell">
+		<div class="weui-cell__bd">
+		  <p>创建时间</p>
+		</div>
+		<div class="weui-cell__ft">{{:~dateFormat(createtime,1)}}</div>
+	</div>
+	
+	{{if ~showDom(guserid)}}	
+	    <a class="weui-cell weui-cell_access limitWidth" id="goRolePage">
+			<div class="weui-cell__hd">
+			  <p>组中角色</p>
+			</div>
+			<div class="weui-cell__ft">{{:roleName}}</div>
+		</a>
+	{{else}}  
+	    <div class="weui-cell">
+		    <div class="weui-cell__bd">
+			  <p>组中角色</p>
+			</div>
+			<div class="weui-cell__ft">{{:roleName}}</div>
+		</div>
+	{{/if}}
+	
+</script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../js/partener/projectTeamMemberDetail.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ycg.ksh.core.contract.domain.model.Contract" table="t_contract">
+        <id name="id" column="id" type="java.lang.Long"/>
+        <property name="contractNo" column="contract_no" type="java.lang.String"/>
+        <component name="period" class="com.ycg.ksh.core.contract.domain.model.ValidityPeriod">
+            <property name="firstTime" column="first_time" type="java.time.LocalDateTime"/>
+            <property name="secondTime" column="second_time" type="java.time.LocalDateTime"/>
+        </component>
+        <property name="contractType" column="contract_type" type="java.lang.Integer"/>
+        <property name="companyKey" column="company_key" type="java.lang.Long"/>
+        <property name="companyName" column="company_name" type="java.lang.String"/>
+        <property name="createTime" column="create_time" type="java.time.LocalDateTime"/>
+        <property name="modifyTime" column="modify_time" type="java.time.LocalDateTime"/>
+        <property name="verifyStatus" column="verify_status" type="java.lang.Integer"/>
+        <property name="oppositeKey" column="opposite_key" type="java.lang.Long"/>
+        <property name="oppositeName" column="opposite_name" type="java.lang.String"/>
+        <property name="industryCategory" column="industry_category" type="java.lang.Integer"/>
+        <property name="contactName" column="contact_name" type="java.lang.String"/>
+        <property name="telephoneNumber" column="telephone_number" type="java.lang.String"/>
+        <property name="mobileNumber" column="mobile_number" type="java.lang.String"/>
+        <property name="customerAddress" column="customer_address" type="java.lang.String"/>
+        <property name="shipperId" column="shipper_id" type="java.lang.Long"/>
+
+        <component name="customerRegion" class="com.ycg.ksh.core.common.domain.Region">
+            <property name="province" column="opposite_province" type="java.lang.String"/>
+            <property name="city" column="opposite_city" type="java.lang.String"/>
+            <property name="district" column="opposite_district" type="java.lang.String"/>
+        </component>
+        <list name="commodityConfigs" cascade="all,delete-orphan" lazy="false">
+            <key column="contract_key"/>
+            <list-index column="idx"/>
+            <one-to-many class="com.ycg.ksh.core.contract.domain.model.CommodityConfig"/>
+        </list>
+        <list name="fragmentaries" cascade="all,delete-orphan" lazy="false">
+            <key column="contract_key"/>
+            <list-index column="idx"/>
+            <one-to-many class="com.ycg.ksh.core.contract.domain.model.FragmentaryValuation"/>
+        </list>
+        <list name="contractVerifies" cascade="all,delete-orphan" lazy="false">
+            <key column="contract_key"/>
+            <list-index column="idx"/>
+            <one-to-many class="com.ycg.ksh.core.contract.domain.model.ContractVerify"/>
+        </list>
+    </class>
+
+    <class name="com.ycg.ksh.core.contract.domain.model.CommodityConfig" table="t_contract_commodity_config">
+        <id name="id" column="id" type="java.lang.Long">
+            <generator class="native"/>
+        </id>
+        <property name="commodityCode" column="commodity_code" type="java.lang.String"/>
+        <property name="commodityName" column="commodity_name" type="java.lang.String"/>
+        <property name="unitWeight" column="unit_weight" type="java.lang.Double"/>
+        <property name="unitVolume" column="unit_volume" type="java.lang.Double"/>
+        <property name="fareType" column="fare_type" type="java.lang.Integer"/>
+    </class>
+
+    <class name="com.ycg.ksh.core.contract.domain.model.FragmentaryValuation" table="t_contract_fragmentary_valuation">
+        <id name="id" column="id" type="java.lang.Long">
+            <generator class="native"/>
+        </id>
+        <component name="period" class="com.ycg.ksh.core.contract.domain.model.ValidityPeriod">
+            <property name="firstTime" column="first_time" type="java.time.LocalDateTime"/>
+            <property name="secondTime" column="second_time" type="java.time.LocalDateTime"/>
+        </component>
+        <property name="commodityCategory" column="commodity_category" type="java.lang.Integer"/>
+        <property name="commodityUnit" column="commodity_unit" type="java.lang.Integer"/>
+        <property name="fareType" column="fare_type" type="java.lang.Integer"/>
+        <property name="intervalStr" column="interval_str" type="java.lang.String"/>
+        <list name="units" cascade="all,delete-orphan" lazy="false">
+            <key column="valuation_key"/>
+            <list-index column="idx"/>
+            <one-to-many class="com.ycg.ksh.core.contract.domain.model.FragmentaryUnitPrice"/>
+        </list>
+    </class>
+
+    <class name="com.ycg.ksh.core.contract.domain.model.FragmentaryUnitPrice" table="t_contract_fragmentary_unitprice">
+        <id name="id" column="id" type="java.lang.Long">
+            <generator class="native"/>
+        </id>
+        <property name="origin" column="origin" type="java.lang.String"/>
+        <property name="destination" column="destination" type="java.lang.String"/>
+        <property name="citylv" column="city_lv" type="java.lang.Integer"/>
+        <property name="fareCategory" column="fare_category" type="java.lang.Integer"/>
+        <property name="priceSrc" column="price_src" type="java.lang.String"/>
+    </class>
+
+    <class name="com.ycg.ksh.core.contract.domain.model.ContractVerify" table="t_contract_commodity_verify">
+        <id name="id" column="id" type="java.lang.Long">
+            <generator class="native"/>
+        </id>
+        <property name="verifyStatus" column="verify_status" type="java.lang.Integer"/>
+        <property name="verifyTime" column="verify_time" type="java.time.LocalDateTime"/>
+        <property name="reason" column="reason" type="java.lang.String"/>
+        <property name="userId" column="user_id" type="java.lang.Integer"/>
+    </class>
+
+    <class name="com.ycg.ksh.core.contract.domain.model.IncomeRecord" table="t_income_record">
+        <id name="orderKey" column="order_key" type="java.lang.Long"/>
+        <property name="deliveryDate" column="delivery_date" type="java.time.LocalDateTime"/>
+        <property name="deliveryCustomer" column="delivery_customer" type="java.lang.String"/>
+        <property name="receiveCustomer" column="receive_customer" type="java.lang.String"/>
+        <property name="deliveryNo" column="delivery_no" type="java.lang.String"/>
+        <property name="totalWeight" column="total_weight" type="java.lang.Double"/>
+        <property name="totalVolume" column="total_volume" type="java.lang.Double"/>
+        <property name="totalQuantity" column="total_quantity" type="java.lang.Integer"/>
+        <property name="transportReceivable" column="transport_receivable" type="java.lang.Double"/>
+        <property name="otherTotalReceivable" column="other_total_receivable" type="java.lang.Double"/>
+        <property name="totalReceivable" column="total_receivable" type="java.lang.Double"/>
+        <property name="confirmState" column="confirmstate" type="java.lang.Integer"/>
+        <property name="otherReceivableRemark" column="remarks" type="java.lang.String"/>
+        <property name="createTime" column="createTime" type="java.time.LocalDateTime"/>
+        <property name="companyKey" column="companyKey" type="java.lang.Long"/>
+    </class>
+</hibernate-mapping>

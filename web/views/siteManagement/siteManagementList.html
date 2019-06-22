@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<html>
+
+	<head>
+		<script src="../../static/lib/function/common.js"></script>
+		<script src="../../static/js/public/commonMeta.js"></script>
+		<title></title>	
+		<meta charset="utf-8">
+		<script src="../../static/js/public/commonCss.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../static/css/siteManage/siteManage.css" />
+	</head>
+
+	<body>
+		<div id="siteManageList">
+			<template>
+			<div class="search">
+				<el-form ref="form" :model="form" label-width="100px">
+					<el-form-item label="要求提货日期">
+						<el-date-picker v-model="form.deliveryDate" type="date" placeholder="请选择时间" value-format="yyyy-MM-dd">
+						</el-date-picker>
+					</el-form-item>
+					<el-form-item label="到车状态">
+						<el-select v-model="form.arrivalStatus" placeholder="">
+							<el-option label="全部" value=""></el-option>
+							<el-option label="未到车" value="0"></el-option>
+							<el-option label="已到车" value="1"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="备注">
+						<el-select v-model="form.remarks" placeholder="">
+							<el-option label="全部" value=""></el-option>
+							<el-option label="到车车辆与派车信息一致" value="1"></el-option>
+							<el-option label="到车车辆与派车信息不一致" value="2"></el-option>
+							<el-option label="无派车信息，手动记录到场车辆信息" value="3"></el-option>
+						</el-select>
+					</el-form-item>
+
+					<input v-model="form.likeString" placeholder="送货单号/收货客户/物流商" class="likeString"></input>
+					<el-button type="primary" @click='render'>查询</el-button>
+				</el-form>
+			</div>
+			<div class="table">
+				<template>
+					<el-table :data="list" border style="width: 100%">
+						<el-table-column  fixed prop="deliveryNo" label="送货单号" min-width="150" align='center' show-overflow-tooltip>
+						</el-table-column>
+						<el-table-column fixed prop="receiveName" label="收货客户" min-width="120" align='center' show-overflow-tooltip>
+						</el-table-column>
+						<el-table-column  fixed prop="conveyName" label="物流商" min-width="120" align='center' show-overflow-tooltip>
+						</el-table-column>
+						<el-table-column  fixed prop="license" label="车牌号" min-width="120" align='center' show-overflow-tooltip>
+						</el-table-column>
+						<el-table-column prop="driverName" label="司机姓名" min-width="100" align='center' show-overflow-tooltip>
+						</el-table-column>
+						<el-table-column prop="driverContact" label="司机电话" min-width="120" align='center' show-overflow-tooltip>
+						</el-table-column>
+						<el-table-column  prop="date" label="要求提货日期" width="200" align='center' >
+						<template slot-scope="scope">
+								<span>{{scope.row.collectTime|datetime}}</span>
+							</template>
+						</el-table-column>
+						<el-table-column  label="到车状态" min-width="100" align='center'>
+							<template slot-scope="scope">
+								<span v-if="scope.row.vehicleStatus==0">未到车</span>
+								<span v-if="scope.row.vehicleStatus==1">已到车</span>
+							</template>
+						</el-table-column>
+						<el-table-column  label="到车时间" min-width="200" align='center' >
+							<template slot-scope="scope">
+								<span>{{scope.row.arrivalTime|datetime}}</span>
+							</template>
+						</el-table-column>
+						<el-table-column  label="备注" min-width="120" align='center' show-overflow-tooltip>
+						<template slot-scope="scope">
+								<span v-if="scope.row.confirmStatus==1">到车车辆与派车信息一致</span>
+								<span v-if="scope.row.confirmStatus==2">到车车辆与派车信息不一致</span>
+								<span v-if="scope.row.confirmStatus==3">无派车信息，手动记录到场车辆信息</span>
+							</template>
+						</el-table-column>
+						<el-table-column  label="备注内容" min-width="300" align='center'>
+							<template slot-scope="scope">
+								<span v-if="scope.row.confirmLicense!=null">{{scope.row.confirmLicense}},</span>
+								<span v-if="scope.row.confirmDriverName!=null">{{scope.row.confirmDriverName}},</span>
+								<span>{{scope.row.confirmDriverContact}}</span>
+							</template>
+						</el-table-column>
+						<el-table-column fixed="right" label="操作" min-width="100" align='center'>
+							<template slot-scope="scope">
+								<el-button @click="vehicles(scope.row.deliveryNo)" type="text" size="small" v-if='scope.row.confirmStatus==null||scope.row.confirmStatus==0'>到车登记</el-button>
+							</template>
+						</el-table-column>
+					</el-table>
+				</template>
+				<!--到车登记-->
+				<el-dialog title="到车登记" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+					 <div class="content">
+					 	<div class="dispatchingInformation">
+					 		<h4 class="top">派车信息:</h4>
+					 		<ul >
+					 			<li>
+					 				<span>送货单号</span>
+					 				<p>{{deliveryNo}}</p>
+					 			</li>
+					 			<li>
+					 				<span>车牌号</span>
+					 				<p>{{dispatchingInformation.license}}</p>
+					 			</li>
+					 			<li>
+					 				<span>司机姓名</span>
+					 				<p>{{dispatchingInformation.driverName}}</p>
+					 			</li>
+					 			<li>
+					 				<span>司机电话</span>
+					 				<p>{{dispatchingInformation.driverContact}}</p>
+					 			</li>
+					 		</ul>
+					 	</div>
+					    <div class="remark">
+					    	<h4 class="top">备注:</h4>
+					          <div class="remark-info">
+					          	<div class="info-items">
+					          	  <el-radio v-model="radio" label="1" @change='toggle'>到车车辆与派车信息一致</el-radio>
+					          	</div>
+					          	<div class="info-items">
+					          	 	<el-radio v-model="radio" label="2" @change='toggle'>到车车辆与派车信息不一致</el-radio>
+					          	  <div class="info-content" v-show="isShow.one">
+					          	  	 <p>
+					          	  	 	<span>车牌号</span>
+					          	  	 	<input type="text" v-model="driverInformation.license"/>
+					          	  	 </p>
+					          	  	  <p>
+					          	  	 	<span>司机姓名</span>
+					          	  	 	<input type="text" v-model="driverInformation.name"/>
+					          	  	 </p>
+					          	  	  <p>
+					          	  	 	<span>司机电话</span>
+					          	  	 	<input type="text"  v-model="driverInformation.phone"/>
+					          	  	 </p>
+					          	  </div>
+					          	</div>
+					          	<div class="info-items" >
+					          		<el-radio v-model="radio" label="3" @change='toggle'>无派车信息，手动记录到场车辆信息</el-radio>
+					          	  <div class="info-content" v-show="isShow.two">
+					          	  	<p>
+					          	  	 	<span>车牌号</span>
+					          	  	 	<input type="text"  v-model="driverInformation.license"/>
+					          	  	</p> 
+					          	  	  <p>
+					          	  	 	<span>司机姓名</span>
+					          	  	 	<input type="text"  v-model="driverInformation.name"/>
+					          	  	 </p>
+					          	  	  <p>
+					          	  	 	<span>司机电话</span>
+					          	  	 	<input type="text" v-model="driverInformation.phone"/>
+					          	  	 </p>
+					          	  </div>
+					          	</div>
+					          </div>
+					    </div>  
+					 </div>
+					<span slot="footer" class="dialog-footer">
+    <el-button @click="cancel">取 消</el-button>
+    <el-button type="primary" @click="vehiclesSubmit">确 定</el-button>
+  </span>
+				</el-dialog>
+			</div>
+			<!-- 分页  -->
+			<div class="pagination">
+				<el-pagination background layout="total,prev, pager, next" :total="total" @current-change="currentChange">
+				</el-pagination>
+			</div>
+</template>
+		</div>
+
+	</body>
+
+	<script src="../../static/js/public/commonJs.js"></script>
+	<script src="../../static/js/siteManage/siteManageList.js"></script>
+
+	</html>

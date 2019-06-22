@@ -1,0 +1,161 @@
+body{
+	padding:10px 10px 0;
+	font-size:14px;
+}
+.shipper-content{
+	padding:0 24px 0 15px;
+	background:#fff;
+	min-height:100%;
+	color:#636363;
+}
+
+h3{font-size:24px;padding:20px 0;}
+.col-min{width:15%;}
+.col-xs-min{width:3%;min-width: 40px;}
+.col-mid{width:28%;}
+.col-max{width:34%;}
+
+/*****查询部分*/
+.content-search{
+    position:relative;
+    padding:16px 0 20px;
+}
+.content-search a{
+	text-decoration:none;
+}
+.content-search .content-search-btn{
+    display: inline-block;
+    padding:0 20px;
+    margin-top:-1px;
+    min-width: 70px;
+    line-height: 28px;
+    color:#fff;
+    border-radius: 3px;
+    background:#31acfa;
+    margin-left: 30px;
+}
+.content-search>.clearfix>.fl{position:relative;}
+.content-search .labe_l{
+    display:inline-block;
+    color:#333;
+    font-size:14px;
+    width:68px; 
+    height:26px;
+    line-height:26px;
+    font-weight: 400;
+}
+.content-search .tex_t{
+    width:140px;
+    height:26px;
+    border:1px solid #dedede;
+    text-indent:4px;
+    border-radius:4px;
+}
+.content-search .fl+.fl{margin-left:2%;}
+.content-search .clearfix+.clearfix {
+    margin-top: 15px;
+}
+.content-search input[type="text"]:focus{
+    border-color:#6ec5fb;
+}
+.otherSelect{
+    position:relative;
+}
+.otherSelect .more{
+    display: inline-block;
+    line-height: 26px;
+}
+
+
+/* 表格部分 */
+.handle-box{margin-top:20px;position:relative;}
+.handle-box .layui-btn{height:26px;line-height:26px;padding:0 8px;font-size:12px;border-radius:4px;}
+.table-style table{margin-top:10px;}
+.handle-box .pos_right{position:absolute;top:0;right:45px;z-index:2;}
+.handle-box .pos_right.delete-icon{
+	top: -3px;
+    right: 12px;
+    font-size: 26px;
+    color:#ff2a00;
+    cursor:pointer;
+}
+.table-style .check-all{
+	font-weight:400;
+}
+.table-style .check-all>input{
+	vertical-align:middle;
+	margin:0 5px 0 0;
+}
+.table-style .aBtn{padding:0 4px;}
+
+/* 弹出框样式修改 */
+.file_box{position:relative;}
+.model-base-box .file_box>input{width:255px;}
+.file_box>.span-txt{
+	padding: 0 5px;
+	margin-left: 3px;
+    display: inline-block;
+    vertical-align: top;
+    height: 28px;
+    line-height: 28px;
+    color: #fff;
+    border-radius: 3px;
+    background:#31acfa;
+}
+.file_box>a.file{
+	position: absolute;
+    top: 1px;
+    width: 72px;
+    left: 356px;
+    z-index: 22;
+    overflow: hidden;
+}
+.file_box>a.file>input[type=file]{opacity:0;filter:alpha(opacity=0);}
+
+
+/*****弹窗表格*/
+.pancelCon{background:#fff;}
+.pancelCon .h4{text-align:center; font-size:24px;font-weight:bold;padding-bottom: 15px;}
+.pancelUl li{width:100%; float:left;margin-top:10px;}
+.pancelUl li:last-child{width:100%;}
+.pancelUl li label{width:110px;font-weight:normal}
+.pancelUl li:last-child label{width:100%;}
+.pancelUl li:nth-last-child(2),
+.pancelUl li:nth-last-child(3){width:100%;}
+.tableCon table{width:100%;margin-top:10px;}
+.tableCon table tr th,
+.tableCon table tr td{border:#ddd solid 1px;text-align:center;font-weight:normal;height:30px;padding:0 5px;}
+a.linkBtn{color:#31acfa;cursor: pointer;}
+input.editExplain{width:96%; height:24px; margin:0 2%;border:#eee solid 1px;}
+.editLong{width:100%;text-align:center;}
+.oprateNumCon *{display:inline-block;    float: left;}
+.oprateNumCon .editTxt{width:40%;border:#eee solid 1px;margin: 0 6px;}
+.oprateNumCon .minusIcon,
+.oprateNumCon .addIcon{width:18px;height:18px;font-size:14px;line-height:16px;border:#eee solid 1px; border-radius:9px;cursor: pointer;}
+.oprateNumCon .minusIcon{line-height:14px;}
+.tableCon{position:relative;}
+.tableCon .addLine{position:absolute;right:10px;top:-30px;}
+.tableCon .editInt{width:90%;}
+
+.infoNo{ position:relative;margin-top:-50px; text-align: right;}
+.infoNo p{padding-bottom:5px;margin-right: 20px;}
+
+.col-3 span{display:inline-block;width:33%;}
+.signPos{position: relative;}
+.signPos p{padding-bottom:40px;}
+.signPos .fb{font-weight: bold;}
+.signPos .signIcon{position: absolute;width:100px;height:100px; border-radius:50px;}
+.signPos .conveyrSign{left:150px;top:-20px;}
+.signPos .receiveSign{left:200px;bottom:20px;}
+
+.operaterList{/*margin-top:40px;*/}
+.operaterList li{width:33%;float:left;}
+.operaterList li label{font-weight:normal;}
+
+.blackColor.model-base-box{background: #aaa;}
+.blackColor .pancelCon{margin: 20px;padding:15px 10px 30px;box-shadow: 0 0 10px #333;}
+
+.abnormalSign{padding:40px 0 20px; }
+
+
+

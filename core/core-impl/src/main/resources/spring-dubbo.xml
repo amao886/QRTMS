@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <description>Dubbo 相关配置</description>
+
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="${dubbo.server.application.name}" logger="slf4j"  >
+        <dubbo:parameter key="qos.enable" value="false"/>
+    </dubbo:application>
+    <!-- 使用zookeeper广播注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" client="curator"
+                    address="${zookeeper.cluster.hoststr}" timeout="${dubbo.server.timeout}"
+                    check="false"/>
+    <dubbo:provider timeout="${dubbo.server.timeout}"
+                    retries="0" />
+    <!-- 远程服务调用超时时间(毫秒) -->
+    <dubbo:consumer timeout="${dubbo.server.timeout}"
+                    retries="0" check="false"/>
+
+    <!-- 用dubbo协议在20880端口暴露服务, 将访问日志输出到当前应用的slf4j日志： -->
+    <dubbo:protocol name="dubbo" port="${dubbo.server.protocol.port}"
+                    accesslog="true" charset="UTF-8" threadpool="cached"/>
+
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service
+            interface="com.ycg.ksh.core.driver.application.DriverApplicationService"
+            ref="ksh.core.driver.driverApplicationService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.core.scene.application.SceneApplicationService"
+            ref="ksh.core.scene.sceneApplicationService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.core.contract.application.ContractApplicationService"
+            ref="ksh.core.contract.contractApplicationService" retries="0" version="1.0.0"/>
+
+
+
+</beans>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <description>Spring dubbo client configuration</description>
+
+    <dubbo:reference id="ksh.core.driver.dubbo.reference.driverApplicationService"
+                     interface="com.ycg.ksh.core.driver.application.DriverApplicationService" version="1.0.0"
+                     check="false"/>
+    <dubbo:reference id="ksh.core.scene.dubbo.reference.sceneApplicationService"
+                     interface="com.ycg.ksh.core.scene.application.SceneApplicationService" version="1.0.0"
+                     check="false"/>
+    <dubbo:reference id="ksh.core.contract.dubbo.reference.contractApplicationService"
+                     interface="com.ycg.ksh.core.contract.application.ContractApplicationService" version="1.0.0"
+                     check="false"/>
+</beans>

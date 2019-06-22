@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.ESignBrankMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.ESignBrank">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="BRANK_TYPE" jdbcType="VARCHAR" property="brankType" />
+    <result column="BRANK_NAME" jdbcType="VARCHAR" property="brankName" />
+    <result column="BRANK_CODE" jdbcType="VARCHAR" property="brankCode" />
+    <result column="BRANCH_NAME" jdbcType="VARCHAR" property="branchName" />
+  </resultMap>
+  
+  <select id="getByBrankCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT * FROM T_ESIGN_BRANK WHERE BRANK_CODE = #{code}
+  </select>
+</mapper>

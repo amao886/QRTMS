@@ -1,0 +1,99 @@
+.signinSuccessTrip {
+	background: #31ACFA;
+	text-align: center;
+	padding: 10px 0;
+	box-shadow: 0 8px 10px 0 rgba(3, 3, 3, 0.04);
+}
+
+.tripIcon {
+	display: inline-block;
+	background: url(../../images/signinsuccessicon.png) top left no-repeat;
+	width: 55px;
+	height: 55px;
+	background-size: 100%;
+	vertical-align: middle;
+}
+
+.tripText {
+	color: #FFFFFF;
+	font-size: 20px;
+	font-style: italic;
+	margin-left: 5%;
+	vertical-align: middle;
+}
+
+.chooseItem {
+	margin: 35px 20px 0 20px;
+}
+
+.chooseTripTitle {
+	color: #333333;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.chooseItemList {
+	margin-top: 15px;
+}
+
+.chooseBox {
+	height: 85px;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 5px 4px 10px 3px rgba(3, 3, 3, 0.04);
+	margin-bottom: 25px;
+	text-align: center;
+	padding: 10px 0;
+}
+
+.chooseItemTextLeft {
+	color: #333333;
+	font-size: 18px;
+	margin-right: 5%;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.chooseItemTextRight {
+	color: #333333;
+	font-size: 18px;
+	margin-left: 5%;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.shipperIcon {
+	display: inline-block;
+	background: url(../../images/releasegoodicon.png) top left no-repeat;
+	width: 80px;
+	height: 80px;
+	background-size: 100%;
+	vertical-align: middle;
+}
+
+.customerIcon {
+	display: inline-block;
+	background: url(../../images/deliverygoodicon.png) top left no-repeat;
+	width: 80px;
+	height: 80px;
+	background-size: 100%;
+	vertical-align: middle;
+}
+
+.carrierIcon {
+	display: inline-block;
+	background: url(../../images/carriericon.png) top left no-repeat;
+	width: 80px;
+	height: 80px;
+	background-size: 100%;
+	vertical-align: middle;
+}
+
+.driverIcon {
+	display: inline-block;
+	background: url(../../images/drivericon.png) top left no-repeat;
+	width: 80px;
+	height: 80px;
+	background-size: 100%;
+	vertical-align: middle;
+}

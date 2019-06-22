@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="web-api-5.0.8-SNAPSHOT">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="common-5.0.8-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/common/common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="entity-5.0.8-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/entity/entity">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="service-api-5.0.8-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/service-api/service-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="adapter-api-5.0.8-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/adapter-api/adapter-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="collecter-api-5.0.8-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/collecter-api/collecter-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="core-api-5.0.8-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/core-api/core-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="web-api"/>
+        <property name="java-output-path" value="/web-api/target/classes"/>
+        <property name="component.exclusion.patterns" value="WEB-INF/lib/tomcat-*.jar"/>
+    </wb-module>
+</project-modules>

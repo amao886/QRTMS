@@ -1,0 +1,76 @@
+.demos-content-padded {
+    padding: 20px 0 30px;
+}
+
+.chooseStyle p {
+	color: #333333;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 15px;
+}
+
+.personSignaturePic {
+	max-width: 100%;
+}
+
+.personListItem{
+	float: left;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    width: 145px;
+}
+
+.personSignatureChoosedPic{
+	position: absolute;
+    margin-left: 130px;
+    margin-top: -25px;
+    display: none;
+}
+
+.companyListItem{
+	float: left;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    width: 145px;
+}
+
+.companySignaturePic{
+	max-width: 100%;
+}
+
+.companySignatureChoosedPic{
+	position: absolute;
+    margin-left: 110px;
+    margin-top: -40px;
+    display: none;
+}
+
+
+/*覆盖框架原样式*/
+.weui-btn_primary {
+	width: 90%;
+	height: 44px;
+	line-height: 44px;
+	border-radius: 4px;
+	background: #0071FE;
+	font-size: 15px;
+}
+
+.weui-btn:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}
+
+.weui-vcode-btn {
+	border-left: 1px solid #DDDDDD;
+	color: #0071FE;
+}
+
+.weui-vcode-btn:active {
+	color: #0059C7;
+}

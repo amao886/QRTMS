@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>客户详情</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/customer/customerDetail.css" />
+	<style>
+		[v-cloak] {
+			display: none !important;
+		}
+	</style>
+</head>
+
+
+<body ontouchstart class="vue-page" style="background:#F2F2F2;">
+	<div id="box">
+		<div class="headline">
+			<a href="javascript:history.go(-1)" class="jiantou"><</a>
+					<h1>客户管理</h1>
+		</div>
+
+
+		<!--内容开始-->
+		<div class="customerManage" v-for="item in list " :key="item.key" >
+			<div class="enterprise">
+				<span class="fl left">企业名称</span>
+				<span class="fr right ">{{item.name}}</span>
+			</div>
+			<div class="enterprise">
+				<span class="fl left">客户类型</span>
+				<span class="fr right" v-if="item.type==1">货主</span>
+				<span class="fr right" v-if="item.type==2">收货客户 </span>
+				<span class="fr right" v-if="item.type==3">物流商</span>
+
+			</div>
+			<div class="enterprise">
+				<span class="fl left">注册状态</span>
+				<span class="fr right" v-if="item.companyKey <= 0 && item.companyKey=='' ">未注册</span>
+				<span class="fr right" v-else="item.companyKey =>  0">已注册</span>
+
+			</div>
+			<div class="enterprise">
+				<span class="fl left">注册人</span>
+				<span class="fr right">{{item.regName}}</span>
+			</div>
+			<div class="enterprise">
+				<span class="fl left">手机号</span>
+				<span class="fr right">{{item.regMobile}}</span>
+
+			</div>
+			<div class=" addition">
+				<span class="redact">
+					<a href="javascript:;" @click="Goclick(item.key)">编辑</a>
+				</span>
+				<span class=" remove   mui-btn-outlined" id="confirmBtn">
+					<a href="javascript:;" @click='Delete'>删除</a>
+				</span>
+				<span class="register">
+					<a href="javascript:;" @click = "inviteRegister">
+						邀请注册
+					</a>
+				</span>
+			</div>
+
+		</div>
+	</div>
+	<!--微信分享提示-->
+	<div class="weixin-tip hide" id="weixin-tip">
+		<img src="../../images/live_weixin.png" alt="" />
+	</div>
+	<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../../lib/js/json2.js"></script>
+	<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+	<script type="text/javascript" src="../../lib/function/common.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+	<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#box',
+		data: {
+			id: '',
+			list: [],
+			companyName:''
+
+		},
+		mounted: function () {
+			var _this = this;
+			_this.id = _common.getUrlParam('id');
+			console.log(this.id)
+			EasyAjax.ajax_Post_Json({
+				url: '/enterprise/customer/detail/'+_this.id,
+			}, function (res) {
+				console.log(res);
+		   _this.list.push(res.customer);
+		   _this.companyName = res.customer.name;
+
+			});
+
+		},
+		methods: {
+			Goclick: function(key) {
+             window.location.href = './customerDetail.html?id='+key;
+			},
+			Delete:function(){
+				var _this = this;
+
+				$.confirm({
+					title: '删除客户',
+					text: '删除客户后将不能进行业务往来,确定删除?',
+					onOK: function () {
+						var param = {
+							customerKey: _this.id
+						}
+						console.log(param)
+						EasyAjax.ajax_Post_Json({
+							url: '/enterprise/customer/delete',
+							data: JSON.stringify(param)
+
+						}, function (res) {
+							console.log(res)
+							   if(res.success){
+								window.location.href = 'customerManage.html';
+							   }
+						});
+					},
+					onCancel: function () {
+
+					}
+				})
+			},
+			//邀请注册
+			inviteRegister:function(){
+				  var _this = this;
+				//调用分享的方法
+				shareRegister(_this.id,_this.companyName);
+
+                $("#weixin-tip").show();
+                setTimeout(function(){
+                    $("#weixin-tip").hide();
+                },3000)
+                $("#weixin-tip").click(function(){
+                    $("#weixin-tip").hide();
+                })
+
+			}
+
+		}
+
+	})
+
+
+
+
+</script>
+
+</html>

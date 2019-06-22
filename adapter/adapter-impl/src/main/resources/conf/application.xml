@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<common>
+		<!-- global settings -->
+		<global.secret value="QYWPV9XDY4H7CVK730" />
+
+		<!-- Dubbo Service settings -->
+		<dubbo.server.application.name value="adapter" />
+		<dubbo.server.protocol.port value="52372" />
+		<dubbo.server.timeout value="30000" />
+
+		<!-- redis settings -->
+		<redis.server.port value="6379" />
+		<redis.server.timeout value="3000" />
+		<redis.server.database value="1" />
+
+		<redis.client.pool.maxTotal value="-1" />
+		<redis.client.pool.maxIdle value="8" />
+		<redis.client.pool.maxWaitMillis value="3000" />
+		<redis.client.pool.minIdle value="0" />
+		
+		<!-- redis stand-alone -->
+		<redis.maxTotal value="1024"/>
+		<redis.maxIdle value="200"/>
+		<redis.minIdle value="2"/>
+		<redis.maxWaitMillis value="1000"/>
+		<redis.testOnBorrow value="false"/>
+		<redis.testOnReturn value="false"/>
+		<redis.timeout value="3000"/>
+		<redis.expiration value="600"/>
+		<redis.dbIndex value="0"/>
+
+		<!-- wx settings -->
+		<net.wx.login.appid value="wxd040e79c9bb89c54" />
+		<net.wx.login.appsecret value="1f9242c66894ee941738b9d6408c45d2" />
+
+		<!-- baidu-sdk settings -->
+		<net.baidu.app.id value="10346089" />
+		<net.baidu.app.key value="XCak9ifWzHAtHmG3pIukbNxU" />
+		<net.baidu.secret.key value="6l5UlAUULnQFtyzKo8jH0yiZOEialFf4" />
+
+		<!--- automap-sdk settings -->
+		<net.automap.host value="http://restapi.amap.com/v3/geocode/geo" />
+		<net.automap.key value="69e5e2d97a977edb7bbc0bccbb6f8388" />
+
+
+		<!-- sms settings -->
+		<sms.username value="shgwxxgs" />
+		<sms.password value="9P1H6AtB" />
+		<sms.send.url value="http://userinterface.vcomcn.com/Opration.aspx" />
+		<sms.ye.url value="http://userinterface.vcomcn.com/GetResult.aspx" />
+		<certified.service>
+			<key value="db9c7511a9ab45119f7df30140ea7e46"/><!-- 实名认证KEY -->
+			<value value="42747824ff014619a796122ed1536b4a"/><!-- 实名认证VALUE -->
+			<url value="https://authentic.yunhetong.com"/><!-- 实名认证接口地址 -->
+		</certified.service>
+	</common>
+	<environment>
+		<local>
+		    <!-- 系统异常邮件通知收件人邮箱,多个','隔开 -->
+			<net.email.exception.key value="junqiangdang@163.com"/>
+			<!-- zookeeper settings -->
+			<zookeeper.cluster.hoststr value="192.168.0.42:2181" />
+			<!-- redis settings -->
+			<redis.server.address value="172.16.235.14:6380,172.16.235.15:6380,172.16.235.16:6380" />
+			<redis.cluster.max.redirects value="3" />
+			<!-- redis settings -->
+			<!-- redis stand-alone -->
+			<redis.host value="192.168.0.119"/>
+            <redis.port value="7002"/>
+            <redis.auth value="qqamredis@#$"/>
+			<!-- file settings  -->
+			<system.file.root value="D:/storage" />
+			<system.wx.unionid value="false" />
+			<!-- weixin settings -->
+			<net.wx.common.appid value="wx07bb0817e2487ef6" />
+			<net.wx.common.appsecret value="383a031671a29425a4f711fcf80edc63" />
+			<net.wx.msg.template>
+				<whsign value="CfbH83SyQ1gQX50fboJKU41UsU-z9p094vI8JAHIzuA"/><!-- 完好签收模板消息编号 -->
+				<ycsign value="uo_rhY_q5xYb2cjaQlQolDSGQp5gGgxtUWB-XJ1GGv8"/><!-- 异常签收模板消息编号 -->
+				<legalize value="CinXFg6tFEji1lFh7btI_mUgJoTLAj1DfM_XX_yuHNM"/><!-- 个人认证模板消息编号 -->
+				<register value="btQsVW-ESG5E3cu9uwv6BDq6yXKF9y4UA6uOqd8kGnA"/><!-- 注册成功通知模板消息编号 -->
+				<login value="GGoVxavhD_QFUkGXUl6cx8jxStCKXaWt6l7j0AASbKg"/><!-- 登录操作通知模板消息编号 -->
+				<bindmobile value="hjWlxdSQaCt_LzVCO3ouQttaJ3kLzjpDHzZfoTgRHMo"/><!-- 绑定手机号通知模板消息编号 -->
+				<delivery value="xCKXwTtd9C1IaxZZ0r-3lw2pT64wPwsVo3Gv1E5wv0M"/><!-- 发货通知模板消息编号 -->
+			</net.wx.msg.template>
+			<e.sign.service.yunghetong>
+				<appId value="2018060615225800017"/><!-- 电子签收云合同APPID -->
+				<appKey value="xghZ5934zMs"/><!-- 电子签收云合同APPKEY -->
+				<apiUrl value="https://api.yunhetong.com/api"/><!-- 电子签收云合同接口地址 -->
+			</e.sign.service.yunghetong>
+			<rabbitmq>
+				<vhost value="gewei_vhost_ycd"/>
+				<addresses value="192.168.0.114:5672"/>
+				<username value="user_ycd"/>
+				<password value="ycdgeweiit.com%"/>
+			</rabbitmq>
+		</local>
+		<dev>
+			<!-- 系统异常邮件通知收件人邮箱,多个','隔开 -->
+			<net.email.exception.key value="junqiangdang@163.com"/>
+			<!-- zookeeper settings -->
+			<zookeeper.cluster.hoststr value="58.221.6.82:21810" />
+			<!-- redis settings -->
+			<redis.server.address value="172.16.35.71:6380,172.16.35.71:6381,172.16.35.72:6380,172.16.35.72:6381,172.16.35.73:6380,172.16.35.73:6381" />
+			<redis.cluster.max.redirects value="3" />
+			<!-- redis singleton setting -->
+			<redis.host value="192.168.0.148"/>
+            <redis.port value="6379"/>
+            <redis.auth value="cy123456"/>
+			<!-- file settings  -->
+			<system.file.root value="/opt/storage" />
+			<!-- weixin settings -->
+            <net.wx.common.appid value="wxb7df6f7ff3599fa8" />
+            <net.wx.common.appsecret value="60953f1f9b39dcb3707cef93741f6619" />
+			<!-- <net.wx.msg.template>
+				<whsign value="CfbH83SyQ1gQX50fboJKU41UsU-z9p094vI8JAHIzuA"/>完好签收模板消息编号
+				<ycsign value="uo_rhY_q5xYb2cjaQlQolDSGQp5gGgxtUWB-XJ1GGv8"/>异常签收模板消息编号
+				<legalize value="CinXFg6tFEji1lFh7btI_mUgJoTLAj1DfM_XX_yuHNM"/>个人认证模板消息编号
+				<register value="btQsVW-ESG5E3cu9uwv6BDq6yXKF9y4UA6uOqd8kGnA"/>注册成功通知模板消息编号
+				<login value="GGoVxavhD_QFUkGXUl6cx8jxStCKXaWt6l7j0AASbKg"/>登录操作通知模板消息编号
+				<bindmobile value="hjWlxdSQaCt_LzVCO3ouQttaJ3kLzjpDHzZfoTgRHMo"/>绑定手机号通知模板消息编号
+				<delivery value="xCKXwTtd9C1IaxZZ0r-3lw2pT64wPwsVo3Gv1E5wv0M"/>发货通知模板消息编号
+			</net.wx.msg.template>
+			<e.sign.service.yunghetong>
+				<appId value="2018060615225800017"/>电子签收云合同APPID
+				<appKey value="xghZ5934zMs"/>电子签收云合同APPKEY
+				<apiUrl value="https://api.yunhetong.com/api"/>电子签收云合同接口地址
+			</e.sign.service.yunghetong> -->
+			<net.wx.msg.template>
+				<whsign value="7l0Jmog9-52xS3OLdaxpz3aR0G4_AcNA_WmOjfKEuow"/><!-- 完好签收模板消息编号 -->
+				<ycsign value="Hjq2rmTrRwHIMXwyXFXB3s05_wxgiH84xg1i2q6dx_s"/><!-- 异常签收模板消息编号 -->
+				<legalize value="cd9f-qd6ACB_DWU-vh5Df5BC8cHgL16IguYjnfRkn_0"/><!-- 个人认证模板消息编号 -->
+				<register value="wTvN7GxQMvwH4Vl5JZ_tP3Ab65XhhMj9POnRud8VFbU"/><!-- 注册成功通知模板消息编号 -->
+				<login value="vcMVNl9zCVVesOlr8sv9UZYlHJ8i7ZdBXAH8lAzTDr8"/><!-- 登录操作通知模板消息编号 -->
+				<bindmobile value="miVd5XTPvhoiDh25zM-ISheuxYxadOrGv6VJk7wynmo"/><!-- 绑定手机号通知模板消息编号 -->
+				<delivery value="gJZ2OpExvOYuqWpKtK4uPIrSgamGf6A3YcQxM6iME2o"/><!-- 发货通知模板消息编号 -->
+			</net.wx.msg.template>
+			<e.sign.service.yunghetong>
+				<appId value="2018073115062900013"/><!-- 电子签收云合同APPID -->
+				<appKey value="RBPZAS6M73LTi0"/><!-- 电子签收云合同APPKEY -->
+				<apiUrl value="https://api.yunhetong.com/api"/><!-- 电子签收云合同接口地址 -->
+			</e.sign.service.yunghetong>
+			<rabbitmq>
+				<vhost value="gewei_vhost_ycd"/>
+				<addresses value="58.221.6.82:56720"/>
+				<username value="user_ycd"/>
+				<password value="ycdgeweiit.com%"/>
+			</rabbitmq>
+		</dev>
+		<uat>
+			<!-- 系统异常邮件通知收件人邮箱,多个','隔开 -->
+			<net.email.exception.key value="dangjunqiang@geweiit.com"/>
+			<!-- zookeeper settings -->
+			<zookeeper.cluster.hoststr value="172.16.36.82:2181,172.16.36.83:2181" />
+			<!-- redis settings -->
+			<redis.server.address value="172.16.36.82:6380,172.16.36.83:6380,172.16.36.85:6380" />
+			<redis.cluster.max.redirects value="3" />
+			<!-- file settings  -->
+			<system.file.root value="/opt/storage" />
+			<!-- weixin settings -->
+			<net.wx.common.appid value="wx5cf0ebbc25ab4b74" />
+			<net.wx.common.appsecret value="4c2005b26650ff2566a8938f15917c6b" />
+			<net.wx.msg.template>
+				<whsign value="P1hDIaIBZNBzk9zygdXadIr5_aDULjp4oQfYj6BPJNU"/><!-- 完好签收模板消息编号 -->
+				<ycsign value="yACLvsKodq5ethWDg39DSjpF4Na8NAQdySV8hrQnaow"/><!-- 异常签收模板消息编号 -->
+				<legalize value="ppfwyRfE9b7UKanG5Z9dh0RBt1nQoMpOOy-TYS5zOf8"/><!-- 个人认证模板消息编号 -->
+				<register value="6bXaMKFkTCBW30xzN7bjHaCPzxBP_-suBJ_lk2iOSBk"/><!-- 注册成功通知模板消息编号 -->
+				<login value="KJJktWFv_P9Ea8Dc6NO7_7MsWJdbuSeOCLeSXb_78fk"/><!-- 登录操作通知模板消息编号 -->
+				<bindmobile value="BvYFmYdLR5yv_xeTjqxW5wLQJP7GWQeLAWvSqEj17bM"/><!-- 绑定手机号通知模板消息编号 -->
+				<delivery value="TlHTfOxRaWBNYbrbZO_dMCfBpiIf3l2MmbxIdfOo5u4"/><!-- 发货通知模板消息编号 -->
+			</net.wx.msg.template>
+			<e.sign.service.yunghetong>
+				<appId value="2018060615225800017"/><!-- 电子签收云合同APPID -->
+				<appKey value="xghZ5934zMs"/><!-- 电子签收云合同APPKEY -->
+				<apiUrl value="https://api.yunhetong.com/api"/><!-- 电子签收云合同接口地址 -->
+			</e.sign.service.yunghetong>
+			<rabbitmq>
+				<vhost value="/"/>
+				<addresses value="172.16.235.5:5672"/><!-- 队列地址 -->
+				<username value="admin"/>
+				<password value="admin"/>
+			</rabbitmq>
+		</uat>
+		<prod>
+			<!-- 系统异常邮件通知收件人邮箱,多个','隔开 -->
+			<net.email.exception.key value="dangjunqiang@geweiit.com"/>
+			<!-- zookeeper settings -->
+			<zookeeper.cluster.hoststr value="192.168.0.127:2181" />
+			<!-- redis settings -->
+			<redis.server.address value="172.16.235.14:6380,172.16.235.15:6380,172.16.235.16:6380" />
+			<!--<redis.server.address value="172.16.42.16:7000,172.16.42.25:7000,172.16.42.24:7000,172.16.42.19:7000,172.16.42.17:7000,172.16.42.20:7000" />-->
+			<redis.cluster.max.redirects value="3" />
+			<!-- redis stand-alone -->
+			<redis.host value="192.168.0.119"/>
+            <redis.port value="7002"/>
+            <redis.auth value="qqamredis@#$"/>
+			<!-- file settings  -->
+			<system.file.root value="/opt/storage" />
+			<!-- weixin settings -->
+			<net.wx.common.appid value="wx16d587ba4b1d5544" />
+			<net.wx.common.appsecret value="a2c2f1bd0bde130e5608745bddb31b3a" />
+			<net.wx.msg.template>
+				<whsign value="7l0Jmog9-52xS3OLdaxpz3aR0G4_AcNA_WmOjfKEuow"/><!-- 完好签收模板消息编号 -->
+				<ycsign value="Hjq2rmTrRwHIMXwyXFXB3s05_wxgiH84xg1i2q6dx_s"/><!-- 异常签收模板消息编号 -->
+				<legalize value="cd9f-qd6ACB_DWU-vh5Df5BC8cHgL16IguYjnfRkn_0"/><!-- 个人认证模板消息编号 -->
+				<register value="wTvN7GxQMvwH4Vl5JZ_tP3Ab65XhhMj9POnRud8VFbU"/><!-- 注册成功通知模板消息编号 -->
+				<login value="vcMVNl9zCVVesOlr8sv9UZYlHJ8i7ZdBXAH8lAzTDr8"/><!-- 登录操作通知模板消息编号 -->
+				<bindmobile value="miVd5XTPvhoiDh25zM-ISheuxYxadOrGv6VJk7wynmo"/><!-- 绑定手机号通知模板消息编号 -->
+				<delivery value="gJZ2OpExvOYuqWpKtK4uPIrSgamGf6A3YcQxM6iME2o"/><!-- 发货通知模板消息编号 -->
+			</net.wx.msg.template>
+			<e.sign.service.yunghetong>
+				<appId value="2018073115062900013"/><!-- 电子签收云合同APPID -->
+				<appKey value="RBPZAS6M73LTi0"/><!-- 电子签收云合同APPKEY -->
+				<apiUrl value="https://api.yunhetong.com/api"/><!-- 电子签收云合同接口地址 -->
+			</e.sign.service.yunghetong>
+			<rabbitmq>
+				<vhost value="gewei_vhost_ycd"/>
+				<addresses value="192.168.0.114:5672"/>
+				<username value="user_ycd"/>
+				<password value="ycdgeweiit.com%"/>
+			</rabbitmq>
+		</prod>
+	</environment>
+</configuration>

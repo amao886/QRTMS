@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.enterprise.FinanceMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.enterprise.Finance">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="KEY" jdbcType="BIGINT" property="key"/>
+        <result column="FINANCE_TYPE" jdbcType="INTEGER" property="financeType"/>
+        <result column="OBJECT_KEY" jdbcType="VARCHAR" property="objectKey"/>
+        <result column="INCOME" jdbcType="DOUBLE" property="income"/>
+        <result column="EXPENDITURE" jdbcType="DOUBLE" property="expenditure"/>
+        <result column="USER_KEY" jdbcType="INTEGER" property="userKey"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <select id="getFinanceByTypeId" resultMap="BaseResultMap">
+    SELECT `KEY`,FINANCE_TYPE,OBJECT_KEY,INCOME,EXPENDITURE,USER_KEY,CREATE_TIME
+    FROM T_FINANCE where FINANCE_TYPE = #{arg0} AND OBJECT_KEY = #{arg1};
+  </select>
+</mapper>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.MapAddressMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.MapAddress">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="format_address" jdbcType="VARCHAR" property="formatAddress" />
+    <result column="address_type" jdbcType="INTEGER" property="addressType" />
+    <result column="package_count" jdbcType="INTEGER" property="packageCount" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, address, format_address, address_type, package_count, latitude, longitude, remark, user_id, modify_time, `status`
+  </sql>
+  <select id="listBySomething" resultMap="BaseResultMap">
+	SELECT
+		m.id, m.address, m.format_address, m.address_type, m.package_count, m.latitude, m.longitude, m.remark, m.user_id, m.modify_time, m.status
+	FROM
+		map_address m
+	WHERE
+		m.status > 0 and m.user_id IN (
+			SELECT DISTINCT
+				user_id
+			FROM
+				map_group_member
+			WHERE
+				group_id IN (
+					SELECT group_id FROM map_group_member WHERE user_id = #{arg0}
+				)
+		)
+    	<if test="arg1 != null and arg1 !=''">
+    		AND m.address LIKE concat('%', #{arg1}, '%')
+    	</if>
+    ORDER BY DATE_FORMAT(m.modify_time, '%Y-%m-%d') desc, m.address
+  </select>
+  
+  <select id="listByUserKey" resultMap="BaseResultMap">
+    select 
+    	 m.id, m.address, m.format_address, m.address_type, m.package_count, m.latitude, m.longitude, m.remark, m.user_id, m.modify_time, m.status
+    from 
+    	map_address m 
+    where 
+    	m.status > 0 and m.user_id = #{arg0} and m.address_type = #{arg1}
+    	<if test="arg2 != null and arg2 !=''">
+    		and m.address like concat('%', #{arg2}, '%')
+    	</if>
+    order by DATE_FORMAT(m.modify_time, '%Y-%m-%d') desc, m.address
+  </select>
+  <update id="packageCount">
+  	update map_address set package_count = #{arg1} where id = #{arg0}
+  </update>
+   <insert id="inserts" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="long" keyProperty="id" order="AFTER">  
+	        SELECT  
+	        LAST_INSERT_ID()  
+	    </selectKey>  
+	    insert into map_address (address, format_address, address_type, package_count, latitude, longitude, remark, user_id, modify_time, `status`)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.address},#{item.formatAddress},#{item.addressType},#{item.packageCount},#{item.latitude},#{item.longitude},#{item.remark},#{item.userId},#{item.modifyTime},#{item.status})  
+	    </foreach>  
+	</insert> 
+	
+	<delete id="deletes" parameterType="java.util.List">  
+	    update map_address set `status` = 0
+	    where id in 
+	    <foreach item="id" collection="list" open="(" close=")" separator=",">  
+	        #{id}  
+	    </foreach>  
+	</delete>
+	<insert id="saveAddressByCopy">  
+	    INSERT INTO `map_address` (
+			`copy_id`, `address`, `format_address`, `address_type`, `package_count`, `latitude`, `longitude`, `remark`, `status`, `user_id`, `modify_time`
+		) 
+		SELECT
+			`id`, `address`, `format_address`, `address_type`, `package_count`, `latitude`, `longitude`, `remark`, `status`, #{arg0}, now()
+		FROM `map_address` WHERE `id` IN
+	    <foreach item="id" collection="arg1" open="(" close=")" separator=",">  
+	        #{id}  
+	    </foreach>
+	    AND (
+	    	(`id` NOT IN (SELECT `copy_id` FROM `map_address` WHERE `user_id` = #{arg0} AND `copy_id` > 0 AND `status` > 0))
+	    	AND
+	    	(`id` NOT IN (SELECT `id` FROM `map_address` WHERE `user_id` = #{arg0} AND `status` > 0))
+	    )
+	</insert> 
+</mapper>

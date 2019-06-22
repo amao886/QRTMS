@@ -1,0 +1,99 @@
+body{
+	color:#333;
+}
+.addressCheck{
+	margin-bottom: 80px;
+}
+/*标题部分*/
+.addressCheck .title{
+	margin-bottom: 10px;
+	padding:6px 15px;
+	font-size:16px;
+	background: #fff;
+}
+/*地址部分*/
+.addressCheck .content-item{
+	padding-left:10px;
+	background:#fff;
+	border-bottom: 1px solid #d9d9d9;
+	-webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;	
+}
+.addressCheck .content-item .weui-flex__item{
+	padding-right:10px;	
+}
+.addressCheck .content-item .weui-flex__item p{
+	padding:15px 0;
+	width:100%;
+	font-size:15px;
+	word-break : break-all;
+	word-wrap:break-word;
+}
+.addressCheck .content-item .input-item{
+	padding:15px 0;
+	width:100%;
+	font-size: 15px;
+	resize:none;
+	background:#daeffd;
+	display: none;
+}
+.addressCheck .content-item .fixed-width{
+	width:80px;
+	font-size: 0;
+}
+.addressCheck .content-item .fixed-width i{
+	display: inline-block;
+	padding:15px 0;
+	width:40px;
+	text-align: center;
+	font-size:24px;	
+}
+
+/*底部导航*/
+.address-bottom{
+	display: none;
+}
+.address-bottom.weui-footer_fixed-bottom{
+	bottom: 0;
+}
+.address-bottom a{
+	display: block;
+	padding:10px 0;
+	color:#636363;
+	background:#fff;	
+}
+.address-bottom .address-link i{
+	font-size:20px;
+}
+.address-bottom .address-link p{
+	font-size:14px;
+}
+/*.address-bottom .add-address{
+	color:#02afff;
+}
+.address-bottom .map{
+	color:#ff7f00;
+}*/
+
+/*正在加载*/
+.address-load{
+	position:fixed;
+	top:0;
+	right:0;
+	bottom: 0;
+	left:0;
+	background: rgba(0,0,0,0.4);
+	z-index: 10;
+	display: none;
+}
+.address-load .weui-loading{
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin-top:-20px;
+	margin-left:-20px;
+	width:40px;
+	height:40px;
+	color:#fff;
+}

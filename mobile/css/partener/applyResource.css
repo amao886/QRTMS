@@ -1,0 +1,17 @@
+.margin-top{margin-top:0;}
+.weui-cell{background-color:#fff;}
+.weui-select{height: 1.41176471em;line-height: 1.41176471;}
+
+/*资源申请状态*/
+.apply_status{color:#F43530;font-size:15px;margin-top:0;padding:10px 0;}
+.apply_status.weui-cells:before{border-top:none;} 
+.apply_status a{color:#F43530;}
+
+.qrImg{max-width: 100%;}
+.infoCon{padding:10px 20px 30px 15%; }
+.infoCon div{ padding-top: 20px; vertical-align: middle;font-size:24px;}
+.infoCon div img{width: 40px; margin-right:20px;vertical-align: middle;}
+.infoCon div a{ color: #02afff;}
+
+.infoBox{height:100%;}
+.codeInfo{width:100%;text-align: center; position: absolute; bottom:70px; left:0;    font-size: 14px;}

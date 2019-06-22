@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.ycg.ksh</groupId>
+    <artifactId>service</artifactId>
+    <version>5.0.8-SNAPSHOT</version>
+  </parent>
+  <artifactId>service-api</artifactId>
+  <description>核心逻辑接口</description>
+  	<dependencies>
+		<dependency>
+			<groupId>com.ycg.ksh</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.ycg.ksh</groupId>
+			<artifactId>entity</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>javax.persistence</groupId>
+		    <artifactId>persistence-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ycg.ksh</groupId>
+			<artifactId>adapter-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+</project>

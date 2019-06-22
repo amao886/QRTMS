@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.ProjectGroupMemberMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.ProjectGroupMember">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="groupid" jdbcType="INTEGER" property="groupid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="include_column">
+  	gm.id, gm.userid, gm.groupid, gm.createtime, gm.status
+  </sql>
+  <select id="get" resultMap="BaseResultMap">
+  	SELECT 
+ 		<include refid="include_column"/>
+ 	FROM group_members_tab gm WHERE gm.groupid=#{arg0} AND gm.userid=#{arg1} AND gm.status = 10
+  </select>
+  <select id="isMember" resultType="java.lang.Integer">
+  	SELECT COUNT(id) FROM group_members_tab WHERE groupid=#{arg0} AND userid=#{arg1} AND status = 10
+  </select>
+</mapper>

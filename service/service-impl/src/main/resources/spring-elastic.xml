@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:elasticsearch="http://www.springframework.org/schema/data/elasticsearch"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/data/elasticsearch http://www.springframework.org/schema/data/elasticsearch/spring-elasticsearch.xsd
+       http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-2.0.xsd">
+
+    <description>搜索相关配置</description>
+
+    <elasticsearch:repositories base-package="com.ycg.ksh.service.core.repositories" elasticsearch-template-ref="ksh.elastic.search.template"/>
+    <elasticsearch:transport-client id="elastic.search.client" cluster-nodes="${elasticsearch.cluster.nodes}" cluster-name="${elasticsearch.cluster.name}" client-transport-sniff="false"/>
+    <bean id="ksh.elastic.search.template" class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
+        <constructor-arg ref="elastic.search.client" />
+    </bean>
+
+    <!--rabbitmq配置开始-->
+    <!--连接工厂-->
+    <rabbit:connection-factory id="rabbit.connection.factory"
+                               virtual-host="${rabbitmq.vhost}"
+                               addresses="${rabbitmq.addresses}"
+                               username="${rabbitmq.username}"
+                               password="${rabbitmq.password}"
+                               publisher-confirms="true"
+                               publisher-returns="true"/>
+
+    <!-- 定义admin,producer中的exchange,queue会自动的利用该admin自动在spring中生成 -->
+    <rabbit:admin id="rabbit.admin" connection-factory="rabbit.connection.factory"/>
+    <!--消息转换 -->
+    <bean id="rabiit.message.converter.jackson2Json" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter"/>
+    <!--创建队列-->
+    <rabbit:queue name="qianlima.internal.search.queue"/>
+    <!--接收信息-->
+    <bean id="qianlima.transport.queue.listenter" class="com.ycg.ksh.service.core.repositories.listenter.ModifyDataListenter">
+        <property name="messageConverter" ref="rabiit.message.converter.jackson2Json"/>
+    </bean>
+    <rabbit:listener-container connection-factory="rabbit.connection.factory" prefetch="1" acknowledge="auto">
+        <rabbit:listener queues="qianlima.internal.search.queue" ref="qianlima.transport.queue.listenter"/>
+    </rabbit:listener-container>
+    <!--rabbitmq配置结束-->
+
+</beans>

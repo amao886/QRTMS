@@ -1,0 +1,64 @@
+.demos-content-padded {
+    padding: 20px 0 30px;
+}
+
+.chooseStyle p {
+	color: #333333;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 15px;
+}
+
+.personSignature{
+	text-align:center
+}
+
+.personSignatureTable{
+	width: 90%;
+	margin: auto;
+}
+
+.personSignatureFontPic {
+	max-width: 100%;
+}
+
+.personSignatureFontName {
+	color: #999999;
+	padding-top: 6px;
+}
+
+.personSignatureFontNameSelected {
+	color: #333333;
+}
+
+.showSignature{
+	margin-top: 80px;
+    text-align: center;
+}
+
+/*覆盖框架原样式*/
+.weui-btn_primary {
+	width: 90%;
+	height: 44px;
+	line-height: 44px;
+	border-radius: 4px;
+	background: #0071FE;
+	font-size: 15px;
+}
+
+.weui-btn:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}
+
+.weui-vcode-btn {
+	border-left: 1px solid #DDDDDD;
+	color: #0071FE;
+}
+
+.weui-vcode-btn:active {
+	color: #0059C7;
+}

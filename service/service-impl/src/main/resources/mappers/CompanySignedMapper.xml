@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.CompanySignedMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.CompanySigned">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="COMPANY_ID" jdbcType="BIGINT" property="companyId"/>
+        <result column="SIGN_TOTAL" jdbcType="INTEGER" property="signTotal"/>
+        <result column="SIGN_USED" jdbcType="INTEGER" property="signUsed"/>
+    </resultMap>
+
+<select id="selectCompanySignByCompanyIds" resultMap="BaseResultMap">
+    select * from T_COMPANY_SIGNED
+    <where>
+        <foreach collection="companyids" open=" and COMPANY_ID in(" close=")"
+                 item="companyId" separator=",">
+            #{companyId}
+        </foreach>
+    </where>
+</select>
+    <update id="updateCompanySignNum">
+        UPDATE T_COMPANY_SIGNED
+        SET SIGN_TOTAL = SIGN_TOTAL + #{presentNum}
+        where ID = #{id}
+    </update>
+</mapper>

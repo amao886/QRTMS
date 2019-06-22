@@ -1,0 +1,33 @@
+ /*cityselect*/	
+ .manage-wrapper{position: relative;}
+  .ui-input { height: 16px; line-height: 16px; border: 1px solid #d7d7d7; color: #555; vertical-align: middle; outline: none; }
+  .ui-input-ph { color: #999;font-family:微软雅黑; }
+  .ui-input-dis{ background: #f0f0f0; color: #999; }
+  .ui-input-dis:hover{border-color:#ddd;box-shadow:none;}
+  .dizhi { width:100%; /*height:123px;*/ float:left; margin:10px 0;}
+  .dizhi .dizhi_s { width:503px; /*height:123px;*/ border:1px solid #ddd; background:#fffbff; float:left;}
+  .dizhi .dizhi_s .dizhi_s_1 { padding:10px 0px 0px; height:30px;}
+  .dizhi .dizhi_s .dizhi_s_1 .dizhi_s_1_1 { width:203px; /*height:30px;*/ float:left;}
+  .dizhi .dizhi_s .dizhi_s_1 .dizhi_s_1_1 b { width:80px; text-align:right; float:left; line-height:28px;}
+  .dizhi .dizhi_s .dizhi_s_1 .dizhi_s_1_1 .ui-search { float:left; width:155px;}
+  .dizhi .dizhi_s .dizhi_s_2 { padding:5px 10px 5px; height:30px;}
+  .dizhi .dizhi_s .dizhi_s_2 .dizhi_s_2_1 { /*height:30px;*/ float:left;}
+  .dizhi .dizhi_s .dizhi_s_2 .dizhi_s_2_1 b { width:70px; text-align:right; float:left; line-height:28px;}
+  .dizhi .dizhi_s .dizhi_s_2 .dizhi_s_2_1 .ui-search { float:left; width:155px;}
+  .dizhi .dizhi_s .dizhi_s_2 .dizhi_s_2_1 .dizhi_city { cursor:pointer; color:#999 ; text-align:left;}
+  .dizhi_city{ cursor:pointer; text-align:left;}
+  .dizhi .dizhi_s .dizhi_s_2 .dizhi_s_2_1 .dizhi_city:hover { border:1px solid #D7D7D7;}
+  .dizhi_t {left:0;top:43px; width:286px; height:-234px; background:#fff; border:1px solid #D1D1D1;position:absolute;z-index:1000;display:none;font-size: 12px;line-height: 19px;color:rgb(102, 102, 102);}
+  .dizhi_t .dizhi_t_1{ width:210px; height:22px;border-bottom:1px solid #D1D1D1; margin:0 auto;}
+  .dizhi_t .dizhi_t_1 p { cursor:pointer;width:70px; height:22px; float:left; font-weight:bold; color:#666; text-align:center;}
+  .dizhi_t .dizhi_t_1 .hover { cursor:pointer;background:#FFF;  color:#3989da;width:68px; border-bottom:1px solid #1f84e7;}
+  .dizhi_t .dizhi_t_2 { width:286px; height:auto; float:left;}
+  .dizhi_t .dizhi_t_2 .dizhi_t_2_1 { width:38px; height:30px; float:left; text-align:center;color:#3989da; cursor:pointer; line-height:30px}
+  .dizhi_t .dizhi_t_2 .dizhi_t_2_2 { width:248px; height:auto; float:left;}
+  .dizhi_t .dizhi_t_2 .dizhi_t_2_2 p{white-space:nowrap; font-size: 12px;width:40px; height:30px;float:left; cursor:pointer;line-height:30px;margin-bottom: 0px;}
+  .dizhi_t .dizhi_t_2 .dizhi_t_2_2 p:hover { color:#3989da;background:#fbfbfb;}	
+  .cityFont{color:#3989da;font-weight:bold;padding:10px 10px; font-size:14px;}	
+  
+.dizhi_t p{float:left;cursor:pointer;}
+.dizhi_t_1 p:last-child{display:none}
+.dizhi_t_1 p+p+p+p{display:none}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.BehaviorDifferentiationMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.BehaviorDifferentiation">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="uri_key" jdbcType="VARCHAR" property="uriKey"/>
+        <result column="app_type" jdbcType="VARCHAR" property="appType"/>
+        <result column="function_point" jdbcType="VARCHAR" property="functionPoint"/>
+        <result column="subordinate_module" jdbcType="VARCHAR" property="subordinateModule"/>
+    </resultMap>
+
+    <select id="behaviorTotalPage" resultType="com.ycg.ksh.entity.service.MergeBehaviorTotal"
+            parameterType="com.ycg.ksh.entity.service.MergeBehaviorTotal">
+        SELECT
+        b.function_point as functionPoint ,a.date_time as dateTime ,a.uri_key as uriKey,
+        a.user_key as userKey
+        FROM
+        sys_request_serial a,
+        behavior_differentiation b
+        WHERE
+        a.uri_key = b.uri_key
+
+        <if test="appType !=null and appType !=''">
+            and a.app_type = #{appType}
+        </if>
+        GROUP BY
+        b.function_point
+    </select>
+
+    <select id="queryTotalbyDate" parameterType="java.lang.String" resultType="map">
+        select ifnull(d.count,0) as count
+        from (
+        SELECT curdate() as click_date
+        union all
+        SELECT date_sub(curdate(), interval 1 day) as click_date
+        union all
+        SELECT date_sub(curdate(), interval 2 day) as click_date
+        union all
+        SELECT date_sub(curdate(), interval 3 day) as click_date
+        union all
+        SELECT date_sub(curdate(), interval 4 day) as click_date
+        union all
+        SELECT date_sub(curdate(), interval 5 day) as click_date
+        union all
+        SELECT date_sub(curdate(), interval 6 day) as click_date
+        ) a left join (
+        select date(b.date_time) as datetime, count(b.id) as count,b.uri_key as urikey
+        from sys_request_serial b, behavior_differentiation c
+        WHERE b.uri_key = c.uri_key and c.uri_key = #{uriKey}
+        group by date(b.date_time)
+        ) d on a.click_date = d.datetime ;
+    </select>
+
+    <select id="queryUserbehavior" resultType="com.ycg.ksh.entity.service.MergeBehaviorTotal"
+            parameterType="com.ycg.ksh.entity.service.MergeBehaviorTotal">
+        SELECT
+        b.function_point as functionPoint,
+        b.subordinate_module as subordinateModule,
+        a.app_type as appType,
+        a.date_time as dateTime,
+        a.user_key as userKey,
+        c.mobilephone
+        FROM
+        sys_request_serial a,
+        behavior_differentiation b,
+        user_tab c
+        WHERE
+        a.uri_key = b.uri_key
+        AND c.id = a.user_key
+        <if test="appType!=null and appType!=''">
+            AND a.app_type = #{appType}
+        </if>
+        <if test="groupId!=null and groupId !=''">
+            AND a.user_key IN (SELECT userid FROM group_members_tab where groupid = #{groupId})
+        </if>
+        <if test="likeString!=null and likeString!=''">
+            AND (
+            (LOCATE(#{likeString}, b.subordinate_module) > 0) OR
+            (LOCATE(#{likeString}, b.function_point) > 0) OR
+            (LOCATE(#{likeString},a.user_key)>0)
+            )
+        </if>
+        <if test="startTime != null and startTime !=''">
+            <![CDATA[AND DATE_FORMAT(a.date_time, '%Y-%m-%d')>= #{startTime,jdbcType=VARCHAR}]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <![CDATA[AND DATE_FORMAT(a.date_time, '%Y-%m-%d')<= #{endTime,jdbcType=VARCHAR} ]]>
+        </if>
+        ORDER BY a.date_time desc
+    </select>
+</mapper>

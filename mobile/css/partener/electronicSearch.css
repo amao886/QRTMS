@@ -1,0 +1,178 @@
+.vue-page{font-size:15px;color:#333;}
+.eleSearch-wrapper{margin-bottom: 100px;}
+.searchTab{margin-bottom:10px;padding:12px;background:#fff;align-items: center;-webkit-align-items: center;}
+.searchTab .searchIcon{width:40px;padding-left:0;padding-right:0;height:auto;}
+.searchSelect{padding:0 5px;}
+.searchSelect > input[type=text]{padding:7px 0;width:100%;height:auto;text-align: center;font-size:14px;}
+.weui-search-bar__box .weui-icon-search{
+	left: 9px;
+    line-height: 34px;
+    bottom: 0;
+    font-size: 16px;
+}
+.searchInput{
+	margin-top:10px;
+	padding-left:0px;
+	border: 1px solid #ddd;
+    border-radius: 3px;
+    display: none;
+}
+.searchInput>input[type=text]{
+	padding: 7px 16px 7px 0px;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    box-sizing: border-box;
+    text-indent: 6px;
+}
+.weui-search-bar__box .weui-icon-clear{right:0px;bottom:0;left:auto;font-size:16px;}
+.searchSelect.active{border-bottom: 1px solid #31acfa;color:#31acfa;}
+/*回单详情*/
+.receipt-detail{
+	position:relative;
+	margin-bottom: 12px;
+	padding: 10px 12px;
+	background:#fff;
+}
+.receipt-detail .left-title{
+	overflow: hidden;
+	text-align: center;
+	width:4.5em;
+}
+.receipt-detail .left-title>span{display: block;}
+.receipt-detail .left-title .w3{
+	letter-spacing: 0.5em;
+	margin-right:-0.5em;
+}
+.receipt-detail .left-title .w2{
+	letter-spacing: 2em;
+	margin-right:-2em;
+}
+.receipt-detail .weui-flex{position:relative;}
+.receipt-detail .weui-flex:before{
+	content:':';
+	position:absolute;
+	top:0px;
+	left:75px;
+	z-index:2;	
+}
+.receipt-detail .weui-flex.paddingTop:before{top:10px;}
+.receipt-detail .weui-flex__item{padding-left:20px;}
+.paddingBottom{padding-bottom: 5px !important;}
+.paddingTop{padding-top: 10px !important;}
+
+/*点击效果*/
+.receipt-detail:active{
+	background:#f9f9f9;
+}
+
+/*送货单号部分样式*/
+.sendOrder-wrapper .weui-flex{
+	padding:12px;
+	background:#fff;
+	margin-bottom: 10px;
+}
+
+/*回单列表页样式*/
+.receiptList .searchTab{padding:0 12px;}
+.signTxt{display: none;}
+.sign-wrap .weui-flex{position:relative;}
+.sign-icon{
+	position:absolute;
+	top:12px;
+	right:15px;
+	line-height:25px;
+    color:#31acfa;
+    text-align: center;
+    font-size: 13px;
+}
+.sign-icon.error{
+	color:#FF5722;
+}
+.receiptList .all,
+.receiptList .choose{
+	flex: 0 0 50px;
+	width:50px;
+}
+.receiptList .searchSelect,
+.receiptList .choose{
+	position:relative;
+	padding:12px 0;
+	text-align: center;
+}
+.receiptList .searchSelect.borderBottom{color:#31acfa;}
+.receiptList .searchSelect.borderBottom:after{
+	border-bottom:2px solid #31acfa;
+}
+.receiptList .chooseCon{
+	position:fixed;
+	top:0;
+	left:100%;
+	bottom:0;
+	width:100%;
+	background:rgba(0,0,0,.3);
+	z-index: 10;
+	transition: all 0.3s;
+}
+.receiptList .chooseCon.show{
+	left:0;
+}
+.chooseBox{
+	position:absolute;
+	top:0;
+	right:0;
+	bottom: 0;
+	width:75%;
+	background:#fff;
+	padding:15px 15px 0;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.receiptList .searchInput{
+	display: block;
+	margin-top:0;
+	height:30px;
+}
+.receiptList .searchInput>input[type=text]{padding:0 10px 0 0;}
+.choosePart{margin-top:20px;}
+.choosePart h2{margin-bottom: 6px;font-size:15px;color:#333;}
+.choosePart>ul{font-size:0;}
+.choosePart>ul>li{
+	position:relative;
+	display: inline-block;
+	vertical-align: top;	
+	margin-bottom: 10px;
+	width:48%;
+	text-align: center;
+	font-size:13px;
+	border:1px solid #ddd;
+	border-radius: 3px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.choosePart>ul>li>label{
+	display: block;
+	padding:2px 0;
+	width:100%;
+	height:100%;
+}
+.choosePart>ul>li>input[type=radio]{
+	position:absolute;
+	top:2px;
+	left:-9999px;	
+}
+.choosePart>ul>li.active{
+	border-color: #31acfa;
+}
+.choosePart>ul>li:nth-of-type(2n){margin-left:4%;}
+.writeSts>ul{display: none;}
+.btnPart{
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:30px;
+	text-align: center;
+}
+.btnPart .weui-btn_mini{padding:0 2.2em;}
+.btnPart .weui-btn_default{margin-top:0;margin-left:20px;}
+.btnPart .weui-btn_default:after{border:1px solid rgba(0,0,0,.2);}

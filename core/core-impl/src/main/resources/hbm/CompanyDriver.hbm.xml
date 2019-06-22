@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ycg.ksh.core.driver.domain.model.CompanyDriver" table="t_company_driver">
+        <id name="identify" column="id" type="java.lang.Long"/>
+        <property name="compaynKey" column="compayn_key" type="java.lang.Long"/>
+        <property name="driverKey" column="driver_key" type="java.lang.Long"/>
+        <property name="name" column="driver_name" type="java.lang.String"/>
+        <property name="phone" column="driver_phone" type="java.lang.String"/>
+        <property name="relationTime" column="relation_time" type="java.time.LocalDateTime"/>
+        <property name="status" column="status" type="java.lang.Integer"/>
+        <set name="cars" cascade="all,delete-orphan" lazy="false">
+            <key column="driver_key"/>
+            <one-to-many class="com.ycg.ksh.core.driver.domain.model.CompanyDriverCar"/>
+        </set>
+        <set name="routes" cascade="all,delete-orphan" lazy="false">
+            <key column="driver_key"/>
+            <one-to-many class="com.ycg.ksh.core.driver.domain.model.CompanyDriverRoute"/>
+        </set>
+    </class>
+
+    <class name="com.ycg.ksh.core.driver.domain.model.CompanyDriverCar" table="t_company_driver_car">
+        <id name="id" type="java.lang.String" column="id"/>
+        <property name="driverKey" column="driver_key" type="java.lang.Long"/>
+        <property name="type" column="car_type" type="java.lang.Integer"/>
+        <property name="length" column="car_length" type="java.lang.Float"/>
+        <property name="loadValue" column="car_load_value" type="java.lang.Float"/>
+        <property name="license" column="car_license" type="java.lang.String"/>
+    </class>
+
+    <class name="com.ycg.ksh.core.driver.domain.model.CompanyDriverRoute" table="t_company_driver_route">
+        <id name="id" type="java.lang.String" column="id"/>
+        <property name="driverKey" column="driver_key" type="java.lang.Long"/>
+        <property name="type" column="route_type" type="java.lang.Integer"/>
+        <property name="start" column="route_start" type="java.lang.String"/>
+        <property name="end" column="route_end" type="java.lang.String"/>
+    </class>
+
+</hibernate-mapping>

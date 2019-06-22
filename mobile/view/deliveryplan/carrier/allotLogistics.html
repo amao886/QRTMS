@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>分配物流商</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/deliveryplan/allotLogistics.css" />
+
+		<style>
+			/*[v-cloak] {
+				display: none !important;
+			}*/
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#FFFFFF;">
+		<div id="allotLogisticsWrapper" v-cloak>
+		<div class="weui-cells weui-cells_form mt0">
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">物流商</label></div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" name="logistics" id="logistics" v-model="logisticsName" :class="{'selectChoosed' : logisticsName != ''}">
+						<option value="">请选择物流商</option>
+						<option v-if="customers != null && customers.length > 0" v-for="customer in customers" :value="customer.key">{{customer.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">联系人</label></div>
+				<div class="weui-cell__bd">
+					<input id="idcardNum" class="weui-input" type="text" placeholder="请输入物流商联系人姓名(选填)" v-model="logisticsContact">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">联系电话</label></div>
+				<div class="weui-cell__bd">
+					<input id="bankcardNum" class="weui-input" type="text" placeholder="请输入物流商联系电话(选填)" v-model="logisticsContactPhoneNum">
+				</div>
+			</div>
+		</div>
+		<div class='demos-content-padded' style="margin-top:50px;">
+			<a href="javascript:;" id="showTooltips" class="weui-btn weui-btn_primary" @click="allot">立即分配</a>
+		</div>
+		</div>
+
+		<script type="text/javascript" src="../../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../../js/deliveryplan/shipper/allotLogistics.js"></script>
+		<script type="text/javascript">
+			//光标显示在value值后面
+			var t = $("#inputfocus").val();
+			$("#inputfocus").val("").focus().val(t);
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ycg.ksh.core.driver.domain.model.InviteAsk" table="t_driver_invite_ask">
+        <id name="inviteKey" column="invite_key" type="java.lang.Long"/>
+        <property name="companyKey" column="company_key" type="java.lang.Long"/>
+        <property name="inviteUserKey" column="invite_user_key" type="java.lang.Integer"/>
+        <property name="inviteUserName" column="invite_user_name" type="java.lang.String"/>
+        <property name="driverKey" column="driver_key" type="java.lang.Long"/>
+        <property name="driverName" column="driver_name" type="java.lang.String"/>
+        <property name="driverPhone" column="driver_phone" type="java.lang.String"/>
+        <property name="inviteTime" column="invite_time" type="java.time.LocalDateTime"/>
+        <property name="handleTime" column="handle_time" type="java.time.LocalDateTime"/>
+        <property name="handleType" column="handle_type" type="java.lang.Integer"/>
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,207 @@
+
+body,
+html {
+	width: 100%;
+	height: 100%;
+}
+.contactList{
+	padding-bottom: 90px;
+}
+/*搜索部分*/
+.searchbox{
+	background:#f5f5f5;
+}
+.searchbox .search-pad{
+	padding:12px;
+}
+.searchbox .show-search{
+	height:28px;
+	border:1px solid #ccc;
+	border-radius: 4px;
+	background:#fff;
+	margin-right:8px;
+}
+.searchbox .show-search>span{
+	display: inline-block;
+	height: 28px;
+	line-height:28px;
+	margin-left:38px;
+	font-size:14px;
+	color:#c2c2c2;	
+}
+.searchbox .weui-icon-search{
+	position: absolute;
+	top:7px;
+	left:8px;
+	font-size:16px;
+	color:#cecece;
+}
+.searchbox .addfriend{
+	width:42px;
+	height:30px;
+	background:url(../../images/peopleAdd.png) no-repeat center;
+	background-size:26px 25px;
+}
+
+/*搜索框部分*/
+.search-bg-box{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	height:100%;
+	background:rgba(0,0,0,.5);
+	z-index: 22;
+	display: none;
+}
+.search-bg-box .top-pad{
+	padding:12px 0;
+	background:#fff;
+}
+.searchbox .search-box-return{
+	width:44px;
+	text-align: center;
+	color:#999;
+	font-size:18px;	
+}
+.task-search-input{
+	padding: 14px 32px 14px 8px;
+    width: 100%;
+    height: 1.42857143em;
+    border: 1px solid #dedede;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.42857143em;
+    box-sizing: border-box;
+    background: #fff;
+    outline: none;
+}
+.task-search-btn{
+	padding:0 12px 0 10px;
+	margin-left:5px;
+}
+.task-search-btn>span{
+	display: block;
+	line-height: 30px;
+	color:#46bf1c;
+	font-size:15px;
+}
+.searchbox .weui-icon-clear{
+	position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 15px;
+    width: 32px;
+    line-height: 30px;
+    text-align: center;
+}
+
+/*通讯录部分*/
+.listbox.pad-top{
+	padding-top:70px;
+}
+#list {
+	font-size: 16px;
+	position: relative;
+	height: 100%;
+}
+
+#list>section {
+	overflow-y: auto;
+	height: 100%;
+}
+
+#list>section>dl>dt {
+	background: #ebebeb;
+    color: #636363;
+    height: 26px;
+    line-height: 26px;
+    padding:0 12px;
+}
+
+#list>section>dl>dd {
+	position: relative;
+	font-size: 14px;
+	color: #333;
+	line-height: 50px;
+	padding:0 30px 0 12px;
+	background:#fff;	
+}
+#list>section>dl>dd .admin-icon{
+	display: inline-block;
+    vertical-align: middle;
+	width: 28px;
+    height: 28px;
+    line-height: 28px;
+    margin-right:10px;
+    background: url(../../images/admin-icon.png) no-repeat center;
+    background-size:28px 28px;
+    border-radius: 50%;
+}
+#list>section>dl>dd:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0px;
+	width: 100%;
+	height: 1px;
+	background-color: #c8c7cc;
+	transform: scaleY(.5);
+	-webkit-transform: scaleY(.5);
+	z-index: 1;
+}
+
+#list>section>dl>dd:last-of-type:after {
+	display: none;
+}
+
+#navBar {
+	position: fixed;
+	width: 26px;
+	/* height: 100%; */
+	right: 0;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	z-index: 9;
+}
+
+#navBar.active {
+	background: rgba(211, 211, 211, .6);
+}
+
+#navBar>a {
+	text-align: center;
+	display: block;
+	text-decoration: none;
+	height: 4.166%;
+	line-height: 100%;
+	color: #333;
+	font-size: 13px;
+}
+
+#prompt {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin: -30px 0 0 -30px;
+	width: 60px;
+	height: 60px;
+	text-align: center;
+	line-height: 60px;
+	font-size: 30px;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 10;
+	display: none;
+	border-radius: 4px;
+}
+
+#prompt.active {
+	display: block;
+}
+.reg-stutas{
+	font-size:12px;
+	color:#8f8f8f;
+}

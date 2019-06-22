@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.OrderCommodityMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.OrderCommodity">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="ORDER_ID" jdbcType="BIGINT" property="orderId" />
+    <result column="COMMODITY_NO" jdbcType="VARCHAR" property="commodityNo" />
+    <result column="COMMODITY_NAME" jdbcType="VARCHAR" property="commodityName" />
+    <result column="COMMODITY_TYPE" jdbcType="VARCHAR" property="commodityType" />
+    <result column="COMMODITY_UNIT" jdbcType="VARCHAR" property="commodityUnit" />
+    <result column="QUANTITY" jdbcType="INTEGER" property="quantity" />
+    <result column="BOX_COUNT" jdbcType="INTEGER" property="boxCount" />
+    <result column="VOLUME" jdbcType="DOUBLE" property="volume" />
+    <result column="WEIGHT" jdbcType="DOUBLE" property="weight" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <!-- 批量插入 -->
+  <insert id="inserts" parameterType="java.util.List">
+    INSERT INTO T_ORDER_COMMODITY
+    (ID, ORDER_ID, COMMODITY_NO, COMMODITY_NAME, COMMODITY_TYPE, COMMODITY_UNIT, QUANTITY, BOX_COUNT, VOLUME, WEIGHT, REMARK, CREATE_USER_ID, CREATE_TIME, UPDATE_TIME)
+    VALUES
+    <foreach collection="list" item="o" index="index" separator=",">
+      (#{o.id}, #{o.orderId}, #{o.commodityNo}, #{o.commodityName}, #{o.commodityType}, #{o.commodityUnit}, #{o.quantity}, #{o.boxCount}, #{o.volume}, #{o.weight}, #{o.remark}, #{o.createUserId}, #{o.createTime}, #{o.updateTime})
+    </foreach>
+  </insert>
+  <delete id="deleteByKeys" parameterType="java.util.List">
+    DELETE FROM T_ORDER_COMMODITY WHERE ID IN
+    <foreach collection="list" item="key" separator="," open="(" close=")">
+      #{key}
+    </foreach>
+  </delete>
+  <select id="listKeyByOrderKey" parameterType="java.lang.Long" resultType="java.lang.Long">
+    SELECT ID FROM T_ORDER_COMMODITY WHERE ORDER_ID = #{orderKey}
+  </select>
+
+
+
+</mapper>

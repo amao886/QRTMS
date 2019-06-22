@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.enterprise.VehicleMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.enterprise.Vehicle">
+        <result column="KEY" jdbcType="BIGINT" property="key"/>
+        <result column="CAR_MODEL" jdbcType="VARCHAR" property="carModel"/>
+        <result column="CAR_LENGTH" jdbcType="DOUBLE" property="carLength"/>
+        <result column="VEHICLE_LOAD" jdbcType="DOUBLE" property="vehicleLoad"/>
+        <result column="VOLUME" jdbcType="DOUBLE" property="volume"/>
+        <result column="TOTAL_LOAD" jdbcType="DOUBLE" property="totalLoad"/>
+        <result column="TOTAL_VOLUME" jdbcType="DOUBLE" property="totalVolume"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="CAR_NO" jdbcType="VARCHAR" property="carNo"/>
+        <result column="DRIVER_NAME" jdbcType="VARCHAR" property="driverName"/>
+        <result column="DRIVER_NUMBER" jdbcType="VARCHAR" property="driverNumber"/>
+        <result column="CAR_STATUS" jdbcType="INTEGER" property="carStatus"/>
+        <result column="CREATE_USER" jdbcType="INTEGER" property="createUser"/>
+        <result column="SHIPPER_ID" jdbcType="BIGINT" property="shipperId"/>
+    </resultMap>
+
+    <resultMap id="ResultAlliance" type="com.ycg.ksh.entity.service.enterprise.VehicleAlliance"
+               extends="BaseResultMap">
+        <association property="designate"
+                     javaType="com.ycg.ksh.entity.persistent.enterprise.VehicleDesignate">
+            <result column="CONTACT" jdbcType="VARCHAR" property="contact"/>
+            <result column="CONTACT_NUMBER" jdbcType="VARCHAR" property="contactNumber"/>
+            <result column="CONVEY_ID" jdbcType="BIGINT" property="conveyId"/>
+            <result column="LAST_COMPANY_KEY" jdbcType="INTEGER" property="lastCompanyKey"/>
+            <result column="V_ID" jdbcType="INTEGER" property="vId"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="ConciseResultMap" type="com.ycg.ksh.entity.service.enterprise.CompanyConcise">
+        <result column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName"/>
+    </resultMap>
+
+    <select id="listNeedCar" parameterType="com.ycg.ksh.entity.service.enterprise.VehicleSearch"
+            resultMap="ResultAlliance">
+        SELECT
+        e.`KEY`,
+        e.CAR_MODEL,
+        e.CAR_LENGTH,
+        e.VEHICLE_LOAD,
+        e.SHIPPER_ID,
+        e.VOLUME,
+        e.TOTAL_LOAD,
+        e.TOTAL_VOLUME,
+        e.CREATE_USER,
+        e.CREATE_TIME,
+        e.CAR_NO,
+        e.DRIVER_NAME,
+        e.DRIVER_NUMBER,
+        e.CAR_STATUS,
+        d.CONTACT,
+        d.CONTACT_NUMBER,
+        d.CONVEY_ID,
+        d.LAST_COMPANY_KEY,
+        d.V_ID
+        FROM
+        T_VEHICLE_DESIGNATE d
+        LEFT JOIN T_VEHICLE e ON e.`KEY` = d.V_ID
+        WHERE
+        (e.SHIPPER_ID = #{companKey} OR d.LAST_COMPANY_KEY = #{companKey})
+        <if test="likeString !=null and likeString !=''">
+            and e.`KEY` = #{likeString}
+        </if>
+        <if test="conveyId !=null and conveyId !=''">
+            and d.CONVEY_ID = #{conveyId}
+        </if>
+    </select>
+
+
+    <select id="listSendCar" parameterType="com.ycg.ksh.entity.service.enterprise.VehicleSearch"
+            resultMap="ResultAlliance">
+        SELECT
+        e.`KEY`,
+        e.CAR_MODEL,
+        e.CAR_LENGTH,
+        e.VEHICLE_LOAD,
+        e.SHIPPER_ID,
+        e.VOLUME,
+        e.TOTAL_LOAD,
+        e.TOTAL_VOLUME,
+        e.CREATE_USER,
+        e.CREATE_TIME,
+        e.CAR_NO,
+        e.DRIVER_NAME,
+        e.DRIVER_NUMBER,
+        e.CAR_STATUS,
+        d.CONTACT,
+        d.CONTACT_NUMBER,
+        d.CONVEY_ID,
+        d.LAST_COMPANY_KEY,
+        d.V_ID
+        FROM
+        T_VEHICLE_DESIGNATE d
+        LEFT JOIN T_VEHICLE e ON e.`KEY` = d.V_ID
+        WHERE
+        1 = 1
+        and d.CONVEY_ID = #{companKey}
+        <if test="lastCompanyKey !=null and lastCompanyKey !=''">
+            and d.LAST_COMPANY_KEY = #{lastCompanyKey}
+        </if>
+        <if test="likeString !=null and likeString !=''">
+            and e.`KEY` = #{likeString}
+        </if>
+        <if test="conveyId !=null and conveyId !=''">
+            and d.CONVEY_ID = #{conveyId}
+        </if>
+    </select>
+
+    <select id="listSource" resultMap="ConciseResultMap" parameterType="java.lang.Long">
+      select distinct c.ID, c.COMPANY_NAME from T_VEHICLE_DESIGNATE d left join T_COMPANY c on d.LAST_COMPANY_KEY = c.ID where d.CONVEY_ID = #{companyId}
+    </select>
+</mapper>

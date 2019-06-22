@@ -1,0 +1,96 @@
+
+/*===每日统计===*/
+body{
+	padding:10px 10px 0;
+	font-size:14px;
+}
+.custom-content{
+	padding:0 15px;
+	background:#fff;
+	/*height:100%;*/
+}
+.col-min{width:10%;}
+.col-xs-min{width:3%;min-width: 40px;}
+.col-middle{width:21%;}
+.col-max{width:34%;}
+
+.text-c{ text-align:center;}
+.text-r{text-align:right;}
+.mt10{margin-top:10px;}
+.mt20{margin-top:20px;}
+
+h2{font-size:24px;}
+h3{font-size:18px;}
+.noList{ margin:15px 0; background:#fafafa;text-align:center; padding:200px;font-size:24px;}
+
+.company{ border:#eee solid 1px; margin-top:20px;padding-bottom: 20px;position:relative;}
+.titCon{ background:#f3f3f3; line-height:30px; padding:10px;}
+.titCon h3,.titCon .openElec{display:inline-block;vertical-align: top;}
+.titCon h3{
+	margin-right:20px;
+	min-height:30px;
+	line-height:30px;
+	padding-left:40px;
+	background:url('../images/company-icon.png') no-repeat left center;
+	background-size:32px 32px;
+}
+.openElec{color: #31acfa;}
+.openElec:hover{color: #31acfa;}
+.addPerson{padding: 20px 20px 0;display: inline-block;color: #31acfa;cursor: pointer;}
+.addPerson:hover{color: #31acfa; text-decoration: underline !important;}
+
+.memberList li{
+	float:left;
+	width:23%;
+	margin-left:2%;
+	margin-top:20px;
+	padding-left:60px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	background:#26a4f4 url("../images/company-people.png") no-repeat 15px center;
+	background-size:32px 32px;
+}
+.memberList li:nth-of-type(1){margin-left:1%;}
+.memberList li:nth-of-type(5n){margin-left:1%;}
+.memberList .fl{float:left;}
+.memberList .fr{float:right;}
+.memberList .listItem{height: 65px; padding:10px 15px 8px 10px; background:#f5f5f5;}
+.memberList .listItem .top p{font-size:15px;}
+.memberList .listItem .bottom{margin-top:4px;}
+.memberList .bottom a{padding:2px 0px;color: #31acfa;cursor: pointer;}
+.memberList .bottom a:last-child{color:#ff2a00;}
+
+/* 签章授权弹出框样式修改 */
+.file_box{position:relative;}
+.model-base-box .file_box>input{width:255px;}
+.file_box>.span-txt{
+	padding: 0 24px;
+	margin-left: 5px;
+	display: inline-block;
+	vertical-align: top;
+	height: 28px;
+	line-height: 28px;
+	color: #fff;
+	border-radius: 3px;
+	background:#31acfa;
+}
+.file_box>a.file{
+	position: absolute;
+	top: 1px;
+	width: 72px;
+	left: 356px;
+	z-index: 22;
+	overflow: hidden;
+}
+.file_box>a.file>input[type=file]{opacity:0;filter:alpha(opacity=0);}
+.templetDownload{padding:2px 10px;color:#31acfa;border:1px solid #31acfa;border-radius: 3px;}
+
+.templetDownload:hover{color:#4db7fa;border-color:#4db7fa;}
+
+/*分页*/
+.page-item{
+	position:absolute;
+	bottom:-60px;
+	left:0;
+}
+.page-item .cur_pointer{cursor:pointer;}

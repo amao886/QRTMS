@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.BarcodeMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.Barcode">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="resourceid" jdbcType="INTEGER" property="resourceid"/>
+        <result column="barcode" jdbcType="VARCHAR" property="barcode"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="bindstatus" jdbcType="INTEGER" property="bindstatus"/>
+        <result column="code_batch" jdbcType="VARCHAR" property="codeBatch"/>
+        <result column="groupid" jdbcType="INTEGER" property="groupid"/>
+        <result column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="company_id" jdbcType="BIGINT" property="companyId"/>
+    </resultMap>
+	
+	<resultMap type="com.ycg.ksh.entity.service.MergeBarcode" id="resultMap" extends="BaseResultMap">
+		<result column="total" jdbcType="INTEGER" property="total"/>
+        <result column="startNum" jdbcType="VARCHAR" property="startNum"/>
+        <result column="endNum" jdbcType="VARCHAR" property="endNum"/>
+        <result column="useNumber" jdbcType="INTEGER" property="useNumber"/>
+        <result column="uname" jdbcType="VARCHAR" property="uname"/>
+	</resultMap>
+	
+    <sql id="include_column">
+    b.id,
+	b.resourceid,
+	b.barcode,
+	b.createtime,
+	b.bindstatus,
+	b.code_batch,
+	b.groupid,
+	b.userid,
+	b.company_id
+  </sql>
+
+    <update id="modifyStatus">
+  	UPDATE barcode_tab SET bindstatus = #{arg1} WHERE barcode = #{arg0}
+  </update>
+    <select id="getByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="include_column"/>
+        FROM
+        barcode_tab b
+        WHERE
+        b.id = ( SELECT MIN(id) FROM barcode_tab WHERE barcode = #{barcode})
+    </select>
+
+    <select id="countByGroup" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+  	<![CDATA[
+
+		SELECT SUM(IF(bindstatus = 10, 1, 0)) AS number, SUM(IF(bindstatus >= 20, 1, 0)) AS useCount, COUNT(*) AS totalNum FROM barcode_tab WHERE groupid = #{groupId}
+
+        ]]>
+  </select>
+    <select id="countByUser" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+  	<![CDATA[
+
+		SELECT SUM(IF(bindstatus = 10, 1, 0)) AS number, SUM(IF(bindstatus >= 20, 1, 0)) AS useCount, COUNT(*) AS totalNum FROM barcode_tab WHERE userid = #{userId}
+
+        ]]>
+  </select>
+
+    <select id="selectLastCode" resultType="java.lang.String">
+  	<![CDATA[
+
+		SELECT MAX(CONVERT(barcode, SIGNED)) FROM barcode_tab WHERE code_batch > 0 AND LENGTH(barcode) = #{arg1} AND DATE_FORMAT(createtime, '%Y-%m-%d') = #{arg0}
+
+        ]]>
+  </select>
+    <insert id="inserts" parameterType="java.util.List">
+        insert into barcode_tab
+        (
+        resourceid,
+        barcode,
+        createtime,
+        bindstatus,
+        code_batch,
+        groupid,
+        userid,
+        company_id
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.resourceid},
+            #{item.barcode},
+            #{item.createtime},
+            #{item.bindstatus},
+            #{item.codeBatch},
+            #{item.groupid},
+            #{item.userid},
+            #{item.companyId}
+            )
+        </foreach>
+    </insert>
+    <select id="listBySomething" resultMap="BaseResultMap"
+            parameterType="com.ycg.ksh.entity.service.BarcodeSearch">
+        SELECT
+        <include refid="include_column"/>
+        FROM
+        barcode_tab b
+        <where>
+            <if test="groupId != null and groupId gt 0">
+                AND b.groupid = #{groupId}
+            </if>
+            <if test="userId != null and userId gt 0">
+                AND b.userid = #{userId}
+            </if>
+            <if test="barcode != null and barcode !=''">
+                AND (LOCATE(#{barcode}, b.barcode) > 0)
+            </if>
+            <if test="codeBatch != null and codeBatch !=''">
+                AND b.code_batch = #{codeBatch}
+            </if>
+            <if test="resourceId != null and resourceId gt 0">
+                AND b.resourceid = #{resourceId}
+            </if>
+            <if test="firstTime != null">
+                <![CDATA[ AND b.createtime >= #{firstTime} ]]>
+            </if>
+            <if test="secondTime != null">
+                <![CDATA[ AND b.createtime <= #{secondTime} ]]>
+            </if>
+            <if test="bindStatus != null">
+                AND b.bindstatus IN
+                <foreach collection="bindStatus" item="fettle" separator="," open="(" close=")">
+                    #{fettle}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY b.barcode
+    </select>
+    <!-- 根据条码号段、公司查询所属企业条码 -->
+    <select id="queryBarcodeToCompany" resultMap="resultMap"
+            parameterType="com.ycg.ksh.entity.service.MergeBarcode">
+        SELECT
+			b.company_id,
+			b.resourceid,
+			b.createtime,
+			MIN(b.barcode) as startNum,
+			MAX(b.barcode) as endNum,
+			count(b.id) as total,
+			(SELECT COUNT(m.id) from barcode_tab as m where m.resourceid = b.resourceid and m.bindstatus > 10) as useNumber,
+			u.uname as uname,
+			c.company_name as companyName
+		FROM
+			barcode_tab as b,
+			user_tab as u,
+			T_COMPANY as c
+		WHERE
+			b.userid = u.id
+		AND
+		    b.company_id = c.ID
+         <if test="companyId != null and companyId gt 0">
+                AND b.company_id = #{companyId}
+         </if>
+         <if test="companyIds != null">
+         	AND b.company_id IN	
+         	<foreach collection="companyIds" item="companyid" separator="," open="(" close=")">
+                    #{companyid}
+            </foreach>
+         </if>
+         <!-- <if test="startNum != null and startNum != ''">
+			 	AND b.barcode &gt;= #{startNum}
+			 </if>
+		 <if test="endNum != null and endNum != ''">
+			 	AND b.barcode &lt;= #{endNum}
+		 </if>  -->  
+        GROUP BY
+			b.resourceid,
+			b.company_id
+		
+        ORDER BY b.createtime DESC
+    </select>
+    <select id="barcodeListByResId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        select
+        <include refid="include_column"/>
+        from barcode_tab b where resourceid = #{resId}
+    </select>
+
+    <update id="updateStatusById" parameterType="com.ycg.ksh.entity.persistent.Barcode">
+        update barcode_tab
+        set bindstatus = #{bindstatus,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

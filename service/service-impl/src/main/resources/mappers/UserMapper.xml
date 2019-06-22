@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.UserMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="openid" jdbcType="VARCHAR" property="openid"/>
+        <result column="mobilephone" jdbcType="VARCHAR" property="mobilephone"/>
+        <result column="uname" jdbcType="VARCHAR" property="uname"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="head_img" jdbcType="VARCHAR" property="headImg"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, username, password, openid, mobilephone, uname, createtime, updatetime, remark, head_img
+  	</sql>
+    <select id="loadUserByMobile" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        user_tab AS u
+        WHERE
+        u.id = ( SELECT MIN(id) FROM user_tab WHERE mobilephone = #{mobile})
+    </select>
+    <select id="loadUserByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        user_tab AS u
+        WHERE
+        u.id = ( SELECT MIN(id) FROM user_tab WHERE username = #{openId})
+    </select>
+
+    <select id="loadUserByUnionId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        user_tab AS u
+        WHERE
+        u.id = ( SELECT MIN(id) FROM user_tab WHERE openid = #{unionId})
+    </select>
+
+    <select id="countByMobile" resultType="int" parameterType="java.lang.String">
+          select count(id) from user_tab where mobilephone =  #{mobile}
+    </select>
+    
+    <select id="modifySubscribe">
+         update user_tab set password = #{arg1} WHERE username = #{arg0}
+    </select>
+</mapper>

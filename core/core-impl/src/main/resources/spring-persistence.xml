@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<description>持久化相关配置</description>
+
+	<bean id="data.source.druid.logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+		<property name="statementExecutableSqlLogEnable" value="false" />
+	</bean>
+
+	<!-- 数据库连接池 -->
+	<bean id="data.source.db-core" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<!-- 数据库基本信息配置 -->
+		<property name="url" value="${data.source.jdbc.url}" />
+		<property name="username" value="${data.source.jdbc.username}" />
+		<property name="password" value="${data.source.jdbc.password}" />
+		<property name="driverClassName" value="${data.source.jdbc.driver}" />
+		<!-- 最大并发连接数 -->
+		<property name="maxActive" value="${data.source.jdbc.maxActive}" />
+		<!-- 初始化连接数量 -->
+		<property name="initialSize" value="${data.source.jdbc.initialSize}" />
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="${data.source.jdbc.maxWait}" />
+		<!-- 最小空闲连接数 -->
+		<property name="minIdle" value="${data.source.jdbc.minIdle}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="proxyFilters">
+			<list>
+				<ref bean="data.source.druid.logFilter" />
+			</list>
+		</property>
+	</bean>
+
+	<!--  创建SqlSessionFactory，同时指定数据源 -->
+	<bean id="sql.session.factory.db-core" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- 注入数据源 -->
+		<property name="dataSource" ref="data.source.db-core" />
+		<!-- hibernate映射关系 -->
+		<property name="mappingLocations" value="classpath:hbm/*.hbm.xml"/>
+		<!-- hibernate配置信息 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<!-- 是否使用注释  -->
+				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<!-- 开启二级缓存 ehcache -->
+				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 配置Hibernate事务管理器 -->
+	<bean id="tx.db-core" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sql.session.factory.db-core" />
+	</bean>
+	<!--配置事务注解-->
+	<tx:annotation-driven transaction-manager="tx.db-core"/>
+
+	<bean class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="data.source.db-core"/>
+	</bean>
+</beans>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>历史装卸记录</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="Keywords" content="合同物流管理平台运输管理平台">
+	<meta name="Description" content="合同物流管理平台运输管理平台">
+	<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/partener/loadHistory.css" />
+
+</head>
+
+<body ontouchstart style="background:#fafafa;">
+	<div class="check-task-search">
+		<div class="weui-flex">
+			<div class="weui-flex__item relative">
+				<i class="weui-icon-search"></i>
+				<input class="task-search-input" type="text" name="" id="searchData" placeholder="二维码号/送货单号" />
+				<a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+			</div>
+			<div class="task-search-btn">
+				<a href="javascript:;" class="weui-btn-search weui-btn_mini weui-btn_primary" id="search-btn">搜索</a>
+			</div>
+		</div>	
+	</div>
+	
+	<div class="goods-list-con">
+		<!--循环内容放置处-->
+		
+	</div>
+	<!--下拉刷新-->
+	<div class="weui-loadmore">
+	    <i class="weui-loading"></i>
+	    <span class="weui-loadmore__tips">正在加载</span>
+	</div>		
+	
+	<!--底部导航-->
+    <div id="navBarIn"></div>
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+<script type="text/x-jsrender" id="loadGoodsList">
+<div class="weui-panel weui-panel_access">
+    <div class="weui-panel__hd">二维码号：{{:barcode}}</div>
+    <div class="weui-panel__bd">
+    	<a class="weui-media-box weui-media-box_appmsg">
+	        <div class="weui-media-box__bd">
+		        <p class="weui-media-box__desc">送货单号：
+		        	<span>{{:~ifNull(deliveryNumber)}}</span>
+		        </p>
+		        <p class="weui-media-box__desc">收货联系人：
+		        	<span>{{:~ifNull(contactName)}}</span>
+		        	<span class="ml10">{{:~ifNull(contactNumber)}}</span>
+		        </p>
+		        <p class="weui-media-box__desc">收货地址：
+		        	<span>{{:~ifNull(receiveAddress)}}</span>
+		        </p>
+		        <p class="weui-media-box__desc fontS weui-flex">
+		        	<span class="weui-flex__item">装货时间：{{:~dateFormatCommon(loadTime,2)}}</span>
+		        	<span>卸货时间：{{:~dateFormatCommon(unloadTime,2)}}</span>
+		        </p>
+		        <p class="weui-media-box__desc fontS">卸货人：
+		        	<span>{{:~ifNull(unloader.unamezn)}}</span>
+		        </p>
+		    </div>
+       </a>
+    </div>
+</div>
+</script>
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../lib/layer/layer.js"></script>
+<script type="text/javascript" src="../../js/partener/loadHistory.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+#driverManage {
+	padding: 10px 5px;
+}
+
+.search {
+	display: flex;
+	margin-top: 10px;
+}
+
+.carModel {
+	flex: 2;
+	margin: 0 5px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	height: 32px;
+	outline: none;
+	font-size: 14px;
+	text-indent: 5px;
+}
+
+.search input {
+	flex: 8;
+	height: 30px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.search a {
+	flex: 2;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color: #169BD5;
+	border: 1px solid #169BD5;
+	color: #fff;
+	margin-left: 10px;
+	border-radius: 5px;
+}
+
+.driverList ul li {
+	list-style: none;
+	background-color: #FFFFFF;
+	margin-top: 10px;
+}
+
+.top .headImg,
+.top .topRight {
+	float: left;
+}
+
+.top {
+	display: flex;
+}
+
+.top .headImg {
+	flex: 2;
+	height: 80px;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+
+.top .headImg img {
+	width: 60px;
+	height: 60px;
+}
+
+.top .topRight {
+	flex: 8;
+	position: relative;
+}
+
+.topRight .releaseName {
+	margin-top: 10px;
+}
+
+.topRight .releaseTime {
+	color: #999;
+	font-size: 14px;
+}
+
+.topRight .right-info {
+	color: #999;
+	font-size: 14px;
+	margin-top: 10px;
+}
+
+.topRight .m10 {
+	margin-right: 10px;
+	display: inline-block;
+}
+
+.content {
+	padding-left: 10px;
+}
+
+.showPhoneIcon {
+	width: 20px;
+	max-width: 100%;
+	position: absolute;
+	right: 20px;
+	bottom: 30px;
+}

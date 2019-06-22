@@ -1,0 +1,61 @@
+.eleSearch-wrapper{margin-bottom: 100px;}
+.searchTab{margin-bottom:15px;background:#fff;}
+.searchTab .weui-label{width:42px;}
+
+/*回单详情*/
+.receipt-detail{
+	position:relative;
+	margin-bottom: 12px;
+	padding: 10px 12px;
+	background:#fff;
+}
+.receipt-detail .left-title{
+	overflow: hidden;
+	text-align: center;
+	width:4.5em;
+}
+.receipt-detail .left-title>span{display: block;}
+.receipt-detail .left-title .w3{
+	letter-spacing: 0.5em;
+	margin-right:-0.5em;
+}
+.receipt-detail .left-title .w2{
+	letter-spacing: 2em;
+	margin-right:-2em;
+}
+.receipt-detail .weui-flex{position:relative;}
+.receipt-detail .weui-flex:before{
+	content:':';
+	position:absolute;
+	top:0px;
+	left:75px;
+	z-index:2;	
+}
+.receipt-detail .weui-flex__item{padding-left:20px;}
+
+
+/*点击效果*/
+.receipt-detail:active{
+	background:#f9f9f9;
+}
+
+/*送货单号部分样式*/
+.sendOrder-wrapper .weui-flex{
+	padding:12px;
+	background:#fff;
+	margin-bottom: 10px;
+}
+/*九阳绑单页样式*/
+.bindNineCode .weui-search-bar{padding:0;}
+.bindNineCode .searchTab{margin-bottom:5px;padding:10px 12px;background:transparent;}
+.bindNineCode .searchTab .weui-btn_mini{vertical-align: top;}
+.bindNineCode .weui-search-bar__box{background:#fff;}
+.weui-flex__item_Btn{padding-left:10px;}
+
+/*发货回单搜索按钮*/
+.searchTabTime{padding:12px;align-items: center;}
+.searchTabTime .weui-cell{padding:0;}
+.searchTabTime .sureBtn{
+	flex: 0 0 54px;
+}
+.searchTabTime .sureBtn .weui-btn{padding: 0 1em;vertical-align: top;}

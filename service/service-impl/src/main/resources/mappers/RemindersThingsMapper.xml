@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.RemindersThingsMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.RemindersThings">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="conveyance_id" jdbcType="INTEGER" property="conveyanceId"/>
+        <result column="msg_type" jdbcType="INTEGER" property="msgType"/>
+        <result column="processing_status" jdbcType="INTEGER" property="processingStatus"/>
+        <result column="sendkey" jdbcType="INTEGER" property="sendkey"/>
+        <result column="parent_news_id" jdbcType="INTEGER" property="parentNewsId"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="msg_remark" jdbcType="VARCHAR" property="msgRemark"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="MergeResultMap" type="com.ycg.ksh.entity.service.MergeRemindersThings" extends="BaseResultMap">
+        <result column="waybill_key" jdbcType="INTEGER" property="waybillKey"/>
+        <result column="barcode" jdbcType="VARCHAR" property="barcode"/>
+        <result column="delivery_number" jdbcType="VARCHAR" property="deliveryNumber"/>
+        <result column="address" jdbcType="VARCHAR" property="loaction"/>
+        <result column="conveyance_number" jdbcType="VARCHAR" property="conveyanceNumber"/>
+        <result column="owner_key" jdbcType="INTEGER" property="ownerKey"/>
+        <result column="owner_group_key" jdbcType="INTEGER" property="groupKey"/>
+        <result column="have_child" jdbcType="BIT" property="haveChild"/>
+    </resultMap>
+
+    <select id="queryTodos" resultMap="MergeResultMap">
+        SELECT a.*, b.waybill_key, b.barcode, b.delivery_number, b.owner_key, b.conveyance_number, b.owner_group_key, b.have_child FROM reminders_things_tab a, (
+            SELECT a.* FROM conveyance_tab a WHERE (a.owner_group_key IN (
+                SELECT groupid FROM group_members_tab WHERE userid =#{arg0}
+            ) OR owner_key = #{arg0}) AND a.conveyance_fettle > 0
+        ) b
+        WHERE a.conveyance_id = b.id AND a.processing_status &lt;= 1 ORDER BY a.createtime DESC
+        <if test="arg1 != null and arg1 gt 0">
+            LIMIT #{arg1}
+        </if>
+    </select>
+
+    <select id="queryFollows" resultMap="MergeResultMap">
+        SELECT
+            a.*,
+            b.waybill_key,
+            b.barcode,
+            b.delivery_number,
+            b.owner_key,
+            b.conveyance_number,
+            b.owner_group_key,
+            b.have_child
+        FROM
+          reminders_things_tab a LEFT JOIN conveyance_tab b ON a.conveyance_id = b.id
+        WHERE a.sendkey = #{arg0} ORDER BY a.createtime DESC
+        <if test="arg1 != null and arg1 gt 0">
+            LIMIT #{arg1}
+        </if>
+    </select>
+    
+    <select id="listByWaybillKey" resultMap="BaseResultMap">
+        SELECT
+          a.*
+        FROM
+          reminders_things_tab a LEFT JOIN conveyance_tab b ON a.conveyance_id = b.id
+        WHERE
+          b.waybill_key = #{arg0}
+        <if test="arg1 != null">
+            <![CDATA[ AND a.processing_status <= #{arg1} ]]>
+        </if>
+        <if test="arg2 != null and arg2 gt 0">
+            <![CDATA[ AND a.msg_type <= #{arg2} ]]>
+        </if>
+    </select>
+    
+
+    <update id="updateProcessingStatus" parameterType="java.lang.Integer">
+
+        UPDATE  reminders_things_tab  SET  processing_status = 3 where id = #{id}
+
+    </update>
+
+    <select id="getRemindersTypeList" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.persistent.RemindersThings">
+        SELECT
+            conveyance_id,
+            msg_type,
+            MIN(processing_status) as processing_status
+        FROM
+            reminders_things_tab
+        WHERE
+            conveyance_id = #{conveyanceId}
+        AND sendkey = #{sendkey}
+        GROUP BY
+            msg_type
+     </select>
+
+    <select id="listByConveyanceKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        <![CDATA[
+            SELECT * FROM reminders_things_tab WHERE id IN(
+              SELECT MAX(id) FROM reminders_things_tab WHERE (
+                conveyance_id = #{conveyanceKey} OR conveyance_id IN (
+                  SELECT id FROM conveyance_tab WHERE parent_key = #{conveyanceKey}
+                )
+              )
+              AND processing_status < 3 GROUP BY sendkey, conveyance_id, msg_type
+            )
+        ]]>
+    </select>
+
+    <select id="listByParentConveyanceKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        <![CDATA[
+            SELECT * FROM reminders_things_tab WHERE id IN(
+              SELECT MAX(id) FROM reminders_things_tab WHERE conveyance_id IN (
+                SELECT id FROM conveyance_tab WHERE parent_key = #{conveyanceKey}
+              )
+              AND processing_status < 3 GROUP BY sendkey, conveyance_id, msg_type
+            )
+        ]]>
+    </select>
+
+    <select id="listRemindersThingsBySomething" resultMap="MergeResultMap" parameterType="com.ycg.ksh.entity.service.ReminderSearch">
+        SELECT
+          r.*, c.owner_key, c.conveyance_number, c.owner_group_key, c.have_child, c.barcode, c.delivery_number, w.id AS waybill_key, w.address
+        FROM
+          reminders_things_tab r LEFT JOIN conveyance_tab c ON r.conveyance_id = c.id LEFT JOIN waybill_tab w ON c.waybill_key = w.id
+        <where>
+            <choose>
+                <when test="groupKey != null and groupKey gt 0">
+                    AND c.owner_group_key = #{groupKey}
+                </when>
+                <when test="userKey != null and userKey gt 0">
+                    <![CDATA[ AND c.owner_key = #{createKey} AND c.owner_group_key <= 0 ]]>
+                </when>
+            </choose>
+            <if test="sendKey != null and sendKey gt 0">
+                <![CDATA[ AND r.sendkey = #{sendKey} ]]>
+            </if>
+            <if test="msgType != null and msgType gt 0">
+                <![CDATA[ AND r.msg_type = #{msgType} ]]>
+            </if>
+            <if test="firstTime != null">
+                <![CDATA[ AND r.createtime >= #{firstTime} ]]>
+            </if>
+            <if test="secondTime != null">
+                <![CDATA[ AND r.createtime <= #{secondTime} ]]>
+            </if>
+            <if test="fettles != null">
+                AND r.processing_status IN
+                <foreach collection="fettles" item="fettle" separator="," open="(" close=")">
+                    #{fettle}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY r.update_time DESC
+    </select>
+</mapper>

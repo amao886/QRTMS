@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.Order">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="BIND_CODE" jdbcType="VARCHAR" property="bindCode" />
+    <result column="ORDER_NO" jdbcType="VARCHAR" property="orderNo" />
+    <result column="DELIVERY_NO" jdbcType="VARCHAR" property="deliveryNo" />
+    <result column="SHIPPER_ID" jdbcType="BIGINT" property="shipperId" />
+    <result column="RECEIVE_ID" jdbcType="BIGINT" property="receiveId" />
+    <result column="CLIENT_TYPE" jdbcType="INTEGER" property="clientType" />
+    <result column="CONVEY_ID" jdbcType="BIGINT" property="conveyId" />
+    <result column="RECEIVER_NAME" jdbcType="VARCHAR" property="receiverName" />
+    <result column="RECEIVER_CONTACT" jdbcType="VARCHAR" property="receiverContact" />
+    <result column="RECEIVE_ADDRESS" jdbcType="VARCHAR" property="receiveAddress" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="FETTLE" jdbcType="INTEGER" property="fettle" />
+    <result column="SIGN_FETTLE" jdbcType="INTEGER" property="signFettle" />
+    <result column="DELIVERY_TIME" jdbcType="TIMESTAMP" property="deliveryTime" />
+    <result column="RECEIVE_TIME" jdbcType="TIMESTAMP" property="receiveTime" />
+    <result column="ARRIVAL_TIME" jdbcType="TIMESTAMP" property="arrivalTime" />
+    <result column="COLLECT_TIME" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="IS_RECEIPT" jdbcType="INTEGER" property="isReceipt" />
+    <result column="IS_COMPLAINT" jdbcType="TINYINT" property="isComplaint" />
+    <result column="EVALUATION" jdbcType="INTEGER" property="evaluation" />
+
+  </resultMap>
+
+  <resultMap id="OrderConciseResultMap" type="com.ycg.ksh.entity.service.enterprise.OrderConcise">
+        <result column="SHIPPER_ID" jdbcType="BIGINT" property="shipperKey" />
+        <result column="RECEIVE_ID" jdbcType="BIGINT" property="receiveKey" />
+        <result column="CONVEY_ID" jdbcType="BIGINT" property="conveyKey" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <resultMap id="OrderReceiptResultMap" type="com.ycg.ksh.entity.service.enterprise.OrderAlliance" extends="BaseResultMap">
+    <result column="RECEIPT_FETTLE" jdbcType="INTEGER" property="receiptFettle" />
+  </resultMap>
+
+  <sql id="include_column">
+    O.ID,
+    O.BIND_CODE,
+    O.ORDER_NO,
+    O.DELIVERY_NO,
+    O.SHIPPER_ID,
+    O.RECEIVE_ID,
+    O.CLIENT_TYPE,
+    O.CONVEY_ID,
+    O.RECEIVER_NAME,
+    O.RECEIVER_CONTACT,
+    O.RECEIVE_ADDRESS,
+    O.LOCATION,
+    O.FETTLE,
+    O.DELIVERY_TIME,
+    O.RECEIVE_TIME,
+    O.ARRIVAL_TIME,
+    O.COLLECT_TIME,
+    O.REMARK,
+    O.CREATE_USER_ID,
+    O.CREATE_TIME,
+    O.UPDATE_TIME,
+    O.IS_RECEIPT,
+    O.INSERT_TYPE
+  </sql>
+    <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+          <include refid="include_column"/>
+        FROM
+          T_ORDER O
+        WHERE
+          O.BIND_CODE = #{bindCode}
+    </select>
+  <select id="listBySomething" resultMap="OrderReceiptResultMap" parameterType="com.ycg.ksh.entity.service.enterprise.OrderSearch">
+    SELECT
+      O.*, R.FETTLE AS RECEIPT_FETTLE
+    FROM
+      T_ORDER O LEFT JOIN T_ORDER_RECEIPT R ON O.ID = R.ORDER_NO
+    <where>
+      O.CLIENT_TYPE = 1
+      <choose>
+        <when test="partnerCode == null || partnerCode lte 0">
+          AND (O.SHIPPER_ID = #{companyKey} OR O.RECEIVE_ID = #{companyKey} OR O.CONVEY_ID = #{companyKey})
+        </when>
+        <when test="partnerCode == 1">
+          AND O.SHIPPER_ID = #{companyKey}
+        </when>
+        <when test="partnerCode == 2">
+          AND O.RECEIVE_ID = #{companyKey}
+        </when>
+        <when test="partnerCode == 3">
+          AND O.CONVEY_ID = #{companyKey}
+        </when>
+      </choose>
+      <if test="fettles != null">
+        AND O.FETTLE IN
+        <foreach collection="fettles" item="fettle" separator="," open="(" close=")">
+          #{fettle}
+        </foreach>
+      </if>
+      <if test="signFettles != null">
+        AND O.SIGN_FETTLE IN
+        <foreach collection="signFettles" item="fettle" separator="," open="(" close=")">
+          #{fettle}
+        </foreach>
+      </if>
+      <if test="receiptFettles != null">
+        AND IF(R.FETTLE, R.FETTLE, 0) IN
+        <foreach collection="receiptFettles" item="fettle" separator="," open="(" close=")">
+          #{fettle}
+        </foreach>
+      </if>
+      <if test="firstTime != null">
+        <![CDATA[ AND O.CREATE_TIME >= #{firstTime} ]]>
+      </if>
+      <if test="secondTime != null">
+        <![CDATA[ AND O.CREATE_TIME <= #{secondTime} ]]>
+      </if>
+      <if test="likeString != null and likeString !=''">
+        AND (
+        (LOCATE(#{likeString}, O.ID) > 0) OR
+        (LOCATE(#{likeString}, O.BIND_CODE) > 0) OR
+        (LOCATE(#{likeString}, O.ORDER_NO) > 0) OR
+        (LOCATE(#{likeString}, O.DELIVERY_NO) > 0) OR
+        (LOCATE(#{likeString}, O.RECEIVER_NAME) > 0) OR
+        (LOCATE(#{likeString}, O.RECEIVE_ADDRESS) > 0)
+        )
+      </if>
+      <if test="partnerCode == null || partnerCode != 1">
+        <if test="shipperKey != null and shipperKey gt 0">
+          AND O.SHIPPER_ID = #{shipperKey}
+        </if>
+        <if test="(shipperKey == null || shipperKey lte 0) and companyKeys != null">
+          OR O.SHIPPER_ID IN
+          <foreach collection="companyKeys" item="cKey" separator="," open="(" close=")">
+            #{cKey}
+          </foreach>
+        </if>
+      </if>
+      <if test="partnerCode == null || partnerCode != 2">
+        <if test="receiveKey != null and receiveKey gt 0">
+          AND O.RECEIVE_ID = #{receiveKey}
+        </if>
+        <if test="(receiveKey == null || receiveKey lte 0) and companyKeys != null">
+          OR O.RECEIVE_ID IN
+          <foreach collection="companyKeys" item="cKey" separator="," open="(" close=")">
+            #{cKey}
+          </foreach>
+        </if>
+      </if>
+      <if test="partnerCode == null || partnerCode != 3">
+        <if test="conveyKey != null and conveyKey gt 0">
+          AND O.CONVEY_ID = #{conveyKey}
+        </if>
+        <if test="(conveyKey == null || conveyKey lte 0) and companyKeys != null">
+          OR O.CONVEY_ID IN
+          <foreach collection="companyKeys" item="cKey" separator="," open="(" close=")">
+            #{cKey}
+          </foreach>
+        </if>
+      </if>
+      <if test="pickupWarning != null and pickupWarning !=''">
+        O.PICK_UP_WARNING = #{pickupWarning}
+      </if>
+      <if test="delayWarning != null and delayWarning !=''">
+        O.DELAY_WARNING = #{delayWarning}
+      </if>
+    </where>
+    ORDER BY `CREATE_TIME` DESC
+  </select>
+
+  <update id="updateDeliveryNo">
+      UPDATE T_ORDER set DELIVERY_NO = #{arg1} where ID = #{arg0}
+  </update>
+</mapper>

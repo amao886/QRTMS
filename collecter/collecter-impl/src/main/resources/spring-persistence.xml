@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<description>持久化相关配置</description>
+	
+	<bean id="ksh.data.source.druid.logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+		<property name="statementExecutableSqlLogEnable" value="false" />
+	</bean>
+
+	<!-- 合同物流管理平台主库 ====== 数据库连接池 -->
+	<bean id="ksh.data.source.db-service" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<!-- 数据库基本信息配置 -->
+		<property name="url" value="${data.source.service.jdbc.url}" />
+		<property name="username" value="${data.source.jdbc.username}" />
+		<property name="password" value="${data.source.jdbc.password}" />
+		<property name="driverClassName" value="${data.source.jdbc.driver}" />
+		<!-- 最大并发连接数 -->
+		<property name="maxActive" value="${data.source.jdbc.maxActive}" />
+		<!-- 初始化连接数量 -->
+		<property name="initialSize" value="${data.source.jdbc.initialSize}" />
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="${data.source.jdbc.maxWait}" />
+		<!-- 最小空闲连接数 -->
+		<property name="minIdle" value="${data.source.jdbc.minIdle}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="proxyFilters">
+			<list>
+				<ref bean="ksh.data.source.druid.logFilter" />
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- 合同物流管理平台主库 ====== 数据库连接池 -->
+	<bean id="ksh.data.source.db-collect" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<!-- 数据库基本信息配置 -->
+		<property name="url" value="${data.source.collect.jdbc.url}" />
+		<property name="username" value="${data.source.jdbc.username}" />
+		<property name="password" value="${data.source.jdbc.password}" />
+		<property name="driverClassName" value="${data.source.jdbc.driver}" />
+		<!-- 最大并发连接数 -->
+		<property name="maxActive" value="${data.source.jdbc.maxActive}" />
+		<!-- 初始化连接数量 -->
+		<property name="initialSize" value="${data.source.jdbc.initialSize}" />
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="${data.source.jdbc.maxWait}" />
+		<!-- 最小空闲连接数 -->
+		<property name="minIdle" value="${data.source.jdbc.minIdle}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="proxyFilters">
+			<list>
+				<ref bean="ksh.data.source.druid.logFilter" />
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- 合同物流管理平台主库 ====== 配置事务管理器 -->
+	<bean id="ksh.transaction.manager.db-service"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ksh.data.source.db-service" />
+	</bean>
+	<tx:annotation-driven transaction-manager="ksh.transaction.manager.db-service" />
+
+	<!-- 合同物流管理平台汇总库 ====== 配置事务管理器 -->
+	<bean id="ksh.transaction.manager.db-collect"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ksh.data.source.db-collect" />
+	</bean>
+	<tx:annotation-driven transaction-manager="ksh.transaction.manager.db-collect" />
+
+	<bean class="com.ycg.ksh.collect.jdbc.impl.ServiceJdbcTemplateImpl">
+		<property name="dataSource" ref="ksh.data.source.db-service"/>
+	</bean>
+	<bean class="com.ycg.ksh.collect.jdbc.impl.CollectJdbcTemplateImpl">
+		<property name="dataSource" ref="ksh.data.source.db-collect"/>
+	</bean>
+</beans>

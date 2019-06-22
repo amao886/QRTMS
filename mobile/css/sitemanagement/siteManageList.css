@@ -1,0 +1,377 @@
+.searchTab {
+	margin-bottom: 10px;
+	padding: 12px;
+	background: #fff;
+	align-items: center;
+	-webkit-align-items: center;
+}
+
+.searchTab .searchIcon {
+	width: 40px;
+	padding-left: 0;
+	padding-right: 0;
+	height: auto;
+}
+
+.searchSelect {
+	padding: 0 5px;
+}
+
+.searchSelect>input[type=text] {
+	padding: 7px 0;
+	width: 100%;
+	height: auto;
+	text-align: center;
+	font-size: 14px;
+}
+
+.weui-search-bar__box .weui-icon-search {
+	left: 9px;
+	line-height: 34px;
+	bottom: 0;
+	font-size: 16px;
+}
+
+.searchInput {
+	margin-top: 10px;
+	padding-left: 0px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	display: none;
+}
+
+.searchInput>input[type=text] {
+	padding: 7px 16px 7px 0px;
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	box-sizing: border-box;
+	text-indent: 6px;
+}
+
+.weui-search-bar__box .weui-icon-clear {
+	right: 0px;
+	bottom: 0;
+	left: auto;
+	font-size: 16px;
+}
+
+.searchSelect.active {
+	border-bottom: 1px solid #31acfa;
+	color: #31acfa;
+}
+
+.weui-gallery__img{
+	bottom:0;
+}
+
+/*管理详情*/
+.manage-detail {
+	position: relative;
+	margin-bottom: 10px;
+	padding: 10px;
+	background: #fff;
+}
+
+.manage-detail .left-title {
+	overflow: hidden;
+	text-align: center;
+	color: #333333;
+}
+
+.manage-detail .left-title>span {
+	display: block;
+}
+
+.manage-detail .left-title .w3 {
+	letter-spacing: 1.5em;
+	margin-right: -1.5em;
+}
+
+.manage-detail .left-title .w4 {
+	letter-spacing: 0.65em;
+	margin-right: -0.6em;
+}
+
+.manage-detail .weui-flex {
+	position: relative;
+}
+
+.manage-detail .weui-flex:before {
+	content: ':';
+	position: absolute;
+	top: 0px;
+	left: 115px;
+	z-index: 2;
+	color: #333333;
+}
+
+.manage-detail .weui-flex.paddingTop:before {
+	top: 10px;
+}
+
+.manage-detail .weui-flex__item {
+	padding-left: 20px;
+	color: #333333;
+}
+
+.waybillNo {
+	margin-left: 18px;
+    width: 45%;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.notCarStatus {
+	right: 0px;
+    position: absolute;
+    color: #FA7D00;
+}
+
+.alreadyCarStatus {
+	right: 0px;
+    position: absolute;
+    color: #0071FE;
+}
+
+/*点击效果*/
+.receipt-detail:active {
+	background: #f9f9f9;
+}
+
+/*列表部分样式*/
+.manageList-wrapper .weui-flex {
+	padding-left: 12px;
+	padding-right: 12px;
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+/*管理列表页样式*/
+.siteList .searchTab {
+	padding: 0 12px;
+}
+
+.site-wrap .weui-flex {
+	position: relative;
+}
+
+.siteList .all,
+.siteList .choose {
+	flex: 0 0 25%;
+	width: 25%;
+}
+
+.siteList .searchSelect {
+	position: relative;
+	padding: 12px 0;
+	text-align: center;
+	color: #999999;
+}
+
+.siteList .choose {
+	position: relative;
+	padding: 12px 0;
+	text-align: center;
+	color: #333333;
+}
+
+.siteList .searchSelect.borderBottom {
+	color: #0071FE;
+}
+
+.splitLine{
+	float:left;
+	width: 1px;
+	height: 25px;
+	background: #CCCCCC;
+}
+
+.filterIcon{
+	float: left;
+	padding-left: 15px;
+	position: relative;
+	padding-top: 3px;
+}
+
+.filterIcon img{
+	width: 60%;
+}
+
+.siteList .searchSelect.borderBottom:after {
+	border-bottom: 5px solid #0071FE;
+	margin-bottom: -2px;
+	margin-left: 12%;
+    margin-right: 12%;
+}
+
+.siteList .chooseCon {
+	position: fixed;
+	top: 0;
+	left: 100%;
+	bottom: 0;
+	width: 100%;
+	background: rgba(0, 0, 0, .3);
+	z-index: 10;
+	transition: all 0.3s;
+}
+
+.siteList .chooseCon.show {
+	left: 0;
+}
+
+.chooseBox {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 75%;
+	background: #fff;
+	padding: 15px 15px 0;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.siteList .searchInput {
+	display: block;
+	margin-top: 0;
+	height: 40px;
+}
+
+.weui-search-bar__box .weui-icon-clear {
+    line-height: 38px;
+}
+
+.siteList .searchInput>input[type=text] {
+	padding: 0 10px 0 0;
+}
+
+.choosePart {
+	margin-top: 20px;
+}
+
+.choosePart h2 {
+	margin-bottom: 6px;
+	font-size: 15px;
+	color: #333;
+}
+
+.choosePart>ul {
+	font-size: 0;
+}
+
+.choosePart>ul>li {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 10px;
+	width: 48%;
+	height: 38px;
+	line-height: 36px;
+	text-align: center;
+	font-size: 14px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.choosePart>ul>li>label {
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: #999999;
+}
+
+.choosePart>ul>li.active>label {
+	color: #0070FB;
+}
+
+.choosePart>ul>li>input[type=radio] {
+	position: absolute;
+	top: 2px;
+	left: -9999px;
+}
+
+.choosePart>ul>li.active {
+	border-color: #0070FB;
+	color: #0070FB;
+	background-color: #EAF0F8;
+}
+
+.choosePart>ul>li:nth-of-type(2n) {
+	margin-left: 4%;
+}
+
+.btnPart {
+	text-align: center;
+	position: relative;
+}
+
+.btnPart .weui-btn_default {
+	width: 50%;
+    height: 50px;
+    border-radius: 0px;
+    line-height: 50px;
+    font-size: 15px;
+    background-color: #EEEEEE;
+    color: #333333;
+    float: left;
+}
+
+.btnPart .weui-btn_default:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}
+
+.btnPart .weui-btn_primary {
+	width: 50%;
+    border-radius: 0px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 15px;
+}
+
+.weui-btn {
+	border-radius: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.weui-btn_primary {
+	background: #0070FB;
+}
+
+.weui-btn:after {
+	border-radius: 0px;
+}
+
+.operateBtn {
+	position: absolute;
+    width: 100%;
+    bottom: 0;
+    margin: 0 -15px -7px -15px;
+}
+
+.btnPart .weui-btn+.weui-btn {
+	margin-top: 0;
+}
+
+.entryRegistrVehicle {
+	width: 60px;
+	height: 60px;
+	display: inline-block;
+	border-radius: 40px;
+	background: #0071FE;
+	opacity: 0.8;
+	position: fixed;
+	right: 5px;
+	bottom: 20px;
+	color: #fff;
+	line-height: 60px;
+	text-align: center;
+	font-size: 14px;
+}

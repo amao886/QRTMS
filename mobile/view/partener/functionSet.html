@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<title>全部功能</title>
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/functionSet.css" />
+</head>
+<body ontouchstart class="vue-page" style="background:#eeeff3;">
+	<!--常用功能-->
+	<div class="commonBox" id="vue-common-function">
+		<template>
+		<div class="titleCon weui-flex">
+			<h3 class="weui-flex__item">常用功能</h3>
+			<a class="funcSave" id="funcSave">保存</a>
+		</div>
+		<ul class="iconList clearfix">	
+	        <li class="" v-for="(item,index) in collection">
+	        	<a @click="delFunc(item,index,this)" :key="item" :id="'myIcon_'+index" :data-num="item">
+		        	<div class="iconBox">
+		        		<img v-bind:src="'../../images/index/c_'+ item +'.png'" alt="">
+		        	</div>
+		        	<p class="weui-grid__label"  v-if="item=='101'">我要发货</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='102'">发货清单</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='103'">发货监控</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='104'">客户管理</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item=='201'">扫码绑单</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='202'">发车报告</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='203'">装车卸货</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item=='301'">货主查货</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='302'">收货人查货</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='303'">扫码定位</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='304'">批报位置</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item=='401'">上传回单</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='402'">电子回单</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item=='501'">项目管理</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='502'">申请二维码</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='503'">货主管理</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='504'">历史记录</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='505'">运输管理</p>
+		        	
+		        	<p class="weui-grid__label"  v-else-if="item=='601'">定位设置</p>
+		        	<p class="weui-grid__label"  v-else-if="item=='602'">路径规划</p>		       	
+	        	</a>
+	        	<i class="delBtn" :data-num="item" @click="delFunc(item,index,this)"></i>
+	        </li>
+	        <li>
+	        	<a href="function.html">
+		        	<div class="iconBox">
+		        		<img src="../../images/index/c_all.png" alt="">
+		        	</div>
+		        	<p class="weui-grid__label">全部功能</p>		        	
+	        	</a>	        	
+	        </li>
+	    </ul>
+	    </template>
+	</div>
+	
+	<div class="contentBox">
+		<!--STEP1-->
+		<div class="targetBox">
+			<h3>STEP1 &nbsp;&nbsp;计划</h3>
+			<ul class="iconList clearfix">
+				<li>
+					<a class="funcLink" data-num="101">
+						<div class="iconBox">
+							<img src="../../images/index/c_101.png" alt="">
+						</div> 
+						<p class="weui-grid__label">我要发货</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="102">
+						<div class="iconBox">
+							<img src="../../images/index/c_102.png" alt="">
+						</div> 
+						<p class="weui-grid__label">发货清单</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="103">
+						<div class="iconBox">
+							<img src="../../images/index/c_103.png" alt="">
+						</div> 
+						<p class="weui-grid__label">发货监控</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="104">
+						<div class="iconBox">
+							<img src="../../images/index/c_104.png" alt="">
+						</div> 
+						<p class="weui-grid__label">客户管理</p>
+					</a>
+				</li>
+				
+			</ul>
+		</div>
+		
+		<!--STEP2-->
+		<div class="targetBox">
+			<h3>STEP2 &nbsp;&nbsp;发货</h3>
+			<ul class="iconList clearfix">
+				<li>
+					<a class="funcLink" data-num="201">
+						<div class="iconBox">
+							<img src="../../images/index/c_201.png" alt="">
+						</div> 
+						<p class="weui-grid__label">扫码绑单</p>
+					</a>
+				</li>
+				<li class="hide">
+					<a class="funcLink" data-num="202">
+						<div class="iconBox">
+							<img src="../../images/index/c_202.png" alt="">
+						</div> 
+						<p class="weui-grid__label">发车报告</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="203">
+						<div class="iconBox">
+							<img src="../../images/index/c_203.png" alt="">
+						</div> 
+						<p class="weui-grid__label">装车卸货</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<!--STEP3-->
+		<div class="targetBox">
+			<h3>STEP3 &nbsp;&nbsp;在途</h3>
+			<ul class="iconList clearfix">
+				<li>
+					<a class="funcLink" data-num="301">
+						<div class="iconBox">
+							<img src="../../images/index/c_301.png" alt="">
+						</div> 
+						<p class="weui-grid__label">货主查货</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="302">
+						<div class="iconBox">
+							<img src="../../images/index/c_302.png" alt="">
+						</div> 
+						<p class="weui-grid__label">收货人查货</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="303">
+						<div class="iconBox">
+							<img src="../../images/index/c_303.png" alt="">
+						</div> 
+						<p class="weui-grid__label">扫码定位</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="304">
+						<div class="iconBox">
+							<img src="../../images/index/c_304.png" alt="">
+						</div> 
+						<p class="weui-grid__label">批报位置</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="505">
+						<div class="iconBox">
+							<img src="../../images/index/c_505.png" alt="">
+						</div> 
+						<p class="weui-grid__label">运输管理</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<!--STEP4-->
+		<div class="targetBox">
+			<h3>STEP4 &nbsp;&nbsp;到货</h3>
+			<ul class="iconList clearfix">
+				<li>
+					<a class="funcLink" data-num="401">
+						<div class="iconBox">
+							<img src="../../images/index/c_401.png" alt="">
+						</div> 
+						<p class="weui-grid__label">上传回单</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="402">
+						<div class="iconBox">
+							<img src="../../images/index/c_402.png" alt="">
+						</div> 
+						<p class="weui-grid__label">电子回单</p>
+					</a>
+				</li>				
+			</ul>
+		</div>
+		
+		<!--STEP5-->
+		<div class="targetBox">
+			<h3>STEP5 &nbsp;&nbsp;管理</h3>
+			<ul class="iconList clearfix">
+				<li>
+					<a class="funcLink" data-num="501">
+						<div class="iconBox">
+							<img src="../../images/index/c_501.png" alt="">
+						</div> 
+						<p class="weui-grid__label">项目管理</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="502">
+						<div class="iconBox">
+							<img src="../../images/index/c_502.png" alt="">
+						</div> 
+						<p class="weui-grid__label">申请二维码</p>
+					</a>
+				</li>	
+				<li class="hide">
+					<a class="funcLink" data-num="503">
+						<div class="iconBox">
+							<img src="../../images/index/c_503.png" alt="">
+						</div> 
+						<p class="weui-grid__label">货主管理</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="504">
+						<div class="iconBox">
+							<img src="../../images/index/c_504.png" alt="">
+						</div> 
+						<p class="weui-grid__label">历史记录</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<!--STEP6-->
+		<div class="targetBox">
+			<h3>STEP6 &nbsp;&nbsp;小工具</h3>
+			<ul class="iconList clearfix">
+				<li class="hide">
+					<a class="funcLink" data-num="601">
+						<div class="iconBox">
+							<img src="../../images/index/c_601.png" alt="">
+						</div> 
+						<p class="weui-grid__label">定位设置</p>
+					</a>
+				</li>
+				<li>
+					<a class="funcLink" data-num="602">
+						<div class="iconBox">
+							<img src="../../images/index/c_602.png" alt="">
+						</div> 
+						<p class="weui-grid__label">路径规划</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+
+
+	</div>
+	<!--底部导航-->
+	<div id="navBarIn"></div>
+	
+<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/json2.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+
+<script type="text/javascript" src="../../lib/function/common.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+<script type="text/javascript" src="../../lib/function/easy.config.js"></script>	
+<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>	
+<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+<script type="text/javascript" src="../../js/common/navBar.js"></script>
+<script type="text/javascript" src="../../js/partener/functionSet.js"></script>
+<script type="text/javascript">
+	$('#swap').click(function(){
+		scanCode();
+	})
+</script>
+</body>
+</html>
+

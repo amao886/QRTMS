@@ -1,0 +1,35 @@
+/*===客户管理===*/
+body{
+	padding:10px 10px 0;
+	font-size:14px;
+}
+.custom-content{
+	padding:0 15px;
+	background:#fff;
+	min-height:100%;
+}
+.p-relative{position:relative;}
+.col-middle{width:22%;}
+.col-min{width:30%;}
+.col-max{width:28%;}
+.mr20{margin-right:20px;}
+
+/*****路由列表*/
+.searchInput{width:320px; height:32px;border-radius:5px;overflow:hidden; margin-top:20px;}
+.searchInput input{width:270px;height:32px;border:none;padding:0 5px; line-height:32px; float:left;border: #eee solid 1px; border-radius:5px 0 0 5px;}
+.searchInput button{cursor: pointer;background:#31acfa url("../images/ly_icon.png") 10px 5px no-repeat;display: inline-block;width: 40px;height:32px;border-radius:0 5px 5px 0;}
+
+.routeCon{margin-top:20px;}
+.routeBox{ background: #f4f4f4;padding: 20px 20px 0 20px; margin: 20px 5px 10px 0;position: relative;}
+.routeBox h3{font-size:16px;font-weight: bold;}
+.routeBox .route{padding:20px; float:left;}
+.routeTop .circle{ float:left; display:inline-block;width:40px; height:40px;text-align:center; line-height:40px; color:#fff;font-size:18px;background:#33c6e1;border-radius:50%;}
+.route.first .routeTop .circle{background:#31acfa;}
+.route.last .routeTop .circle{background:#ffad08;}
+
+.route .routeTop .line{margin-left:60px;height:30px; background:url("../images/ly_arrow.png") right bottom no-repeat;text-align:center;}
+.route.last .routeTop .line{display:none;}
+.route .routeBottom{margin-top:10px;}
+
+.routeBox .del{display:inline-block;/*width:24px;height:24px;background:url("../images/ly_icon.png") 0 -52px no-repeat;*/position: absolute;right: 80px;top: 15px;cursor:pointer;}
+.routeBox .edit{display:inline-block;/*width:24px;height:24px;background:url("../images/ly_icon.png") 0 -121px no-repeat;*/position: absolute;right: 15px;top: 15px;cursor:pointer;}

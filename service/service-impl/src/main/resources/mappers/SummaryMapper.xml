@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.SummaryMapper">
+    <resultMap id="SummaryWaybillResultMap" type="com.ycg.ksh.entity.service.SummaryWaybill">
+        <result column="group_key" jdbcType="INTEGER" property="groupKey"/>
+        <result column="group_name" jdbcType="VARCHAR" property="groupName"/>
+        <result column="cancel_count" jdbcType="BIGINT" property="cancelCount"/>
+        <result column="unbind_count" jdbcType="BIGINT" property="unbindCount"/>
+        <result column="bound_count" jdbcType="BIGINT" property="boundCount"/>
+        <result column="ing_count" jdbcType="BIGINT" property="ingCount"/>
+        <result column="arrive_count" jdbcType="BIGINT" property="arriveCount"/>
+        <result column="receive_count" jdbcType="BIGINT" property="receiveCount"/>
+        <result column="delay_count" jdbcType="BIGINT" property="delayCount"/>
+    </resultMap>
+
+    <select id="summaryWaybill" resultMap="SummaryWaybillResultMap" parameterType="com.ycg.ksh.entity.service.WaybillSerach">
+        SELECT
+            g.id AS group_key,
+            g.group_name,
+            SUM(IF(w.waybill_status = 0, 1, 0)) AS cancel_count,
+            SUM(IF(w.waybill_status = 10, 1, 0)) AS unbind_count,
+            SUM(IF(w.waybill_status = 20, 1, 0)) AS bound_count,
+            SUM(IF(w.waybill_status = 30, 1, 0)) AS ing_count,
+            SUM(IF(w.waybill_status = 35, 1, 0)) AS arrive_count,
+            SUM(IF(w.waybill_status = 40, 1, 0)) AS receive_count,
+            SUM(IF(w.delay = 1 OR w.delay = 0, 1, 0)) AS delay_count
+        FROM
+            waybill_tab w LEFT JOIN group_tab g ON w.groupid = g.id
+        WHERE
+        <choose>
+            <when test="groupId != null and groupId gt 0">
+                g.id = #{groupId}
+            </when>
+            <otherwise>
+                <![CDATA[(g.id IN (SELECT groupid FROM group_members_tab WHERE userid = #{userId}) OR (w.userid = #{userId} AND w.groupid <= 0)) ]]>
+            </otherwise>
+        </choose>
+        <if test="firstTime != null">
+            <![CDATA[ AND w.createtime >= #{firstTime} ]]>
+        </if>
+        <if test="secondTime != null">
+            <![CDATA[ AND w.createtime <= #{secondTime} ]]>
+        </if>
+        GROUP BY w.groupid;
+    </select>
+
+    <select id="summaryConveyance" resultMap="SummaryWaybillResultMap" parameterType="com.ycg.ksh.entity.service.ConveyanceSearch">
+        SELECT
+        SUM(IF(c.conveyance_fettle = 0, 1, 0)) AS cancel_count,
+        SUM(IF(c.conveyance_fettle = 10, 1, 0)) AS unbind_count,
+        SUM(IF(c.conveyance_fettle = 20, 1, 0)) AS bound_count,
+        SUM(IF(c.conveyance_fettle = 30, 1, 0)) AS ing_count,
+        SUM(IF(c.conveyance_fettle = 35, 1, 0)) AS arrive_count
+        FROM
+        conveyance_tab c
+        WHERE
+        c.owner_key = #{createKey}
+        <if test="firstTime != null">
+            <![CDATA[ AND c.create_time >= #{firstTime} ]]>
+        </if>
+        <if test="secondTime != null">
+            <![CDATA[ AND c.create_time <= #{secondTime} ]]>
+        </if>
+    </select>
+</mapper>

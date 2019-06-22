@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ycg.ksh.core.driver.domain.model.DriverAwaitInfo" table="t_driver_await_info">
+        <id name="waitKey" column="wait_key" type="java.lang.Long"/>
+        <property name="driverKey" column="driver_key" type="java.lang.Long"/>
+        <property name="driverName" column="driver_name" type="java.lang.String"/>
+        <property name="driverPhone" column="driver_phone" type="java.lang.String"/>
+        <property name="startTime" column="start_time" type="java.time.LocalDate"/>
+        <property name="releaseTime" column="release_time" type="java.time.LocalDateTime"/>
+        <property name="status" column="status" type="java.lang.Integer"/>
+
+        <component name="car" class="com.ycg.ksh.core.driver.domain.model.DriverCar">
+            <property name="type" column="car_type" type="java.lang.Integer"/>
+            <property name="length" column="car_length" type="java.lang.Float"/>
+            <property name="loadValue" column="car_load_value" type="java.lang.Float"/>
+            <property name="license" column="car_license" type="java.lang.String"/>
+        </component>
+        <component name="route" class="com.ycg.ksh.core.driver.domain.model.DriverRoute">
+            <property name="type" column="route_type" type="java.lang.Integer"/>
+            <property name="start" column="route_start" type="java.lang.String"/>
+            <property name="end" column="route_end" type="java.lang.String"/>
+        </component>
+    </class>
+</hibernate-mapping>

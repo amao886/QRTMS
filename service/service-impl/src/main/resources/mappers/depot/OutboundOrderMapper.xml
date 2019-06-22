@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.depot.OutboundOrderMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.depot.OutboundOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="KEY" jdbcType="BIGINT" property="key" />
+    <result column="COMPANY_KEY" jdbcType="BIGINT" property="companyKey" />
+    <result column="RECEIVE_ID" jdbcType="BIGINT" property="receiveId" />
+    <result column="SHIPPER_ID" jdbcType="BIGINT" property="shipperId" />
+    <result column="RECEIVE_NAME" jdbcType="VARCHAR" property="receiveName" />
+    <result column="SHIPPER_NAME" jdbcType="VARCHAR" property="shipperName" />
+    <result column="DELIVERY_NO" jdbcType="VARCHAR" property="deliveryNo" />
+    <result column="DELIVERY_TIME" jdbcType="TIMESTAMP" property="deliveryTime" />
+  </resultMap>
+</mapper>

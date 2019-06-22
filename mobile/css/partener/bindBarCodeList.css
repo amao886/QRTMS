@@ -1,0 +1,162 @@
+/*搜索部分*/
+.codeList-search{
+	padding:12px 0 12px 12px;
+	background:#fafafa;
+}
+.codeList-search .weui-icon-search{
+	position: absolute;
+	top:0px;
+	left:0px;
+	line-height:30px;
+	padding:0 5px;
+	font-size:16px;
+}
+.task-search-input{
+	padding: 14px 32px 14px 32px;
+    width: 100%;
+    height: 1.42857143em;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.42857143em;
+    box-sizing: border-box;
+    background: #fff;
+    outline: none;
+}
+.codeList-search .weui-icon-clear{
+	position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 15px;
+    width: 32px;
+    line-height: 30px;
+    text-align: center;
+}
+.task-search-btn{
+	padding:0 7px 0 10px;
+}
+.task-search-btn .codeList-edit{	
+	padding:0 5px;
+	line-height: 30px;
+	font-size:24px;
+	color:#636363;
+}
+
+/*任务单内容*/
+.barcode-wrapper .search-num{
+	width:65%;
+	margin:26px auto 20px;
+	border-top:1px solid #dedede;
+	font-size:0;
+	text-align: center;	
+}
+.barcode-wrapper .search-num p{
+	display: inline-block;
+	padding:0 8px;
+	margin-top:-13px;
+	font-size:15px;
+	color:#333;
+	background:#eff3f6;
+}
+.barcode-wrapper .barcode-num{
+	position:relative;
+	padding:10px 0 10px 12px;
+	margin-bottom: 12px;
+	font-size:15px;
+	background:#fffae5;
+	color:#636363;
+}
+.barcode-wrapper .barcode-num:after{
+	content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #d9d9d9;
+    color: #d9d9d9;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+.barcode-wrapper .barcode-title>span{
+	color:#ff5500;
+	margin-left:8px;
+}
+.barcode-wrapper .barcode-item{
+	background:#fff;
+	color:#333;
+	margin-bottom: 12px;
+}
+.barcode-wrapper .barcode-item .company-name{
+	height: 52px;
+	line-height: 52px;
+	padding:0 12px;
+	background:#fafafa;	
+}
+.barcode-wrapper .barcode-item .company-name .company-icon{
+	margin-top:18px;
+	width:16px;
+	height:16px;
+	background:url(../../images/building.png) no-repeat center;
+	background-size:16px 16px;
+}
+.barcode-wrapper .barcode-item .company-name>p{
+	margin-left:28px;
+	font-size:15px;
+}
+.barcode-wrapper .barcode-item .company-con{
+	padding:15px 12px;
+	font-size:14px;
+}
+.barcode-wrapper .barcode-item .weui-flex{
+	padding:2px 0;
+}
+.barcode-wrapper .barcode-item .div-right{
+	margin-left:20px;
+}
+.border-top{
+	position:relative;
+}
+.border-top:after{
+	content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #d9d9d9;
+    color: #d9d9d9;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+.barcode-wrapper .barcode-item .other-info{
+	margin-top:5px;
+	padding-top:6px;
+}
+.barcode-wrapper .barcode-item .other-info div+div{
+	margin-left:20px;
+}
+.barcode-wrapper .barcode-item .down-part{
+	color:#999;
+	font-size:12px;
+}
+.barcode-con{
+	margin-bottom: 90px;
+}
+/*对齐样式*/
+.w4{
+	display: inline-block;
+	letter-spacing:0em; 
+}
+.w3{  
+	letter-spacing:0.5em; 
+	margin-right:-0.5em; 
+}
+.w2{  
+	letter-spacing:2em; 
+	margin-right:-2em;
+}

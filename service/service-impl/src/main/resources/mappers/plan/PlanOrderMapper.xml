@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.plan.PlanOrderMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.plan.PlanOrder">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="PLAN_NO" jdbcType="VARCHAR" property="planNo"/>
+        <result column="COMPANY_KEY" jdbcType="BIGINT" property="companyKey"/>
+        <result column="SHIPPER_ID" jdbcType="BIGINT" property="shipperId"/>
+        <result column="RECEIVE_ID" jdbcType="BIGINT" property="receiveId"/>
+        <result column="RECEIVER_NAME" jdbcType="VARCHAR" property="receiverName"/>
+        <result column="RECEIVER_CONTACT" jdbcType="VARCHAR" property="receiverContact"/>
+        <result column="RECEIVE_ADDRESS" jdbcType="VARCHAR" property="receiveAddress"/>
+        <result column="TRANSPORT_ROUTE" jdbcType="VARCHAR" property="transportRoute"/>
+        <result column="FETTLE" jdbcType="INTEGER" property="fettle"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+        <result column="ORDER_NO" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="DELIVERY_TIME" jdbcType="TIMESTAMP" property="deliveryTime"/>
+        <result column="ARRIVAL_TIME" jdbcType="TIMESTAMP" property="arrivalTime"/>
+        <result column="COLLECT_TIME" jdbcType="TIMESTAMP" property="collectTime"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="ORDER_KEY" jdbcType="BIGINT" property="orderKey"/>
+        <result column="USER_KEY" jdbcType="INTEGER" property="userKey"/>
+        <result column="CAR_STATUS" jdbcType="INTEGER" property="carStatus"/>
+        <result column="CAR_TIME" jdbcType="TIMESTAMP" property="carTime"/>
+    </resultMap>
+
+    <resultMap id="AllianceBaseResultMap" type="com.ycg.ksh.entity.service.plan.PlanAlliance" extends="BaseResultMap">
+        <association property="designate" javaType="com.ycg.ksh.entity.persistent.plan.PlanDesignate">
+            <result column="D_ID" jdbcType="BIGINT" property="id"/>
+            <result column="D_PLAN_ID" jdbcType="BIGINT" property="planId"/>
+            <result column="D_COMPANY_KEY" jdbcType="BIGINT" property="companyKey"/>
+            <result column="D_LAST_COMPANY_KEY" jdbcType="BIGINT" property="lastCompanyKey"/>
+            <result column="D_UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+            <result column="D_FETTLE" jdbcType="INTEGER" property="fettle"/>
+            <result column="D_ALLOCATE" jdbcType="INTEGER" property="allocateFettle"/>
+        </association>
+    </resultMap>
+
+
+    <select id="listByShipper" resultMap="AllianceBaseResultMap" parameterType="com.ycg.ksh.entity.service.plan.PlanSearch">
+        SELECT
+        p.*
+        FROM
+        T_PLAN_ORDER p
+        LEFT JOIN T_PLAN_DESIGNATE d ON (p.ID = d.PLAN_ID AND d.LAST_COMPANY_KEY = p.COMPANY_KEY) LEFT JOIN T_COMPANY_CUSTOMER c ON c.`KEY` = p.RECEIVE_ID
+        WHERE
+        p.COMPANY_KEY = #{companyId}
+        <choose>
+            <when test="partner == 1">
+                AND p.SHIPPER_ID = 0
+            </when>
+            <otherwise>
+                AND p.SHIPPER_ID > 0
+            </otherwise>
+        </choose>
+        <if test="recives != null">
+            AND d.FETTLE IN
+            <foreach collection="recives" item="fettle" separator="," open="(" close=")">
+                #{fettle}
+            </foreach>
+        </if>
+        <if test="allocate != null">
+            <choose>
+                <when test="allocate == true">
+                    AND d.PLAN_ID > 0
+                </when>
+                <otherwise>
+                    <![CDATA[ AND IFNULL(d.PLAN_ID, 0) <= 0 ]]>
+                </otherwise>
+            </choose>
+            <if test="generate != null">
+                <choose>
+                    <when test="generate == true">
+                        AND p.ORDER_KEY > 0
+                    </when>
+                    <otherwise>
+                        <![CDATA[ AND p.ORDER_KEY <= 0 ]]>
+                    </otherwise>
+                </choose>
+            </if>
+        </if>
+        <if test="likeString != null and likeString != ''">
+            AND ( (LOCATE(#{likeString}, p.PLAN_NO) > 0) OR (LOCATE(#{likeString}, c.`NAME`) > 0) OR (LOCATE(#{likeString}, p.TRANSPORT_ROUTE) > 0))
+        </if>
+        <if test="carStatus !=null">
+            AND CAR_STATUS = #{carStatus}
+        </if>
+        ORDER BY p.CREATE_TIME DESC
+    </select>
+
+    <select id="listByConveyer" resultMap="AllianceBaseResultMap" parameterType="com.ycg.ksh.entity.service.plan.PlanSearch">
+        SELECT
+          p.*
+        FROM
+          T_PLAN_ORDER p
+        LEFT JOIN T_PLAN_DESIGNATE d ON p.ID = d.PLAN_ID
+        LEFT JOIN T_COMPANY_CUSTOMER c ON c.`KEY` = p.RECEIVE_ID
+        WHERE d.COMPANY_KEY = #{companyId}
+        <if test="lastCompnayKey gt 0">
+            AND d.LAST_COMPANY_KEY = #{lastCompnayKey}
+        </if>
+        <if test="recives != null">
+            AND d.FETTLE IN
+            <foreach collection="recives" item="fettle" separator="," open="(" close=")">
+                #{fettle}
+            </foreach>
+        </if>
+        <if test="generate != null">
+            <choose>
+                <when test="generate == true">
+                    AND p.ORDER_KEY > 0
+                </when>
+                <otherwise>
+                    <![CDATA[ AND p.ORDER_KEY <= 0 ]]>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="allocate != null">
+            <choose>
+                <when test="allocate == true">
+                    AND (d.PLAN_ID > 0 AND d.ALLOCATE >= 1)
+                </when>
+                <otherwise>
+                    <![CDATA[ AND (d.PLAN_ID > 0 AND d.ALLOCATE < 1)]]>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="likeString != null and likeString != ''">
+            AND ( (LOCATE(#{likeString}, p.PLAN_NO) > 0) OR (LOCATE(#{likeString}, c.`NAME`) > 0) OR (LOCATE(#{likeString}, p.TRANSPORT_ROUTE) > 0))
+        </if>
+        <if test="carStatus !=null">
+            AND CAR_STATUS = #{carStatus}
+        </if>
+        ORDER BY p.CREATE_TIME DESC
+    </select>
+</mapper>

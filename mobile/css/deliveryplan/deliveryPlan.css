@@ -1,0 +1,429 @@
+.vue-page {
+	font-size: 15px;
+	color: #333;
+}
+
+.deliveryPlanSearch-wrapper {
+	margin-bottom: 100px;
+}
+
+.searchTab {
+	margin-bottom: 10px;
+	padding: 12px;
+	background: #fff;
+	align-items: center;
+	-webkit-align-items: center;
+}
+
+.searchTab .searchIcon {
+	width: 40px;
+	padding-left: 0;
+	padding-right: 0;
+	height: auto;
+}
+
+.searchSelect {
+	padding: 0 5px;
+}
+
+.searchSelect>input[type=text] {
+	padding: 7px 0;
+	width: 100%;
+	height: auto;
+	text-align: center;
+	font-size: 14px;
+}
+
+.weui-search-bar__box .weui-icon-search {
+	left: 9px;
+	line-height: 34px;
+	bottom: 0;
+	font-size: 16px;
+}
+
+.searchInput {
+	margin-top: 10px;
+	padding-left: 0px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	display: none;
+}
+
+.searchInput>input[type=text] {
+	padding: 7px 16px 7px 0px;
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	box-sizing: border-box;
+	text-indent: 6px;
+}
+
+.weui-search-bar__box .weui-icon-clear {
+	right: 0px;
+	bottom: 0;
+	left: auto;
+	font-size: 16px;
+}
+
+.searchSelect.active {
+	border-bottom: 1px solid #31acfa;
+	color: #31acfa;
+}
+
+.weui-gallery__img {
+	bottom: 0;
+}
+
+.spliteLine {
+	width: 100%;
+	height: 1px;
+	margin: 0px auto;
+	padding: 0px;
+	background-color: #E0E0E0;
+	overflow: hidden;
+}
+
+.planList {
+	position: relative;
+	margin-bottom: 20px;
+	padding: 15px 0px;
+	background: #fff;
+}
+
+.planList .left-title {
+	overflow: hidden;
+	text-align: center;
+	color: #333333;
+}
+
+.planList .left-title>span {
+	display: block;
+}
+
+.planList .left-title .w4 {
+	letter-spacing: 0.6em;
+	margin-right: -0.6em;
+}
+
+.planList .left-title .w2 {
+	letter-spacing: 2em;
+	margin-right: -2em;
+}
+
+.planList .weui-flex {
+	position: relative;
+}
+
+.planList .weui-flex:before {
+	content: ':';
+	position: absolute;
+	top: 0px;
+	left: 105px;
+	z-index: 2;
+	color: #333333;
+}
+
+.planList .weui-flex.paddingTop:before {
+	top: 10px;
+}
+
+.planList .weui-flex__item {
+	padding-left: 20px;
+	color: #333333;
+}
+
+.paddingBottom {
+	padding-bottom: 5px !important;
+}
+
+.paddingTop {
+	padding-top: 10px !important;
+}
+
+
+/*点击效果*/
+
+.receipt-detail:active {
+	background: #f9f9f9;
+}
+
+.entryPlanBtn {
+	width: 60px;
+	height: 60px;
+	display: inline-block;
+	border-radius: 40px;
+	background: #0071FE;
+	opacity: 0.8;
+	position: fixed;
+	right: 5px;
+	bottom: 20px;
+	color: #fff;
+	line-height: 60px;
+	text-align: center;
+	font-size: 14px;
+}
+
+/*列表部分样式*/
+.planList-wrapper .weui-flex {
+	padding-left: 12px;
+	padding-right: 12px;
+	background: #fff;
+	margin-bottom: 5px;
+}
+
+/*管理列表页样式*/
+.deliveryPlanList .searchTab {
+	padding: 0 12px;
+}
+
+.plan-wrap .weui-flex {
+	position: relative;
+}
+
+.showStatusPic {
+	max-width: 100%;
+}
+
+.deliveryPlanList .all,
+.deliveryPlanList .choose {
+	flex: 0 0 33%;
+	width: 33%;
+}
+
+.deliveryPlanList .searchSelect {
+	position: relative;
+	padding: 12px 0;
+	text-align: center;
+	color: #999999;
+}
+
+.deliveryPlanList .choose {
+	position: relative;
+	padding: 12px 0;
+	text-align: center;
+	color: #333333;
+}
+
+.deliveryPlanList .searchSelect.borderBottom {
+	color: #0071FE;
+}
+
+.splitLine {
+	float: left;
+	width: 1px;
+	height: 25px;
+	background: #CCCCCC;
+	margin-left: 13%;
+}
+
+.deliveryPlanList .searchSelect.borderBottom:after {
+	border-bottom: 5px solid #0071FE;
+	margin-bottom: -2px;
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+.deliveryPlanList .chooseCon {
+	position: fixed;
+	top: 0;
+	left: 100%;
+	bottom: 0;
+	width: 100%;
+	background: rgba(0, 0, 0, .3);
+	z-index: 10;
+	transition: all 0.3s;
+}
+
+.deliveryPlanList .chooseCon.show {
+	left: 0;
+}
+
+.chooseBox {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 75%;
+	background: #fff;
+	padding: 15px 15px 0;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.deliveryPlanList .searchInput {
+	display: block;
+	margin-top: 0;
+	height: 40px;
+}
+
+.weui-search-bar__box .weui-icon-clear {
+	line-height: 38px;
+}
+
+.deliveryPlanList .searchInput>input[type=text] {
+	padding: 0 10px 0 0;
+}
+
+.choosePart {
+	margin-top: 20px;
+}
+
+.choosePart h2 {
+	margin-bottom: 6px;
+	font-size: 15px;
+	color: #333;
+}
+
+.choosePart>ul {
+	font-size: 0;
+}
+
+.choosePart>ul>li {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 10px;
+	width: 48%;
+	height: 38px;
+	line-height: 36px;
+	text-align: center;
+	font-size: 14px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.choosePart>ul>li>label {
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: #999999;
+}
+
+.choosePart>ul>li.active>label {
+	color: #0070FB;
+}
+
+.choosePart>ul>li>input[type=radio] {
+	position: absolute;
+	top: 2px;
+	left: -9999px;
+}
+
+.choosePart>ul>li.active {
+	border-color: #0070FB;
+	color: #0070FB;
+	background-color: #EAF0F8;
+}
+
+.choosePart>ul>li:nth-of-type(2n) {
+	margin-left: 4%;
+}
+
+.btnPart {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0px;
+	text-align: center;
+	margin-bottom: -7px;
+}
+
+.btnPart .weui-btn_mini {
+	padding: 0;
+}
+
+.btnPart .weui-btn_default {
+	margin-top: 0;
+	margin-right: -4px;
+	width: 50%;
+	height: 50px;
+	border-radius: 0px;
+	line-height: 50px;
+	font-size: 15px;
+	background-color: #EEEEEE;
+	color: #333333;
+}
+
+.btnPart .weui-btn_default:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}
+
+.weui-btn_primary.weui-btn_mini {
+	width: 50%;
+	border-radius: 0px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 15px;
+	margin-left: -1px;
+}
+
+.weui-btn_mini {
+	display: inline-block;
+	padding: 0;
+	line-height: 2.3em;
+	font-size: 13px;
+}
+
+.weui-btn {
+	border-radius: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.weui-btn_primary {
+	background: #0070FB;
+}
+
+.weui-btn:after {
+	border-radius: 0px;
+}
+
+.operate-btn>a.weui-btn_primary {
+	margin-top: 0;
+	line-height: normal;
+	height: auto;
+	padding: 7px 0;
+	color: #fff;
+	border-radius: 5px;
+	margin-right: 15px;
+}
+
+.operate-btn>a {
+	width: 25%;
+	font-size: 15px;
+}
+
+.green {
+	color: #4CE29A;
+}
+
+.blue {
+	color: #0071FE;
+}
+
+.pTop5 {
+	padding-top: 5px;
+}
+
+.pLeft10 {
+	padding-left: 10px;
+}
+
+.pLeft15 {
+	padding-left: 15px;
+}
+
+.mTop10 {
+	margin-top: 10px;
+}
+
+.filterChoose {
+	overflow-y: auto;
+	height: 380px;
+}

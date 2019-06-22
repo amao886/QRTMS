@@ -1,0 +1,36 @@
+.mine-part .weui-panel{border-top:1px solid #DDDDDD;}
+.mine-part .text_right{text-align: right;padding-right:20px;}
+.weui-panel:before{
+	border-top: 1px solid #DDDDDD;
+}
+.weui-panel:after{
+	border-bottom: 1px solid #DDDDDD;
+}
+.weui-cells:before{
+	border-top: 1px solid #DDDDDD;
+}
+.weui-cells:after{
+	border-bottom: 1px solid #DDDDDD;
+}
+.weui-cell__hd{
+	color: #333333;
+}
+.weui-cell__bd{
+	color: #999999;
+}
+
+/*覆盖框架原样式*/
+.weui-btn_primary{
+	width:90%;
+	height:44px;
+	line-height:44px;
+	border-radius:4px;
+	background:#0071FE; 
+	font-size:15px;
+}
+.weui-btn:after{
+	border:none;
+}
+.weui-btn_primary:not(.weui-btn_disabled):active{background:#0059C7;}
+.weui-vcode-btn{border-left: 1px solid #DDDDDD;color:#0071FE;}
+.weui-vcode-btn:active{color:#0059C7;}

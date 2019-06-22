@@ -1,0 +1,177 @@
+.people-item{
+	position:relative;
+	padding:13px 12px;
+	background:#fff;
+	font-size:0;
+}
+.people-item .img-item,
+.people-item .text-item
+{
+	display: inline-block;
+	vertical-align: top;
+}
+.people-item .img-item{
+	width:64px;
+	height:64px;
+}
+.people-item .img-item>img{
+	width:100%;
+	height:100%;
+	vertical-align: top;
+}
+.people-item .text-item{
+	font-size:17px;
+	color:#333;
+	margin-left:10px;
+}
+.people-item .text-item p{
+	font-size:12px;
+	color:#636363;
+}
+.people-item .register{
+	position: absolute;
+	right:12px;
+	top:30px;
+	font-size: 12px;
+	color:#636363;
+}
+/*设置备注*/
+.add-remark{
+	margin-top:20px;
+	padding:0 12px;
+	background:#fff;
+}
+.add-remark>a{
+	display: block;
+	padding:15px 0; 
+	color:#333;
+	font-size:15px;
+}
+/*按钮部分*/
+.demos-content-padded{
+	padding:148px 15px 0;
+}
+/*删除好友部分*/
+.weui-footer_fixed-bottom{
+	bottom:16px;
+}
+.delete-people{
+	margin:0 auto;
+	padding:5px 0;
+	width:90px;
+	color:#f00;
+	font-size:12px;
+}
+
+/*新增编辑地址*/
+.add-edit-address{
+	position:fixed;
+	top:0;
+	right:0;
+	bottom: 0;
+	left:0;
+	background: rgba(0,0,0,0.6);
+	z-index: 502;
+}
+.add-edit-address .add-edit-con{
+	position: absolute;
+	top:45%;
+	left:50%;
+	width:90%;
+	-webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    background:#fff;
+    border-radius: 4px;
+}
+.add-edit-address .add-edit-head{
+	padding: 1.3em 1.6em .5em;
+}
+.add-edit-address .add-edit-head p{
+	font-size:18px;
+	text-align: center;
+	color:#333;
+}
+.add-edit-address .add-edit-body{
+	padding: 0 24px 10px;
+    min-height: 40px;
+    font-size: 15px;
+    line-height: 1.3;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.add-edit-address .add-edit-body textarea{
+	display: block;
+	width:100%;
+	border:1px solid #ccc;
+	color: #999;
+	font-size:15px;
+	text-indent: 6px;
+	padding-top:4px;
+	resize:none;
+}
+.add-edit-address .add-edit-body .remark-item{
+	margin-top:10px;
+}
+.add-edit-address .add-edit-foot{
+	position: relative;
+	font-size:0;
+}
+.add-edit-address .add-edit-foot:after{
+	content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #d5d5d6;
+    color: #d5d5d6;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+.add-edit-address .add-edit-foot a{
+	display: inline-block;
+	line-height:48px;
+	font-size:18px;
+	text-align: center;
+	width:33.33333333333%;
+}
+.add-edit-address .add-edit-foot .addr-cancel{
+	color:#5f646e;
+}
+.add-edit-address .add-edit-foot .paste-text,
+.add-edit-address .add-edit-foot .send-text
+{
+	position:relative;
+	color:#3cc51f;
+}
+.add-edit-address .add-edit-foot .paste-text:after,
+.add-edit-address .add-edit-foot .send-text:after
+{
+	content: " ";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    border-right: 1px solid #D5D5D6;
+    color: #D5D5D6;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleX(0.5);
+    transform: scaleX(0.5);
+}
+/*放置粘贴内容*/
+.paste-input{
+	position:absolute;
+	top:2px;
+	z-index: -1;
+}
+.weui-btn_primary{
+	width:100%;
+    height: 46px;
+    line-height: 46px;
+    border-radius: 5px;
+    font-size:18px;
+}

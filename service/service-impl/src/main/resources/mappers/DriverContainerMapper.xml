@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.DriverContainerMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.DriverContainer">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="barcode" jdbcType="VARCHAR" property="barcode"/>
+        <result column="load_id" jdbcType="INTEGER" property="loadId"/>
+        <result column="load_time" jdbcType="TIMESTAMP" property="loadTime"/>
+        <result column="unload_id" jdbcType="INTEGER" property="unloadId"/>
+        <result column="unload_time" jdbcType="TIMESTAMP" property="unloadTime"/>
+        <result column="delivery_number" jdbcType="VARCHAR" property="deliveryNumber"/>
+        <result column="contact_name" jdbcType="VARCHAR" property="contactName"/>
+        <result column="receiver_name" jdbcType="VARCHAR" property="receiverName"/>
+        <result column="contact_number" jdbcType="VARCHAR" property="contactNumber"/>
+        <result column="receive_address" jdbcType="VARCHAR" property="receiveAddress"/>
+    	<result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    	<result column="latitude" jdbcType="VARCHAR" property="latitude" />
+        <result column="bind_status" jdbcType="INTEGER" property="bindStatus"/>
+        <result column="unload" jdbcType="BIT" property="unload"/>
+    </resultMap>
+
+    <sql id="include_sql">
+  		dc.id, dc.barcode, dc.load_id, dc.load_time, dc.unload_id, dc.unload_time, dc.delivery_number, dc.receiver_name, dc.contact_name, dc.contact_number, dc.receive_address, dc.longitude, dc.latitude, dc.bind_status, dc.unload
+  	</sql>
+
+    <select id="countUnloadByCode" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT
+         COUNT(barcode)
+        FROM
+          driver_container_tab
+        WHERE
+          barcode = #{barcode} AND unload = false
+    </select>
+    <select id="first" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="include_sql"/>
+        FROM
+        driver_container_tab dc
+        WHERE
+        dc.id = (SELECT MIN(id) FROM driver_container_tab WHERE barcode = #{barcode})
+    </select>
+	<select id="last" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        	<include refid="include_sql"/>
+        FROM
+        	driver_container_tab dc
+        WHERE
+        	dc.id = (SELECT MAX(id) FROM driver_container_tab WHERE barcode = #{barcode})
+    </select>
+    <select id="listBySomething" resultMap="BaseResultMap"
+            parameterType="com.ycg.ksh.entity.service.DriverContainerSearch">
+        SELECT
+        <include refid="include_sql"/>
+        FROM
+        driver_container_tab dc RIGHT JOIN (SELECT MAX(id) AS id FROM driver_container_tab GROUP BY barcode) odc ON dc.id = odc.id
+        <where>
+            <choose>
+                <when test="scope == 1">
+                    AND dc.barcode IN (SELECT barcode FROM barcode_tab b, group_members_tab gm WHERE b.groupid = gm.groupid AND gm.userid = #{userId} and b.bindstatus = 10)
+                </when>
+                <when test="scope == 2">
+                    AND dc.barcode IN (SELECT barcode FROM barcode_tab b WHERE b.userid = #{userId} and b.bindstatus = 10)
+                </when>
+                <otherwise>
+                    AND (dc.barcode IN (SELECT barcode FROM barcode_tab b, group_members_tab gm WHERE b.groupid = gm.groupid AND gm.userid = #{userId} and b.bindstatus = 10) OR (dc.barcode IN (SELECT barcode FROM barcode_tab b WHERE b.userid = #{userId} and b.bindstatus = 10)))
+                </otherwise>
+            </choose>
+            <if test="likeString != null and likeString !=''">
+                AND (
+                (LOCATE(#{likeString}, dc.delivery_number) > 0) OR
+                (LOCATE(#{likeString}, dc.barcode) > 0)
+                )
+            </if>
+            <if test="bindStatus != null and bindStatus gt 0">
+                <![CDATA[ AND dc.bind_status = #{bindStatus} ]]>
+            </if>
+            <if test="unload != null">
+                <![CDATA[ AND dc.unload = #{unload} ]]>
+            </if>
+            <if test="loadFirstTime != null">
+                <![CDATA[ AND dc.load_time >= #{loadFirstTime} ]]>
+            </if>
+            <if test="loadSencodTime != null">
+                <![CDATA[ AND dc.load_time <= #{loadSencodTime} ]]>
+            </if>
+            <if test="unloadFirstTime != null">
+                <![CDATA[ AND dc.unload_time >= #{unloadFirstTime} ]]>
+            </if>
+            <if test="unloadSencodTime != null">
+                <![CDATA[ AND dc.unload_time <= #{unloadSencodTime} ]]>
+            </if>
+        </where>
+        ORDER BY dc.bind_status DESC, dc.load_time
+    </select>
+
+    <select id="listByDriver" resultMap="BaseResultMap"
+            parameterType="com.ycg.ksh.entity.service.DriverContainerSearch">
+        SELECT
+        <include refid="include_sql"/>
+        FROM
+        driver_container_tab dc RIGHT JOIN (SELECT MAX(id) AS id FROM driver_container_tab GROUP BY barcode) odc ON dc.id = odc.id
+        <where>
+            (dc.load_id = #{userId} OR dc.unload_id = #{userId})
+            <if test="likeString != null and likeString !=''">
+                AND (
+                (LOCATE(#{likeString}, dc.delivery_number) > 0) OR
+                (LOCATE(#{likeString}, dc.barcode) > 0)
+                )
+            </if>
+            <if test="bindStatus != null and bindStatus gt 0">
+                <![CDATA[ AND dc.bind_status = #{bindStatus} ]]>
+            </if>
+            <if test="unload != null">
+                <![CDATA[ AND dc.unload = #{unload} ]]>
+            </if>
+            <if test="loadFirstTime != null">
+                <![CDATA[ AND dc.load_time >= #{loadFirstTime} ]]>
+            </if>
+            <if test="loadSencodTime != null">
+                <![CDATA[ AND dc.load_time <= #{loadSencodTime} ]]>
+            </if>
+            <if test="unloadFirstTime != null">
+                <![CDATA[ AND dc.unload_time >= #{unloadFirstTime} ]]>
+            </if>
+            <if test="unloadSencodTime != null">
+                <![CDATA[ AND dc.unload_time <= #{unloadSencodTime} ]]>
+            </if>
+        </where>
+        ORDER BY dc.load_time DESC
+    </select>
+</mapper>

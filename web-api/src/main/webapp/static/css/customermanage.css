@@ -1,0 +1,154 @@
+body{
+	padding:10px 10px 0;
+	font-size:14px;
+}
+.customer-content{
+	padding:0 24px 0 15px;
+	background:#fff;
+	min-height:100%;
+	color:#636363;
+}
+
+h3{font-size:24px;padding:20px 0;}
+.col-min{width:23%;}
+.col-xs-min{width:3%;min-width: 40px;}
+.col-mid{width:28%;}
+.col-max{width:34%;}
+
+/*****查询部分*/
+.content-search{
+    position:relative;
+    padding:16px 0 20px;
+}
+.content-search a{
+	text-decoration:none;
+}
+.content-search .content-search-btn{
+    display: inline-block;
+    padding:0 20px;
+    margin-top:-1px;
+    min-width: 70px;
+    line-height: 28px;
+    color:#fff;
+    border-radius: 3px;
+    background:#31acfa;
+    margin-left: 30px;
+}
+.content-search>.clearfix>.fl{position:relative;}
+.content-search .labe_l{
+    display:inline-block;
+    color:#333;
+    font-size:14px;
+    width:68px; 
+    height:26px;
+    line-height:26px;
+    font-weight: 400;
+}
+.content-search .tex_t{
+    position:absolute;
+    top:0;
+    left:68px;
+    width:140px;
+    height:26px;
+    border:1px solid #dedede;
+    text-indent:4px;
+    border-radius:4px;
+}
+.content-search .fl+.fl{margin-left:2%;}
+.content-search .clearfix+.clearfix {
+    margin-top: 15px;
+}
+.content-search input[type="text"]:focus{
+    border-color:#6ec5fb;
+}
+.otherSelect{
+    position:relative;
+}
+.otherSelect .more{
+    display: inline-block;
+    line-height: 26px;
+}
+
+/* 表格部分 */
+.handle-box{margin-top:10px;position:relative;}
+.handle-box .layui-btn{height:26px;line-height:26px;padding:0 8px;font-size:12px;border-radius:4px;}
+.table-style table{margin-top:20px;}
+.handle-box .pos_right{position:absolute;top:0;right:45px;z-index:2;}
+.handle-box .pos_right.delete-icon{
+	top: -3px;
+    right: 12px;
+    font-size: 26px;
+    color:#ff2a00;
+    cursor:pointer;
+}
+.table-style .check-all{
+	font-weight:400;
+}
+.table-style .check-all>input{
+	vertical-align:middle;
+	margin:0 5px 0 0;
+}
+.table-style .aBtn{padding:0 4px;}
+
+/* 弹出框样式修改 */
+.file_box{position:relative;}
+.model-base-box .file_box>input{width:255px;}
+.file_box>.span-txt{
+	padding: 0 5px;
+	margin-left: 3px;
+    display: inline-block;
+    vertical-align: top;
+    height: 28px;
+    line-height: 28px;
+    color: #fff;
+    border-radius: 3px;
+    background:#31acfa;
+}
+.file_box>a.file{
+	position: absolute;
+    top: 1px;
+    width: 72px;
+    left: 356px;
+    z-index: 22;
+    overflow: hidden;
+}
+.file_box>a.file>input[type=file]{opacity:0;filter:alpha(opacity=0);}
+a.linkBtn{color:#31acfa;cursor: pointer;}
+
+.chooseDeleteCheckBox input[type="checkbox"]{
+	appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    display: none;
+}
+
+.chooseDeleteCheckBox input[type="checkbox"]+span {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url(../images/icon_checkbox.png) no-repeat;
+    background-position-x: 0px;
+    background-position-y: -25px;
+    position: relative;
+    top: 3px;
+    cursor: pointer;
+}
+
+.chooseDeleteCheckBox input[type="checkbox"]:checked+span {
+    background-position: 0 0px
+}
+.jconfirm-box {
+    width: 600px;
+}
+.model-base-box .model-form-field>label{
+    width: 105px;
+}
+.model-base-box .model-form-field>input{
+    width: 360px;
+}
+
+.trips {
+	margin-top: 70px;
+	color: #333333;
+	font-weight: bold;
+}

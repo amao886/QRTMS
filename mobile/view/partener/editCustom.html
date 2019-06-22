@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="Keywords" content="合同物流管理平台运输管理平台">
+<meta name="Description" content="合同物流管理平台运输管理平台">
+<title>编辑地址</title>
+<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css"  media="screen">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/partener/addCustom.css" />
+<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+<style type="text/css">
+	/*样式重置*/
+	.weui-label{width:96px;}
+	.weui-cells_form:before{border-top:none;}
+	.weui-cells_checkbox .weui-icon-checked:before{font-size:18px;}
+	.weui-cells_checkbox .weui-check:checked+.weui-icon-checked:before{color:#31acfa;}
+	.project-bd .select-style{max-width:100%;height:32px;line-height:32px;text-align: center;}
+	/*新增样式*/ 
+	.fs0{font-size:0;}
+	.radio_inline{
+		display: inline-block;
+		padding: 0;
+		width: 50%;
+		font-size:14px;
+	}
+	.radio_inline:before{
+		border-top:none;
+	}
+</style>
+</head>
+<body ontouchstart style="background:#fafafa;">
+	<div class="weui-cells weui-cells_form margin-top">
+		<!--单选框-->
+		<div class="weui-cell weui-cells_checkbox">
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span>*</span>地址所属</label>
+			</div>
+			<div class="weui-cell__bd fs0">
+				<label class="weui-cell weui-check__label radio_inline" for="projectTeam" id="radio-pt">
+					<input type="radio" class="weui-check" name="radio1" id="projectTeam" value="1">
+			        <i class="weui-icon-checked"></i>
+			        	项目组
+			    </label>
+			    <label class="weui-cell weui-check__label radio_inline" for="personal" id="radio-personal">
+			    	<input type="radio" name="radio1" class="weui-check" id="personal" value="2">
+			        <i class="weui-icon-checked"></i>
+			         	个人
+			    </label>
+			</div>
+		</div>
+		<div class="weui-cell project-bd pt-contact weui-cell_select weui-cell_select-after">		
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span>*</span>项目组</label>
+			</div>
+			<div class="weui-cell__bd">
+	          <select class="weui-select" name="select2" id="groupList">
+	          	<option value="">请选择项目组</option>
+	          </select>
+	        </div>
+	    </div>
+		
+		<!--单选框-->
+		<div class="weui-cell weui-cells_checkbox">
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span>*</span>地址类型</label>
+			</div>
+			<div class="weui-cell__bd fs0">
+				<label class="weui-cell weui-check__label radio_inline" for="sendAddress" id="sendLabel">
+					<input type="radio" class="weui-check" name="radio2" id="sendAddress" value="2">
+			        <i class="weui-icon-checked"></i>
+			        	发货地址
+			    </label>
+			    <label class="weui-cell weui-check__label radio_inline" for="receiveAddress" id="receiveLabel">
+			    	<input type="radio" name="radio2" class="weui-check" id="receiveAddress" value="1">
+			        <i class="weui-icon-checked"></i>
+			         	收货地址
+			    </label>
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd changePepleType">
+			  <label class="weui-label"><span>*</span>发货人</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" type="text" id="companyName" name="companyName" placeholder="请输入发货人">
+			</div>
+		</div>	
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span>*</span>联系人</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" type="text" id="contacts" name="contacts" placeholder="请输入联系人姓名">
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span>*</span>联系电话</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" type="tel" id="contactNumber" name="contactNumber" placeholder="请输入手机号码">
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+			  <label class="weui-label"><span></span>固定电话</label>
+			</div>
+			<div class="weui-cell__bd">
+			  <input class="weui-input" type="tel" id="tel" name="tel" placeholder="请输入座机号码">
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd short-w">
+			  <label class="weui-label"><span>*</span>地址</label>
+			</div>
+		</div>
+		<div class="weui-cell show-border project-bd balance-hook-item">
+			<div class="balance-hook">
+				<select id="province">
+					<option value="">--请选省份--</option>
+				</select>
+			</div>
+			<div class="balance-hook">
+				<select id="city">
+					<option value="">--请选城市--</option>
+				</select>
+			</div>
+			<div class="balance-hook">
+				<select id="district">
+					<option value="">--请选区县--</option>
+				</select>
+			</div>
+		</div>
+		<div class="weui-cell show-border project-bd">
+			<input type="text" class="weui-input" id="tipinput" placeholder="请输入详细地址" />
+		</div>
+		<!--要求到货时间开始-->
+		<div class="weui-cell project-label-w">
+			<div class="weui-cell__hd">
+			  <label class="weui-label margin-left">要求到货时间</label>
+			</div>			
+		</div>
+				<div class="weui-cell project-bd">
+			<div class="weui-cell__bd">
+			 	发货后<select name="arriveDay" id="arrivalDay">
+			 			    <option value="">请选择第几天</option>
+							<option value="0">当天</option>
+							<option value="1">第1天</option>
+							<option value="2">第2天</option>
+							<option value="3">第3天</option>
+							<option value="4">第4天</option>
+							<option value="5">第5天</option>
+							<option value="6">第6天</option>
+							<option value="7">第7天</option>
+							<option value="8">第8天</option>
+							<option value="9">第9天</option>
+							<option value="10">第10天</option>
+							<option value="11">第11天</option>
+							<option value="12">第12天</option>
+							<option value="13">第13天</option>
+							<option value="14">第14天</option>
+							<option value="15">第15天</option>
+							<option value="16">第16天</option>
+							<option value="17">第17天</option>
+							<option value="18">第18天</option>
+							<option value="19">第19天</option>
+							<option value="20">第20天</option>
+							<option value="21">第21天</option>
+							<option value="22">第22天</option>
+							<option value="23">第23天</option>
+							<option value="24">第24天</option>
+							<option value="25">第25天</option>
+							<option value="26">第26天</option>
+							<option value="27">第27天</option>
+							<option value="28">第28天</option>
+							<option value="29">第29天</option>
+							<option value="30">第30天</option>
+							<option value="31">第31天</option>
+			 		</select>
+			 		<select class="project-select" id="arrivalHour" name="arriveHour">
+			 			    <option value="">请选择时间点</option>
+							<option value="1">凌晨1点</option>
+							<option value="2">2点</option>
+							<option value="3">3点</option>
+							<option value="4">4点</option>
+							<option value="5">5点</option>
+							<option value="6">6点</option>
+							<option value="7">7点</option>
+							<option value="8">8点</option>
+							<option value="9">9点</option>
+							<option value="10">10点</option>
+							<option value="11">11点</option>
+							<option value="12">12点</option>
+							<option value="13">13点</option>
+							<option value="14">14点</option>
+							<option value="15">15点</option>
+							<option value="16">16点</option>
+							<option value="17">17点</option>
+							<option value="18">18点</option>
+							<option value="19">19点</option>
+							<option value="20">20点</option>
+							<option value="21">21点</option>
+							<option value="22">22点</option>
+							<option value="23">23点</option>
+							<option value="24">24点</option>
+			 		</select>之前
+			</div>
+		</div>
+		<!--要求到货时间结束-->
+		<input type="hidden" id="lng" />
+		<input type="hidden" id="lat" />
+	</div>
+	<p class="p_tips">带*为必填项</p>
+	<div class='demos-content-padded'>
+		<a href="javascript:;" id="showTooltips" class="weui-btn weui-btn_primary">确定</a>
+	</div>
+	<div id="navBarIn"></div>
+	<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../../lib/js/json2.js"></script>
+	<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=7304d9bce8ee4bc4ec9c6c510c46477f&plugin=AMap.Geocoder"></script>
+	<script type="text/javascript" src="../../lib/layer/layer.js"></script>
+	<script type="text/javascript" src="../../lib/js/jsrender-min.js"></script>
+	<script type="text/x-jsrender" id="groupsName">
+		<option value="{{:id}}">{{:groupName}}</option>
+	</script>
+	<script type="text/javascript" src="../../lib/function/common.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+	<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+	<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+	<script type="text/javascript" src="../../js/common/navBar.js"></script>
+	<script type="text/javascript" src="../../js/common/filter_emoji.js" ></script>
+	<script type="text/javascript" src="../../lib/function/city.js"></script>
+	<script type="text/javascript" src="../../lib/function/select.js"></script>
+	<script type="text/javascript" src="../../js/partener/editCustom.js"></script>
+</body>
+</html>
+
+

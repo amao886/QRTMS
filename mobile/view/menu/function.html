@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0;">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<title>全部功能</title>
+		<link rel="stylesheet" href="../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/partener/function.css" />
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#eeeff3;">
+		<div id="menuWrapper">
+			<div class="weui-flex topMenu">
+				<div class="weui-flex__item tabBox weui-flex">
+					<span data-index="0" class="kinds active" v-if="identity == 1">司机常用</span>
+					<span data-index="1" class="kinds active" v-if="identity == 2">货主常用</span>
+					<span data-index="2" class="kinds active" v-if="identity == 3">承运商常用</span>
+					<span data-index="3" class="kinds active" v-if="identity == 4">收货方常用</span>
+				</div>
+				<a @click="enterSetPage"><img src="../../images/index/icon_set.png" /></a>
+			</div>
+			<div class="contentBox">
+				<!--司机常用-->
+				<div class="targetBox" v-if="identity == 1">
+					<ul class="iconList clearfix">
+						<li>
+							<a class="funcLink" data-num="203" @click="jumpLink('203')">
+								<div class="iconBox">
+									<img src="../../images/index/c_203.png" alt="">
+								</div>
+								<p class="weui-grid__label">装车卸货</p>
+							</a>
+						</li>
+						<li>
+							<a class="funcLink" data-num="303" @click="jumpLink('303')">
+								<div class="iconBox">
+									<img src="../../images/index/c_303.png" alt="">
+								</div>
+								<p class="weui-grid__label">扫码定位</p>
+							</a>
+						</li>
+						<li>
+							<a class="funcLink" data-num="401" @click="jumpLink('401')">
+								<div class="iconBox">
+									<img src="../../images/index/c_401.png" alt="">
+								</div>
+								<p class="weui-grid__label">上传回单</p>
+							</a>
+						</li>
+						<li>
+							<a class="funcLink" data-num="304" @click="jumpLink('304')">
+								<div class="iconBox">
+									<img src="../../images/index/c_304.png" alt="">
+								</div>
+								<p class="weui-grid__label">批报位置</p>
+							</a>
+						</li>
+						<li>
+							<a class="funcLink" data-num="506" @click="jumpLink('506')">
+								<div class="iconBox">
+									<img src="../../images/index/c_506.png" alt="">
+								</div>
+								<p class="weui-grid__label">运输记录</p>
+							</a>
+						</li>
+						<li>
+							<a class="funcLink" data-num="602" @click="jumpLink('602')">
+								<div class="iconBox">
+									<img src="../../images/index/c_602.png" alt="">
+								</div>
+								<p class="weui-grid__label">路径规划</p>
+							</a>
+						</li>
+						<li>
+							<a class="funcLink" data-num="507" @click="jumpLink('507')">
+								<div class="iconBox">
+									<img src="../../images/index/c_507.png" alt="">
+								</div>
+								<p class="weui-grid__label">电子合同</p>
+							</a>
+						</li>
+						<li>
+							<a class="funcLink" data-num="508" @click="jumpLink('508')">
+								<div class="iconBox">
+									<img src="../../images/index/c_508.png" alt="">
+								</div>
+								<p class="weui-grid__label">我要找货</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<!--货主常用-->
+				<div class="targetBox" v-if="identity == 2">
+					<h3>货主常用</h3>
+					<ul class="iconList clearfix">
+						<li v-if="searchCode(201)">
+							<a class="funcLink" data-num="201" @click="jumpLink('201')">
+								<div class="iconBox">
+									<img src="../../images/index/c_201.png" alt="">
+								</div>
+								<p class="weui-grid__label">扫码绑单</p>
+							</a>
+						</li>
+						<li v-if="searchCode(301)">
+							<a class="funcLink" data-num="301" @click="jumpLink('301')">
+								<div class="iconBox">
+									<img src="../../images/index/c_301.png" alt="">
+								</div>
+								<p class="weui-grid__label">货主查货</p>
+							</a>
+						</li>
+						<li v-if="searchCode(104)">
+							<a class="funcLink" data-num="104" @click="jumpLink('104')">
+								<div class="iconBox">
+									<img src="../../images/index/c_104.png" alt="">
+								</div>
+								<p class="weui-grid__label">客户管理</p>
+							</a>
+						</li>
+						<li v-if="searchCode(502)">
+							<a class="funcLink" data-num="502" @click="jumpLink('502')">
+								<div class="iconBox">
+									<img src="../../images/index/c_502.png" alt="">
+								</div>
+								<p class="weui-grid__label">申请二维码</p>
+							</a>
+						</li>
+						<li v-if="searchCode(505)">
+							<a class="funcLink" data-num="505" @click="jumpLink('505')">
+								<div class="iconBox">
+									<img src="../../images/index/c_505.png" alt="">
+								</div>
+								<p class="weui-grid__label">发货管理</p>
+							</a>
+						</li>
+						<li v-if="searchCode(204)">
+							<a class="funcLink" data-num="204" @click="jumpLink('204')">
+								<div class="iconBox">
+									<img src="../../images/index/c_204.png" alt="">
+								</div>
+								<p class="weui-grid__label">发货回单</p>
+							</a>
+						</li>
+						<li v-if="searchCode(106)">
+							<a class="funcLink" data-num="106" @click="jumpLink('106')">
+								<div class="iconBox">
+									<img src="../../images/index/c_106.png" alt="">
+								</div>
+								<p class="weui-grid__label">货主发货</p>
+							</a>
+						</li>
+						<li v-if="searchCode(405)">
+							<a class="funcLink" data-num="405" @click="jumpLink('405')">
+								<div class="iconBox">
+									<img src="../../images/index/c_404.png" alt="">
+								</div>
+								<p class="weui-grid__label">客户投诉</p>
+							</a>
+						</li>
+						<li v-if="searchCode(205)">
+							<a class="funcLink" data-num="205" @click="jumpLink('205')">
+								<div class="iconBox">
+									<img src="../../images/index/c_205.png" alt="">
+								</div>
+								<p class="weui-grid__label">现场管理</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<!--承运商常用-->
+				<div class="targetBox" v-if="identity == 3">
+					<h3>承运商常用</h3>
+					<ul class="iconList clearfix">
+						<li v-if="searchCode(105)">
+							<a class="funcLink" data-num="105" @click="jumpLink('105')">
+								<div class="iconBox">
+									<img src="../../images/index/c_105.png" alt="">
+								</div>
+								<p class="weui-grid__label">运单录入</p>
+							</a>
+						</li>
+						<li v-if="searchCode(201)">
+							<a class="funcLink" data-num="201" @click="jumpLink('201')">
+								<div class="iconBox">
+									<img src="../../images/index/c_201.png" alt="">
+								</div>
+								<p class="weui-grid__label">扫码绑单</p>
+							</a>
+						</li>
+						<li v-if="searchCode(104)">
+							<a class="funcLink" data-num="104" @click="jumpLink('104')">
+								<div class="iconBox">
+									<img src="../../images/index/c_104.png" alt="">
+								</div>
+								<p class="weui-grid__label">客户管理</p>
+							</a>
+						</li>
+						<li v-if="searchCode(505)">
+							<a class="funcLink" data-num="505" @click="jumpLink('505')">
+								<div class="iconBox">
+									<img src="../../images/index/c_505.png" alt="">
+								</div>
+								<p class="weui-grid__label">承运管理</p>
+							</a>
+						</li>
+						<li v-if="searchCode(204)">
+							<a class="funcLink" data-num="204" @click="jumpLink('204')">
+								<div class="iconBox">
+									<img src="../../images/index/c_204.png" alt="">
+								</div>
+								<p class="weui-grid__label">承运回单</p>
+							</a>
+						</li>
+						<li v-if="searchCode(107)">
+							<a class="funcLink" data-num="107" @click="jumpLink('107')">
+								<div class="iconBox">
+									<img src="../../images/index/c_107.png" alt="">
+								</div>
+								<p class="weui-grid__label">物流商发货</p>
+							</a>
+						</li>
+						<li>
+							<a class="funcLink" data-num="108" @click="jumpLink('108')">
+								<div class="iconBox">
+									<img src="../../images/index/c_108.png" alt="">
+								</div>
+								<p class="weui-grid__label">司机管理</p>
+							</a>
+						</li>
+						<li >
+							<a class="funcLink" data-num="109" @click="jumpLink('109')">
+								<div class="iconBox">
+									<img src="../../images/index/c_109.png" alt="">
+								</div>
+								<p class="weui-grid__label">我要找车</p>
+							</a>
+						</li>
+						<li v-if="searchCode(405)">
+							<a class="funcLink" data-num="405" @click="jumpLink('405')">
+								<div class="iconBox">
+									<img src="../../images/index/c_405.png" alt="">
+								</div>
+								<p class="weui-grid__label">客户投诉</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<!--收货方常用-->
+				<div class="targetBox" v-if="identity == 4">
+					<h3>收货方常用</h3>
+					<ul class="iconList clearfix">
+						<li v-if="searchCode(302)">
+							<a class="funcLink" data-num="302" @click="jumpLink('302')">
+								<div class="iconBox">
+									<img src="../../images/index/c_302.png" alt="">
+								</div>
+								<p class="weui-grid__label">收货人查货</p>
+							</a>
+						</li>
+						<li v-if="searchCode(403)">
+							<a class="funcLink" data-num="403" @click="jumpLink('403')">
+								<div class="iconBox">
+									<img src="../../images/index/c_403.png" alt="">
+								</div>
+								<p class="weui-grid__label">收货人签收</p>
+							</a>
+						</li>
+						<li v-if="searchCode(104)">
+							<a class="funcLink" data-num="104" @click="jumpLink('104')">
+								<div class="iconBox">
+									<img src="../../images/index/c_104.png" alt="">
+								</div>
+								<p class="weui-grid__label">客户管理</p>
+							</a>
+						</li>
+						<li v-if="searchCode(505)">
+							<a class="funcLink" data-num="505" @click="jumpLink('505')">
+								<div class="iconBox">
+									<img src="../../images/index/c_505.png" alt="">
+								</div>
+								<p class="weui-grid__label">收货管理</p>
+							</a>
+						</li>
+						<li v-if="searchCode(204)">
+							<a class="funcLink" data-num="204" @click="jumpLink('204')">
+								<div class="iconBox">
+									<img src="../../images/index/c_204.png" alt="">
+								</div>
+								<p class="weui-grid__label">收货回单</p>
+							</a>
+						</li>
+						<li v-if="searchCode(404)">
+							<a class="funcLink" data-num="404" @click="jumpLink('404')">
+								<div class="iconBox">
+									<img src="../../images/index/c_404.png" alt="">
+								</div>
+								<p class="weui-grid__label">投诉记录</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--底部导航-->
+			<div id="navBarIn"></div>
+			<span class="moreBtn" id="moreTouch" @click="more">更多</span>
+		</div>
+		<script type="text/javascript" src="../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../js/menu/function.js"></script>
+		<script type="text/javascript">
+			$('#swap').click(function() {
+				scanCode();
+			})
+		</script>
+	</body>
+
+</html>

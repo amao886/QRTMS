@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.plan.PlanDesignateMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.plan.PlanDesignate">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="PLAN_ID" jdbcType="BIGINT" property="planId"/>
+        <result column="COMPANY_KEY" jdbcType="BIGINT" property="companyKey"/>
+        <result column="LAST_COMPANY_KEY" jdbcType="BIGINT" property="lastCompanyKey"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="FETTLE" jdbcType="INTEGER" property="fettle"/>
+        <result column="IS_ALLOCATE" jdbcType="BIT" property="allocate"/>
+    </resultMap>
+
+    <resultMap id="ConciseResultMap" type="com.ycg.ksh.entity.service.enterprise.CompanyConcise">
+        <result column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName"/>
+    </resultMap>
+
+    <select id="getLastCompanyId" resultType="java.lang.Long" parameterType="java.lang.Long">
+      select LAST_COMPANY_KEY from T_PLAN_DESIGNATE where  COMPANY_KEY = #{companyId}
+    </select>
+    <select id="getByLastCompanyKey" resultMap="BaseResultMap">
+        SELECT * FROM  T_PLAN_DESIGNATE WHERE LAST_COMPANY_KEY=#{arg0} AND PLAN_ID = #{arg1}
+    </select>
+    <select id="getByCompanyKey" resultMap="BaseResultMap">
+        SELECT * FROM  T_PLAN_DESIGNATE WHERE COMPANY_KEY=#{arg0} AND PLAN_ID = #{arg1}
+    </select>
+    <select id="listDesignates" resultType="java.lang.Long" parameterType="java.lang.Long">
+        SELECT COMPANY_KEY FROM  T_PLAN_DESIGNATE WHERE PLAN_ID = #{planKey}
+    </select>
+    <select id="listSource" resultMap="ConciseResultMap" parameterType="java.lang.Long">
+      select distinct c.ID, c.COMPANY_NAME from T_PLAN_DESIGNATE d left join T_COMPANY c on d.LAST_COMPANY_KEY = c.ID where d.COMPANY_KEY = #{companyId}
+    </select>
+</mapper>

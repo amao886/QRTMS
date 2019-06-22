@@ -1,0 +1,108 @@
+#driverManage {
+	padding: 10px 5px;
+}
+/*.search {
+	display: flex;
+	
+}
+.search input {
+	flex: 8;
+	height: 20px;
+	border: 1px solid black;
+}
+.search a {
+     flex: 2;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	background-color: #169BD5;
+	border: 1px solid #169BD5;
+	color: #fff;
+	margin-left: 10px;
+	border-radius: 5px;
+}*/
+
+.driverList ul li {
+	list-style: none;
+	background-color: #FFFFFF;
+	margin-top: 10px;
+	
+}
+
+.top .headImg,.top .topRight{
+	float: left;
+}
+.top {
+	display: flex;
+}
+.top .headImg {
+	flex: 2;
+	height: 80px;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+.top .headImg  img {
+    width: 60px;
+    height: 60px;
+  
+}
+.top .topRight {
+	flex: 8;
+	position: relative;
+}
+ .releaseName {
+	margin-top: 10px;	
+}
+.topRight .releaseTime {
+   color: #999 ;
+  font-size: 14px;
+ 
+}
+.topRight .right-info {
+	margin-top: 10px;
+	color: #999;
+	font-size: 14px;
+}
+.content {
+	padding-left: 10px;
+}
+.effective {
+	position: absolute;
+	width: 80px;
+	height: 30px;
+	top: 0;
+	right:0 ;
+	background: #E4E4E4;
+	text-align: center;
+	line-height: 30px;
+	color: #00CC00;
+}
+.m10 {
+	margin-right: 10px;
+}
+.invalid {
+	position: absolute;
+	width: 80px;
+	height: 30px;
+	top: 0;
+	right:0 ;
+	background: #E4E4E4;
+	text-align: center;
+	line-height: 30px;
+	color: #999999;
+}
+.lookingGoods {
+	display: block;
+	width: 54px;
+	height: 54px;
+	border-radius: 50%;
+	background: #169BD5;
+	color: #FFFFFF;
+	line-height: 50px;
+	text-align: center;
+	font-size: 12px;
+	position: fixed;
+	bottom: 20px;
+	right: 5px;
+}

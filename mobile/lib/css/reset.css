@@ -1,0 +1,328 @@
+/*清除默认样式*/
+body{font: 12px/1.5;}
+
+body,div,ul,ol,dl,li,dt,dd,h1,h2,h3,h4,h5,h6,p,img,input,button{margin: 0; padding: 0;}
+
+ul,ol{list-style: none;}
+
+li{list-style-type: none;}
+
+h1,h2,h3,h4,h5,h6{font-weight: normal;}
+
+img,input,button,textarea{border: none; outline: none;}
+
+a{text-decoration: none;}
+em,i{font-style:normal;}
+
+.fl{float: left !important;}
+
+.fr{float: right !important;}
+
+.clearfix{zoom: 1;}
+
+.clearfix:after{content:"."; display:block; height:0; visibility:hidden; clear:both;}
+
+.ca:after{display: none !important;}
+
+.bb{border-bottom: none;}
+
+.br{border-right: none !important;}
+
+.pr{padding-right: 0 !important;}
+
+.mr{margin-right: 0 !important;}
+
+.hide{display: none;}
+
+.db{display: block;}
+
+.d-ib{display: inline-block;}
+
+.relative{position: relative;}
+
+/*字体颜色*/
+.color-blue{
+	color:#02afff !important;
+}
+.color-red{
+	color:#fa3030 !important;
+}
+.color-green{
+	color:#39c86c !important;	
+}
+.color-orange{
+	color:#ff7f00 !important;
+}
+.color-gray{
+	color: #636363 !important;
+}
+.color-share{
+	color:#65c15c !important;
+}
+.color-lightorange{
+	color:#fd8663 !important;
+}
+/*天数，定位次数颜色*/
+.color-mark{
+	color:#ff6633 !important;
+}
+
+/*单行文本省略*/
+.one-line-hide{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}
+/*多行文本省略*/
+.more-line-hide{
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+/*解决ios中弹出框偏移问题*/
+.weui-dialog, .weui-toast{
+	-webkit-transform: scale(1) translate(-50%, -50%) !important;
+	transform: scale(1) translate(-50%, -50%) !important;
+}
+
+/*解决ios在微信端出现的内阴影问题*/
+textarea,input{
+　box-shadow:0px 0px 0px rgba(0,0,0,0);
+  -webkit-appearance:none;
+}
+
+/*iphone5验证码遮盖*/
+.weui-vcode-btn{
+	margin-left:0;
+	padding:0 0.6em 0 0.6em;
+	font-size:16px;
+}
+
+/* 清除select下拉框箭头*/
+select{   
+  appearance:none;   
+  -moz-appearance:none;   
+  -webkit-appearance:none;   
+}   
+
+/*连续英文、数字换行*/
+.wordwrap{
+	word-break : break-all;
+	word-wrap:break-word;
+}
+/* placeholder字体颜色重置 */
+input::-webkit-input-placeholder {color:#adadad;}
+input:-moz-placeholder {color:#adadad;}
+input::-moz-placeholder {color:#adadad;}
+input:-ms-input-placeholder {color:#adadad;}
+  
+/*覆盖框架原样式*/
+.weui-btn_primary{
+	width:80%;
+	height:44px;
+	line-height:44px;
+	border-radius:22px;
+	background:#31acfa; 
+	font-size:15px;
+}
+.weui-btn:after{
+	border:none;
+}
+.weui-btn_primary:not(.weui-btn_disabled):active{background:#2d9ee6;}
+.weui-vcode-btn{color:#31acfa;}
+.weui-vcode-btn:active{color:#2fa4ef;}
+.demos-content-padded{padding:20px 0 130px;}
+
+.weui-btn_primary.disabled{
+	background:#f8f8f8;
+	color:#afafaf;
+}
+.weui-btn_primary.disabled:active{
+	background:#f8f8f8;
+	color:#afafaf;
+}
+
+/*小按钮*/
+.weui-btn_primary.weui-btn_mini{
+	width:auto;
+	border-radius: 5px;
+    height:28px;
+    line-height: 28px;
+    font-size: 13px;
+}
+
+/*点击放大图片*/
+.weui-gallery{
+	background-color:rgba(0,0,0,.5);
+}
+.weui-gallery > img{
+	width:90%;
+	position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+	margin:auto;
+}
+
+/*****loading样式*/
+.loadingBox{position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 503;
+}
+.loadingBox .weui-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px;
+    margin-left: -20px;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+}
+
+/*列表页搜索按钮*/
+.weui-btn-search{
+	position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 14px;
+    padding-right: 14px;
+    box-sizing: border-box;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    line-height: 2.55555556;
+    border-radius: 5px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    overflow: hidden;
+}
+.weui-btn-search.weui-btn_mini{
+	display: inline-block;
+    padding: 0 1.32em;
+    line-height: 2.3;
+    font-size: 13px;
+}
+.weui-btn-search:after{
+	content: " ";
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid rgba(0,0,0,.2);
+    -webkit-transform: scale(.5);
+    transform: scale(.5);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+.borderTop,.borderBottom,.borderLeft,.borderRight{
+	position:relative;
+}
+.borderTop:before{
+	content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid #ccc;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    z-index: 2;
+}
+.borderBottom:after{
+	content:'';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom:0;
+    border-bottom: 1px solid #ccc;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    z-index: 2;
+}
+.borderLeft:after{
+	content:'';
+	position: absolute;
+    top: 0;
+    left: 0;
+	bottom:0;
+    border-left: 1px solid #ccc;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleX(.5);
+    transform: scaleX(.5);
+    z-index: 2;
+}
+.borderRight:after{
+	content:'';
+	position: absolute;
+    top: 0;
+    right: 0;
+	bottom:0;
+    border-right: 1px solid #ccc;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleX(.5);
+    transform: scaleX(.5);
+    z-index: 2;
+}
+
+/*签收按钮*/
+.receipt-wrapper .weui-footer{padding:15px;bottom:0;background:#fff;z-index: 3;}
+.receipt-wrapper .weui-footer:before{
+	content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid #ccc;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    z-index: 2;
+}
+.recept-btn>a{width:45%;font-size:15px;}
+.recept-btn>a.weui-btn_plain-primary{
+	line-height:normal;
+	padding:6px 0;
+	text-align: center;
+	color:#31acfa;
+	border:1px solid #31acfa;
+}
+.recept-btn .weui-btn_plain-primary:not(.weui-btn_plain-disabled):active {
+    color: #2996dc;
+    border-color: #2996dc;
+}
+.recept-btn>a.weui-btn_primary{
+	margin-top:0;
+	line-height:normal;
+	height:auto;
+	padding:7px 0;
+	color:#fff;
+	border-radius: 5px;	
+}
+/*签署按钮*/
+.logistic-btn>a{
+	margin-top:0;
+	line-height:normal;
+	height:auto;
+	padding:7px 0;
+	color:#fff;
+	border-radius: 5px;	
+}

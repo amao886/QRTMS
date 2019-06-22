@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.ycg.ksh</groupId>
+		<artifactId>qlm</artifactId>
+		<version>5.0.8-SNAPSHOT</version>
+	</parent>
+	<artifactId>adapter</artifactId>
+	<packaging>pom</packaging>
+	<description>外网访问转接器</description>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.ycg.ksh</groupId>
+				<artifactId>common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.ycg.ksh</groupId>
+				<artifactId>entity</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+	
+	<modules>
+		<module>adapter-api</module>
+		<module>adapter-impl</module>
+	</modules>
+</project>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.PersonalSealMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.PersonalSeal">
+        <result column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="SEAL_STYLE" jdbcType="VARCHAR" property="sealStyle"/>
+        <result column="SEAL_IMG_PATH" jdbcType="VARCHAR" property="sealImgPath"/>
+        <result column="SEAL_TYPE" jdbcType="INTEGER" property="sealType"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+</mapper>

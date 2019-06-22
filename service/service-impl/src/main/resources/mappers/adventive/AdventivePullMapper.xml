@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.adventive.AdventivePullMapper">
+  <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.adventive.AdventivePull">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="ADVENTIVE_ID" jdbcType="BIGINT" property="adventiveKey" />
+    <result column="INCLUDES" jdbcType="VARCHAR" property="includes" />
+    <result column="EXCLUDES" jdbcType="VARCHAR" property="excludes" />
+    <result column="DATA_TYPES" jdbcType="VARCHAR" property="dataTypes" />
+  </resultMap>
+
+  <select id="selectByAdventiveKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT * FROM T_ADVENTIVE_PUSH WHERE ADVENTIVE_ID=#{adventiveKey}
+  </select>
+</mapper>

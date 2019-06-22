@@ -1,0 +1,20 @@
+.people_list{margin-top:0;}
+.people_list .weui-cell{-webkit-flex-wrap: wrap;flex-wrap:wrap; -webkit-align-items: flex-start;align-items: flex-start;}
+.weui-grid{width:25%;padding:4px 4px 15px;}
+.weui-grid:active{background-color:transparent;}
+.weui-grid:before{border-right:none;}
+.weui-grid:after{border-bottom: none;}
+.weui-grid__icon{width:60px;height:60px;position: relative;}
+.weui-grid__icon img{width:100%;height:100%;border-radius: 6px;}
+.weui-grid__icon .delP{
+	position: absolute;
+	top:-6px;
+	right:-6px;
+	width:18px;
+	height:18px;
+	background:url(../../images/del-icon.png) no-repeat center;
+	background-size: 100%;
+}
+.demos-content-padded{
+	margin-bottom: 120px;
+}

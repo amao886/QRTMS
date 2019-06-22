@@ -1,0 +1,270 @@
+input {
+    outline: none;
+    border: 1px solid #ccc;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.topInfo {
+    line-height: 40px;
+}
+
+.topInfo .importInvoice,
+.topInfo .printing {
+    float: right;
+    margin-left: 20px;
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.topInfo .search {
+    line-height: 28px;
+    margin-left: 10px;
+}
+
+#warehousing-management-content {
+    background-color: #fff;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 15px 10px;
+}
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+
+
+}
+
+table tr th,
+table tr td {
+    border: 1px solid #ccc;
+    text-align: center;
+    color: #333;
+    box-sizing: border-box;
+}
+
+table tr th {
+    background-color: #f5f5f5;
+    font-size: 14px;
+    padding: 5px 0;
+    font-weight: 500;
+
+}
+
+table tr td {
+    padding: 10px 5px;
+    font-size: 14px;
+}
+
+.edit {
+    color: #4A9ABF;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+table tr td:first-child {
+    padding: 5px;
+}
+table tr td:nth-child(2) {
+    position: relative;
+}
+.edit,
+.el-pagination {
+    margin-top: 10px;
+}
+
+.modelTxt {
+    margin: 0 15px;
+}
+
+.el-dialog__title,
+.el-icon-close:before {
+    font-weight: 700;
+}
+
+
+.el-input {
+    width: 305px;
+
+}
+.el-select {
+    width: 115px;
+}
+
+.el-select .el-input__inner:focus {
+    border-color: #000;
+}
+
+.el-select .el-input.is-focus .el-input__inner {
+    border-color: #000;
+}
+
+.el-input.is-active .el-input__inner,
+.el-input__inner:focus {
+    border-color: #000;
+}
+
+.el-dialog:before {
+    content: '';
+    width: 100%;
+    height: 10px;
+    background-color: #3699DB;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.el-form-item {
+    margin-bottom: 15px;
+}
+
+.el-dialog {
+    border-radius: 10px;
+}
+
+.el-input__suffix {
+    right: -2px;
+}
+
+.el-input__inner {
+    height: 30px;
+    line-height: 30px;
+}
+
+.el-icon-arrow-up:before {
+    content: "\e605";
+    color: #000;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.el-dialog__body {
+    padding: 20px 20px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    height: 400px;
+    position: relative;
+    overflow-y: scroll;
+}
+
+select {
+    width: 99px;
+    height: 25px;
+    border-radius: 3px;
+
+}
+
+input[type='checkbox'] {
+    border-radius: 0;
+    width: 15px;
+    height: 15px;
+    outline: none;
+    background: #fff;
+}
+
+table tr td:nth-child(1),
+table tr th:nth-child(1) {
+    text-align: left;
+    padding: 0 10px;
+}
+
+.topLeft {
+    float: left;
+}
+
+.topRight {
+    float: right;
+   height: 100%;
+}
+
+.topInfo .el-button {
+    padding: 0px 20px;
+}
+
+.date {
+    margin-left: 50px;
+}
+
+.chooseFile span{
+    height: 25px;
+    line-height: 25px;
+    background-color: #169BD5;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: relative;
+}
+
+.box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+}
+.box1 {
+    /*margin-left: 40%;*/
+    text-align: center;
+    text-align: -webkit-center;
+    text-align: -moz-center;
+
+}
+.hideChooseFile {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 32px;
+    width: 68px;
+    opacity: 0;
+}
+
+.el-button--primary {
+    color: #fff;
+    background-color: #169BD5;
+    border-color: #169BD5;
+}
+
+.el-button--primary:focus,
+.el-button--primary:hover,
+.el-button--primary.is-active,
+.el-button--primary:active {
+    background-color: #169BD5;
+    border-color: #169BD5;
+}
+#file {
+    border-radius: 0;
+    border: 1px solid #000;
+    width: 300px;
+}
+/*条形码*/
+.printOrder {
+    width:90mm;
+    height: 90mm;
+    position: relative;
+    padding-bottom: 2px;
+}
+.printOrder img {
+     width: 100%;
+     display: block;
+     border: 1px solid #ccc;
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     border-radius: 5px;
+     transform: translate(-50%,-50%);
+
+}
+.importNumber {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+}
+
+

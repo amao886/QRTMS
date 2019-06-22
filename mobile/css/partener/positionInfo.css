@@ -1,0 +1,157 @@
+/*公共样式*/
+body{
+	color:#333;
+}
+.pad-15{
+	padding:0 15px;
+}
+.pad-left-15{
+	padding-left:15px;
+}
+.pad-right-15{
+	padding-right:15px;
+}
+.txt_left{
+	color: #737373;
+}
+.txt_right{
+	padding-left: 6px;
+}
+.add_space{
+	letter-spacing:0.5em; 
+	margin-right:-0.5em;
+}
+.txt_highlight{
+	color:#ff7f00 !important;
+}
+/*定位+扫码提示*/
+.head-tips{
+	background-color: #fffae5;
+	padding:8px 15px;
+}
+.head-tips .success-tip{
+	font-size: 14px;
+	color:#f00;
+	text-align: center;
+}
+.head-tips .location-tip{
+	font-size:13px;
+	text-align: left;
+	line-height: 22px;
+	padding-left:16px;
+	position: relative;
+}
+.head-tips .location-tip .loc-icon{
+	position: absolute;
+	top:3px;
+	left:0;
+	width:11px;
+	height:14px;
+	background:url(../../images/location.png) no-repeat center;
+	background-size: 100%;
+}
+/*扫二维码图片*/
+.public_wechat>img{
+	width:100%;
+	vertical-align: top;
+}
+/*任务详情*/
+.bill-detail-con{
+	margin-top:10px;
+	border-top:1px solid #e1e1e3;
+	padding-bottom: 80px;
+	/*font-size:14px;*/
+}
+.bill-detail-con .detail-con-title{
+	border-bottom: 1px solid #e1e1e3;
+	background-color: #fff;
+	padding:12px 15px;
+}
+.bill-detail-con .detail-con-title{
+	padding:6px 15px;
+	font-size: 14px;
+}
+.detail-con-title .title_left,.detail-con-title .title_right{
+	font-size:15px;
+	width:120px;
+}
+.detail-con-title .title_right{
+	text-align: right;
+}
+.bill-detail-con .txt_left{
+	font-size:15px;
+	width:80px !important;
+	letter-spacing: 0em;
+}
+.detail-con-title .title_left{
+	color:#31ACFA;
+}
+.detail-con-title .title_right a{
+	color:#ff7f00;
+	font-size:14px;
+}
+.bill-detail-con .detail-con-title .title_left >span{
+	display: block;
+	border-left:2px solid #31ACFA;
+	height:100%;
+	padding-left:6px;
+}
+.bill-detail-con .weui-flex{
+	padding:12px 15px;
+}
+.bill-detail-con .weui-flex{
+	border-bottom: 1px solid #e1e1e3;
+}
+/*底部操作*/
+.weui-footer{
+	background: #fff;
+	bottom:0;
+}
+.weui-footer .footer-con-handle{
+	float:left;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	width:25%;
+	background:#fff;
+	border-top:1px solid #f4f4f4;
+}
+.weui-footer .footer-con-handle + .footer-con-handle{
+	border-left:1px solid #e1e1e3;
+}
+.weui-footer .footer-con-handle img{
+	width:20px;
+	height:20px;
+	margin:6px auto 0;
+	vertical-align: top;
+}
+.weui-footer .footer-con-handle p{
+	font-size:12px;
+	color:#5c5c5c;
+	padding:6px 0 7px 0;
+}
+.weui-footer .footer-con-handle.con-large{
+	width:40%;
+	height:59px;
+	line-height: 59px;	
+	border:none;
+	background:#31ACFA;
+	color:#fff;
+	font-size: 18px;
+	letter-spacing: 1px;
+}
+
+/*装车卸货上报位置页*/
+.bill-detail-con.positionCopy{
+	margin-top:0;
+	position:relative;
+}
+.bill-detail-con.positionCopy .loadBoard{
+	position:absolute;
+	top: 6px;
+    right: 15px;
+    font-size: 15px;
+    color:#31ACFA;
+}

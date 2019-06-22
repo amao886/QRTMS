@@ -1,0 +1,94 @@
+/*余额部分*/
+.balance {
+	background: #FFFFFF;
+	height: 96px;
+}
+
+.balanceInfo {
+	padding-top: 22px;
+	padding-left: 18px;
+}
+
+.title {
+	font-size: 14px;
+	color: #999999;
+}
+
+.unit {
+	font-size: 24px;
+	color: #333333;
+}
+
+.withdraw-btn {
+	padding-left: 15px;
+	padding-right: 18px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+/*列表部分*/
+.accountbanalce-list-con {
+	margin-top: 18px;
+	margin-bottom: 120px;
+}
+
+.task-list-item-title {
+	text-align: center;
+	padding: 8px 0;
+}
+
+/*列表部分通用*/
+.accountbanalce-list-item-part {
+	position: relative;
+	padding: 18px;
+	background: #fff;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.type {
+	font-size: 14px;
+	color: #333333;
+}
+
+.date {
+	font-size: 14px;
+	color: #999999;
+	padding-top: 2px;
+}
+
+.money {
+	font-size: 16px;
+	color: #FFA25D;
+	padding-top: 10px;
+}
+
+.moneyBlack {
+	color: #333333;
+}
+
+/*覆盖框架原样式*/
+.weui-btn_primary.weui-btn_mini {
+	width: 78px;
+	height: 42px;
+	line-height: 42px;
+	border-radius: 2px;
+	background: #0071FE;
+	font-size: 14px;
+}
+
+.weui-btn:after {
+	border: none;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #0059C7;
+}
+
+.weui-dialog__bd {
+	font-size: 15px;
+	color: #333333;
+}
+
+.weui-dialog__btn {
+	color: #446AFF;
+}

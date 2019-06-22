@@ -1,0 +1,192 @@
+/*搜索部分*/
+.check-task-search{
+	padding:12px;
+	background:#f5f5f5;
+}
+.check-task-search .weui-icon-search{
+	position: absolute;
+	top:8px;
+	left:4px;
+	font-size:16px;
+	z-index:2;
+}
+.check-task-search .weui-search-bar__box{
+	padding-left:0;
+	padding-right:0;
+}
+.task-search-input{
+	padding: 14px 32px 14px 28px;
+    width: 100%;
+    height: 1.42857143em;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.42857143em;
+    box-sizing: border-box;
+    background: #fff;
+    outline: none;
+}
+.task-search-btn{
+	padding-left:15px;
+}
+.check-task-search .weui-icon-clear{
+	position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 15px;
+    width: 32px;
+    line-height: 30px;
+    text-align: center;
+    z-index:2;
+}
+
+/*状态选择部分*/
+.task-status{
+	border-top:1px solid #dedede;
+	border-bottom:1px solid #dedede;
+	background:#fff;
+	margin-bottom:10px;
+}
+.task-status .task-status-con{
+	font-size:0;
+}
+.task-status-item{
+	position: relative;
+	text-align:center;
+}
+.task-status-item>select{
+	font-size:16px;
+	padding:13px 0;
+	border:none;
+	background:transparent;
+	outline:none;
+	color:#333;
+}
+.task-status-item.task-project,
+.task-status-item.deliver-time,
+.task-status-item.task-s{
+	display: inline-block;
+	font-size:16px;
+}
+.task-status-item>.span{
+	display: block;
+	white-space: nowrap;
+	width:100%;
+	line-height:100%;
+	line-height:51px;
+}
+/*项目组*/
+.task-status-item.task-project{
+	width:47%;
+	overflow: hidden;
+}
+.task-status-item.task-project .span{
+	text-indent: 12px;
+}
+/*发货时间*/
+.task-status-item.deliver-time{
+	width:33%;
+	text-align: center;
+
+}
+/*任务状态*/
+.task-status-item.task-s{
+	width:20%;
+}
+/*延迟正常状态*/
+.task-status .select-down{
+	position: absolute;
+	left:50%;
+	margin-left:-6px;
+	bottom:3px;
+	width:12px;
+	height:6px;
+	background:url(../../images/select-down.png) no-repeat center;
+	background-size: 100%;
+}
+.task-status .task-status-item.task-s.active:after{
+	content:'';
+	position: absolute;
+	left:0;
+	bottom:-2px;
+	width:100%;
+	height:2px;
+	background:#02afff;
+}
+.task-status .task-status-item.task-s.active>select{
+	color:#02afff;
+}
+.task-status .task-status-item.active .select-down{
+	background:url(../../images/select-up.png) no-repeat center;
+	background-size: 100%;
+}
+
+/*任务列表部分*/
+.task-list-con{margin-bottom: 110px;}
+.task-list-item-title{
+	text-align: center;
+	padding:8px 0;
+}
+
+/*任务单列表部分通用*/
+.task-list-item-part{
+	position: relative;
+	padding:12px;
+	background:#fff;
+	border-top:1px solid #dedede;
+	border-bottom: 1px solid #dedede;
+	margin-bottom: 10px;
+	font-size:15px;
+}
+.task-list-item-part .weui-flex{
+	margin-bottom: 6px;
+}
+.task-list-item-part > .pbox {
+    font-size: 13px;
+    color: #8f8f8f;
+}
+.task-list-item-part .task-con-title{
+	width:74px;
+	color:#666;
+}
+.task-list-item-part .title-right{
+	padding-right:92px;
+}
+.task-list-item-part .weui-flex__item{
+	padding-left:4px;
+	color:#333;
+}
+.task-list-item-part > .pbox{
+	font-size:13px;
+	color:#8f8f8f;
+}
+.upload-task-status{
+	position: absolute;
+	top:13px;
+	right:12px;
+	font-size: 13px;
+	letter-spacing: 1px;	
+}
+.status-delay{
+	right:60px;
+	
+} 
+.span-info{
+	margin-right:6px;
+}
+.color-mark{
+	color:#ff6633;
+	margin-right:2px;
+}
+.waybill-tips{
+	top:auto;
+	right:12px;
+	bottom:12px;
+}
+.waybil-no-data{
+	text-align: center;
+	padding: 5px;
+	margin: auto; /*水平居中*/
+    margin-top:40%; 
+}
+

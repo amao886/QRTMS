@@ -1,0 +1,74 @@
+.people_list{margin-top:0;}
+.people_list .weui-cell{-webkit-flex-wrap: wrap;flex-wrap:wrap; -webkit-align-items: flex-start;align-items: flex-start;}
+.weui-cell_access .weui-cell__ft{padding-right:20px;}
+.weui-cell__ft > span.script{font-size: 13px;}
+.weui-grid{width:20%;padding:15px 8px 0;}
+.weui-grid:active{background-color:transparent;}
+.weui-grid__icon{width:50px;height:50px;border-radius: 6px;position: relative;overflow: hidden;}
+.weui-grid__icon img{width:100%;height:100%;}
+.weui-grid:before{border-right:none;}
+.weui-grid:after{border-bottom: none;}
+.weui-grid__icon.deleteP.deleteP{border: 1px solid #ddd;}
+.weui-grid__icon.deleteP:after{
+	width:70%;
+	height:1px;
+	content: " ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    background-color: #d9d9d9;
+}
+.pl_part2 .weui-cell__ft > img{width:20px;}
+.limitWidth p{width:97px;}
+.limitWidth .weui-cell__ft{
+	-webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+.projectTeam-wrapper{
+	margin-bottom:120px;
+}
+
+/*更多按钮*/
+.a-toggle{
+	font-size: 12px;
+    color: #008ed8;
+    text-align: center;
+    margin-top: 34px;
+}
+
+/*选择成员角色页*/
+.roleItemCon{
+	font-size:16px;
+}
+.rolePower{
+	font-size:14px;
+}
+.weui-cells_checkbox .weui-check:checked+.weui-icon-checked:before{
+	content: "\EA06";
+    color: #31acfa;
+}
+.roleItemCon .weui-cell__ft{
+	width:85px;
+}
+.weui-cells_checkbox .weui-icon-checked:before{
+	font-size:20px;
+}
+.showHeight{
+	min-height:19px;
+}
+/*.roleItem .sel-tag{
+	display: inline-block;
+	width:16px;
+	height:16px;
+	text-align: center;
+	line-height:16px;
+	transition:all 0.5s;
+	-webkit-transition: all 0.5s;
+}
+.roleItem .sel-tag.active{
+	transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+}*/

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <description>Dubbo 相关配置</description>
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="${dubbo.server.application.name}" logger="slf4j" >
+        <dubbo:parameter key="qos.enable" value="false"/>
+    </dubbo:application>
+    <!-- 使用zookeeper广播注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" client="curator"
+                    address="${zookeeper.cluster.hoststr}" timeout="${dubbo.server.timeout}"
+                    check="false"/>
+    <dubbo:provider timeout="${dubbo.server.timeout}"
+                    retries="0"/>
+    <!-- 远程服务调用超时时间(毫秒) -->
+    <dubbo:consumer timeout="${dubbo.server.timeout}"
+                    retries="0" check="false"/>
+
+    <!-- 用dubbo协议在20880端口暴露服务, 将访问日志输出到当前应用的slf4j日志： -->
+    <dubbo:protocol name="dubbo" port="${dubbo.server.protocol.port}"
+                    accesslog="true" charset="UTF-8" threadpool="cached"/>
+
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.UserService"
+            ref="ksh.core.service.userService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.BarCodeService"
+            ref="ksh.core.service.barCodeService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.WaybillService"
+            ref="ksh.core.service.waybillService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.MapAddressService"
+            ref="ksh.core.service.mapAddressService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.WechatService"
+            ref="ksh.core.service.wechatService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.ReceiptService"
+            ref="ksh.core.service.receiptService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.ExceptionService"
+            ref="ksh.core.service.exceptionService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.WaybillTrackService"
+            ref="ksh.core.service.waybillTrackService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.SysRequestSerialService"
+            ref="ksh.core.service.sysRequestSerialService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.ProjectGroupService"
+            ref="ksh.core.service.projectGroupService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.WaybillScheduleService"
+            ref="ksh.core.service.waybillScheduleService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.FriendsService"
+            ref="ksh.core.service.friendsService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.GoodsService"
+            ref="ksh.core.service.goodsService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.CustomerService"
+            ref="ksh.core.service.customerService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.FenceGrateService"
+            ref="ksh.core.service.fenceGrateService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.PermissionService"
+            ref="ksh.core.service.permissionService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.WayBillTotalService"
+            ref="ksh.core.service.wayBillTotalService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.DriverService"
+            ref="ksh.core.service.driverService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.ConveyanceService"
+            ref="ksh.core.service.conveyanceService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.RouteService"
+            ref="ksh.core.service.routeService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.AccessoryService"
+            ref="ksh.core.service.accessoryService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.RemindersThingsService"
+            ref="ksh.core.service.remindersThingsService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.BusinessStatisticsService"
+            ref="ksh.core.service.businessStatisticsService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.SummaryService"
+            ref="ksh.core.service.summaryService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.ManagingUsersService"
+            ref="ksh.core.service.managingUsersService" retries="0" version="1.0.1"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.OrderService"
+            ref="ksh.core.service.orderService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.CompanyService"
+            ref="ksh.core.service.companyService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.MessageService"
+            ref="ksh.core.service.messageService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.FileService"
+            ref="ksh.core.service.fileService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.MoutaiService"
+            ref="ksh.core.service.moutaiService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.AppVersionService"
+            ref="ksh.core.service.appVersionService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.SupportService"
+            ref="ksh.core.service.supportService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.LocationTrackService"
+            ref="ksh.core.service.locationTrackService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.SignRelationService"
+            ref="ksh.core.service.signRelationService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.adventive.AdventiveService"
+            ref="ksh.core.service.adventiveService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.TemplateService"
+            ref="ksh.core.service.templateService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.FinanceService"
+            ref="ksh.core.service.financeService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.CustomDataService"
+            ref="ksh.core.service.customDataService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.ActivityService"
+            ref="ksh.core.service.activityService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.TransferService"
+            ref="ksh.core.service.transferService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.DepotOutboundService"
+            ref="ksh.core.service.depotOutboundService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.PlanOrderService"
+            ref="ksh.core.service.planOrderService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.VehicleService"
+            ref="ksh.core.service.vehicleService" retries="0" version="1.0.0"/>
+    <dubbo:service
+            interface="com.ycg.ksh.service.api.ComplaintService"
+            ref="ksh.core.service.complaintService" retries="0" version="1.0.0"/>
+</beans>

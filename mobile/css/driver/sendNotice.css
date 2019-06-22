@@ -1,0 +1,41 @@
+.top {
+	height: 120px;
+	display: flex;
+	background-color: #FFFFFF;
+	justify-content: center;
+	align-items: center;
+}
+.headImg {
+	margin-right: 10px;
+}
+.jumpLink a{
+	margin: 50px auto;
+	width: 80%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 1px solid #1EA4FD;
+	color: #1EA4FD;
+	display: block;
+	border-radius: 8px;
+}
+.jumpLink1 {
+	display: flex;
+	padding: 0 20px;
+}
+.jumpLink1 a{
+	margin: 50px 10px;
+	flex: 1;
+	
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 1px solid #1EA4FD;
+	color: #1EA4FD;
+	border-radius: 8px;
+}
+.right {
+	
+	color: #FFFFFF !important;
+	background: #169BD5;
+}

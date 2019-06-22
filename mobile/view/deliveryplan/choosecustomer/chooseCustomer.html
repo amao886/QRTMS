@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>选择客户</title>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="Keywords" content="合同物流管理平台运输管理平台">
+		<meta name="Description" content="合同物流管理平台运输管理平台">
+		<link rel="stylesheet" href="../../../lib/font-awesome-fa/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../../lib/weui/css/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../lib/weui/css/jquery-weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../lib/css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/deliveryplan/choosecustomer/chooseCustomer.css" />
+
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart class="vue-page" style="background:#F5F5F5;">
+		<div id="customerList" v-cloak>
+			<template>
+				<div class="weui-flex searchTab">
+					<div class="mRight10">
+						<select class="weui-select" name="customerType" id="customerType" :value="type" @change="chooseCustomerType">
+							<option v-for="customer in customers" :value="customer.key">{{customer.name}}</option>
+						</select>
+					</div>
+
+					<div class="weui-search-bar weui-search-bar_focusing weui-flex__item">
+						<div class="weui-search-bar__box">
+							<i class="weui-icon-search"></i>
+							<input type="search" class="weui-search-bar__input" id="searchInput" placeholder="企业名称" required="" v-model="likeName">
+							<a href="javascript:" class="weui-icon-clear" id="searchClear" @click="clear"></a>
+						</div>
+					</div>
+					<div class="weui-flex__item_Btn">
+						<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary" id="searchMsg" @click="search">搜索</a>
+					</div>
+				</div>
+
+				<div class="customerList-wrapper">
+					<div class="weui-cell weui-cell_swiped" v-if="customersServer != null && customersServer.length > 0" v-for="(item, index) in customersServer" @click="chooseCustomerInfo(index, item.name)">
+						<div class="weui-cell__bd">
+							<div class="customerList">
+								<div class="companyName">
+									{{item.name}}
+								</div>
+								<div class="contactInfo">
+									{{item.regName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.regMobile}}
+								</div>
+							</div>
+						</div>
+						<div class="weui-cell__ft">
+							<a class="weui-swiped-btn weui-swiped-btn_default close-swipeout" href="javascript:" @click="editCustomer(item.key, item.name, type)">编辑</a>
+							<!--<a class="weui-swiped-btn weui-swiped-btn_warn delete-swipeout" href="javascript:">删除</a>-->
+						</div>
+					</div>
+				</div>
+
+				<!--底部导航-->
+				<div id="navBarIn">
+					<span class="addCustomerBtn" id="moreTouch" @click="addCustomer">添加客户</span>
+				</div>
+			</template>
+		</div>
+
+		<script type="text/javascript" src="../../../lib/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../../lib/weui/js/fastclick.js"></script>
+		<script type="text/javascript" src="../../../lib/js/json2.js"></script>
+		<script type="text/javascript" src="../../../lib/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../../../lib/weui/js/jquery-weui.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../../../lib/vue/vue.js"></script>
+		<script type="text/javascript" src="../../../lib/function/common.js"></script>
+		<script type="text/javascript" src="../../../lib/vue/common.vue.js"></script>
+		<script type="text/javascript" src="../../../lib/vue/moment.min.js"></script>
+		<script type="text/javascript" src="../../../lib/function/easy.cookie.js"></script>
+		<script type="text/javascript" src="../../../lib/function/easy.config.js"></script>
+		<script type="text/javascript" src="../../../lib/function/easy.ajax.js"></script>
+		<script type="text/javascript" src="../../../lib/function/weixin.js"></script>
+		<script type="text/javascript" src="../../../js/deliveryplan/choosecustomer/chooseCustomer.js"></script>
+		<script>
+			$(function() {
+				FastClick.attach(document.body);
+			});
+		</script>
+	</body>
+
+</html>

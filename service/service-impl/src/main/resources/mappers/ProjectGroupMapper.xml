@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycg.ksh.service.persistence.ProjectGroupMapper">
+    <resultMap id="BaseResultMap" type="com.ycg.ksh.entity.persistent.ProjectGroup">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="group_name" jdbcType="VARCHAR" property="groupName"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
+        <result column="qr_code" jdbcType="VARCHAR" property="qrCode"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="startGoodsTime" jdbcType="VARCHAR" property="startgoodstime"/>
+        <result column="endGoodsTime" jdbcType="VARCHAR" property="endgoodstime"/>
+    </resultMap>
+    <sql id="include_column">
+  	g.id,
+	g.userid,
+	g.group_name,
+	g.count,
+	g.qr_code,
+	g.createtime,
+	g.updatetime,
+	g.startGoodsTime,
+	g.endGoodsTime
+  </sql>
+    <select id="listByUserKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="include_column"/>
+        FROM
+        group_tab g LEFT JOIN group_members_tab gm ON g.id = gm.groupid
+        WHERE
+        gm.userid = #{userKey} AND gm.`status` = 10
+    </select>
+
+    <select id="listByContactNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        DISTINCT g.id AS d_id,
+        <include refid="include_column"/>
+        FROM
+        group_tab g RIGHT JOIN waybill_tab w ON g.id = w.groupid
+        WHERE
+        w.contact_phone = #{number}
+    </select>
+</mapper>
