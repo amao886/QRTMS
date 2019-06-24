@@ -191,7 +191,7 @@
                                         $.util.pictures("微信扫码绑定账号", $(".qrCode-pannel").html());
                                     }, 500)
                                 }else{
-                                    window.location.href = base_url;
+                                    window.location.href = base_url + "/group";
                                 }
                             }else {
                                 _this.$message({ message: data.message, type: 'error' });
