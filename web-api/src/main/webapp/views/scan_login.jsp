@@ -136,7 +136,7 @@
                         _this.tips = '';
                     });
                     _this.socket.on('scan_login', function (context) {
-                        window.location.href = context;
+                        window.location.href = context + "/group";
                     });
                     _this.socket.contact();
                 },
