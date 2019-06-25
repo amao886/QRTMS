@@ -112,7 +112,13 @@ public class BarCodeController extends BaseController {
      */
     @RequestMapping(value = "/all/search")
     public String searchAll(Model model, HttpServletRequest request) throws Exception {
-    	RequestObject body = new RequestObject(request.getParameterMap());
+        RequestObject body = new RequestObject(request.getParameterMap());
+        Integer pageSize = body.getInteger("size");
+        Integer pageNum = body.getInteger("num");
+        model.addAttribute("userId",RequestUitl.getUserInfo(request).getId());
+        model.addAttribute("results", barCodeService.pageApplyResList(new MergeApplyRes(), new PageScope(pageNum, pageSize) ,1)); //旧版,无公司id
+        return "/admin/barcode/manage_old";
+    	/*RequestObject body = new RequestObject(request.getParameterMap());
     	Integer pageSize = body.getInteger("size");
     	Integer pageNum = body.getInteger("num");
     	String unamezn = body.get("uname");
@@ -120,7 +126,7 @@ public class BarCodeController extends BaseController {
     	model.addAttribute("search",body);
     	model.addAttribute("userId",RequestUitl.getUserInfo(request).getId());
     	model.addAttribute("results", barCodeService.pageAllApplyRes(unamezn, mobilephone,new PageScope(pageNum, pageSize))); //新版.有公司id
-    	return "/admin/barcode/manage";
+    	return "/admin/barcode/manage";*/
     }
     /**
      * 
