@@ -24,14 +24,26 @@
 </head>
 <body>
 <div class="history-content clearfix">
-    <form id="searchWaybillForm" action="${basePath}/admin/barcode/search/old" method="post">
+    <form id="searchWaybillForm" action="${basePath}/admin/barcode/search/old" method="post" style="margin-top: 10px; margin-bottom: 10px;">
         <input type="hidden" name="num" value="${results.pageNum}">
         <input type="hidden" name="size" value="10">
+        <div class="content-search">
+            <div class="clearfix">
+                <div class="fl col-min">
+                    <input type="text" class="tex_t" name="uname" placeholder="申请人" value="${search.uname}">
+                </div>
+                <div class="fl col-min">
+                    <input type="text" class="tex_t" name="mobilephone" placeholder="申请手机号" value="${search.mobilephone}">
+                </div>
+                <div class="fl col-min">
+                    <button type="button" class="btn btn-default content-search-btn" @click="search">查询</button>
+                </div>
+            </div>
+        </div>
     </form>
     <div class="btnBox">
         <button type="button" class="btn btn-default addBarcode">创建二维码</button>
         <button type="button" class="btn btn-default editBarcode">条码变更</button>
-        <button type="button" class="btn btn-default jumpToNew">新版本</button>
     </div>
     <div class="table-style">
         <table class="dtable" id="trackTable">
@@ -40,8 +52,8 @@
                 <th width="15%">申请人</th>
                 <th width="15%">申请手机号</th>
                 <th width="15%">申请时间</th>
-                <th width="15%">资源组名</th>
-                <th width="5%">申请数量</th>
+                <th width="15%">项目组</th>
+                <th width="5%">数量</th>
                 <th width="5%">已使用</th>
                 <th width="23%">二维码号码段</th>
                 <th width="15%">状态</th>
@@ -196,6 +208,10 @@
 
 
     $(document).ready(function () {
+    				$(".content-search-btn").on("click",function(){
+				 			$("input[name='num']").val(1);
+				 			$("#searchWaybillForm").submit();
+						})
             //翻页事件
             $(".pagination a").each(function (i) {
                 $(this).on('click', function () {
