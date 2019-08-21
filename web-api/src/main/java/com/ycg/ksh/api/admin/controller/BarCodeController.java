@@ -71,8 +71,11 @@ public class BarCodeController extends BaseController {
     @RequestMapping(value = "/search/old")
     public String search(Model model, HttpServletRequest request) throws Exception {
         RequestObject body = new RequestObject(request.getParameterMap());
+        String unamezn = body.get("uname");
+        String mobilephone = body.get("mobilephone");
         Integer pageSize = body.getInteger("size");
         Integer pageNum = body.getInteger("num");
+        model.addAttribute("search", body);
         model.addAttribute("userId",RequestUitl.getUserInfo(request).getId());
         model.addAttribute("results", barCodeService.pageApplyResList(new MergeApplyRes(), new PageScope(pageNum, pageSize) ,1)); //旧版,无公司id
         return "/admin/barcode/manage_old";
@@ -88,7 +91,9 @@ public class BarCodeController extends BaseController {
     @RequestMapping(value = "/search") 
     public String searchv2(Model model, HttpServletRequest request) throws Exception {
         RequestObject body = new RequestObject(request.getParameterMap());
-        Integer pageSize = body.getInteger("size");
+        String unamezn = body.get("uname");
+        String mobilephone = body.get("mobilephone");
+           Integer pageSize = body.getInteger("size");
         Integer pageNum = body.getInteger("num");
         String companyName = body.get("companyName");
         Collection<Company> companyList = companyService.listCompanyByName(companyName);
@@ -113,6 +118,8 @@ public class BarCodeController extends BaseController {
     @RequestMapping(value = "/all/search")
     public String searchAll(Model model, HttpServletRequest request) throws Exception {
         RequestObject body = new RequestObject(request.getParameterMap());
+        String unamezn = body.get("uname");
+        String mobilephone = body.get("mobilephone");
         Integer pageSize = body.getInteger("size");
         Integer pageNum = body.getInteger("num");
         model.addAttribute("userId",RequestUitl.getUserInfo(request).getId());
