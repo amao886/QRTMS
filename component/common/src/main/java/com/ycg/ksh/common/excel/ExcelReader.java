@@ -7,6 +7,7 @@ import com.ycg.ksh.common.util.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +72,11 @@ public class ExcelReader implements java.lang.AutoCloseable {
                                 objects[cIndex] = cell.getDateCellValue();
                             } else {
                                 //cell.setCellType(CellType.STRING);
-                                objects[cIndex] = cell.getNumericCellValue();
+                            	objects[cIndex] = cell.getNumericCellValue();
+                            	if( cell.getNumericCellValue()>Integer.MAX_VALUE) {
+                            		DecimalFormat df=new DecimalFormat("0"); 
+                            		objects[cIndex] = df.format(cell.getNumericCellValue());
+                            	}
                             }
                             break;
                         case STRING: // 字符串

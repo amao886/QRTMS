@@ -50,8 +50,8 @@ public class DefaultTemplate extends ConvertObjectByExcel<MergeWaybill> {
             {
                 add(new ConvertHandler(new Property("goodsType", "客户料号"), 8));//客户料号
                 add(new ConvertHandler(new Property("goodsName", "物料名称"), 9));//物料名称
-                add(new ConvertHandler(new Property("goodsWeight", "重量"), 10, new Validator[] {Validator.NUMBER}));//重量（kg）
-                add(new ConvertHandler(new Property("goodsVolume", "体积"), 11, new Validator[] {Validator.NUMBER}));//体积（m³）
+                add(new ConvertHandler(new Property("goodsWeight", "重量"), 10, new Validator[] {Validator.DECIMAL}));//重量（kg）
+                add(new ConvertHandler(new Property("goodsVolume", "体积"), 11, new Validator[] {Validator.DECIMAL}));//体积（m³）
                 add(new ConvertHandler(new Property("goodsQuantity", "数量"), 12, new Validator[] {Validator.NUMBER}));//数量（件）
                 add(new ConvertHandler(new Property("summary", "订单摘要"), 15));//订单摘要
             }
