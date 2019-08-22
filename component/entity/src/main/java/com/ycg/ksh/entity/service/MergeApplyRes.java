@@ -45,6 +45,16 @@ public class MergeApplyRes extends ApplyRes {
      * 所属公司的名称
      */
     private String companyName;
+    
+    public MergeApplyRes() {
+    	super();
+    }
+    
+    public MergeApplyRes(Integer total,Integer alreadyTotal,Integer availableTotal) {
+    	this.total = total;
+    	this.alreadyTotal = alreadyTotal;
+    	this.availableTotal = alreadyTotal;
+    }
 
     public String getCompanyName() {
         return companyName;

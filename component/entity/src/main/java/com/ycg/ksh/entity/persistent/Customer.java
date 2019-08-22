@@ -124,6 +124,9 @@ public class Customer extends BaseEntity {
     @Column(name = "`company_customer_id`")
     private Long companyCustomerId;
     
+    @Column(name = "`customerCode`")
+    private String customerCode;
+    
     public Customer(Integer id) {
         super();
         this.id = id;
@@ -461,5 +464,13 @@ public class Customer extends BaseEntity {
     public void setCompanyCustomerId(Long companyCustomerId) {
         this.companyCustomerId = companyCustomerId;
     }
+
+	public String getCustomerCode() {
+		return customerCode;
+	}
+
+	public void setCustomerCode(String customerCode) {
+		this.customerCode = customerCode;
+	}
     
 }
