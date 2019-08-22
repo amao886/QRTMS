@@ -22,6 +22,7 @@
         <result column="arrival_day" jdbcType="INTEGER" property="arrivalDay"/>
         <result column="arrival_hour" jdbcType="INTEGER" property="arrivalHour"/>
         <result column="company_customer_id" jdbcType="BIGINT" property="companyCustomerId"/>
+        <result column="customer_code" jdbcType="VARCHAR" property="customerCode"/>
     </resultMap>
 
     <select id="selectCustomer" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.service.AddressSearch">
@@ -136,5 +137,9 @@
             </if>
 		</where>
 		ORDER BY c.createtime DESC
+    </select>
+    <!-- 根据客户编号查询 -->
+    <select id="queryCustomerByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT * FROM customer_tab c where c.customer_code = #{customerCode}
     </select>
 </mapper>
