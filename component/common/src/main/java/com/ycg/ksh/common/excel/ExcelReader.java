@@ -3,13 +3,19 @@
  */
 package com.ycg.ksh.common.excel;
 
-import com.ycg.ksh.common.util.StringUtils;
-import org.apache.poi.ss.usermodel.*;
-
 import java.io.InputStream;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.util.NumberToTextConverter;
+
+import com.ycg.ksh.common.util.StringUtils;
 
 /**
  * excel文件读取操作工具，基于poi之上
@@ -71,12 +77,7 @@ public class ExcelReader implements java.lang.AutoCloseable {
                             if (DateUtil.isCellDateFormatted(cell)) {
                                 objects[cIndex] = cell.getDateCellValue();
                             } else {
-                                //cell.setCellType(CellType.STRING);
-                            	objects[cIndex] = cell.getNumericCellValue();
-                            	if( cell.getNumericCellValue()>Integer.MAX_VALUE) {
-                            		DecimalFormat df=new DecimalFormat("0"); 
-                            		objects[cIndex] = df.format(cell.getNumericCellValue());
-                            	}
+                        		objects[cIndex] = NumberToTextConverter.toText(cell.getNumericCellValue());
                             }
                             break;
                         case STRING: // 字符串
