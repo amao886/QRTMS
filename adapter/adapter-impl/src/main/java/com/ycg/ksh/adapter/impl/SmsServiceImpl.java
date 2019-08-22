@@ -158,7 +158,7 @@ public class SmsServiceImpl implements SmsService {
         Assert.notBlank(mobile, "手机号不能为空");
         Assert.regx(mobile, Validator.REGEX_MOBILE, Constant.CELL_PHONE_FORMAT_ERROR);
         Integer number = cacheManager.get(SMS_SEND_NUMBER+mobile);
-        if ("".equals(number) || number == null){
+        if (number == null){
             number = 1;
             cacheManager.set(SMS_SEND_NUMBER+mobile,number,30L, TimeUnit.MINUTES);
         }else if(number < 6){

@@ -1,7 +1,13 @@
 package com.ycg.ksh.common.extend.spring;
 
-import com.ycg.ksh.common.system.SystemKey;
-import com.ycg.ksh.common.system.SystemUtils;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+import java.util.stream.Collectors;
+
 import org.apache.commons.collections.MapUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -10,18 +16,14 @@ import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanInitializationException;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.ycg.ksh.common.system.SystemKey;
+import com.ycg.ksh.common.system.SystemUtils;
 
 /**
  * 自定义配置文件加载过程
