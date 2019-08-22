@@ -3,6 +3,24 @@
  */
 package com.ycg.ksh.service.impl;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.pagehelper.Page;
 import com.ycg.ksh.adapter.api.AutoMapService;
 import com.ycg.ksh.common.constant.Constant;
@@ -13,7 +31,6 @@ import com.ycg.ksh.common.extend.cache.CacheManager;
 import com.ycg.ksh.common.extend.lock.DistributedSynchronize;
 import com.ycg.ksh.common.extend.mybatis.page.CustomPage;
 import com.ycg.ksh.common.util.Assert;
-import com.ycg.ksh.common.util.RandomUtils;
 import com.ycg.ksh.common.util.RegionUtils;
 import com.ycg.ksh.common.util.StringUtils;
 import com.ycg.ksh.entity.adapter.AutoMapLocation;
@@ -21,25 +38,45 @@ import com.ycg.ksh.entity.common.constant.PermissionCode;
 import com.ycg.ksh.entity.common.constant.ReceiptVerifyFettle;
 import com.ycg.ksh.entity.common.constant.SourceType;
 import com.ycg.ksh.entity.common.constant.WaybillFettle;
-import com.ycg.ksh.entity.persistent.*;
-import com.ycg.ksh.entity.service.*;
+import com.ycg.ksh.entity.persistent.Barcode;
+import com.ycg.ksh.entity.persistent.Customer;
+import com.ycg.ksh.entity.persistent.DriverContainer;
+import com.ycg.ksh.entity.persistent.Goods;
+import com.ycg.ksh.entity.persistent.ProjectGroup;
+import com.ycg.ksh.entity.persistent.Waybill;
+import com.ycg.ksh.entity.persistent.WaybillDriverScan;
+import com.ycg.ksh.entity.persistent.WaybillReceipt;
+import com.ycg.ksh.entity.persistent.WaybillShare;
+import com.ycg.ksh.entity.persistent.WaybillTrack;
+import com.ycg.ksh.entity.service.MergeApplyRes;
+import com.ycg.ksh.entity.service.MergeWaybill;
+import com.ycg.ksh.entity.service.PageScope;
+import com.ycg.ksh.entity.service.WaybillAssociate;
+import com.ycg.ksh.entity.service.WaybillContext;
+import com.ycg.ksh.entity.service.WaybillSerach;
+import com.ycg.ksh.entity.service.WaybillSimple;
 import com.ycg.ksh.entity.service.barcode.BarcodeContext;
 import com.ycg.ksh.entity.service.barcode.GroupCodeContext;
-import com.ycg.ksh.service.persistence.*;
-import com.ycg.ksh.service.api.*;
-import com.ycg.ksh.service.observer.*;
+import com.ycg.ksh.service.api.BarCodeService;
+import com.ycg.ksh.service.api.CustomerService;
+import com.ycg.ksh.service.api.PermissionService;
+import com.ycg.ksh.service.api.ProjectGroupService;
+import com.ycg.ksh.service.api.WaybillService;
+import com.ycg.ksh.service.api.WaybillTrackService;
+import com.ycg.ksh.service.observer.BarcodeObserverAdapter;
+import com.ycg.ksh.service.observer.DriverContainerObserverAdapter;
+import com.ycg.ksh.service.observer.ReceiptObserverAdapter;
+import com.ycg.ksh.service.observer.TrackObserverAdapter;
+import com.ycg.ksh.service.observer.WaybillObserverAdapter;
+import com.ycg.ksh.service.persistence.GoodsMapper;
+import com.ycg.ksh.service.persistence.UserMapper;
+import com.ycg.ksh.service.persistence.WaybillDriverScanMapper;
+import com.ycg.ksh.service.persistence.WaybillMapper;
+import com.ycg.ksh.service.persistence.WaybillShareMapper;
 import com.ycg.ksh.service.support.assist.WaybillUtils;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.ibatis.session.RowBounds;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 任务单相关业务逻辑实现
@@ -1294,7 +1331,6 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
      */
     @Override
     public Collection<MergeWaybill> listPrint(Integer userKey, Collection<Integer> waybillKeys, Integer count) throws ParameterException, BusinessException {
-        Assert.notEmpty(waybillKeys, "至少选择一个任务单");
         Example example = new Example(Waybill.class);
         example.createCriteria().andIn("id", waybillKeys);
         Collection<Waybill> collection = buildBarcode(userKey, waybillMapper.selectByExample(example));
@@ -1384,21 +1420,27 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 
     private Collection<Waybill> buildBarcode(Integer userKey, Collection<Waybill> waybills) throws ParameterException, BusinessException {
         if(CollectionUtils.isNotEmpty(waybills)){
-            StringBuilder builder = new StringBuilder();
+            //StringBuilder builder = new StringBuilder();
             Date ctime = new Date();
             for (Waybill waybill : waybills) {
                 if (StringUtils.isBlank(waybill.getBarcode())){
                     String waybillKey = String.valueOf(waybill.getId());
-                    int count = Math.max(0, 10 - waybillKey.length());
+                    //int count = Math.max(0, 10 - waybillKey.length());
                     //生成二维码并绑定
-                    builder.append("0").append(waybillKey).append(RandomUtils.string(count));
+                    //builder.append("0").append(waybillKey).append(RandomUtils.string(count));//打印条码生产需要修改
+                    MergeApplyRes mergeApplyRes = barCodeService.queryTotalCountByGroupId(waybill.getGroupid());
+                    Barcode barcode = barCodeService.queryOneBarcodeByGroupId(waybill.getGroupid());
+                    if(mergeApplyRes.getAvailableTotal()==0 || barcode ==null)
+                    	throw new BusinessException("[该项目组剩可用条码数量不足，请申请后再操作！]");
+                    String barcodeStr = barcode.getBarcode();
                     WaybillContext context = WaybillContext.buildContext(userKey, waybill);
-                    context.setBarcode(builder.toString());
+                    context.setBarcode(barcodeStr);
                     context.setWaybillStatus(WaybillFettle.BOUND);
                     context.setBindTime(ctime);
                     context.setDeliveryTime(ctime);
-                    builder.setLength(0);
-                    barCodeService.save(context.getUserid(), context.getGroupid(), context.getBarcode());
+                    //builder.setLength(0);
+                    //barCodeService.save(context.getUserid(), context.getGroupid(), context.getBarcode());
+                    barCodeService.updateStatusById(barcode);
                     if (CollectionUtils.isNotEmpty(observers)) {
                         context.setExecute(false);
                         for (WaybillObserverAdapter waybillAbstractObserver : observers) {

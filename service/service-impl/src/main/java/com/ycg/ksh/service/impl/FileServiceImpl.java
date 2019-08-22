@@ -8,6 +8,9 @@ import com.ycg.ksh.common.exception.BusinessException;
 import com.ycg.ksh.common.exception.ParameterException;
 import com.ycg.ksh.common.util.Assert;
 import com.ycg.ksh.entity.persistent.Customer;
+import com.ycg.ksh.entity.persistent.depot.InboundOrder;
+import com.ycg.ksh.entity.persistent.moutai.Order;
+import com.ycg.ksh.entity.service.MergeWaybill;
 import com.ycg.ksh.entity.service.enterprise.TemplateContext;
 import com.ycg.ksh.service.api.*;
 import com.ycg.ksh.service.support.excel.ConvertObjectByExcel;
@@ -45,7 +48,7 @@ public class FileServiceImpl implements FileService {
      * @see com.ycg.ksh.service.api.WaybillService#saveByFile(java.lang.Integer, java.lang.Integer, com.ycg.ksh.common.entity.FileEntity)
      * <p>
      */
-    @Override
+	@Override
     public FileEntity saveByFile(Integer uKey, Integer gKey, Integer sendKey, FileEntity fileEntity) throws ParameterException, BusinessException {
         Assert.notNull(uKey, "操作人编号不能为空");
         Assert.notNull(fileEntity, "需要一个文件");
@@ -55,7 +58,7 @@ public class FileServiceImpl implements FileService {
             if (gKey == null) {
                 gKey = 0;
             }
-            ConvertObjectByExcel converter = null;
+            ConvertObjectByExcel<MergeWaybill> converter = null;
             Customer customer = null;
             if (17 == gKey) {//金发项目组
                 Assert.notNull(sendKey, "请选择发货方信息");
@@ -133,7 +136,7 @@ public class FileServiceImpl implements FileService {
         FileEntity resultEntity = new FileEntity();
         try {
             logger.debug("开始处理文件 -> {}", fileEntity);
-            ConvertObjectByExcel converter = new MTOrderTemplate();
+            ConvertObjectByExcel<Order> converter = new MTOrderTemplate();
             if (converter.readExcel(fileEntity).convert().have()) {
                 Map<String, String> exceptions = moutaiService.saveOrders(uKey, conveyKey, converter.objects());
                 if (exceptions != null && !exceptions.isEmpty()) {
@@ -170,7 +173,7 @@ public class FileServiceImpl implements FileService {
         FileEntity resultEntity = new FileEntity();
         try {
             logger.debug("开始处理文件 -> {}", fileEntity);
-            ConvertObjectByExcel converter = new MTCustomerTemplate();
+            ConvertObjectByExcel<com.ycg.ksh.entity.persistent.moutai.Customer> converter = new MTCustomerTemplate();
             if (converter.readExcel(fileEntity).convert().have()) {
                 Map<String, String> exceptions = moutaiService.saveCustomers(uKey, converter.objects());
                 if (exceptions != null && !exceptions.isEmpty()) {
@@ -198,7 +201,7 @@ public class FileServiceImpl implements FileService {
         FileEntity resultEntity = new FileEntity();
         try {
             logger.debug("开始处理文件 -> {}", fileEntity);
-            ConvertObjectByExcel converter = new InboundOrderTemplate();
+            ConvertObjectByExcel<InboundOrder> converter = new InboundOrderTemplate();
             if (converter.readExcel(fileEntity).convert().have()) {
                 depotOutboundService.saveInboundOrders(uKey, converter.objects());
             }

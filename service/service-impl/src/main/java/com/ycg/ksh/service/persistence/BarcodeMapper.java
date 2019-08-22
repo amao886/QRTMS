@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.data.repository.query.Param;
 
 import com.github.pagehelper.Page;
 import com.ycg.ksh.entity.persistent.Barcode;
@@ -120,5 +121,11 @@ public interface BarcodeMapper extends Mapper<Barcode> {
      * @return
      */
     Page<MergeBarcode> queryBarcodeToCompany(BarcodeSearch barcode, RowBounds bounds);
-
+    
+    /**
+     * 	查询当前项目组最后一个条码
+     * @param gKey
+     * @return
+     */
+    Barcode queryOneBarcodeByGroupId(Integer gKey); 
 }

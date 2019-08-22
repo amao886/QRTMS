@@ -32,34 +32,37 @@ public class DefaultTemplate extends ConvertObjectByExcel<MergeWaybill> {
         WAYBILL_MAPPINGS = new ArrayList<ConvertHandler>(){
             private static final long serialVersionUID = 1L;
             {
-                add(new ConvertHandler(new Property("shipperName", "货主名称"), 0, true, new Validator[] { Validator.NOTBLANK }));//货主名称
-                add(new ConvertHandler(new Property("shipperAddress", "发货地址"), 1, true, new Validator[] { Validator.NOTBLANK }));//发货地址
-                add(new ConvertHandler(new Property("shipperContactName", "发货联系人"), 2, true, new Validator[] { Validator.NOTBLANK }));//发货联系人
-                add(new ConvertHandler(new Property("shipperContactTel", "发货联系电话"), 3, true, new Validator[] { Validator.NOTBLANK }));//发货联系电话
-
-                add(new ConvertHandler(new Property("receiverName", "收货客户"), 4, true, new Validator[] { Validator.NOTBLANK }));//收货客户
-                add(new ConvertHandler(new Property("receiveAddress", "收货地址"), 5, true, new Validator[] { Validator.NOTBLANK }));//收货地址
-                add(new ConvertHandler(new Property("contactName", "联系人"), 6, true, new Validator[] { Validator.NOTBLANK }));//联系人
-                add(new ConvertHandler(new Property("contactPhone", "联系电话"), 7, true, new Validator[] { Validator.NOTBLANK }, new MobileConverter()));//联系电话
-                add(new ConvertHandler(new Property("arriveDay", "发货后天数"), 13, new Validator[] {Validator.NUMBER}));//发货后天数
-                add(new ConvertHandler(new Property("arriveHour", "时间点"), 14, new Validator[] {Validator.NUMBER}));//时间点
+                add(new ConvertHandler(new Property("deliveryNumber", "送货单号"), 0, true, new Validator[] { Validator.NOTBLANK }));//货主名称
+                add(new ConvertHandler(new Property("shipperCode", "发货方编码"), 1, true, new Validator[] { Validator.NOTBLANK }));//货主名称
+                add(new ConvertHandler(new Property("shipperName", "发货方名称"), 2, true, new Validator[] { Validator.NOTBLANK }));//货主名称
+                add(new ConvertHandler(new Property("shipperAddress", "发货地址"), 3, true, new Validator[] { Validator.NOTBLANK }));//发货地址
+                add(new ConvertHandler(new Property("shipperContactName", "发货联系人"), 4, true, new Validator[] { Validator.NOTBLANK }));//发货联系人
+                add(new ConvertHandler(new Property("shipperContactTel", "发货联系电话"), 5, true, new Validator[] { Validator.NOTBLANK }));//发货联系电话
+                
+                add(new ConvertHandler(new Property("receiverCode", "发货方编码"), 6, true, new Validator[] { Validator.NOTBLANK }));//货主名称
+                add(new ConvertHandler(new Property("receiverName", "收货客户"), 7, true, new Validator[] { Validator.NOTBLANK }));//收货客户
+                add(new ConvertHandler(new Property("receiveAddress", "收货地址"), 8, true, new Validator[] { Validator.NOTBLANK }));//收货地址
+                add(new ConvertHandler(new Property("contactName", "联系人"), 9, true, new Validator[] { Validator.NOTBLANK }));//联系人
+                add(new ConvertHandler(new Property("contactPhone", "联系电话"), 10, true, new Validator[] { Validator.NOTBLANK }, new MobileConverter()));//联系电话
+                add(new ConvertHandler(new Property("arriveDay", "发货后天数"), 16, new Validator[] {Validator.NUMBER}));//发货后天数
+                add(new ConvertHandler(new Property("arriveHour", "时间点"), 17, new Validator[] {Validator.NUMBER}));//时间点
             }
         };
         GOODS_MAPPINGS = new ArrayList<ConvertHandler>(){
             private static final long serialVersionUID = 1L;
             {
-                add(new ConvertHandler(new Property("goodsType", "客户料号"), 8));//客户料号
-                add(new ConvertHandler(new Property("goodsName", "物料名称"), 9));//物料名称
-                add(new ConvertHandler(new Property("goodsWeight", "重量"), 10, new Validator[] {Validator.DECIMAL}));//重量（kg）
-                add(new ConvertHandler(new Property("goodsVolume", "体积"), 11, new Validator[] {Validator.DECIMAL}));//体积（m³）
-                add(new ConvertHandler(new Property("goodsQuantity", "数量"), 12, new Validator[] {Validator.NUMBER}));//数量（件）
-                add(new ConvertHandler(new Property("summary", "订单摘要"), 15));//订单摘要
+                add(new ConvertHandler(new Property("goodsType", "客户料号"), 11));//客户料号
+                add(new ConvertHandler(new Property("goodsName", "物料名称"), 12));//物料名称
+                add(new ConvertHandler(new Property("goodsWeight", "重量"), 13, new Validator[] {Validator.DECIMAL}));//重量（kg）
+                add(new ConvertHandler(new Property("goodsVolume", "体积"), 14, new Validator[] {Validator.DECIMAL}));//体积（m³）
+                add(new ConvertHandler(new Property("goodsQuantity", "数量"), 15, new Validator[] {Validator.NUMBER}));//数量（件）
+                add(new ConvertHandler(new Property("summary", "订单摘要"), 18));//订单摘要
             }
         };
     }
     @Override
     public ConvertObjectByExcel readExcel(FileEntity fileEntity) throws Exception {
-        return super.readExcel(fileEntity, 3, 15);
+        return super.readExcel(fileEntity, 3, 18);
     }
 
     @Override

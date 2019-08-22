@@ -38,7 +38,7 @@ public abstract class ConvertObjectByExcel<T> {
 
     protected Map<String, T> objects;
     protected Collection<ExceptionObject> exceptions;
-    protected List<Object[]> source;
+    protected List<Object[]> source;//读取到的excel 数据
     protected Map<String, List<Object[]>> systematics;
 
     protected Integer successCount = 0;
@@ -47,7 +47,7 @@ public abstract class ConvertObjectByExcel<T> {
 
     public abstract Collection<ConvertHandler> analyzeObjects();
     public abstract Collection<ConvertHandler> analyzeCommodity();
-    public abstract ConvertObjectByExcel readExcel(FileEntity fileEntity) throws Exception;
+    public abstract ConvertObjectByExcel<T> readExcel(FileEntity fileEntity) throws Exception;
     public abstract void mergeSomething(T object, Object[] excelObjects) throws Exception;
 
     public ConvertObjectByExcel() {
@@ -60,7 +60,7 @@ public abstract class ConvertObjectByExcel<T> {
         }
     }
 
-    public ConvertObjectByExcel readExcel(FileEntity fileEntity, Integer startRow, Integer columns) throws Exception {
+    public ConvertObjectByExcel<T> readExcel(FileEntity fileEntity, Integer startRow, Integer columns) throws Exception {
         this.startRow = startRow;
         this.columns = columns;
         excelFile = FileUtils.file(fileEntity.getPath());
@@ -115,7 +115,7 @@ public abstract class ConvertObjectByExcel<T> {
         return null;
     }
 
-    public ConvertObjectByExcel convert() {
+    public ConvertObjectByExcel<T> convert() {
         if(CollectionUtils.isNotEmpty(source)) {
             convert(0, source.size());
         }

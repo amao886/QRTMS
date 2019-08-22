@@ -52,4 +52,11 @@ public interface CustomerMapper extends CustomMapper<Customer> {
      * @return
      */
     Page<Customer> queryCompanyCustomer(AddressSearch search, RowBounds bounds);
+    
+    /**
+     * 根据客户编号查询
+     * @param customerCode
+     * @return
+     */
+    Customer queryCustomerByCode(String customerCode);
 }

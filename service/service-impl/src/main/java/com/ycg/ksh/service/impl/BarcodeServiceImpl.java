@@ -1,5 +1,22 @@
 package com.ycg.ksh.service.impl;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.pagehelper.Page;
 import com.ycg.ksh.adapter.api.MessageQueueService;
 import com.ycg.ksh.common.barcode.CodeBuilder;
@@ -12,10 +29,14 @@ import com.ycg.ksh.common.extend.cache.CacheManager;
 import com.ycg.ksh.common.extend.mybatis.page.CustomPage;
 import com.ycg.ksh.common.extend.rabbitmq.MediaMessage;
 import com.ycg.ksh.common.extend.rabbitmq.QueueKeys;
-import com.ycg.ksh.common.extend.rabbitmq.RabbitMessageListener;
 import com.ycg.ksh.common.system.Globallys;
 import com.ycg.ksh.common.system.SystemUtils;
-import com.ycg.ksh.common.util.*;
+import com.ycg.ksh.common.util.Assert;
+import com.ycg.ksh.common.util.BeanUtils;
+import com.ycg.ksh.common.util.DateUtils;
+import com.ycg.ksh.common.util.FileUtils;
+import com.ycg.ksh.common.util.StringUtils;
+import com.ycg.ksh.common.util.UserUtil;
 import com.ycg.ksh.common.util.encrypt.DES;
 import com.ycg.ksh.common.validate.Validator;
 import com.ycg.ksh.constant.BarCodeFettle;
@@ -25,26 +46,27 @@ import com.ycg.ksh.entity.common.constant.WaybillFettle;
 import com.ycg.ksh.entity.persistent.ApplyRes;
 import com.ycg.ksh.entity.persistent.Barcode;
 import com.ycg.ksh.entity.persistent.Order;
-import com.ycg.ksh.entity.service.*;
+import com.ycg.ksh.entity.service.BarCodeDescription;
+import com.ycg.ksh.entity.service.BarcodeSearch;
+import com.ycg.ksh.entity.service.DecryptBarcode;
+import com.ycg.ksh.entity.service.MergeApplyRes;
+import com.ycg.ksh.entity.service.MergeBarcode;
+import com.ycg.ksh.entity.service.PageScope;
+import com.ycg.ksh.entity.service.WaybillContext;
 import com.ycg.ksh.entity.service.barcode.BarcodeContext;
 import com.ycg.ksh.entity.service.barcode.CompanyCodeContext;
 import com.ycg.ksh.entity.service.barcode.GroupCodeContext;
-import com.ycg.ksh.service.persistence.*;
 import com.ycg.ksh.service.api.BarCodeService;
 import com.ycg.ksh.service.observer.BarcodeObserverAdapter;
 import com.ycg.ksh.service.observer.OrderObserverAdapter;
 import com.ycg.ksh.service.observer.WaybillObserverAdapter;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.ibatis.session.RowBounds;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
+import com.ycg.ksh.service.persistence.ApplyResMapper;
+import com.ycg.ksh.service.persistence.BarcodeMapper;
+import com.ycg.ksh.service.persistence.CompanyMapper;
+import com.ycg.ksh.service.persistence.OrderMapper;
+import com.ycg.ksh.service.persistence.ProjectGroupMapper;
 
-import javax.annotation.Resource;
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
+import tk.mybatis.mapper.entity.Example;
 
 @Service("ksh.core.service.barCodeService")
 public class BarcodeServiceImpl implements BarCodeService, WaybillObserverAdapter, OrderObserverAdapter{
@@ -666,6 +688,35 @@ public class BarcodeServiceImpl implements BarCodeService, WaybillObserverAdapte
 		} catch (Exception e) {
 			 logger.error("pageBarcodeToCompany -> barcode:{},pageScope:{},e:{}", barcode, pageScope, e);
 	         throw BusinessException.dbException("所属企业条码列表查询异常");
+		}
+	}
+	
+	@Override
+	public MergeApplyRes queryTotalCountByGroupId(Integer gKey) throws ParameterException, BusinessException {
+		Assert.notBlank(gKey, "项目组编码不能为空");
+		try {
+			Map<String, Number> map = barcodeMapper.countByGroup(gKey);
+			if(null !=map) {
+				Integer number = map.get("useCount")!=null ? map.get("useCount").intValue() : 0;
+	            Integer useCount = map.get("number")!= null ? map.get("number").intValue(): 0;
+	            Integer totalNum = map.get("totalNum")!= null ? map.get("totalNum").intValue() : 0;
+	            return new MergeApplyRes(totalNum,useCount,number);
+			}
+		} catch (Exception e) {
+			logger.error("queryTotalCountByGroupId -> gKey:{},e:{}", gKey, e);
+			throw BusinessException.dbException("查询项目组可用条码异常");
+		}
+		return null;
+	}
+	
+	@Override
+	public Barcode queryOneBarcodeByGroupId(Integer gKey) throws ParameterException, BusinessException {
+		Assert.notBlank(gKey, "项目组不能为空");
+		try {
+			return barcodeMapper.queryOneBarcodeByGroupId(gKey);
+		} catch (Exception e) {
+			logger.error("queryOneBarcodeByGroupId=======> gKey:{},e:{}",gKey,e);
+			throw BusinessException.dbException("查询");
 		}
 	}
 
