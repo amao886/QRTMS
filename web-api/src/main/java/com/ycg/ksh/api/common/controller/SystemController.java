@@ -103,9 +103,9 @@ public class SystemController extends BaseController {
 	public String index(HttpServletRequest request, Model model)throws Exception{
 		logger.debug("======index========");
 
-		model.addAttribute("menus", permissionService.loadAuthoritys(loadUserKey(request), MenuType.NORMAL));
-
-		return "/index";
+		//model.addAttribute("menus", permissionService.loadAuthoritys(loadUserKey(request), MenuType.NORMAL));
+		model.addAttribute("menus", permissionService.loadAuthoritys(loadUserKey(request), MenuType.GROUP));
+		return "/group";
 	}
 
 	@RequestMapping(value="/special/logout")
@@ -502,5 +502,4 @@ public class SystemController extends BaseController {
 			down(filePath, fileName, delete, request, response);
 		}
 	}
-
 }
