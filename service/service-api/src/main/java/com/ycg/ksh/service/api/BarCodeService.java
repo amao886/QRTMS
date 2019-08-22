@@ -92,6 +92,14 @@ public interface BarCodeService {
      * @developer Create by <a href="mailto:58469@ycgwl.com">dangjunqiang</a> at 2017-11-24 13:33:13
      */
     Barcode loadBarcode(String barcode) throws ParameterException, BusinessException;
+    /**
+     * 查询当前项目组中未绑定的条码
+     * @param gKey
+     * @return
+     * @throws ParameterException
+     * @throws BusinessException
+     */
+    Barcode queryOneBarcodeByGroupId(Integer gKey) throws ParameterException, BusinessException;
 
 
     /**
@@ -161,6 +169,16 @@ public interface BarCodeService {
      */
     MergeApplyRes queryTotalCount(Integer userKey) throws ParameterException, BusinessException;
 
+    
+    /**
+     * 根据项目组查询条码使用情况
+     * @param userKey
+     * @return MergeApplyRes
+     * @throws ParameterException
+     * @throws BusinessException
+     */
+    MergeApplyRes queryTotalCountByGroupId(Integer gKey) throws ParameterException, BusinessException;
+    
 
     /**
      * 条码变更 老版本 项目组
@@ -242,4 +260,5 @@ public interface BarCodeService {
      * @throws ParameterException
      */
     CustomPage<MergeBarcode> pageBarcodeToCompany(BarcodeSearch barcode,PageScope pageScope) throws BusinessException, ParameterException;
+    
 }
