@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
+import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class SmsServiceImpl implements SmsService {
 
     private static final Logger logger = LoggerFactory.getLogger(SmsService.class);
 
-    private static final String SMS_CODE_STRING = "您注册验证码是：%s，若不是本人操作，请忽略";//模板请勿修改
+    private static final String SMS_CODE_STRING = "您的验证码是 %s，请在对应页面提交验证码完成验证。若不是本人操作，请忽略";//模板请勿修改
 
     public static final String SMS_USERNAME = "sms.username";
     public static final String SMS_PASSWORD = "sms.password";
@@ -68,6 +69,8 @@ public class SmsServiceImpl implements SmsService {
     public void send(String mobile, String content) throws ParameterException, BusinessException {
         logger.debug("发送短信请求信息 {} {}", mobile, content);
         HttpClient httpClient = HttpClient.createHttpClient(SystemUtils.get(SMS_SEND_URL),HttpClient.Type.POST);
+        httpClient.property("ContentType", ContentType.create("text/xml"));
+        httpClient.property("charset", "GB2312");
     	httpClient.setParameterString(content);
         try {
             String result = httpClient.post();

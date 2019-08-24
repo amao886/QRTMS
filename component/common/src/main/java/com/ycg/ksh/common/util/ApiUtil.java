@@ -67,12 +67,12 @@ public class ApiUtil {
             secret = "a2c2f1bd0bde130e5608745bddb31b3a";
         }else if("test".equals(env)) {
             System.out.println("创建测试环境菜单");
-            host = "http://kshtest.ycgwl.com";
-            appid = "wx5cf0ebbc25ab4b74";
-            secret = "4c2005b26650ff2566a8938f15917c6b";
+            host = "http://51rong.51vip.biz";
+            appid = "wxb7df6f7ff3599fa8";
+            secret = "60953f1f9b39dcb3707cef93741f6619";
         }else if("dev".equals(env)) {
             System.out.println("创建开发环境菜单"+env);
-            host = "http://www.wq5000.xyz";
+            host = "http://www.lehan-tech.com";
             appid = "wxb7df6f7ff3599fa8";
             secret = "60953f1f9b39dcb3707cef93741f6619";
         }else {

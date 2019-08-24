@@ -39,6 +39,11 @@ public class MergeWaybill extends Waybill {
     
     private Integer arriveDay;
     private Integer arriveHour;
+    
+    //发货客户编码
+    private String shipperCode;
+    //收获客户编码
+    private String receiverCode;
 
     public MergeWaybill() {
         super();
@@ -279,4 +284,20 @@ public class MergeWaybill extends Waybill {
     public void setCodeString(String codeString) {
         this.codeString = codeString;
     }
+
+	public String getShipperCode() {
+		return shipperCode;
+	}
+
+	public void setShipperCode(String shipperCode) {
+		this.shipperCode = shipperCode;
+	}
+
+	public String getReceiverCode() {
+		return receiverCode;
+	}
+
+	public void setReceiverCode(String receiverCode) {
+		this.receiverCode = receiverCode;
+	}
 }

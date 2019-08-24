@@ -42,6 +42,7 @@ import com.ycg.ksh.entity.persistent.Barcode;
 import com.ycg.ksh.entity.persistent.Customer;
 import com.ycg.ksh.entity.persistent.DriverContainer;
 import com.ycg.ksh.entity.persistent.Goods;
+import com.ycg.ksh.entity.persistent.Leadtime;
 import com.ycg.ksh.entity.persistent.ProjectGroup;
 import com.ycg.ksh.entity.persistent.Waybill;
 import com.ycg.ksh.entity.persistent.WaybillDriverScan;
@@ -68,7 +69,9 @@ import com.ycg.ksh.service.observer.DriverContainerObserverAdapter;
 import com.ycg.ksh.service.observer.ReceiptObserverAdapter;
 import com.ycg.ksh.service.observer.TrackObserverAdapter;
 import com.ycg.ksh.service.observer.WaybillObserverAdapter;
+import com.ycg.ksh.service.persistence.CustomerMapper;
 import com.ycg.ksh.service.persistence.GoodsMapper;
+import com.ycg.ksh.service.persistence.LeadtimeMapper;
 import com.ycg.ksh.service.persistence.UserMapper;
 import com.ycg.ksh.service.persistence.WaybillDriverScanMapper;
 import com.ycg.ksh.service.persistence.WaybillMapper;
@@ -116,6 +119,10 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
     GoodsMapper goodsMapper;
     @Resource
     UserMapper userMapper;
+    @Resource
+    CustomerMapper customerMapper;
+    @Resource
+    LeadtimeMapper leadtimeMapper;
 
     @Autowired(required = false)
     Collection<WaybillObserverAdapter> observers;
@@ -1188,10 +1195,42 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
     public void saves(Integer uKey, Integer gKey, Customer customer, Collection<MergeWaybill> collection) throws ParameterException, BusinessException {
         if(CollectionUtils.isEmpty(collection)){ return; }
         for (MergeWaybill mergeWaybill : collection) {
+        	//如果导入的发货人客户编码不为空查询数据库中对应的发货人信息，否则直接获取excel中数据
+        	if(StringUtils.isNotBlank(mergeWaybill.getShipperCode())) {
+        		Customer customerS = customerMapper.queryCustomerByCode(mergeWaybill.getShipperCode());
+        		if(customerS != null) {
+        			mergeWaybill.setShipperName(customerS.getCompanyName());
+        			mergeWaybill.setShipperAddress(customerS.getAddress());
+        			mergeWaybill.setShipperContactName(customerS.getContacts());;
+        			mergeWaybill.setShipperContactTel(customerS.getContactNumber());
+        			mergeWaybill.setStartStation(RegionUtils.merge(customerS.getProvince(), customer.getCity(), customer.getDistrict()));
+        			mergeWaybill.setSimpleStartStation(RegionUtils.simple(customerS.getProvince(), customer.getCity(), customer.getDistrict()));
+        		}
+        		
+        	}
+        	//如果导入的收货人客户编码不为空查询数据库中对应的收货人信息，否则直接获取excel中数据
+        	if(StringUtils.isNotBlank(mergeWaybill.getReceiverCode())) {
+        		Customer customerR = customerMapper.queryCustomerByCode(mergeWaybill.getReceiverCode());
+        		if(customerR != null) {
+        			mergeWaybill.setReceiverName(customerR.getCompanyName());
+        			mergeWaybill.setReceiveAddress(customerR.getAddress());
+        			mergeWaybill.setContactName(customerR.getContacts());
+        			mergeWaybill.setContactPhone(customerR.getContactNumber());
+        			mergeWaybill.setEndStation(RegionUtils.merge(customerR.getProvince(), customer.getCity(), customer.getDistrict()));
+        			mergeWaybill.setSimpleEndStation(RegionUtils.simple(customerR.getProvince(), customer.getCity(), customer.getDistrict()));
+        		}
+        	}
             Waybill waybill = WaybillUtils.initializeSomething(mergeWaybill, Constant.WAYBILL_STATUS_WAIT);
             waybill.setUserid(uKey);
             waybill.setGroupid(gKey);
             Integer aDay = null, aHour = null;
+            if(mergeWaybill.getArriveDay() == null || mergeWaybill.getArriveHour()== null) {
+            	String s = (mergeWaybill.getSimpleStartStation()==null?"":mergeWaybill.getSimpleStartStation()).replaceAll("市", "");
+            	String e = (mergeWaybill.getSimpleEndStation()==null?"":mergeWaybill.getSimpleEndStation()).replaceAll("市", "");
+            	Leadtime leadtime = leadtimeMapper.quseryByShipCityAndDesCity(s, e);
+            	aDay = leadtime.getLt();
+            	aHour = 9;
+            }
             if (mergeWaybill.getArriveDay() != null) {
                 aDay = Integer.valueOf(mergeWaybill.getArriveDay());
             }

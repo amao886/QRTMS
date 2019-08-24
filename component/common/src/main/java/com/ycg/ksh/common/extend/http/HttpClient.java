@@ -1,9 +1,27 @@
 package com.ycg.ksh.common.extend.http;
 
-import com.alibaba.fastjson.JSONObject;
-import com.ycg.ksh.common.util.FileUtils;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.*;
+import org.apache.http.Consts;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -28,16 +46,8 @@ import org.apache.http.message.AbstractHttpMessage;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import java.io.*;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.alibaba.fastjson.JSONObject;
+import com.ycg.ksh.common.util.FileUtils;
 
 public class HttpClient {
 
@@ -271,7 +281,17 @@ public class HttpClient {
 			httppost.setEntity(new UrlEncodedFormEntity(formparams, contentEncoding));
 		}
 		if(StringUtils.isNotBlank(parameterString)){
-			httppost.setEntity(new StringEntity(parameterString, CONTENTTYPE_XML));
+			Header[] headerCtyp = httppost.getHeaders("ContentType");
+			Header[] headerCharSet = httppost.getHeaders("charset");
+			ContentType contentType = null;
+			try {
+				if(headerCtyp!=null && headerCharSet!=null) {
+					contentType = ContentType.create(headerCtyp[0].getValue(),headerCharSet[0].getValue());
+				}
+			} catch (Exception e) {
+				contentType = CONTENTTYPE_XML;
+			}
+			httppost.setEntity(new StringEntity(parameterString, contentType==null?CONTENTTYPE_XML:contentType));
 		}
 		return execute(httpclient, httppost);
 	}
