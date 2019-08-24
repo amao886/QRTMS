@@ -13,6 +13,8 @@ import com.ycg.ksh.common.util.StringUtils;
 import com.ycg.ksh.common.util.encrypt.MD5;
 import com.ycg.ksh.common.validate.Validator;
 import com.ycg.ksh.service.support.excel.convert.ConvertHandler;
+import com.ycg.ksh.service.support.excel.template.DefaultTemplate;
+
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -154,6 +156,10 @@ public abstract class ConvertObjectByExcel<T> {
         StringBuilder builder = new StringBuilder();
         for (ConvertHandler handler : analyzeObjects()) {
             appendMessage(builder, handler.validate(objects));
+        }
+        if(ConvertObjectByExcel.this instanceof DefaultTemplate) {
+        	System.out.println("this===============>"+this.getClass().getName());
+        	appendMessage(builder,((DefaultTemplate)this).checkCustomer(objects));
         }
         for (ConvertHandler handler : analyzeCommodity()) {
             appendMessage(builder, handler.validate(objects));
