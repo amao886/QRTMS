@@ -3,6 +3,11 @@ package com.ycg.ksh.test;/**
  */
 
 import com.ycg.ksh.adapter.api.MessageQueueService;
+import com.ycg.ksh.common.exception.BusinessException;
+import com.ycg.ksh.common.extend.http.HttpClient;
+import com.ycg.ksh.common.system.SystemUtils;
+
+import org.apache.http.entity.ContentType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
@@ -13,7 +18,11 @@ import javax.annotation.Resource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @TODO 类描述
@@ -27,7 +36,13 @@ public class TestObject {
 
     @Resource
     private MessageQueueService messageQueueService;
+    private static final String SMS_CODE_STRING = "您的验证码是 %s，请在对应页面提交验证码完成验证。若不是本人操作，请忽略";//模板请勿修改
 
+    public static final String SMS_USERNAME = "shslsswl";
+    public static final String SMS_PASSWORD = "UDteYkTV";
+    public static final String SMS_SEND_URL = "http://userinterface.vcomcn.com/Opration.aspx";//短信发送
+    public static final String SMS_YE_URL = "http://userinterface.vcomcn.com/GetResult.aspx";//短信获取余额
+    
     @Test
     public void testload(){
 
@@ -88,4 +103,79 @@ public class TestObject {
             mex.printStackTrace();
         }
     }
+    
+    public static String randomCode(int count) {
+        StringBuilder vcode = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            vcode.append((int) (Math.random() * 9));
+        }
+        return vcode.toString();
+    }
+    
+    public static String MD5(String encryptContent) {
+        String result = "";
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(encryptContent.getBytes());
+            byte b[] = md.digest();
+            int i;
+            StringBuffer buf = new StringBuffer("");
+            for (int offset = 0; offset < b.length; offset++) {
+                i = b[offset];
+                if (i < 0)
+                    i += 256;
+                if (i < 16)
+                    buf.append("0");
+                buf.append(Integer.toHexString(i));
+            }
+            result = buf.toString().toUpperCase();
+
+        } catch (NoSuchAlgorithmException e) {
+        	System.out.println("发送短信异常 {}");
+            throw new BusinessException("短信密码加密异常");
+        }
+        return result;
+    }
+    
+    private static String createSubmitXml(String mobile, String content) {
+        StringBuffer sp = new StringBuffer();
+        sp.append(String.format("<Group Login_Name=\"%s\" Login_Pwd=\"%s\" InterFaceID=\"0\" OpKind=\"0\">",
+        		SMS_USERNAME, MD5(SMS_PASSWORD)));
+        sp.append(String.format("<E_Time>%s</E_Time>", ""));
+        sp.append("<Item>");
+        sp.append("<Task>");
+        sp.append("<Recive_Phone_Number>" + mobile+ "</Recive_Phone_Number>");
+        sp.append("<Content><![CDATA[" + content + "]]></Content>");
+        sp.append("<Search_ID>1</Search_ID>");
+        sp.append("</Task>");
+        sp.append("</Item>");
+        sp.append("</Group>");
+
+        return sp.toString();
+    }
+    
+    private static void send(String mobile, String content) {
+        HttpClient httpClient = HttpClient.createHttpClient(SMS_SEND_URL,HttpClient.Type.POST);
+        httpClient.property("ContentType", ContentType.create("text/xml"));
+        httpClient.property("charset", "GB2312");
+    	httpClient.setParameterString(content);
+        try {
+            String result = httpClient.post();
+            if (!"00".equals(result)) {
+            	throw new BusinessException("发送短信异常: " + result);
+            }
+        } catch (Exception e) {
+            throw new BusinessException("发送短信异常");
+        }
+	}
+    
+    public static String sendCode(String mobile, String template) {
+    	String code = randomCode(9);
+    	send(mobile, createSubmitXml(mobile, String.format(template, code)));
+    	return code;
+    }
+    
+    public static void main(String[] args) {
+    	System.out.println(sendCode("15056066683", SMS_CODE_STRING));
+	}
 }

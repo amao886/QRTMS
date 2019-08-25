@@ -49,19 +49,19 @@
 				<collect.jdbc.url value="jdbc:mysql://192.168.0.119:3306/qlm_collect?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;allowMultiQueries=true" />
 			</data.source>
 			<!-- zookeeper settings -->
-			<zookeeper.cluster.hoststr value="192.168.0.42:2181" />
+			<zookeeper.cluster.hoststr value="127.0.0.1:2181" />
 			<!-- redis cluster settings -->
 			<redis.server.address value="172.16.235.14:6380,172.16.235.15:6380,172.16.235.16:6380" />
 			<redis.cluster.max.redirects value="3" />
 			<!-- redis singleton setting -->
-			<redis.host value="192.168.0.119"/>
-            <redis.port value="7002"/>
-            <redis.auth value="qqamredis@#$"/>
+			<redis.host value="127.0.0.1"/>
+            <redis.port value="6379"/>
+            <redis.auth value="foobared"/>
 			<rabbitmq>
-				<vhost value="gewei_vhost_ycd"/>
+				<vhost value="vhost_ycd"/>
 				<addresses value="192.168.0.114:5672"/>
-				<username value="user_ycd"/>
-				<password value="ycdgeweiit.com%"/>
+				<username value="user_qlm"/>
+				<password value="geweiit.com%"/>
 			</rabbitmq>
 		</local>
 		<dev>

@@ -39,19 +39,20 @@
 				<button type="button" class="btn btn-default"id="logout">退出账号</button>
 			</li>
 			<li class="layui-nav-item">
+				<!-- 
 				<div class="btn-group">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						切换<span class="caret"></span>
 					</button>
-					<!-- 
+					
 					<ul class="dropdown-menu">
 						<li><a href="/index" style="color: #000000;">切换新版</a></li>
 						<c:if test="${SESSION_USER_INFO.admin}">
 							<li><a href="/backstage" style="color: #000000;">运营后台</a></li>
 						</c:if>
 					</ul>
-					 -->
 				</div>
+				 -->
 			</li>
 		</ul>
 	</div>

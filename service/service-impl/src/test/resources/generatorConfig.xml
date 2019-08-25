@@ -15,17 +15,14 @@
       <property name="endingDelimiter" value="`"/>
     </plugin>
     <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                    connectionURL="jdbc:mysql://172.16.35.68:3306/track?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;useSSL=false"
-                    userId="root"
-                    password="123456">
+                    connectionURL="jdbc:mysql://192.168.0.119:3306/qlm?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;useSSL=false"
+                    userId="admin"
+                    password="admin666">
     </jdbcConnection>
-    <javaModelGenerator targetPackage="com.ycg.ksh.entity.persistent.depot" targetProject="X:\workspace\ycg\master\entity\src\main\java"/>
-    <sqlMapGenerator targetPackage="mappers.depot" targetProject="X:\workspace\ycg\master\service-core\ksh-service-core-impl\src\main\resources"/>
-    <javaClientGenerator targetPackage="com.ycg.ksh.service.persistence.depot" targetProject="X:\workspace\ycg\master\service-core\ksh-service-core-impl\src\main\java" type="XMLMAPPER"/>
-    <table tableName="T_OUTBOUND_DETAILS" domainObjectName="OutboundDetail">
-      <generatedKey column="ID" sqlStatement="Mysql" identity="true"/>
-    </table>
-    <table tableName="T_OUTBOUND_ORDER" domainObjectName="OutboundOrder">
+    <javaModelGenerator targetPackage="com.ycg.ksh.entity.persistent" targetProject="F:\gewei\master\component\entity\src\main\java"/>
+    <sqlMapGenerator targetPackage="mappers" targetProject="F:\gewei\master\service\service-impl\src\main\resources"/>
+    <javaClientGenerator targetPackage="com.ycg.ksh.service.persistence" targetProject="F:\gewei\master\service\service-impl\src\main\java" type="XMLMAPPER"/>
+    <table tableName="leadtime_tab" domainObjectName="Leadtime">
       <generatedKey column="ID" sqlStatement="Mysql" identity="true"/>
     </table>
   </context>

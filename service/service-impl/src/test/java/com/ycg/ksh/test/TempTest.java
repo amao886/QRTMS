@@ -44,8 +44,8 @@ public class TempTest {
 		HttpClient client = new HttpClient("http://localhost:8080/adventive/order/receipt", HttpClient.Type.POST);
 		/*
 		372219260299264	1111111111111
-353130276611072	kkjjhhf8768688
-353136014238720	kkjjhhf87686666
+		130276611072	kkjjhhf8768688
+		353136014238720	kkjjhhf87686666
 		*/
 		parameters.put("orderNo", "XSDD1807310060");
 		//parameters.put("keys", Globallys.toJsonString(new Long[]{334749966050304L, 335258419437568L}));
