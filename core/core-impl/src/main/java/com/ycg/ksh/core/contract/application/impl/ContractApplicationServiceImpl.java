@@ -126,7 +126,7 @@ public class ContractApplicationServiceImpl implements ContractApplicationServic
             Contract contract = new Contract(dto.getContractNo(), company.getId(), company.getCompanyName(), dto.getContractType(), validityPeriod);
             Region customerRegion = new Region(dto.getCustomerProvince(), dto.getCustomerCity(), dto.getCustomerDistrict());
             CustomerConcise customerConcise = customerService.loadCustomerConcise(dto.getCustomerCode());
-            if (customerConcise == null && customerConcise.getId() <= 0) {
+            if (customerConcise == null || customerConcise.getId() <= 0) {
                 throw new BusinessException("当前" + dto.getCustomerName() + "客户没有关联企业");
             }
             contract.modifyCustomer(customerConcise.getCompanyKey(), dto.getCustomerCode(), dto.getCustomerName(), dto.getIndustryType(), dto.getContactName(), dto.getTelephoneNumber(), dto.getMobileNumber(), customerRegion, dto.getCustomerAddress());
