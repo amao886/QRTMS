@@ -138,7 +138,7 @@
 			
 			<redis.host value="172.19.71.2"/>
             <redis.port value="6379"/>
-            <redis.auth value="foobared"/>
+            <redis.auth value=""/>
 
 			<rabbitmq>
 				<vhost value="mq_vhost_ksh"/>

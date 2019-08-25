@@ -194,7 +194,7 @@
 			<!-- redis stand-alone -->
 			<redis.host value="172.19.71.2"/>
             <redis.port value="6379"/>
-            <redis.auth value="foobared"/>
+            <redis.auth value=""/>
 			<!-- file settings  -->
 			<system.file.root value="/opt/storage" />
 			<!-- weixin settings -->
