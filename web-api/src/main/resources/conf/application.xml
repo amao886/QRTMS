@@ -116,28 +116,28 @@
 		</uat>
 		<prod>
 			<!-- zookeeper settings -->
-			<zookeeper.cluster.hoststr value="192.168.0.127:2181" />
+			<zookeeper.cluster.hoststr value="172.19.71.2:2181" />
 			<!-- redis settings -->
 			<redis.server.address value="172.16.235.14:6380,172.16.235.15:6380,172.16.235.16:6380" />
 			<!--<redis.server.address value="172.16.42.16:7000,172.16.42.25:7000,172.16.42.24:7000,172.16.42.19:7000,172.16.42.17:7000,172.16.42.20:7000" />-->
 			<redis.cluster.max.redirects value="3" />
 			<!-- redis stand-alone -->
-			<redis.host value="192.168.0.119"/>
-            <redis.port value="7002"/>
-            <redis.auth value="qqamredis@#$"/>
-            <rabbitmq>
-				<vhost value="gewei_vhost_ycd"/>
-				<addresses value="192.168.0.114:5672"/>
-				<username value="user_ycd"/>
-				<password value="ycdgeweiit.com%"/>
+			<redis.host value="172.19.71.2"/>
+            <redis.port value="6379"/>
+            <redis.auth value="foobared"/>
+			<rabbitmq>
+				<vhost value="mq_vhost_ksh"/>
+				<addresses value="172.19.71.3:5672"/>
+				<username value="mq_ordinary"/>
+				<password value="Jpp7vKgckv"/>
 			</rabbitmq>
 
 			<!-- file settings  -->
-			<static.path.prefix value="http://qlm.scmjia.com/res" />
+			<static.path.prefix value="http://trace.mclogi.com.cn/res" />
 			<system.file.root value="/opt/storage" />
 			<!-- weixin settings -->
-			<weixin.callback.domain value="http://qlm.scmjia.com" />
-			<front.host.domain value="http://qlm.scmjia.com/wechat" />
+			<weixin.callback.domain value="http://trace.mclogi.com.cn" />
+			<front.host.domain value="http://trace.mclogi.com.cn/wechat" />
 		</prod>
 	</environment>
 </configuration>

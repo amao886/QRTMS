@@ -136,32 +136,32 @@
 		<prod>
 			<system.esign.enable value="true"/><!-- 电子签收是否启用 -->
 			<!-- Database settings -->
-			<data.source.jdbc.url value="jdbc:mysql://172.16.42.22:3306/track?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;useSSL=false&amp;allowMultiQueries=true" />
-			<data.source.jdbc.username value="ycg_ksh_mysql" />
-			<data.source.jdbc.password value="YCG_qlm" />
+			<data.source.jdbc.url value="jdbc:mysql://172.19.71.2:3306/qlm?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;useSSL=false&amp;allowMultiQueries=true" />
+			<data.source.jdbc.username value="root" />
+			<data.source.jdbc.password value="@Jpp7vKgckv" />
 			<!-- zookeeper settings -->
-			<zookeeper.cluster.hoststr value="172.16.42.10:2181,172.16.42.11:2181,172.16.42.12:2181" />
+			<zookeeper.cluster.hoststr value="172.19.71.2:2181" />
 			<!-- redis settings -->
 			<redis.server.address value="172.16.235.14:6380,172.16.235.15:6380,172.16.235.16:6380" />
 			<!--<redis.server.address value="172.16.42.16:7000,172.16.42.25:7000,172.16.42.24:7000,172.16.42.19:7000,172.16.42.17:7000,172.16.42.20:7000" />-->
 			<redis.cluster.max.redirects value="3" />
 			<!-- redis stand-alone -->
-			<redis.host value="192.168.0.119"/>
-            <redis.port value="7002"/>
-            <redis.auth value="qqamredis@#$"/>
+			<redis.host value="172.19.71.2"/>
+            <redis.port value="6379"/>
+            <redis.auth value="foobared"/>
 			<rabbitmq>
-				<vhost value="wuliu_vhost_qianlima"/>
-				<addresses value="172.16.254.214:5672"/>
-				<username value="qianlima"/>
-				<password value="Qq@qianlima~~"/>
+				<vhost value="mq_vhost_ksh"/>
+				<addresses value="172.19.71.3:5672"/>
+				<username value="mq_ordinary"/>
+				<password value="Jpp7vKgckv"/>
 			</rabbitmq>
 
 			<!-- file settings  -->
-			<static.path.prefix value="http://qlm.scmjia.com/res" />
+			<static.path.prefix value="http://trace.mclogi.com.cn/res" />
 			<system.file.root value="/opt/storage" />
 			<!-- weixin settings -->
-			<weixin.callback.domain value="http://qlm.scmjia.com" />
-			<front.host.domain value="http://qlm.scmjia.com/wechat" />
+			<weixin.callback.domain value="http://trace.mclogi.com.cn" />
+			<front.host.domain value="http://trace.mclogi.com.cn/wechat" />
 		</prod>
 	</environment>
 

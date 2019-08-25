@@ -116,27 +116,27 @@
 		<prod>
 			<system.file.root value="/opt/storage" />
 			<data.source>
-				<jdbc.username value="ycg_ksh_mysql" />
-				<jdbc.password value="YCG_qlm" />
-				<service.jdbc.url value="jdbc:mysql://192.168.0.119:3306/track?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;allowMultiQueries=true" />
-				<schedule.jdbc.url value="jdbc:mysql://192.168.0.119:3306/qlm_schedule?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai" />
-				<collect.jdbc.url value="jdbc:mysql://192.168.0.119:3306/track?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;allowMultiQueries=true" />
+				<jdbc.username value="root" />
+				<jdbc.password value="@Jpp7vKgckv" />
+				<service.jdbc.url value="jdbc:mysql://172.19.71.2:3306/qlm?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;allowMultiQueries=true" />
+				<schedule.jdbc.url value="jdbc:mysql://172.19.71.2:3306/qlm_quartz?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai" />
+				<collect.jdbc.url value="jdbc:mysql://172.19.71.2:3306/qlm_collect?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&amp;allowMultiQueries=true" />
 			</data.source>
 			<!-- zookeeper settings -->
-			<zookeeper.cluster.hoststr value="192.168.0.119:2181" />
+			<zookeeper.cluster.hoststr value="172.19.71.2:2181" />
 			<!-- redis settings -->
 			<redis.server.address value="172.16.235.14:6380,172.16.235.15:6380,172.16.235.16:6380" />
 			<!--<redis.server.address value="172.16.42.16:7000,172.16.42.25:7000,172.16.42.24:7000,172.16.42.19:7000,172.16.42.17:7000,172.16.42.20:7000" />-->
 			<redis.cluster.max.redirects value="3" />
 			<!-- redis stand-alone -->
-			<redis.host value="192.168.0.119"/>
-            <redis.port value="7002"/>
-            <redis.auth value="qqamredis@#$"/>
+			<redis.host value="172.19.71.2"/>
+            <redis.port value="6379"/>
+            <redis.auth value="foobared"/>
 			<rabbitmq>
-				<vhost value="gewei_vhost_ycd"/>
-				<addresses value="192.168.0.114:5672"/>
-				<username value="user_ycd"/>
-				<password value="ycdgeweiit.com%"/>
+				<vhost value="mq_vhost_ksh"/>
+				<addresses value="172.19.71.3:5672"/>
+				<username value="mq_ordinary"/>
+				<password value="Jpp7vKgckv"/>
 			</rabbitmq>
 		</prod>
 	</environment>
