@@ -2,6 +2,6 @@
 /target/
 .idea
 .project
-*.settings
-*.log
-*.classpah
+.settings
+.log
+.classpah

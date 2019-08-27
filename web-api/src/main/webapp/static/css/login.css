@@ -41,7 +41,8 @@ html, body {
 }
 
 .bg .logo>img {
-	width: 140px;
+	width: 25%;
+/*width:140px;*/
 }
 
 .bg .loginBoxBg {
