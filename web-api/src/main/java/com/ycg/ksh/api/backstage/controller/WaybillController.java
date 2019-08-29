@@ -193,6 +193,33 @@ public class WaybillController extends BaseController {
         model.addAttribute("search", body);
         return "/backstage/waybill/manage";
     }
+    
+    /**
+     * 	导出任务单数据
+     * @param object
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/export/waybill")
+    @ResponseBody
+    public JsonResult outBoundExport(@RequestBody RequestObject object, HttpServletRequest request) throws Exception {
+        Collection<Long> wayillIds = StringUtils.longCollection(object.get("wayillIds"));
+        FileEntity fileEntity = waybillService.listExportWaybill(wayillIds);
+        JsonResult jsonResult = new JsonResult();
+        if (null != fileEntity && StringUtils.isNotBlank(fileEntity.getPath())) {
+            jsonResult.put("file", fileEntity.getPath());
+            jsonResult.put("count", fileEntity.getCount());
+            jsonResult.put("size", fileEntity.getSize());
+            String fileName = FileUtils.appendSuffix("任务单", fileEntity.getSuffix());
+            jsonResult.put("fileName", fileName);
+            jsonResult.put("url", FileUtils.buildDownload(fileEntity.getPath(), fileName));
+        } else {
+            jsonResult.modify(false, "没有找到相应数据文件");
+        }
+        return jsonResult;
+    }
+    
 
     @RequestMapping(value = "/follow/into")
     public String followInto(Model model, HttpServletRequest request) throws Exception {
