@@ -74,7 +74,7 @@ public abstract class FrontUtils {
      * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-09-22 11:44:07
      */
     public static String index(String token) {
-        return SystemUtils.buildUrl(base(), FRONT_PAGE_INDEX) + "?token=" + token + "&v=" + System.nanoTime();
+        return SystemUtils.buildUrl(base(), FRONT_PAGE_HOME) + "?token=" + token + "&v=" + System.nanoTime();
         //return SystemUtils.buildUrl(base(), FRONT_PAGE_INDEX) + "?token="+ token +"&v="+ System.nanoTime();
     }
 
