@@ -35,8 +35,6 @@ public class SmsServiceImpl implements SmsService {
 
     private static final Logger logger = LoggerFactory.getLogger(SmsService.class);
 
-    private static final String SMS_CODE_STRING = "您的验证码是 %s，请在对应页面提交验证码完成验证。若不是本人操作，请忽略";//模板请勿修改
-
     public static final String SMS_USERNAME = "sms.username";
     public static final String SMS_PASSWORD = "sms.password";
     public static final String SMS_SEND_URL = "sms.send.url";//短信发送
@@ -171,7 +169,7 @@ public class SmsServiceImpl implements SmsService {
             throw new BusinessException("该手机号发送次数过多，请稍后再试！");
         }
         String code = randomCode(6);
-        String sendContent = String.format(SMS_CODE_STRING, code);
+        String sendContent = String.format(Constant.SMS_CODE_STRING, code);
         send(mobile, createSubmitXml(mobile, sendContent));
         cacheManager.set(SystemUtils.smsKey(mobile), code, 10L, TimeUnit.MINUTES);
         return code;

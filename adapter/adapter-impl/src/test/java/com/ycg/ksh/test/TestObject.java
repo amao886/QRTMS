@@ -3,6 +3,7 @@ package com.ycg.ksh.test;/**
  */
 
 import com.ycg.ksh.adapter.api.MessageQueueService;
+import com.ycg.ksh.common.constant.Constant;
 import com.ycg.ksh.common.exception.BusinessException;
 import com.ycg.ksh.common.extend.http.HttpClient;
 import com.ycg.ksh.common.system.SystemUtils;
@@ -176,6 +177,9 @@ public class TestObject {
     }
     
     public static void main(String[] args) {
-    	System.out.println(sendCode("15056066683", SMS_CODE_STRING));
+    	String sendContent = String.format(Constant.SMS_SIGN_STRING, "北京通驰顺达贸易","25863365");
+    	System.out.println(sendCode("19921600779", sendContent));
+    	//System.out.println(sendCode("15056066683", SMS_CODE_STRING));
+    	
 	}
 }
