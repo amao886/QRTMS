@@ -4,6 +4,8 @@ import com.ycg.ksh.common.entity.BaseEntity;
 import com.ycg.ksh.common.util.StringUtils;
 
 import javax.persistence.*;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -298,7 +300,15 @@ public class Waybill extends BaseEntity {
      */
     @Column(name = "`delivery_time`")
     private Date deliveryTime;
-
+    
+    @Column(name = "`load_no`")
+    private String loadNo;
+    
+    @Column(name = "`car_type`")
+    private String carType;
+    
+    @Column(name = "`distance`")
+    private BigDecimal distance;
 
     public Waybill() {
         super();
@@ -1162,4 +1172,28 @@ public class Waybill extends BaseEntity {
     public void setDeliveryTime(Date deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
+
+	public String getLaodNo() {
+		return loadNo;
+	}
+
+	public void setLaodNo(String loadNo) {
+		this.loadNo = loadNo;
+	}
+
+	public String getCarType() {
+		return carType;
+	}
+
+	public void setCarType(String carType) {
+		this.carType = carType;
+	}
+
+	public BigDecimal getDistance() {
+		return distance;
+	}
+
+	public void setDistance(BigDecimal distance) {
+		this.distance = distance;
+	}
 }
