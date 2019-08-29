@@ -105,7 +105,7 @@ $(document).ready(function(){
                 this.$refs['ruleForm'].validate(function(valid){
                     if (valid) {
                         var parmas = _this.ruleForm;
-                        if(!parmas.phone || !/1\d{10}$/.test(parmas.phone)){
+                        if(!parmas.phone || !/^1[3456789]\d{9}$/.test(parmas.phone)){
                             $.util.error("请输入正确的手机号");
                             return false;
                         }
