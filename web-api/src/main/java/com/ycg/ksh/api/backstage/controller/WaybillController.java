@@ -204,8 +204,9 @@ public class WaybillController extends BaseController {
     @RequestMapping(value = "/export/waybill")
     @ResponseBody
     public JsonResult outBoundExport(@RequestBody RequestObject object, HttpServletRequest request) throws Exception {
-        Collection<Long> wayillIds = StringUtils.longCollection(object.get("wayillIds"));
-        FileEntity fileEntity = waybillService.listExportWaybill(wayillIds);
+        Collection<Long> waybillIds = StringUtils.longCollection(object.get("waybillIds"));
+        logger.info("waybillIds==========>:{}",waybillIds);
+        FileEntity fileEntity = waybillService.listExportWaybill(waybillIds);
         JsonResult jsonResult = new JsonResult();
         if (null != fileEntity && StringUtils.isNotBlank(fileEntity.getPath())) {
             jsonResult.put("file", fileEntity.getPath());
@@ -214,6 +215,7 @@ public class WaybillController extends BaseController {
             String fileName = FileUtils.appendSuffix("任务单", fileEntity.getSuffix());
             jsonResult.put("fileName", fileName);
             jsonResult.put("url", FileUtils.buildDownload(fileEntity.getPath(), fileName));
+            logger.info("url==========>:{}",FileUtils.buildDownload(fileEntity.getPath(), fileName));
         } else {
             jsonResult.modify(false, "没有找到相应数据文件");
         }

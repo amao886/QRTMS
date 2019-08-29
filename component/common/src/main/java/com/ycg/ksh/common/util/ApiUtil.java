@@ -52,7 +52,7 @@ public class ApiUtil {
         //创建公众号菜单
         //prod : 生产环境，test:测试环境，dev:开发环境，其他值为私人测试号
         try {
-            ApiUtil.build("dev");
+            ApiUtil.build("prod");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,9 +62,9 @@ public class ApiUtil {
         String host = null, appid = null, secret = null;
         if("prod".equals(env)) {
             System.out.println("创建生产环境菜单");
-            host = "http://ksh.ycgwl.com";
-            appid = "wx16d587ba4b1d5544";
-            secret = "a2c2f1bd0bde130e5608745bddb31b3a";
+            host = "http://www.lehan-tech.com";
+            appid = "wxde218922b232741f";
+            secret = "41c6a697695a3acc13b88a8056cb9105";
         }else if("test".equals(env)) {
             System.out.println("创建测试环境菜单");
             host = "http://51rong.51vip.biz";

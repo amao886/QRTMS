@@ -11,6 +11,7 @@ import com.ycg.ksh.entity.common.constant.ReceiptVerifyFettle;
 import com.ycg.ksh.entity.common.constant.WaybillFettle;
 import com.ycg.ksh.entity.persistent.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -528,6 +529,14 @@ public class WaybillContext extends BaseEntity {
 	 */
 	public void setLoactionTime(Date loactionTime) {
 		update.setLoactionTime(loactionTime);
+	}
+	
+	/**
+	 * 设置运单最新上报位置与目的地的距离
+	 * @param distance
+	 */
+	public void setDistance(BigDecimal distance) {
+		update.setDistance(distance);
 	}
 
 	/**

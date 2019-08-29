@@ -95,10 +95,10 @@
             <redis.port value="6379"/>
             <redis.auth value="cy123456"/>
 			<rabbitmq>
-				<vhost value="vhost_ycd"/>
-				<addresses value="192.168.0.114:5672"/>
-				<username value="user_qlm"/>
-				<password value="geweiit.com%"/>
+				<vhost value="gewei_vhost_ycd"/>
+				<addresses value="58.221.6.82:56720"/>
+				<username value="user_ycd"/>
+				<password value="ycdgeweiit.com%"/>
 			</rabbitmq>
 
 			<!-- file settings  -->

@@ -294,9 +294,9 @@
         FROM
             waybill_tab w
 	    <where>
-	      1 = 1
+	      w.waybill_status in (35,40) 
 	      <if test="waybillIds != null">
-	        AND d.KEY IN
+	        AND w.id IN
 	        <foreach collection="waybillIds" item="key" separator="," open="(" close=")">
 	          #{key}
 	        </foreach>

@@ -11,7 +11,7 @@ $("#showTooltips").click(function() {
 	}
 
 	var mobileNum = $('#mobileNum').val();
-	var mobileNumReg = /^1[\d]{10}$/
+	var mobileNumReg = /^1[3456789]\d{9}$/
 	if(!mobileNum) {
 		$.toptip('手机号不能为空');
 		return;

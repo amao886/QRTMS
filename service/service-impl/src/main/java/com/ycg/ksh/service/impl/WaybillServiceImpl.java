@@ -1547,6 +1547,8 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             easyExcel.columnWidth(30, 20, 10, 20, 10, 10, 20, 20, 20, 30, 10);
             easyExcel.header("经销商简称", "配送地", "装运号", "送货单号", "数量", "体积", "车型", "预计到达","实际到达日期","当前位置","距离目的地剩余（km）");
             for (Waybill waybill : depotAlliances) {
+                if(waybill.getActualArrivalTime()==null)
+                    continue;
                 easyExcel.row(waybill.getContactName(),waybill.getSimpleEndStation(),waybill.getLaodNo(),waybill.getDeliveryNumber(),waybill.getNumber(),waybill.getVolume(),
                 		waybill.getCarType(),DateUtils.formatDate(waybill.getArrivaltime()),DateUtils.formatDate(waybill.getActualArrivalTime()),waybill.getAddress(),waybill.getDistance());
             }
@@ -1556,8 +1558,8 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             fileEntity.setSize(FileUtils.size(destFile.length(), FileUtils.ONE_MB));
             return fileEntity;
         } catch (Exception e) {
-            logger.error("出库单导出异常 {} ", key);
-            throw new BusinessException("出库单导出异常", e);
+            logger.error("任务单导出异常 {} ", key);
+            throw new BusinessException("任务单导出异常", e);
         } finally {
             if (easyExcel != null) {
                 try {

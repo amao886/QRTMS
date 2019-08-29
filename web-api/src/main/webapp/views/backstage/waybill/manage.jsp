@@ -97,6 +97,7 @@
             <button class="layui-btn layui-btn-normal" url="${template}" id="down_template">模板下载</button>
             <button class="layui-btn layui-btn-warm link_sure_batch">确认到货</button>
             <button class="layui-btn layui-btn-danger link_delete">删除</button>
+            <button class="layui-btn layui-btn-normal" id="link_excel">导出任务单</button>
             <!--<i class="layui-icon pos_right delete-icon link_delete">&#xe640;</i>-->
         </div>
         <table>
@@ -469,6 +470,26 @@
                 $.cookie('open', '1');
             }
         })
+        
+        //导出任务单
+        $("#link_excel").on("click", function () {
+            var chk_value = [], parmas = {};
+            $('input[name="waybillId"]:checked').each(function () {
+                chk_value.push($(this).val());
+            });
+            if (chk_value == null || chk_value == "") {
+                $.util.error("请至少选择一条数据");
+                return false;
+            }
+            $.util.json(base_url + '/backstage/trace/export/waybill', {waybillIds: chk_value.join(',')}, function (data) {
+                if (data.success) {//处理返回结果
+                	alert(data.url);
+                	$.util.download(data.url)
+                } else {
+                    $.util.error(data.message);
+                }
+            });
+        });
     });
 </script>
 </html>
