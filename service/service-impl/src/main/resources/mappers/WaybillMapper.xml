@@ -47,8 +47,12 @@
         <result column="shipper_contact_tel" jdbcType="VARCHAR" property="shipperContactTel" />
         <result column="bind_time" jdbcType="TIMESTAMP" property="bindTime" />
         <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime" />
-        <result column="simple_start_station" jdbcType="TIMESTAMP" property="simpleStartStation" />
-        <result column="simple_end_station" jdbcType="TIMESTAMP" property="simpleEndStation" />
+        <result column="simple_start_station" jdbcType="VARCHAR" property="simpleStartStation" />
+        <result column="simple_end_station" jdbcType="VARCHAR" property="simpleEndStation" />
+        <!-- 上海三菱物流需求 -->
+        <result column="load_no" jdbcType="VARCHAR" property="loadNo" />
+        <result column="car_type" jdbcType="VARCHAR" property="carType" />
+        <result column="distance" jdbcType="DECIMAL" property="distance" />
     </resultMap>
 
     <resultMap id="baseResultPositionMap" type="com.ycg.ksh.entity.service.MergeWaybill" extends="BaseResultMap">
@@ -56,6 +60,7 @@
         <result column="shareid" property="shareId" jdbcType="VARCHAR"/><!-- 任务单来源 -->
         <result column="uname" property="shareName" jdbcType="VARCHAR"/><!-- 任务单来源 -->
     </resultMap>
+    
     <sql id="include_column">
         w.id,
         w.barcodeid,
@@ -102,8 +107,46 @@
         w.bind_time,
         w.delivery_time,
         w.simple_start_station,
-        w.simple_end_station
+        w.simple_end_station,
+        w.load_no,
+        w.car_type,
+        w.distance
     </sql>
+    
+    <sql id="include_column_excel">
+        w.barcode,
+        w.order_summary,
+        w.address,
+        w.loaction_time,
+        w.arrivaltime,
+        w.createtime,
+        w.actual_arrival_time,
+        w.weight,
+        w.volume,
+        w.number,
+        w.delivery_number,
+        w.receiver_name,
+        w.receive_address,
+        w.contact_name,
+        w.contact_phone,
+        w.position_count,
+        w.waybill_status,
+        w.delay,
+        w.shipper_name,
+        w.start_station,
+        w.end_station,
+        w.shipper_address,
+        w.shipper_tel,
+        w.shipper_contact_name,
+        w.shipper_contact_tel,
+        w.delivery_time,
+        w.simple_start_station,
+        w.simple_end_station,
+        w.load_no,
+        w.car_type,
+        w.distance
+    </sql>
+    
     <select id="selectGroupKeyById" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         SELECT groupid FROM waybill_tab WHERE id= #{waybillId}
     </select>
@@ -244,7 +287,23 @@
         </where>
         ORDER BY w.createtime DESC, w.waybill_status ASC
     </select>
-
+	<!-- 导出 -->
+    <select id="listExportWabills" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        SELECT
+        	<include refid="include_column_excel"/>
+        FROM
+            waybill_tab w
+	    <where>
+	      1 = 1
+	      <if test="waybillIds != null">
+	        AND d.KEY IN
+	        <foreach collection="waybillIds" item="key" separator="," open="(" close=")">
+	          #{key}
+	        </foreach>
+	      </if>
+	    </where>
+    </select>
+    
     <select id="listBySomethingConveyance" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.service.WaybillSerach">
         SELECT
         DISTINCT w.id AS _id, <include refid="include_column"/>
