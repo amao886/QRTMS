@@ -111,8 +111,10 @@
 			<!-- file settings  -->
 			<system.file.root value="/opt/storage" />
 			<!-- weixin settings -->
-            <net.wx.common.appid value="wxb7df6f7ff3599fa8" />
-            <net.wx.common.appsecret value="60953f1f9b39dcb3707cef93741f6619" />
+            <!-- <net.wx.common.appid value="wxb7df6f7ff3599fa8" />
+            <net.wx.common.appsecret value="60953f1f9b39dcb3707cef93741f6619" /> -->
+            <net.wx.common.appid value="wxde218922b232741f" />
+            <net.wx.common.appsecret value="41c6a697695a3acc13b88a8056cb9105" />
 			<!-- <net.wx.msg.template>
 				<whsign value="CfbH83SyQ1gQX50fboJKU41UsU-z9p094vI8JAHIzuA"/>完好签收模板消息编号
 				<ycsign value="uo_rhY_q5xYb2cjaQlQolDSGQp5gGgxtUWB-XJ1GGv8"/>异常签收模板消息编号
