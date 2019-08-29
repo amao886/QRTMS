@@ -3,6 +3,7 @@
  */
 package com.ycg.ksh.service.api;
 
+import com.ycg.ksh.common.entity.FileEntity;
 import com.ycg.ksh.common.exception.BusinessException;
 import com.ycg.ksh.common.exception.ParameterException;
 import com.ycg.ksh.common.extend.mybatis.page.CustomPage;
@@ -390,4 +391,11 @@ public interface WaybillService {
      * @throws BusinessException
      */
     void saves(Integer uKey, Integer gKey, Customer customer, Collection<MergeWaybill> collection) throws ParameterException, BusinessException;
+    
+    /***
+     *	 导出运单数据
+     * @param outboundIds
+     * @return
+     */
+	FileEntity listExportWaybill(Collection<Long> waybillIds);
 }
