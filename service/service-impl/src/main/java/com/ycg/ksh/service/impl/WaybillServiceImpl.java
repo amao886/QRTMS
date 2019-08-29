@@ -3,6 +3,8 @@
  */
 package com.ycg.ksh.service.impl;
 
+import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -23,14 +25,21 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
 import com.ycg.ksh.adapter.api.AutoMapService;
+import com.ycg.ksh.adapter.api.SmsService;
 import com.ycg.ksh.common.constant.Constant;
+import com.ycg.ksh.common.entity.FileEntity;
+import com.ycg.ksh.common.excel.EasyExcelBuilder;
+import com.ycg.ksh.common.excel.ExcelWriter;
 import com.ycg.ksh.common.exception.BusinessException;
 import com.ycg.ksh.common.exception.ParameterException;
 import com.ycg.ksh.common.extend.MapCollection;
 import com.ycg.ksh.common.extend.cache.CacheManager;
 import com.ycg.ksh.common.extend.lock.DistributedSynchronize;
 import com.ycg.ksh.common.extend.mybatis.page.CustomPage;
+import com.ycg.ksh.common.system.SystemUtils;
 import com.ycg.ksh.common.util.Assert;
+import com.ycg.ksh.common.util.DateUtils;
+import com.ycg.ksh.common.util.FileUtils;
 import com.ycg.ksh.common.util.RegionUtils;
 import com.ycg.ksh.common.util.StringUtils;
 import com.ycg.ksh.entity.adapter.AutoMapLocation;
@@ -58,6 +67,7 @@ import com.ycg.ksh.entity.service.WaybillSerach;
 import com.ycg.ksh.entity.service.WaybillSimple;
 import com.ycg.ksh.entity.service.barcode.BarcodeContext;
 import com.ycg.ksh.entity.service.barcode.GroupCodeContext;
+import com.ycg.ksh.entity.service.depot.DepotAlliance;
 import com.ycg.ksh.service.api.BarCodeService;
 import com.ycg.ksh.service.api.CustomerService;
 import com.ycg.ksh.service.api.PermissionService;
@@ -123,6 +133,8 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
     CustomerMapper customerMapper;
     @Resource
     LeadtimeMapper leadtimeMapper;
+    @Resource
+    SmsService smsService;
 
     @Autowired(required = false)
     Collection<WaybillObserverAdapter> observers;
@@ -170,7 +182,7 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
         }
         return true;
     }
-
+    //手机端条码绑定
     @Override
     public Waybill saveBind(WaybillContext context) throws ParameterException, BusinessException {
         logger.debug("save bind================> context:{}", context);
@@ -494,6 +506,9 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
                         context.setActualArrivalTime(new Date());
                     }
                     modifyWaybillContext(context);
+                    //确定到货发送短信
+                    String sendContent = String.format(Constant.SMS_SIGN_STRING,context.getReceiverName(),context.getDeliveryNumber());
+                    smsService.send(context.getContactPhone(), sendContent);
                 }
             }
         } catch (BusinessException | ParameterException e) {
@@ -1075,7 +1090,14 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             }
             Date currentTime = track.getCreatetime();
             context.setAddress(track.getLocations());
-            context.setLoactionTime(currentTime);
+            context.setLoactionTime(currentTime);//最新位置上报时间
+            //计算最新定位地址和目的地之间的距离
+            if(StringUtils.isNotBlank(context.getLongitude()) && StringUtils.isNotBlank(context.getLatitude())) {//如果目的经纬度为空从数据库查询,
+            	Double dis = autoMapService.distance(track.getLongitude(), track.getLatitude(), context.getLongitude(), context.getLatitude());
+            	context.setDistance(BigDecimal.valueOf(dis));
+            	logger.info("distance========>:{}",dis);
+            }
+            
             if (context.getDeliveryTime() == null && context.getPositionCount() > 1) {
                 context.setDeliveryTime(currentTime);
                 context.setArrivaltime(WaybillUtils.arrivaltime(context));
@@ -1099,7 +1121,10 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
                 }
             }
             if (context.isExecute()) {
-                waybillMapper.updateByPrimaryKeySelective(context.getUpdate());
+                if(waybillMapper.updateByPrimaryKeySelective(context.getUpdate())>0 && context.getPositionCount()==1){
+                	String sendContent = String.format(Constant.SMS_LOCATION_STRING, context.getReceiverName(),context.getNumber(),context.getAddress(),context.getDeliveryNumber());
+                	smsService.send(context.getContactPhone(), sendContent);//第一次定位发生短信
+                }
             }
         } catch (BusinessException | ParameterException e) {
             throw e;
@@ -1504,5 +1529,42 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 			logger.debug("getWaybillByCode error:{}", e);
 			throw BusinessException.dbException(Constant.QUERY_FAIL);
 		}
+	}
+
+	@Override
+	public FileEntity listExportWaybill(Collection<Long> key) {
+		Assert.notEmpty(key, "至少选择一条需要导出的值");
+        ExcelWriter easyExcel = null;
+        try {
+            Collection<Waybill> depotAlliances = waybillMapper.listExportWabills(key);
+            FileEntity fileEntity = new FileEntity();
+            fileEntity.setSuffix(FileUtils.XLSX_SUFFIX);
+            fileEntity.setDirectory(SystemUtils.directoryDownload());
+            fileEntity.setFileName(FileUtils.appendSuffix("" + System.nanoTime(), FileUtils.XLSX_SUFFIX));
+            File destFile = FileUtils.newFile(fileEntity.getDirectory(), fileEntity.getFileName());
+            easyExcel = EasyExcelBuilder.createWriteExcel(destFile);
+            easyExcel.createSheet("出库单列表");
+            easyExcel.columnWidth(30, 20, 10, 20, 10, 10, 20, 20, 20, 30, 10);
+            easyExcel.header("经销商简称", "配送地", "装运号", "送货单号", "数量", "体积", "车型", "预计到达","实际到达日期","当前位置","距离目的地剩余（km）");
+            for (Waybill waybill : depotAlliances) {
+                easyExcel.row(waybill.getContactName(),waybill.getSimpleEndStation(),waybill.getLaodNo(),waybill.getDeliveryNumber(),waybill.getNumber(),waybill.getVolume(),
+                		waybill.getCarType(),DateUtils.formatDate(waybill.getArrivaltime()),DateUtils.formatDate(waybill.getActualArrivalTime()),waybill.getAddress(),waybill.getDistance());
+            }
+            easyExcel.write();
+            fileEntity.setPath(destFile.getPath());
+            fileEntity.setCount(1);
+            fileEntity.setSize(FileUtils.size(destFile.length(), FileUtils.ONE_MB));
+            return fileEntity;
+        } catch (Exception e) {
+            logger.error("出库单导出异常 {} ", key);
+            throw new BusinessException("出库单导出异常", e);
+        } finally {
+            if (easyExcel != null) {
+                try {
+                    easyExcel.close();
+                } catch (Exception e) {
+                }
+            }
+        }
 	}
 }

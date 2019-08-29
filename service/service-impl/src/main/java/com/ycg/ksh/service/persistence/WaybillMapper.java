@@ -4,6 +4,8 @@ import com.github.pagehelper.Page;
 import com.ycg.ksh.entity.persistent.Waybill;
 import com.ycg.ksh.entity.service.MergeWaybill;
 import com.ycg.ksh.entity.service.WaybillSerach;
+
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -192,4 +194,10 @@ public interface WaybillMapper extends Mapper<Waybill> {
      * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-11-02 18:36:20
      */
     void updateWaybillStatusById(Waybill waybill);
+    /**
+     * 	查询要导出的任务单
+     * @param key
+     * @return
+     */
+	Collection<Waybill> listExportWabills(@Param("waybillIds") Collection<Long> key);
 }
