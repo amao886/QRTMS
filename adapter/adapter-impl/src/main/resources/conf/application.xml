@@ -91,7 +91,7 @@
 			</e.sign.service.yunghetong>
 			<rabbitmq>
 				<vhost value="vhost_ycd"/>
-				<addresses value="192.168.0.114:5672"/>
+				<addresses value="58.221.6.82:56720"/>
 				<username value="user_qlm"/>
 				<password value="geweiit.com%"/>
 			</rabbitmq>
