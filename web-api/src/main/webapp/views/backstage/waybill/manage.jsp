@@ -513,7 +513,7 @@
                 $.util.error("请至少选择一条数据");
                 return false;
             } */
-            var likeString = $("#TimeSearch").val();
+            var likeString = $("#likeString").val();
             if(likeString){
             	parmas["likeString"] = likeString;
             }
@@ -548,7 +548,7 @@
             if(deliverEndTime && deliverEndTime != ""){
             	parmas["deliverEndTime"] = deliverEndTime;
             }
-            
+            console.log(JSON.stringify(parmas));
             $.util.json(base_url + '/backstage/trace/export/waybill', parmas, function (data) {
                 if (data.success) {//处理返回结果
                 	$.util.download(data.url)
@@ -582,13 +582,14 @@
             if(deliverEndTime && deliverEndTime != ""){
             	parmas["deliverEndTime"] = deliverEndTime;
             }
-            
-           /*  $.util.json(base_url + '/backstage/trace/batchBind', parmas, function (data) {
+            // 请求
+            $.util.json(base_url + '/backstage/trace/batchBind', parmas, function (data) {
                 if (data.success) {//处理返回结果
+                	submit(1);
                 } else {
                     $.util.error(data.message);
                 }
-            }); */
+            });
         });
         
         //批量下载
@@ -603,6 +604,7 @@
             }
            /*  $.util.json(base_url + '/backstage/trace/downBind', {waybillIds: chk_value.join(',')}, function (data) {
                 if (data.success) {//处理返回结果
+                	$.util.download(data.url)
                 } else {
                     $.util.error(data.message);
                 }

@@ -1,4 +1,4 @@
-a{text-decoration: none !important;}
+﻿a{text-decoration: none !important;}
 /*=====头部=====*/
 .layui-layout-admin .layui-header{background:#31acfa;}
 .layui-layout-admin .layui-logo{
@@ -8,7 +8,7 @@ a{text-decoration: none !important;}
 	text-indent: 237px;
     font-family: 'Microsoft Yahei';
     background:url(../images/newlogo_b.png) no-repeat 0 center;
-    background-size:200px 50px;
+    background-size:200px 40px;
     color: #fff;
 }
 .layui-logo>h1{
