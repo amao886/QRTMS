@@ -288,19 +288,45 @@
         ORDER BY w.createtime DESC, w.waybill_status ASC
     </select>
 	<!-- 导出 -->
-    <select id="listExportWabills" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    <select id="listExportWabills" resultMap="BaseResultMap" parameterType="com.alibaba.fastjson.JSONObject">
         SELECT
         	<include refid="include_column_excel"/>
         FROM
             waybill_tab w
 	    <where>
-	      w.waybill_status in (35,40) 
 	      <if test="waybillIds != null">
 	        AND w.id IN
 	        <foreach collection="waybillIds" item="key" separator="," open="(" close=")">
 	          #{key}
 	        </foreach>
 	      </if>
+	      <if test="deliverStartTime != null and deliverStartTime != ''">
+	          <![CDATA[ AND w.createtime >= #{deliverStartTime} ]]>
+	      </if>
+	      <if test="deliverEndTime != null and deliverEndTime != ''">
+                <![CDATA[ AND w.createtime <= #{deliverEndTime} ]]>
+          </if>
+          <if test="likeString != null and likeString !=''">
+                AND (
+                (LOCATE(#{likeString}, w.delivery_number) > 0) OR
+                (LOCATE(#{likeString}, w.barcode) > 0) OR
+                (LOCATE(#{likeString}, w.receiver_name) > 0) OR
+                (LOCATE(#{likeString}, w.receive_address) > 0) OR
+                (LOCATE(#{likeString}, w.order_summary) > 0)
+                )
+          </if>
+          <if test="waybillFettles != null">
+                AND w.waybill_status IN
+                <foreach collection="waybillFettles" item="fettle" separator="," open="(" close=")">
+                    #{fettle}
+                </foreach>
+         </if>
+         <if test="startStation != null and startStation != ''">
+                <![CDATA[ AND LOCATE(#{startStation}, w.start_station) > 0 ]]>
+         </if>
+         <if test="endStation != null and endStation != ''">
+         	    <![CDATA[ AND  LOCATE(#{endStation}, w.end_station) > 0 ]]>
+         </if>
 	    </where>
     </select>
     
@@ -396,7 +422,7 @@
         SELECT
         <include refid="include_column"/>
         FROM
-        waybill_tab w
+        waybill_tab w.createtime
         <where>
             <choose>
                 <when test="groupId != null and groupId gt 0">

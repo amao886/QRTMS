@@ -59,7 +59,7 @@
                     <div class="layui-col-md4 layui-col-lg2">
                         <div class="line-part">
                             <span class="float-tag">搜索条件</span>
-                            <div class="text-tag"><input type="text" class="sub-tag" name="likeString"
+                            <div class="text-tag"><input id="likeString" type="text" class="sub-tag" name="likeString"
                                                          placeholder="任务单号/送货单号/收货客户" value="${search.likeString}"/>
                             </div>
                         </div>
@@ -67,17 +67,37 @@
                     <div class="layui-col-md4 layui-col-lg2">
                         <div class="line-part">
                             <span class="float-tag">始发地</span>
-                            <div class="text-tag"><input type="text" class="sub-tag" name="startStation"
+                            <div class="text-tag"><input type="text" class="sub-tag" id="startStation" name="startStation"
                                                          value="${search.startStation}"/></div>
                         </div>
                     </div>
                     <div class="layui-col-md4 layui-col-lg2">
                         <div class="line-part">
                             <span class="float-tag">目的地</span>
-                            <div class="text-tag"><input type="text" class="sub-tag" name="endStation"
+                            <div class="text-tag"><input type="text" class="sub-tag" id="endStation" name="endStation"
                                                          value="${search.endStation}"/></div>
                         </div>
                     </div>
+                 <div class="fl col-min">
+                    <label class="labe_l">上报日期</label>
+                    <div class="input-append date startDate" id="datetimeStart0">
+                        <input type="text" class="tex_t z_index" id="deliverStartTime" name="firstTime"
+                               value="${search.firstTime}" readonly>
+                        <span class="add-on">
+								<i class="icon-th"></i>
+							</span>
+                    </div>
+                </div>
+                <div class="fl col-min">
+                    <label class="labe_l">至</label>
+                    <div class="input-append date endDate" id="datetimeEnd0">
+                        <input type="text" class="tex_t z_index" id="deliverEndTime" name="secondTime"
+                               value="${search.secondTime}" readonly>
+                        <span class="add-on">
+								<i class="icon-th"></i>
+							</span>
+                    </div>
+                </div>
                     <div class="layui-col-md4 layui-col-lg2">
                         <div class="line-part line-btn">
                             <button class="layui-btn layui-btn-normal submit" type="button">查询</button>
@@ -477,11 +497,47 @@
             $('input[name="waybillId"]:checked').each(function () {
                 chk_value.push($(this).val());
             });
-            if (chk_value == null || chk_value == "") {
+            /* if (chk_value == null || chk_value == "") {
                 $.util.error("请至少选择一条数据");
                 return false;
+            } */
+            var likeString = $("#TimeSearch").val();
+            if(likeString){
+            	parmas["likeString"] = likeString;
             }
-            $.util.json(base_url + '/backstage/trace/export/waybill', {waybillIds: chk_value.join(',')}, function (data) {
+            var timeSearch = $("#TimeSearch").val();
+            if(timeSearch){
+            	parmas["TimeSearch"] = timeSearch;
+            }
+            if(chk_value){
+            	parmas["waybillIds"] = chk_value.join(',')
+            }
+            var waybillFettles = $(".transport-status active").find('input[name="waybillFettles"]').val();
+            if(waybillFettles){
+            	parmas["waybillFettles"] = waybillFettles;
+            }
+            
+            var startStation = $("#startStation").val();
+            if(timeSearch){
+            	parmas["startStation"] = startStation;
+            }
+            
+            var endStation = $("#endStation").val();
+            if(timeSearch){
+            	parmas["endStation"] = endStation;
+            }
+
+            var deliverStartTime = $("#deliverStartTime").val();
+            if(deliverStartTime){
+            	parmas["deliverStartTime"] = deliverStartTime;
+            }
+            
+            var deliverEndTime = $("#deliverEndTime").val();
+            if(deliverEndTime){
+            	parmas["deliverEndTime"] = deliverEndTime;
+            }
+            
+            $.util.json(base_url + '/backstage/trace/export/waybill', JSON.stringify(parmas), function (data) {
                 if (data.success) {//处理返回结果
                 	alert(data.url);
                 	$.util.download(data.url)

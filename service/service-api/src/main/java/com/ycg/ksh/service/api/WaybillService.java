@@ -3,6 +3,7 @@
  */
 package com.ycg.ksh.service.api;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ycg.ksh.common.entity.FileEntity;
 import com.ycg.ksh.common.exception.BusinessException;
 import com.ycg.ksh.common.exception.ParameterException;
@@ -397,5 +398,5 @@ public interface WaybillService {
      * @param outboundIds
      * @return
      */
-	FileEntity listExportWaybill(Collection<Long> waybillIds);
+	FileEntity listExportWaybill(JSONObject req);
 }

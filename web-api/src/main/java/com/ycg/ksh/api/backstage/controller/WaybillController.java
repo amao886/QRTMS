@@ -204,9 +204,16 @@ public class WaybillController extends BaseController {
     @RequestMapping(value = "/export/waybill")
     @ResponseBody
     public JsonResult outBoundExport(@RequestBody RequestObject object, HttpServletRequest request) throws Exception {
+        JSONObject requestParam = new JSONObject();
+       /* requestParam.put("waybillIds", waybillIds);
+        requestParam.put("startDate", object.get("startDate"));
+        requestParam.put("endDate", object.get("endDate"));*/
+        requestParam.putAll(object);
         Collection<Long> waybillIds = StringUtils.longCollection(object.get("waybillIds"));
-        logger.info("waybillIds==========>:{}",waybillIds);
-        FileEntity fileEntity = waybillService.listExportWaybill(waybillIds);
+        object.put("waybillIds", waybillIds);
+        
+        logger.info("waybillIds==========>:{}",requestParam);
+        FileEntity fileEntity = waybillService.listExportWaybill(requestParam);
         JsonResult jsonResult = new JsonResult();
         if (null != fileEntity && StringUtils.isNotBlank(fileEntity.getPath())) {
             jsonResult.put("file", fileEntity.getPath());
