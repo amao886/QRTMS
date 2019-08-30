@@ -275,7 +275,7 @@ public class FriendsServiceImpl implements FriendsService, UserObserverAdapter {
         if (smsInfoMapper.querySendCountById(smsInfo) > 0) {
             throw new BusinessException("今天已经邀请过该用户");
         } else {
-            smsService.send(smsInfo.getMobilePhone(), smsInfo.getContext());
+            smsService.sendmsg(smsInfo.getMobilePhone(), smsInfo.getContext());
             //SmsUtil.send(smsInfo.getMobilePhone(), smsInfo.getRemark());
             smsInfoMapper.insert(smsInfo);
         }
