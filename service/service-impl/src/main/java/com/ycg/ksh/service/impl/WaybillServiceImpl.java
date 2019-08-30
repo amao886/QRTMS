@@ -1124,7 +1124,8 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             }
             if (context.isExecute()) {
                 if(waybillMapper.updateByPrimaryKeySelective(context.getUpdate())>0 && context.getPositionCount()==1){
-                	String sendContent = String.format(Constant.SMS_LOCATION_STRING, context.getReceiverName(),context.getNumber(),context.getSimpleStartStation(),context.getDeliveryNumber());
+                	//String sendContent = String.format(Constant.SMS_LOCATION_STRING, context.getReceiverName(),context.getNumber(),context.getSimpleStartStation(),context.getDeliveryNumber());
+                	String sendContent = String.format(Constant.SMS_LOCATION_STRING,"潍坊寒亭区国伟轮胎服务部",34,"无锡市","88392815");
                 	smsService.send(context.getContactPhone(), sendContent);//第一次定位发生短信
                 }
             }
