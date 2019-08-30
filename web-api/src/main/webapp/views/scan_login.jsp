@@ -25,8 +25,8 @@
 <body data-debug="${debug}" data-redirect="${redirect}" data-scanurl="${scanurl}" >
 <div class="bg">
 	<div class="logo">
-		<img style="width: 25%;" src="/static/images/login_logo.png">
-		<h2>合同物流管理平台</h2>
+		<div style="height: 90px;" ></div>
+		
 	</div>
 	<div class="loginBox" id="login-content">
 		<template>
