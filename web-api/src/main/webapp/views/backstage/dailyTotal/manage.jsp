@@ -7,6 +7,18 @@
 <%@ include file="/views/include/head.jsp"%>
 <link rel="stylesheet" href="${baseStatic}css/count.css?times=${times}" />
 <link rel="stylesheet" href="${baseStatic}plugin/css/bootstrap-datetimepicker.css" />
+<style type="text/css">
+	.except{
+	display: inline-block;
+    padding:0 20px;
+    margin-top:-1px;
+    line-height: 30px;
+    color:#fff;
+    border-radius: 3px;
+    background:#31acfa;
+    margin-left: -20px;
+	}
+</style>
 </head>
 <body>
 	<div class="custom-content">
@@ -86,12 +98,12 @@
                     <div class="fl col-min">
                         <a href="javascript:;" class="content-search-btn">查询</a>
                     </div>
+				    <div style="fl col-min">
+	                      <a href="javascript:;"  id="link_excel" class="except">跟踪表</a>
+	                </div>
 				</div>
 			</div>
 		</form>
-		<div class="content-search" style="height: 38px;">
-	                        <button  id="link_excel" class="content-search-btn">跟踪表</button>
-	                </div>
 		<div class="table-style">
 			<table>
 				<thead>
@@ -207,7 +219,6 @@ function tabsubmit(org){
 //导出任务单
 $("#link_excel").on("click", function () {
     var parmas = {};
-    alert(111);
     var deliverStartTime = $(":input[name='startTime']").val();
     if(deliverStartTime && deliverStartTime !=""){
     	parmas["deliverStartTime"] = deliverStartTime;
@@ -217,7 +228,7 @@ $("#link_excel").on("click", function () {
     if(deliverEndTime && deliverEndTime != ""){
     	parmas["deliverEndTime"] = deliverEndTime;
     }
-    console.log(JSON.stringify(parmas));
+    
     $.util.json(base_url + '/backstage/trace/export/waybill', parmas, function (data) {
         if (data.success) {//处理返回结果
         	$.util.download(data.url)
