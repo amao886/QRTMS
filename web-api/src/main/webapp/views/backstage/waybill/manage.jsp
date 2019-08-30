@@ -482,7 +482,7 @@
         $("#batch_bind").on("click", function () {
             var chk_value = [], parmas = {};
             $('input[name="waybillId"]:checked').each(function () {
-                chk_value.push($(this).attr("data-barcode"));
+                chk_value.push($(this).val());
             });
             if (chk_value && chk_value != "") {
             	parmas["waybillIds"] = chk_value.join(',')
