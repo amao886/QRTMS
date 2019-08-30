@@ -44,7 +44,7 @@
                             <input type="radio" name="scanType"  id="scan4" checked="checked" /></c:if>
                             <c:if test="${billTotal.flag!=3}">
                             <input type="radio" name="scanType"  id="scan4" /></c:if>
-                        </div>       
+                        </div>
                     </div>
                 </div>
 				<div class="clearfix otherSelect">
@@ -65,7 +65,7 @@
 						<label class="labe_l">收货客户:</label>
 						<input type="text" class="tex_t" placeholder="请输入客户名称筛选" name="companyName" value="${billTotal.companyName }">
 					</div>
-					<div class="fl col-max startTime" style="display:none;">
+					<div class="fl col-max startTime">
 						<label class="labe_l">发货日期:</label>
 						<div class="clearfix tex_t reset_text">
 							<div class="input-append date fl" id="datetimeStart">
@@ -83,15 +83,15 @@
 							</div>
 						</div>
 					</div>
-					<div class="fl col-xs-min">
-                        <a href="javascript:;" class="more" id="more">«更多</a>
-                    </div>
                     <div class="fl col-min">
                         <a href="javascript:;" class="content-search-btn">查询</a>
                     </div>
 				</div>
 			</div>
 		</form>
+		<div class="content-search" style="height: 38px;">
+	                        <button  id="link_excel" class="content-search-btn">跟踪表</button>
+	                </div>
 		<div class="table-style">
 			<table>
 				<thead>
@@ -147,7 +147,7 @@ $(document).ready(function(){
 	//console.log(_cookie);
 	
 	//刷新页面时记录日期是否展开
-   if(_cookie != undefined){
+  /*  if(_cookie != undefined){
     	if(_cookie == 1){
     		$('.startTime').show();
     		$('#more').html('«收起');
@@ -155,14 +155,14 @@ $(document).ready(function(){
     		$('.startTime').hide();
     		$('#more').html('»更多');
     	}
-    } 
+    }  */
    //tab切换，天数不显示查询日期
-	if(flag!=""){
+	/* if(flag!=""){
 		$(".otherSelect").find('.startTime').hide();
 		$(".otherSelect").find('.more').hide();
 	}else{
 		$(".otherSelect").find('.more').show();
-	}
+	} */
    	//更多
     $('#more').click(function(){
         if($('.startTime').is(':hidden')){
@@ -204,6 +204,28 @@ function tabsubmit(org){
 	$("form input[name='num']").val(1);
 	$("#searchDailyForm").submit();
 }
+//导出任务单
+$("#link_excel").on("click", function () {
+    var parmas = {};
+    alert(111);
+    var deliverStartTime = $(":input[name='startTime']").val();
+    if(deliverStartTime && deliverStartTime !=""){
+    	parmas["deliverStartTime"] = deliverStartTime;
+    }
+    
+    var deliverEndTime = $(":input[name='endTime']").val();
+    if(deliverEndTime && deliverEndTime != ""){
+    	parmas["deliverEndTime"] = deliverEndTime;
+    }
+    console.log(JSON.stringify(parmas));
+    $.util.json(base_url + '/backstage/trace/export/waybill', parmas, function (data) {
+        if (data.success) {//处理返回结果
+        	$.util.download(data.url)
+        } else {
+            $.util.error(data.message);
+        }
+    });
+});
 
 </script>
 </html>

@@ -1176,14 +1176,6 @@ public class Waybill extends BaseEntity {
         this.deliveryTime = deliveryTime;
     }
 
-	public String getLaodNo() {
-		return loadNo;
-	}
-
-	public void setLaodNo(String loadNo) {
-		this.loadNo = loadNo;
-	}
-
 	public String getCarType() {
 		return carType;
 	}
@@ -1206,5 +1198,13 @@ public class Waybill extends BaseEntity {
 
 	public void setLoadTime(String loadTime) {
 		this.loadTime = loadTime;
+	}
+
+	public String getLoadNo() {
+		return loadNo;
+	}
+
+	public void setLoadNo(String loadNo) {
+		this.loadNo = loadNo;
 	}
 }

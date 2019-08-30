@@ -298,39 +298,12 @@
         FROM
             waybill_tab w
 	    <where>
-	      <if test="waybillIds != null">
-	        AND w.id IN
-	        <foreach collection="waybillIds" item="key" separator="," open="(" close=")">
-	          #{key}
-	        </foreach>
-	      </if>
 	      <if test="deliverStartTime != null and deliverStartTime != ''">
-	          <![CDATA[ AND w.createtime >= #{deliverStartTime} ]]>
+	          <![CDATA[ AND DATE_FORMAT(w.createtime,'%Y-%m-%d') >= #{deliverStartTime} ]]>
 	      </if>
 	      <if test="deliverEndTime != null and deliverEndTime != ''">
-                <![CDATA[ AND w.createtime <= #{deliverEndTime} ]]>
+                <![CDATA[ AND DATE_FORMAT(w.createtime,'%Y-%m-%d') <= #{deliverEndTime} ]]>
           </if>
-          <if test="likeString != null and likeString !=''">
-                AND (
-                (LOCATE(#{likeString}, w.delivery_number) > 0) OR
-                (LOCATE(#{likeString}, w.barcode) > 0) OR
-                (LOCATE(#{likeString}, w.receiver_name) > 0) OR
-                (LOCATE(#{likeString}, w.receive_address) > 0) OR
-                (LOCATE(#{likeString}, w.order_summary) > 0)
-                )
-          </if>
-          <if test="waybillFettles != null">
-                AND w.waybill_status IN
-                <foreach collection="waybillFettles" item="fettle" separator="," open="(" close=")">
-                    #{fettle}
-                </foreach>
-         </if>
-         <if test="startStation != null and startStation != ''">
-                <![CDATA[ AND LOCATE(#{startStation}, w.start_station) > 0 ]]>
-         </if>
-         <if test="endStation != null and endStation != ''">
-         	    <![CDATA[ AND  LOCATE(#{endStation}, w.end_station) > 0 ]]>
-         </if>
 	    </where>
     </select>
     

@@ -89,31 +89,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="content-search">
-            <div class="clearfix">
-            	<div class="fl col-min">
-                    <label class="labe_l">创建日期</label>
-                    <div class="input-append date startDate" id="datetimeStart0">
-                        <input type="text" class="tex_t z_index" id="deliverStartTime" name="firstTime"
-                               value="${search.firstTime}" readonly>
-                        <span class="add-on">
-								<i class="icon-th"></i>
-							</span>
-                    </div>
-                </div>
-                <div class="fl col-min">
-                    <label class="labe_l">至</label>
-                    <div class="input-append date endDate" id="datetimeEnd0">
-                        <input type="text" class="tex_t z_index" id="deliverEndTime" name="secondTime"
-                               value="${search.secondTime}" readonly>
-                        <span class="add-on">
-								<i class="icon-th"></i>
-							</span>
-                    </div>
-                </div>
-            </div>
-            </div>
             </div>
         </form>
     </div>
@@ -126,7 +101,6 @@
             <button class="layui-btn layui-btn-normal" url="${template}" id="down_template">模板下载</button>
             <button class="layui-btn layui-btn-warm link_sure_batch">确认到货</button>
             <button class="layui-btn layui-btn-danger link_delete">删除</button>
-            <button class="layui-btn layui-btn-normal" id="link_excel">导出任务单</button>
             <button class="layui-btn layui-btn-normal" id="batch_bind">批量綁定</button>
             <button class="layui-btn layui-btn-normal" id="batch_down">已綁定任务单下载</button>
             <!--<i class="layui-icon pos_right delete-icon link_delete">&#xe640;</i>-->
@@ -503,60 +477,6 @@
             }
         })
         
-        //导出任务单
-        $("#link_excel").on("click", function () {
-            var chk_value = [], parmas = {};
-            $('input[name="waybillId"]:checked').each(function () {
-                chk_value.push($(this).val());
-            });
-            /* if (chk_value == null || chk_value == "") {
-                $.util.error("请至少选择一条数据");
-                return false;
-            } */
-            var likeString = $("#likeString").val();
-            if(likeString){
-            	parmas["likeString"] = likeString;
-            }
-            var timeSearch = $("#TimeSearch").val();
-            if(timeSearch){
-            	parmas["TimeSearch"] = timeSearch;
-            }
-            if(chk_value && chk_value != ""){
-            	parmas["waybillIds"] = chk_value.join(',')
-            }
-            var waybillFettles = $(".transport-status active").find('input[name="waybillFettles"]').val();
-            if(waybillFettles){
-            	parmas["waybillFettles"] = waybillFettles;
-            }
-            
-            var startStation = $("#startStation").val();
-            if(startStation){
-            	parmas["startStation"] = startStation;
-            }
-            
-            var endStation = $("#endStation").val();
-            if(endStation){
-            	parmas["endStation"] = endStation;
-            }
-
-            var deliverStartTime = $("#deliverStartTime").val();
-            if(deliverStartTime && deliverStartTime !=""){
-            	parmas["deliverStartTime"] = deliverStartTime;
-            }
-            
-            var deliverEndTime = $("#deliverEndTime").val();
-            if(deliverEndTime && deliverEndTime != ""){
-            	parmas["deliverEndTime"] = deliverEndTime;
-            }
-            console.log(JSON.stringify(parmas));
-            $.util.json(base_url + '/backstage/trace/export/waybill', parmas, function (data) {
-                if (data.success) {//处理返回结果
-                	$.util.download(data.url)
-                } else {
-                    $.util.error(data.message);
-                }
-            });
-        });
         
         //批量绑定
         $("#batch_bind").on("click", function () {
