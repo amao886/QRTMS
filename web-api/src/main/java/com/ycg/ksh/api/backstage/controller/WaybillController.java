@@ -323,7 +323,7 @@ public class WaybillController extends BaseController {
                 String contactNumber = waybill.getContactPhone();
                 String memContent = "尊敬的客户您好！您的货物单号" + barcode + "已到达" + address + ",如有问题请联系13370216559,祝你工作顺利,生活愉快！";
                 if (contactNumber != null) {
-                    smsService.send(contactNumber, memContent);
+                    smsService.sendmsg(contactNumber, memContent);
                 }
             }
         }

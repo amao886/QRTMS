@@ -1208,7 +1208,7 @@ public class UserServiceImpl implements UserService, ReceiptObserverAdapter, Act
                     String href = wechatService.long2short(redirect);
                     logger.debug("发送短信 {} ---- {}", redirect, href);
                     String message = "尊敬的"+ inviteMessage.getDriverName() +",您好！\r\n"+ company.getCompanyName() + employee.getEmployeeName() + "想邀请您成为他的长期合作司机,征求您的同意~" + href + " , "+employee.getEmployeeName() +"\r\n系电话："+ euser.getMobilephone() ;
-                    smsService.send(inviteMessage.getDriverPhone(), message);
+                    smsService.sendmsg(inviteMessage.getDriverPhone(), message);
                 }
                 return true;
             }catch (Exception e){
