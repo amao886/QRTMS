@@ -693,6 +693,16 @@ public class WaybillController extends BaseController {
         }
         return jsonResult;
     }
+    
+    @RequestMapping(value = "/batchBind", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult batchBind(@RequestBody RequestObject object,HttpServletRequest request) throws Exception {
+    	JsonResult jsonResult = new JsonResult("200", true, "绑定成功");
+    	JSONObject params = new JSONObject();
+    	params.putAll(object);
+    	waybillService.batchBind(loadUserKey(request),waybillService.listunBindWaybill(params));
+    	return jsonResult;
+    }
 
     /**
      * 开关电子围栏

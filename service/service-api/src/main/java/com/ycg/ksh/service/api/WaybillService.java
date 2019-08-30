@@ -98,7 +98,15 @@ public interface WaybillService {
      * @throws BusinessException
      */
     Waybill saveSelectBind(WaybillContext waybillContext) throws ParameterException, BusinessException;
-
+    
+    /**
+     * 	批量绑定运单
+     * @param con
+     * @throws ParameterException
+     * @throws BusinessException
+     */
+    void batchBind(Integer userKey,Collection<Waybill> con) throws ParameterException, BusinessException;
+    
     /**
      * 保存任务单信息
      * <p>
@@ -197,8 +205,15 @@ public interface WaybillService {
      * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-12-20 18:18:50
      */
     Collection<Waybill> listBindWaybill(Integer uKey) throws ParameterException, BusinessException;
-
-
+    /**
+     * 	查询所有未绑定的订单
+     * @param uKey
+     * @return
+     * @throws ParameterException
+     * @throws BusinessException
+     */
+    Collection<Waybill> listunBindWaybill(JSONObject json) throws ParameterException, BusinessException;
+    
     /**
      * 查询运单信息
      * <p>

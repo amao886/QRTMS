@@ -565,14 +565,24 @@
                 chk_value.push($(this).attr("data-barcode"));
             });
             if (chk_value && chk_value != "") {
-            	parmas["barcodes"] = chk_value.join(',')
+            	parmas["waybillIds"] = chk_value.join(',')
             }
             var groupId = $("#groupSelect option:selected").val();
+            parmas["groupId"] = groupId;
             if (!groupId) {
                 $.util.error("请至少选择项目组");
                 return false;
             }
-            parmas["groupId"] = groupId;
+            var deliverStartTime = $("#deliverStartTime").val();
+            if(deliverStartTime && deliverStartTime !=""){
+            	parmas["deliverStartTime"] = deliverStartTime;
+            }
+            
+            var deliverEndTime = $("#deliverEndTime").val();
+            if(deliverEndTime && deliverEndTime != ""){
+            	parmas["deliverEndTime"] = deliverEndTime;
+            }
+            
            /*  $.util.json(base_url + '/backstage/trace/batchBind', parmas, function (data) {
                 if (data.success) {//处理返回结果
                 } else {

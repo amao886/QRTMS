@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.xml.crypto.Data;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.session.RowBounds;
@@ -1560,7 +1561,9 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             fileEntity.setCount(1);
             fileEntity.setSize(FileUtils.size(destFile.length(), FileUtils.ONE_MB));
             return fileEntity;
-        } catch (Exception e) {
+        } catch(ParameterException | BusinessException e) {
+        	throw e;
+        }catch (Exception e) {
             logger.error("任务单导出异常 {} ", req);
             throw new BusinessException("任务单导出异常", e);
         } finally {
@@ -1571,5 +1574,54 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
                 }
             }
         }
+	}
+
+	@Override
+	public Collection<Waybill> listunBindWaybill(JSONObject json) throws ParameterException, BusinessException {
+		try {
+			Example example = new Example(Waybill.class);
+			Criteria criteria = example.createCriteria();
+			criteria.andEqualTo("userid", json.getLong("userid"));
+			criteria.andEqualTo("waybillStatus", Constant.WAYBILL_STATUS_WAIT);
+			if(json  != null) {
+				Long groupId = json.getLong("groupId");
+				if(groupId !=null && groupId > 0) {
+					criteria.andEqualTo("groupid", groupId);
+				}
+				if(StringUtils.isNotBlank(json.getString("deliverStartTime"))) {
+					criteria.andGreaterThanOrEqualTo("createtime", json.getString("deliverStartTime"));
+				}
+				if(StringUtils.isNotBlank(json.getString("deliverEndTime"))) {
+					criteria.andLessThanOrEqualTo("createtime", json.getString("deliverEndTime"));
+				}
+			}
+			example.orderBy("createtime").desc();
+			return waybillMapper.selectByExample(example);
+		} catch (Exception e) {
+			throw new BusinessException("查询未绑定信息异常");
+		}
+        
+	}
+
+	@Override
+	public void batchBind(Integer userKey,Collection<Waybill> con) throws ParameterException, BusinessException {
+		Assert.notNull(con, "绑定列表不能为空");
+		try {
+			/*for (Waybill waybill : con) {
+				MergeApplyRes mergeApplyRes = barCodeService.queryTotalCountByGroupId(waybill.getGroupid());
+				Barcode barcode = barCodeService.queryOneBarcodeByGroupId(waybill.getGroupid());
+                if(waybill.getAvailableTotal()==0 || barcode ==null)
+                	throw new BusinessException("[该项目组剩可用条码数量不足，请申请后再操作！]");
+				waybill.setBarcode(barcode.getBarcode());
+				waybill.setBarcodeid(barcode.getId());
+				waybill.setBindTime(new Date());
+				waybillMapper.updateByPrimaryKeySelective(waybill);
+			}*/
+			buildBarcode(userKey, con);
+		} catch (ParameterException | BusinessException e) {
+			throw e;
+		}catch (Exception e) {
+			throw new BusinessException("批量绑定一次异常");
+		}
 	}
 }
