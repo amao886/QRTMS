@@ -1124,7 +1124,7 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             }
             if (context.isExecute()) {
                 if(waybillMapper.updateByPrimaryKeySelective(context.getUpdate())>0 && context.getPositionCount()==1){
-                	String sendContent = String.format(Constant.SMS_LOCATION_STRING, context.getReceiverName(),context.getNumber(),context.getAddress(),context.getDeliveryNumber());
+                	String sendContent = String.format(Constant.SMS_LOCATION_STRING, context.getReceiverName(),context.getNumber(),context.getSimpleStartStation(),context.getDeliveryNumber());
                 	smsService.send(context.getContactPhone(), sendContent);//第一次定位发生短信
                 }
             }
@@ -1621,7 +1621,7 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 		} catch (ParameterException | BusinessException e) {
 			throw e;
 		}catch (Exception e) {
-			throw new BusinessException("批量绑定一次异常");
+			throw new BusinessException("批量绑定异常");
 		}
 	}
 }
