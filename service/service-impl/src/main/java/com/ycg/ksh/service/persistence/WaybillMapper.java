@@ -1,5 +1,6 @@
 package com.ycg.ksh.service.persistence;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.ycg.ksh.entity.persistent.Waybill;
 import com.ycg.ksh.entity.service.MergeWaybill;
@@ -199,5 +200,5 @@ public interface WaybillMapper extends Mapper<Waybill> {
      * @param key
      * @return
      */
-	Collection<Waybill> listExportWabills(@Param("waybillIds") Collection<Long> key);
+	Collection<Waybill> listExportWabills(JSONObject req);
 }

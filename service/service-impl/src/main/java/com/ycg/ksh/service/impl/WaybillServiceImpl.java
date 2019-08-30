@@ -23,6 +23,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.ycg.ksh.adapter.api.AutoMapService;
 import com.ycg.ksh.adapter.api.SmsService;
@@ -1532,11 +1533,15 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 	}
 
 	@Override
-	public FileEntity listExportWaybill(Collection<Long> key) {
-		Assert.notEmpty(key, "至少选择一条需要导出的值");
+	public FileEntity listExportWaybill(JSONObject req) {
+		Assert.notBlank(req.getString("deliverStartTime"),"导出条件开始时间不能为空");
+		Assert.notBlank(req.getString("deliverEndTime"),"导出条件结束时间不能为空");
         ExcelWriter easyExcel = null;
         try {
-            Collection<Waybill> depotAlliances = waybillMapper.listExportWabills(key);
+            if(DateUtils.daysBetween(req.getString("deliverStartTime"), req.getString("deliverEndTime"))>31) {
+                throw new BusinessException("最多只能导出一个月数据");
+            }
+            Collection<Waybill> depotAlliances = waybillMapper.listExportWabills(req);
             FileEntity fileEntity = new FileEntity();
             fileEntity.setSuffix(FileUtils.XLSX_SUFFIX);
             fileEntity.setDirectory(SystemUtils.directoryDownload());
@@ -1544,13 +1549,11 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             File destFile = FileUtils.newFile(fileEntity.getDirectory(), fileEntity.getFileName());
             easyExcel = EasyExcelBuilder.createWriteExcel(destFile);
             easyExcel.createSheet("出库单列表");
-            easyExcel.columnWidth(30, 20, 10, 20, 10, 10, 20, 20, 20, 30, 10);
-            easyExcel.header("经销商简称", "配送地", "装运号", "送货单号", "数量", "体积", "车型", "预计到达","实际到达日期","当前位置","距离目的地剩余（km）");
+            easyExcel.columnWidth(10,30, 20, 10, 20, 10, 10, 20, 20, 20, 30, 10);
+            easyExcel.header("提货日期","经销商简称", "配送地", "装运号", "送货单号", "数量", "体积", "车型", "预计到达","实际到达日期","当前位置","距离目的地剩余（km）");
             for (Waybill waybill : depotAlliances) {
-                if(waybill.getActualArrivalTime()==null)
-                    continue;
-                easyExcel.row(waybill.getContactName(),waybill.getSimpleEndStation(),waybill.getLaodNo(),waybill.getDeliveryNumber(),waybill.getNumber(),waybill.getVolume(),
-                		waybill.getCarType(),DateUtils.formatDate(waybill.getArrivaltime()),DateUtils.formatDate(waybill.getActualArrivalTime()),waybill.getAddress(),waybill.getDistance());
+                easyExcel.row(waybill.getBindTime() != null ? DateUtils.formatDate(waybill.getBindTime()) : "",waybill.getReceiverName(),waybill.getSimpleEndStation(),StringUtils.isNotBlank(waybill.getLaodNo())? waybill.getLaodNo():"",StringUtils.isNotBlank(waybill.getDeliveryNumber()) ? waybill.getDeliveryNumber() :"",waybill.getNumber(),waybill.getVolume()==null?0:waybill.getVolume(),
+                        StringUtils.isNotBlank(waybill.getCarType()) ? waybill.getCarType() : "",waybill.getArrivaltime() != null ? DateUtils.formatDate(waybill.getArrivaltime()) : "",waybill.getActualArrivalTime()!= null ? DateUtils.formatDate(waybill.getActualArrivalTime()):"",StringUtils.isNotBlank(waybill.getAddress()) ? waybill.getAddress() : "", waybill.getDistance()!=null?waybill.getDistance():"");
             }
             easyExcel.write();
             fileEntity.setPath(destFile.getPath());
@@ -1558,7 +1561,7 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             fileEntity.setSize(FileUtils.size(destFile.length(), FileUtils.ONE_MB));
             return fileEntity;
         } catch (Exception e) {
-            logger.error("任务单导出异常 {} ", key);
+            logger.error("任务单导出异常 {} ", req);
             throw new BusinessException("任务单导出异常", e);
         } finally {
             if (easyExcel != null) {
