@@ -1533,7 +1533,7 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 	}
 
 	@Override
-	public FileEntity listExportWaybill(JSONObject req) {
+	public FileEntity listExportWaybill(JSONObject req) throws ParameterException, BusinessException {
 		Assert.notBlank(req.getString("deliverStartTime"),"导出条件开始时间不能为空");
 		Assert.notBlank(req.getString("deliverEndTime"),"导出条件结束时间不能为空");
         ExcelWriter easyExcel = null;

@@ -398,5 +398,5 @@ public interface WaybillService {
      * @param outboundIds
      * @return
      */
-	FileEntity listExportWaybill(JSONObject req);
+	FileEntity listExportWaybill(JSONObject req) throws ParameterException, BusinessException;
 }
