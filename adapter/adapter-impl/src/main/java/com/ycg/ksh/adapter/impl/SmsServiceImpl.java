@@ -58,13 +58,7 @@ public class SmsServiceImpl implements SmsService {
         return vcode.toString();
     }
 
-    /**
-     * @developer Create by djq at 2017-12-20 10:08:22
-     * @see SmsService#send(java.lang.String, java.lang.String)
-     * <p>
-     */
-    @Override
-    public void send(String mobile, String content) throws ParameterException, BusinessException {
+    private void sendRequest(String mobile, String content) throws ParameterException, BusinessException {
         logger.debug("发送短信请求信息 {} {}", mobile, content);
         HttpClient httpClient = HttpClient.createHttpClient(SystemUtils.get(SMS_SEND_URL),HttpClient.Type.POST);
         httpClient.property("ContentType", ContentType.create("text/xml"));
@@ -142,7 +136,7 @@ public class SmsServiceImpl implements SmsService {
     @Override
     public String sendCode(String mobile, String template) throws ParameterException, BusinessException {
         String code = randomCode(9);
-        send(mobile, createSubmitXml(mobile, String.format(template, code)));
+        sendRequest(mobile, createSubmitXml(mobile, String.format(template, code)));
         cacheManager.set(SystemUtils.smsKey(mobile), code, 10L, TimeUnit.MINUTES);
         return code;
     }
@@ -170,8 +164,13 @@ public class SmsServiceImpl implements SmsService {
         }
         String code = randomCode(6);
         String sendContent = String.format(Constant.SMS_CODE_STRING, code);
-        send(mobile, createSubmitXml(mobile, sendContent));
+        sendRequest(mobile, createSubmitXml(mobile, sendContent));
         cacheManager.set(SystemUtils.smsKey(mobile), code, 10L, TimeUnit.MINUTES);
         return code;
     }
+
+	@Override
+	public void sendmsg(String mobile, String msg) throws ParameterException, BusinessException {
+		sendRequest(mobile, createSubmitXml(mobile, msg));
+	}
 }

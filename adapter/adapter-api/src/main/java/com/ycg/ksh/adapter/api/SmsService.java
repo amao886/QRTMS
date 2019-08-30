@@ -38,6 +38,8 @@ public interface SmsService {
      * @throws BusinessException
      */
     String sendCode(String mobile, String template) throws ParameterException, BusinessException;
+   
+    
     /**
      * 发送短信接口
      * <p>
@@ -47,5 +49,5 @@ public interface SmsService {
      * @throws ParameterException
      * @throws BusinessException
      */
-    void send(String mobile, String content) throws ParameterException, BusinessException;
+    void sendmsg(String mobile, String content) throws ParameterException, BusinessException;
 }
