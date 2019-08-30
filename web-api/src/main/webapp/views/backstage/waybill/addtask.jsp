@@ -282,7 +282,7 @@
 <script src="${baseStatic}plugin/js/fileDownload.js"></script>
 <script src="${baseStatic}plugin/js/bootstrap-datetimepicker.js"></script>
 <script src="${baseStatic}plugin/js/bootstrap-datetimepicker.zh-CN.js"></script>
-<script src="${baseStatic}plugin/js/jquery-hcheckbox.js"></script>
+<%-- <script src="${baseStatic}plugin/js/jquery-hcheckbox.js"></script> --%>
 <script src="${baseStatic}plugin/js/jquery.mloading.js"></script>
 <script type="text/javascript" src="${baseStatic}js/datetimepicker.js"></script>
 <script src="${baseStatic}plugin/js/cityselect/city.js"></script>
