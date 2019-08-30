@@ -309,6 +309,9 @@ public class Waybill extends BaseEntity {
     
     @Column(name = "`distance`")
     private BigDecimal distance;
+    
+    @Column(name = "`load_time`")
+    private String loadTime;
 
     public Waybill() {
         super();
@@ -1195,5 +1198,13 @@ public class Waybill extends BaseEntity {
 
 	public void setDistance(BigDecimal distance) {
 		this.distance = distance;
+	}
+
+	public String getLoadTime() {
+		return loadTime;
+	}
+
+	public void setLoadTime(String loadTime) {
+		this.loadTime = loadTime;
 	}
 }

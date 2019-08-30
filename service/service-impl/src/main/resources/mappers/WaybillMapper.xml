@@ -53,6 +53,8 @@
         <result column="load_no" jdbcType="VARCHAR" property="loadNo" />
         <result column="car_type" jdbcType="VARCHAR" property="carType" />
         <result column="distance" jdbcType="DECIMAL" property="distance" />
+        <result column="load_time" jdbcType="VARCHAR" property="loadTime" />
+        
     </resultMap>
 
     <resultMap id="baseResultPositionMap" type="com.ycg.ksh.entity.service.MergeWaybill" extends="BaseResultMap">
@@ -110,7 +112,8 @@
         w.simple_end_station,
         w.load_no,
         w.car_type,
-        w.distance
+        w.distance,
+        w.load_time
     </sql>
     
     <sql id="include_column_excel">
@@ -144,7 +147,8 @@
         w.simple_end_station,
         w.load_no,
         w.car_type,
-        w.distance
+        w.distance,
+        w.load_time
     </sql>
     
     <select id="selectGroupKeyById" resultType="java.lang.Integer" parameterType="java.lang.Integer">
