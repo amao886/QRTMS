@@ -5,6 +5,7 @@ package com.ycg.ksh.common.excel;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -76,16 +77,13 @@ public class ExcelReader implements java.lang.AutoCloseable {
                     switch (cell.getCellTypeEnum()) {
                         case NUMERIC: // 数字
                             if (DateUtil.isCellDateFormatted(cell)) {
-                                objects[cIndex] = cell.getDateCellValue();
+                                objects[cIndex] = DateUtils.formatTime((cell.getDateCellValue()));
                             } else {
                         		objects[cIndex] = NumberToTextConverter.toText(cell.getNumericCellValue());
                             }
                             break;
                         case STRING: // 字符串
                         	objects[cIndex] = cell.getStringCellValue();
-                        	if (DateUtil.isCellDateFormatted(cell)) {
-                                objects[cIndex] = DateUtils.formatDate(cell.getDateCellValue());
-                            } 
                             break;
                         case BOOLEAN: // Boolean
                             objects[cIndex] = cell.getBooleanCellValue();
