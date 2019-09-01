@@ -23,7 +23,7 @@ public class DecimalValidator extends Validator {
      */
     public boolean verify(Object object, boolean allowNull) {
     	if(allowNull && super.verify(object, allowNull)) {
-    		return super.verify(object, allowNull);
+    		return allowNull;
     	}
         return super.verify(object, allowNull) && REGEX.matcher(object.toString()).matches();
     }

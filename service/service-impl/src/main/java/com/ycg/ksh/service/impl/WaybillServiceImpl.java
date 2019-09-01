@@ -1551,9 +1551,9 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             easyExcel = EasyExcelBuilder.createWriteExcel(destFile);
             easyExcel.createSheet("出库单列表");
             easyExcel.columnWidth(10,30, 20, 10, 20, 10, 10, 20, 20, 20, 30, 10);
-            easyExcel.header("提货日期","经销商简称", "配送地", "装运号", "送货单号", "数量", "体积", "车型", "预计到达","实际到达日期","当前位置","距离目的地剩余（km）");
+            easyExcel.header("提货日期","经销商简称","始发地", "配送地", "装运号", "送货单号", "数量", "体积", "车型", "预计到达","实际到达日期","当前位置","距离目的地剩余（km）");
             for (Waybill waybill : depotAlliances) {
-                easyExcel.row(StringUtils.isNotBlank(waybill.getLoadTime()) ? DateUtils.formatDate(new Date(waybill.getLoadTime())) : "",waybill.getReceiverName(),waybill.getSimpleEndStation(),StringUtils.isNotBlank(waybill.getLoadNo())? waybill.getLoadNo():"",StringUtils.isNotBlank(waybill.getDeliveryNumber()) ? waybill.getDeliveryNumber() :"",waybill.getNumber(),waybill.getVolume()==null?0:waybill.getVolume(),
+                easyExcel.row(StringUtils.isNotBlank(waybill.getLoadTime()) ? waybill.getLoadTime() : "",waybill.getReceiverName(),StringUtils.isNotBlank(waybill.getSimpleStartStation())?waybill.getSimpleStartStation():"",waybill.getSimpleEndStation(),StringUtils.isNotBlank(waybill.getLoadNo())? waybill.getLoadNo():"",StringUtils.isNotBlank(waybill.getDeliveryNumber()) ? waybill.getDeliveryNumber() :"",waybill.getNumber(),waybill.getVolume()==null?0:waybill.getVolume(),
                         StringUtils.isNotBlank(waybill.getCarType()) ? waybill.getCarType() : "",waybill.getArrivaltime() != null ? DateUtils.formatDate(waybill.getArrivaltime()) : "",waybill.getActualArrivalTime()!= null ? DateUtils.formatDate(waybill.getActualArrivalTime()):"",StringUtils.isNotBlank(waybill.getAddress()) ? waybill.getAddress() : "", waybill.getDistance()!=null?waybill.getDistance():"");
             }
             easyExcel.write();
