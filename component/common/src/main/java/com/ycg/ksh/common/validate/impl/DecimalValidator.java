@@ -22,6 +22,9 @@ public class DecimalValidator extends Validator {
      * @developer Create by <a href="mailto:fty628@sina.com">baymax</a> at 2017-12-19 12:54:58
      */
     public boolean verify(Object object, boolean allowNull) {
+    	if(allowNull && super.verify(object, allowNull)) {
+    		return super.verify(object, allowNull);
+    	}
         return super.verify(object, allowNull) && REGEX.matcher(object.toString()).matches();
     }
 }
