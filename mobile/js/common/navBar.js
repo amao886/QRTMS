@@ -12,7 +12,7 @@ $("#navBarIn").load("../common/navBarIn.html",function () {
     
 	//跳转到首页
     $('#myIndex').on('click',function(){
-    	window.location.href =_common.version('../../index.html?jstatus='+0);
+    	window.location.href =_common.version('../../home.html?jstatus='+0);
     })
     
     //跳转到扫一扫
