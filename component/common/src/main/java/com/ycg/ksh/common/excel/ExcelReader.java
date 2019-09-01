@@ -15,6 +15,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.NumberToTextConverter;
 
+import com.ycg.ksh.common.util.DateUtils;
 import com.ycg.ksh.common.util.StringUtils;
 
 /**
@@ -81,7 +82,10 @@ public class ExcelReader implements java.lang.AutoCloseable {
                             }
                             break;
                         case STRING: // 字符串
-                            objects[cIndex] = cell.getStringCellValue();
+                        	objects[cIndex] = cell.getStringCellValue();
+                        	if (DateUtil.isCellDateFormatted(cell)) {
+                                objects[cIndex] = DateUtils.formatDate(cell.getDateCellValue());
+                            } 
                             break;
                         case BOOLEAN: // Boolean
                             objects[cIndex] = cell.getBooleanCellValue();
