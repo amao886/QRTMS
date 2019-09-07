@@ -538,6 +538,24 @@ public class WaybillContext extends BaseEntity {
 	public void setDistance(BigDecimal distance) {
 		update.setDistance(distance);
 	}
+	
+	public BigDecimal getDistance() {
+	    BigDecimal distance = null;
+	    if(update != null) {
+	        distance = update.getDistance();
+	    }
+	    if(distance == null && persistence != null) {
+	        distance = persistence.getDistance();
+	    }
+	    return distance;
+	}
+	/**
+	 * 设置上一次位置与目的地的距离
+	 * @param preDistance
+	 */
+	public void setPreDistance(BigDecimal preDistance) {
+	    update.setPreDistance(preDistance);
+	}
 
 	/**
 	 * 获取要求到货时间

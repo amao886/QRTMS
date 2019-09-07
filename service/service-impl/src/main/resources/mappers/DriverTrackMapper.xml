@@ -8,10 +8,11 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="longitude" jdbcType="VARCHAR" property="longitude" />
     <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="barcode" jdbcType="VARCHAR" property="barcode" />
   </resultMap>
   
   <sql id="include_sql">
-  	t.id, t.report_time, t.report_loaction, t.user_id, t.longitude, t.latitude
+  	t.id, t.report_time, t.report_loaction, t.user_id, t.longitude, t.latitude, t.barcode
   </sql>
   <select id="selectLast" resultMap="BaseResultMap" parameterType="java.lang.Integer">
   	SELECT 

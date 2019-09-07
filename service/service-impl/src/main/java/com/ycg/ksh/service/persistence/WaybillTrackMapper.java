@@ -22,4 +22,12 @@ public interface WaybillTrackMapper extends CustomMapper<WaybillTrack> {
      * @Date：13:45 2018/1/10
      */
     void saveTrack(List<WaybillTrack> list);
+
+    /**
+     * 查询合并定位信息（业务逻辑需优化）
+     * @param waybillId
+     * @param barCode
+     * @return
+     */
+    List<WaybillTrack> queryTracks(Integer waybillId, String barCode);
 }

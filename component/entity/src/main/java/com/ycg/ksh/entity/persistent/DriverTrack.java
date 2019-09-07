@@ -43,7 +43,13 @@ public class DriverTrack extends BaseEntity {
      */
     @Column(name = "`latitude`")
     private String latitude;
-
+    
+    /**
+     * 二维码
+     */
+    @Column(name = "`barcode`")
+    private String barcode;
+    
     /**
      * @return id
      */
@@ -177,5 +183,13 @@ public class DriverTrack extends BaseEntity {
         	}
     	}
     	return "";
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
     }
 }

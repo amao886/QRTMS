@@ -195,6 +195,7 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 	}
 
 	/**
+	 * 查询任务单轨迹
 	 * @see com.ycg.ksh.service.api.WaybillTrackService#listByWaybillId(java.lang.Integer)
 	 * <p>
 	 * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-11-27 09:47:05
@@ -222,7 +223,7 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 		}
 		return null;
 	}
-
+	
     /**
      * @see WaybillObserverAdapter#mergeWaybill(MergeWaybill, WaybillAssociate)
      * <p>

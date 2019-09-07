@@ -19,4 +19,5 @@
             #{item.locations},#{item.createtime})
         </foreach>
     </insert>
+    
 </mapper>

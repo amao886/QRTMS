@@ -128,7 +128,13 @@ public class DriverController extends BaseController{
         return jsonResult;
     }
     
-    //查询装车信息
+    /**
+     * 批量定位
+     * @param body
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/loaction")
     @ResponseBody
     public JsonResult loaction(@RequestBody(required = false) RequestObject body, HttpServletRequest request) throws Exception {

@@ -95,8 +95,6 @@ public class DriverContainer extends BaseEntity {
     @Column(name = "`unload`")
     private Boolean unload;
     
-    
-    
     public Long getId() {
 		return id;
 	}

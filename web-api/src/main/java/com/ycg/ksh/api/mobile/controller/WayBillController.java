@@ -145,7 +145,15 @@ public class WayBillController extends BaseController {
         }
         return Collections.emptyMap();
     }
-
+    
+    /**
+     * 手机端查看任务单详情 update
+     * @param waybillId
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/myTask/deatil/{waybillId}")
     @ResponseBody
     public JsonResult deatilById(@PathVariable Integer waybillId, HttpServletRequest request, HttpServletResponse response) throws Exception {

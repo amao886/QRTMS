@@ -54,6 +54,7 @@
         <result column="car_type" jdbcType="VARCHAR" property="carType" />
         <result column="distance" jdbcType="DECIMAL" property="distance" />
         <result column="load_time" jdbcType="VARCHAR" property="loadTime" />
+        <result column="pre_distance" jdbcType="DECIMAL" property="preDistance" />
         
     </resultMap>
 
@@ -113,7 +114,8 @@
         w.load_no,
         w.car_type,
         w.distance,
-        w.load_time
+        w.load_time,
+        w.pre_distance
     </sql>
     
     <sql id="include_column_excel">
@@ -148,7 +150,8 @@
         w.load_no,
         w.car_type,
         w.distance,
-        w.load_time
+        w.load_time,
+        w.pre_distance
     </sql>
     
     <select id="selectGroupKeyById" resultType="java.lang.Integer" parameterType="java.lang.Integer">

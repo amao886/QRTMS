@@ -300,18 +300,31 @@ public class Waybill extends BaseEntity {
      */
     @Column(name = "`delivery_time`")
     private Date deliveryTime;
-    
+    /**
+     * 装运单号
+     */
     @Column(name = "`load_no`")
     private String loadNo;
-    
+    /**
+     * 卡车类型
+     */
     @Column(name = "`car_type`")
     private String carType;
-    
+    /**
+     * 最新距离(当前定位与目的地的距离)
+     */
     @Column(name = "`distance`")
     private BigDecimal distance;
-    
+    /**
+     * 装运时间
+     */
     @Column(name = "`load_time`")
     private String loadTime;
+    /**
+     * 前一次距离
+     */
+    @Column(name = "`pre_distance`")
+    private BigDecimal preDistance;//前一次距离
 
     public Waybill() {
         super();
@@ -1207,4 +1220,12 @@ public class Waybill extends BaseEntity {
 	public void setLoadNo(String loadNo) {
 		this.loadNo = loadNo;
 	}
+
+    public BigDecimal getPreDistance() {
+        return preDistance;
+    }
+
+    public void setPreDistance(BigDecimal preDistance) {
+        this.preDistance = preDistance;
+    }
 }

@@ -50,7 +50,7 @@ public interface WaybillTrackService {
 	WaybillTrack save(WaybillTrack waybillTrack) throws ParameterException, BusinessException;
 	
 	/**
-	 * 根据运单编号查询运单轨迹信息
+	 * 根据运单编号查询运单轨迹信息（扫描位置）
 	 * <p>
 	 * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-11-27 09:46:19
 	 * @param waybillId  运单编号
