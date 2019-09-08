@@ -5,6 +5,7 @@ package com.ycg.ksh.service.api;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ycg.ksh.common.entity.FileEntity;
+import com.ycg.ksh.common.entity.RequestObject;
 import com.ycg.ksh.common.exception.BusinessException;
 import com.ycg.ksh.common.exception.ParameterException;
 import com.ycg.ksh.common.extend.mybatis.page.CustomPage;
@@ -414,4 +415,11 @@ public interface WaybillService {
      * @return
      */
 	FileEntity listExportWaybill(JSONObject req) throws ParameterException, BusinessException;
+
+	/**
+	 * @TODO 查询已绑定条码的二维码
+	 * @param object
+	 * @return
+	 */
+    FileEntity buildPDF(RequestObject object) throws BusinessException, ParameterException;
 }

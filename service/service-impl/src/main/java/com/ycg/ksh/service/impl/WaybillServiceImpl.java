@@ -28,8 +28,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.ycg.ksh.adapter.api.AutoMapService;
 import com.ycg.ksh.adapter.api.SmsService;
+import com.ycg.ksh.common.barcode.PDFBuilder;
 import com.ycg.ksh.common.constant.Constant;
 import com.ycg.ksh.common.entity.FileEntity;
+import com.ycg.ksh.common.entity.RequestObject;
 import com.ycg.ksh.common.excel.EasyExcelBuilder;
 import com.ycg.ksh.common.excel.ExcelWriter;
 import com.ycg.ksh.common.exception.BusinessException;
@@ -49,6 +51,7 @@ import com.ycg.ksh.entity.common.constant.PermissionCode;
 import com.ycg.ksh.entity.common.constant.ReceiptVerifyFettle;
 import com.ycg.ksh.entity.common.constant.SourceType;
 import com.ycg.ksh.entity.common.constant.WaybillFettle;
+import com.ycg.ksh.entity.persistent.ApplyRes;
 import com.ycg.ksh.entity.persistent.Barcode;
 import com.ycg.ksh.entity.persistent.Customer;
 import com.ycg.ksh.entity.persistent.DriverContainer;
@@ -1626,5 +1629,61 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 		}catch (Exception e) {
 			throw new BusinessException("批量绑定异常");
 		}
+	}
+
+	@Override
+	public FileEntity buildPDF(RequestObject object) throws BusinessException, ParameterException {
+		Integer gKey = object.getInteger("groupId");
+		Assert.notNull(gKey, "项目编号不能为空");
+		try {
+			WaybillSerach serach = object.toJavaBean(WaybillSerach.class);
+			Collection<Waybill> waybills = waybillMapper.listBySomething(serach);
+			String suffix = "pdf";
+			File directory = new File(SystemUtils.directoryTemp(suffix + gKey));
+			if (directory.exists()) {
+				FileUtils.deleteDirectory(directory);
+			}
+			StringBuilder fileName = new StringBuilder(waybills.iterator().next().getBarcode());
+            if (waybills.size() > 1) {
+                fileName.append("-").append(waybills.iterator().next().getBarcode());
+            }
+			directory = FileUtils.directory(directory);	
+			PDFBuilder builder = new PDFBuilder(FileUtils.file(directory, FileUtils.appendSuffix(fileName.toString(), suffix)));
+			builder.ready();
+			for (Waybill waybill : waybills) {
+				builder.insert(waybill.getBarcode(), SystemUtils.buildQRcodeContext(waybill.getBarcode()));
+			}
+			builder.close();
+			
+			File[] files = directory.listFiles();
+            if (files != null) {
+                FileEntity entity = new FileEntity();
+                if (files.length > 1) {
+                    File zipFile = FileUtils.zip(directory, new File(SystemUtils.directoryDownload()));
+                    if (zipFile != null) {
+                        entity.setCount(files.length);
+                        entity.setDirectory(zipFile.getParent());
+                        entity.setFileName(zipFile.getName());
+                        entity.setSize(FileUtils.size(zipFile.length(), FileUtils.ONE_MB));
+                    }
+                } else {
+                    File file = FileUtils.copyFileToDirectory(files[0], new File(SystemUtils.directoryDownload()), true);
+                    if (file != null) {
+                        entity.setCount(files.length);
+                        entity.setDirectory(file.getParent());
+                        entity.setFileName(file.getName());
+                        entity.setSize(FileUtils.size(file.length(), FileUtils.ONE_MB));
+                    }
+                }
+                FileUtils.deleteDirectory(directory);
+                return entity;
+            }
+		} catch (BusinessException | ParameterException e) {
+			throw e;
+		}catch (Exception e) {
+			logger.error("============>{}",e);
+			throw BusinessException.dbException("");
+		}
+		return null;
 	}
 }

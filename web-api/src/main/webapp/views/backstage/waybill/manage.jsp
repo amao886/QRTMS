@@ -523,11 +523,19 @@
                 $.util.error("请至少选择一条数据");
                 return false;
             }
-           /*  $.util.json(base_url + '/backstage/trace/downBind', {waybillIds: chk_value.join(',')}, function (data) {
-                if (data.success) {//处理返回结果
-                	$.util.download(data.url)
+            /* $.util.json(base_url + '/backstage/trace/downBind' + resid, null, function (response) {
+                if (response.success) {
+                	if(response.url){
+                		var msg = "二维码PDF文件下载,数量 : <font color='red'>" + response.count + "</font>个,大小 : <font color='red'>" + response.size + "</font>MB";
+							$.util.success(msg, function(){
+								$.fileDownload(response.url);
+								$("#"+ resid +"printStatus").html("已下载");
+							}, 3000);
+						}else{
+							$.util.error(response.message);
+						} 
                 } else {
-                    $.util.error(data.message);
+                    $.util.error(response.message);
                 }
             }); */
         });

@@ -820,4 +820,29 @@ public class WaybillController extends BaseController {
         jsonResult.put("waybills", waybillService.listPrint(user.getId(), collection, 5, gKey));
         return jsonResult;
     }
+    /**
+     * 	批量下载已绑定任务单
+     * @param object
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/downBind")
+    @ResponseBody
+    public JsonResult downBind(@RequestBody RequestObject object, HttpServletRequest request) throws Exception {
+        logger.info("downBind params -> {}", object);
+        //User u = RequestUitl.getUserInfo(request);
+    	FileEntity fileEntity = waybillService.buildPDF(object);
+    	JsonResult jsonResult = new JsonResult();
+        if (null != fileEntity && StringUtils.isNotBlank(fileEntity.getPath())) {
+            jsonResult.put("file", fileEntity.getPath());
+            jsonResult.put("count", fileEntity.getCount());
+            jsonResult.put("size", fileEntity.getSize());
+            jsonResult.put("fileName", fileEntity.getFileName());
+            jsonResult.put("url", FileUtils.buildDownload(fileEntity.getPath(), FileUtils.appendSuffix("已绑定二维码PDF文件", fileEntity.getSuffix()), true));
+        } else {
+            jsonResult.modify(false, "文件下载异常");
+        }
+        return jsonResult;
+    }
 }

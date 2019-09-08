@@ -4,6 +4,7 @@
 package com.ycg.ksh.service.api;
 
 import com.ycg.ksh.common.entity.FileEntity;
+import com.ycg.ksh.common.entity.RequestObject;
 import com.ycg.ksh.common.exception.BusinessException;
 import com.ycg.ksh.common.exception.ParameterException;
 import com.ycg.ksh.common.extend.mybatis.page.CustomPage;
@@ -260,5 +261,4 @@ public interface BarCodeService {
      * @throws ParameterException
      */
     CustomPage<MergeBarcode> pageBarcodeToCompany(BarcodeSearch barcode,PageScope pageScope) throws BusinessException, ParameterException;
-    
 }
