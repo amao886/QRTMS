@@ -534,7 +534,9 @@ public class BarcodeServiceImpl implements BarCodeService, WaybillObserverAdapte
                 applyResMapper.updateByPrimaryKeySelective(new ApplyRes(resKey, Constant.CODE_RES_DOWNLOAD));
                 return entity;
             }
-        } catch (Exception e) {
+        } catch (BusinessException | ParameterException e) {
+			throw e;
+		}catch (Exception e) {
             logger.error("PDF文件生成异常 uKey:{} resKey:{}", uKey, resKey, e);
             throw new BusinessException("PDF文件生成异常,稍后再尝试!!!");
         }

@@ -1635,26 +1635,29 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 	public FileEntity buildPDF(RequestObject object) throws BusinessException, ParameterException {
 		Integer gKey = object.getInteger("groupId");
 		Assert.notNull(gKey, "项目编号不能为空");
+		Page<Waybill> waybills = null;
+		int total = 0, pageNum = 1;
+		String suffix = "pdf";
 		try {
 			WaybillSerach serach = object.toJavaBean(WaybillSerach.class);
-			Collection<Waybill> waybills = waybillMapper.listBySomething(serach);
-			String suffix = "pdf";
+			serach.setWaybillFettles(new Integer[]{20});
 			File directory = new File(SystemUtils.directoryTemp(suffix + gKey));
 			if (directory.exists()) {
 				FileUtils.deleteDirectory(directory);
 			}
-			StringBuilder fileName = new StringBuilder(waybills.iterator().next().getBarcode());
-            if (waybills.size() > 1) {
-                fileName.append("-").append(waybills.iterator().next().getBarcode());
-            }
-			directory = FileUtils.directory(directory);	
-			PDFBuilder builder = new PDFBuilder(FileUtils.file(directory, FileUtils.appendSuffix(fileName.toString(), suffix)));
-			builder.ready();
-			for (Waybill waybill : waybills) {
-				builder.insert(waybill.getBarcode(), SystemUtils.buildQRcodeContext(waybill.getBarcode()));
-			}
-			builder.close();
-			
+			directory = FileUtils.directory(directory);
+			do {
+				waybills = waybillMapper.listBySomething(serach,new RowBounds(pageNum++, 1000));
+				if(CollectionUtils.isEmpty(waybills)) {
+					throw new BusinessException("未找到已绑定的任务单");
+				}
+				PDFBuilder builder = new PDFBuilder(FileUtils.file(directory, FileUtils.appendSuffix(System.currentTimeMillis()+"", suffix)));
+				builder.ready();
+				for (Waybill waybill : waybills) {
+					builder.insert(waybill.getBarcode(), SystemUtils.buildQRcodeContext(waybill.getBarcode()));
+				}
+				builder.close();
+			}while(total < waybills.getTotal());
 			File[] files = directory.listFiles();
             if (files != null) {
                 FileEntity entity = new FileEntity();

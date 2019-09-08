@@ -494,15 +494,6 @@
                 $.util.error("请至少选择项目组");
                 return false;
             }
-            var deliverStartTime = $("#deliverStartTime").val();
-            if(deliverStartTime && deliverStartTime !=""){
-            	parmas["deliverStartTime"] = deliverStartTime;
-            }
-            
-            var deliverEndTime = $("#deliverEndTime").val();
-            if(deliverEndTime && deliverEndTime != ""){
-            	parmas["deliverEndTime"] = deliverEndTime;
-            }
             // 请求
             $.util.json(base_url + '/backstage/trace/batchBind', parmas, function (data) {
                 if (data.success) {//处理返回结果
@@ -514,30 +505,38 @@
         });
         
         //批量下载
-        $(".batch_down").on("click", function () {
+        $("#batch_down").on("click", function () {
             var chk_value = [], parmas = {};
-            $('input[name="waybillId"]:checked').each(function () {
+            /* $('input[name="waybillId"]:checked').each(function () {
                 chk_value.push($(this).val());
-            });
-            if (chk_value == null || chk_value == "") {
-                $.util.error("请至少选择一条数据");
-                return false;
-            }
-            /* $.util.json(base_url + '/backstage/trace/downBind' + resid, null, function (response) {
+            }); */
+            var groupId = $("#groupSelect option:selected").val();
+            parmas["groupId"] = groupId;
+            
+            var groupId = $("#TimeSearch option:selected").val();
+            parmas["TimeSearch"] = groupId;
+            
+            var startStation =$("#startStation").val();
+            parmas["startStation"] = startStation;
+            
+            var endStation =$("#endStation").val();
+            parmas["endStation"] = endStation;
+            
+            $.util.json(base_url + '/backstage/trace/downBind', parmas, function (response) {
                 if (response.success) {
                 	if(response.url){
                 		var msg = "二维码PDF文件下载,数量 : <font color='red'>" + response.count + "</font>个,大小 : <font color='red'>" + response.size + "</font>MB";
-							$.util.success(msg, function(){
-								$.fileDownload(response.url);
+						$.util.success(msg, function(){
+							$.fileDownload(response.url);
 								$("#"+ resid +"printStatus").html("已下载");
-							}, 3000);
-						}else{
+						}, 3000);
+					}else{
 							$.util.error(response.message);
-						} 
+					} 
                 } else {
                     $.util.error(response.message);
                 }
-            }); */
+            });
         });
     });
 </script>
