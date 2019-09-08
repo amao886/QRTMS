@@ -127,5 +127,5 @@ public interface BarcodeMapper extends Mapper<Barcode> {
      * @param gKey
      * @return
      */
-    Barcode queryOneBarcodeByGroupId(Integer gKey); 
+    List<Barcode> queryOneBarcodeByGroupId(Integer gKey); 
 }

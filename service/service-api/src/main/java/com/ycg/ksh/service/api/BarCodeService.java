@@ -99,7 +99,7 @@ public interface BarCodeService {
      * @throws ParameterException
      * @throws BusinessException
      */
-    Barcode queryOneBarcodeByGroupId(Integer gKey) throws ParameterException, BusinessException;
+    List<Barcode> queryOneBarcodeByGroupId(Integer gKey) throws ParameterException, BusinessException;
 
 
     /**

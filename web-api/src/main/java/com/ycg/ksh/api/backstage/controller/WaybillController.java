@@ -697,7 +697,9 @@ public class WaybillController extends BaseController {
     	JsonResult jsonResult = new JsonResult("200", true, "绑定成功");
     	JSONObject params = new JSONObject();
     	params.putAll(object);
-    	waybillService.batchBind(loadUserKey(request),waybillService.listunBindWaybill(params));
+    	Integer gKey = object.getInteger("groupId");
+    	Assert.notBlank(gKey, "项目组编号不能为空");
+    	waybillService.batchBind(loadUserKey(request),waybillService.listunBindWaybill(params), gKey);
     	return jsonResult;
     }
 
@@ -791,9 +793,12 @@ public class WaybillController extends BaseController {
         RequestObject object = new RequestObject(request.getParameterMap());
         logger.debug("print page -> {}", object);
         Assert.notNull(object, Constant.PARAMS_ERROR);
+        Integer gKey = object.getInteger("groupId");
+        Assert.notBlank(gKey, "项目组编号不能为空");
         String waybillKeyString = object.get("waybillKeys");
         Assert.notBlank(waybillKeyString, "请选择要打印的任务单");
         model.addAttribute("waybillKeys", waybillKeyString);
+        model.addAttribute("groupId", gKey);
         model.addAttribute("ctime", com.ycg.ksh.common.util.DateFormatUtils.format(new Date()));
         return "/backstage/waybill/waybill_print";
     }
@@ -808,10 +813,11 @@ public class WaybillController extends BaseController {
         JsonResult jsonResult = new JsonResult();
         Assert.notNull(object, Constant.PARAMS_ERROR);
         String waybillKeyString = object.get("waybillKeys");
+        Integer gKey = object.getInteger("groupId");
         Assert.notBlank(waybillKeyString, "请选择要打印的任务单");
         User user = RequestUitl.getUserInfo(request);
         Collection<Integer> collection = StringUtils.integerCollection(waybillKeyString);
-        jsonResult.put("waybills", waybillService.listPrint(user.getId(), collection, 5));
+        jsonResult.put("waybills", waybillService.listPrint(user.getId(), collection, 5, gKey));
         return jsonResult;
     }
 }

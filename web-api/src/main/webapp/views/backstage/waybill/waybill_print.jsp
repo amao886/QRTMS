@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="${baseStatic}css/waybill_print.css?times=${times}"/>
 </head>
 <body>
-    <span id="waybillKeys" data-keys="${waybillKeys}"></span>
+    <span id="waybillKeys" data-keys="${waybillKeys}" data-groupId="${groupId}"></span>
     <object id="wb" classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" width="0"></object>
     <div class="print-wrapper">
         <div class="print-tab">
@@ -176,6 +176,8 @@
         });
         var listWaybill = function(){
             var parmas = {waybillKeys: $("#waybillKeys").data("keys")};
+        	var groupId = $("#waybillKeys").data("data-groupId").val();
+            parmas["groupId"] = groupId;
             $.util.json(base_url + '/backstage/trace/print/waybills', parmas, function (data) {
                 if (data.success) {//处理返回结果
                     waybillTemplate.waybills = data.waybills;

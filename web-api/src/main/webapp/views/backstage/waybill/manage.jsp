@@ -442,6 +442,7 @@
         //任务单打印事件
         $(".btn-print").on('click', function(){
             var waybillKeys = [];
+            var groupId = $("#groupSelect option:selected").val();
             $('input[name="waybillId"]:checked').each(function () {
                 waybillKeys.push($(this).val());
             });
@@ -449,7 +450,7 @@
                 $.util.error("请至少选择一条数据");
                 return false;
             }
-            location.href = base_url + '/backstage/trace/print/page?waybillKeys=' + waybillKeys.join(',');
+            location.href = base_url + '/backstage/trace/print/page?waybillKeys=' + waybillKeys.join(',') +"&groupId=" + groupId;
         });
 
         //tab切换

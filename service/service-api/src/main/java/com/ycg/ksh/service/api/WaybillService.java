@@ -105,7 +105,7 @@ public interface WaybillService {
      * @throws ParameterException
      * @throws BusinessException
      */
-    void batchBind(Integer userKey,Collection<Waybill> con) throws ParameterException, BusinessException;
+    void batchBind(Integer userKey,Collection<Waybill> con, Integer gKey) throws ParameterException, BusinessException;
     
     /**
      * 保存任务单信息
@@ -372,7 +372,7 @@ public interface WaybillService {
      * @throws ParameterException
      * @throws BusinessException
      */
-    Collection<MergeWaybill> listPrint(Integer userKey, Collection<Integer> waybillKeys, Integer count) throws ParameterException, BusinessException;
+    Collection<MergeWaybill> listPrint(Integer userKey, Collection<Integer> waybillKeys, Integer count, Integer gKey) throws ParameterException, BusinessException;
 
 
     /**

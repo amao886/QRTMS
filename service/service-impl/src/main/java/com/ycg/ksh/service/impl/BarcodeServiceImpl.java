@@ -710,7 +710,7 @@ public class BarcodeServiceImpl implements BarCodeService, WaybillObserverAdapte
 	}
 	
 	@Override
-	public Barcode queryOneBarcodeByGroupId(Integer gKey) throws ParameterException, BusinessException {
+	public List<Barcode> queryOneBarcodeByGroupId(Integer gKey) throws ParameterException, BusinessException {
 		Assert.notBlank(gKey, "项目组不能为空");
 		try {
 			return barcodeMapper.queryOneBarcodeByGroupId(gKey);

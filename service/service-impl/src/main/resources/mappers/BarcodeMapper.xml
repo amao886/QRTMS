@@ -177,11 +177,11 @@
         <include refid="include_column"/>
         from barcode_tab b where resourceid = #{resId}
     </select>
-	<!-- 获取当前项目组一个未用使用的条码 -->
+	<!-- 获取当前项目组未用使用的条码 -->
     <select id="queryOneBarcodeByGroupId" parameterType="java.lang.Integer" resultType="com.ycg.ksh.entity.persistent.Barcode">
         select
         <include refid="include_column"/>
-        from barcode_tab b where b.bindstatus = 10 AND b.groupid = #{gKey} limit 1
+        from barcode_tab b where b.bindstatus = 10 AND b.groupid = #{gKey}
     </select>
 
     <update id="updateStatusById" parameterType="com.ycg.ksh.entity.persistent.Barcode">

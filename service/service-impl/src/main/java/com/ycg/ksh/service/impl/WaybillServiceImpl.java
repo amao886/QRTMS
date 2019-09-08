@@ -1398,10 +1398,10 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
      * @throws BusinessException
      */
     @Override
-    public Collection<MergeWaybill> listPrint(Integer userKey, Collection<Integer> waybillKeys, Integer count) throws ParameterException, BusinessException {
+    public Collection<MergeWaybill> listPrint(Integer userKey, Collection<Integer> waybillKeys, Integer count ,Integer gKey) throws ParameterException, BusinessException {
         Example example = new Example(Waybill.class);
         example.createCriteria().andIn("id", waybillKeys);
-        Collection<Waybill> collection = buildBarcode(userKey, waybillMapper.selectByExample(example));
+        Collection<Waybill> collection = buildBarcode(userKey, waybillMapper.selectByExample(example), gKey);
         if(CollectionUtils.isNotEmpty(collection)){
             Collection<MergeWaybill> mergeWaybills = new ArrayList<MergeWaybill>(collection.size());
             try {
@@ -1486,20 +1486,24 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
         modifyWaybillContext(waybillContext);
     }
 
-    private Collection<Waybill> buildBarcode(Integer userKey, Collection<Waybill> waybills) throws ParameterException, BusinessException {
+    private Collection<Waybill> buildBarcode(Integer userKey, Collection<Waybill> waybills,Integer groupId) throws ParameterException, BusinessException {
         if(CollectionUtils.isNotEmpty(waybills)){
             //StringBuilder builder = new StringBuilder();
             Date ctime = new Date();
+            MergeApplyRes mergeApplyRes = barCodeService.queryTotalCountByGroupId(groupId);
+            List<Barcode> barcodeList = barCodeService.queryOneBarcodeByGroupId(groupId);
+            if(mergeApplyRes.getAvailableTotal()==0 || mergeApplyRes.getAvailableTotal() < waybills.size())
+            	throw new BusinessException("[该项目组剩可用条码数量不足，请申请后再操作！]");
+            int i = 0;
             for (Waybill waybill : waybills) {
                 if (StringUtils.isBlank(waybill.getBarcode())){
-                    String waybillKey = String.valueOf(waybill.getId());
+                    //String waybillKey = String.valueOf(waybill.getId());
                     //int count = Math.max(0, 10 - waybillKey.length());
                     //生成二维码并绑定
                     //builder.append("0").append(waybillKey).append(RandomUtils.string(count));//打印条码生产需要修改
-                    MergeApplyRes mergeApplyRes = barCodeService.queryTotalCountByGroupId(waybill.getGroupid());
-                    Barcode barcode = barCodeService.queryOneBarcodeByGroupId(waybill.getGroupid());
-                    if(mergeApplyRes.getAvailableTotal()==0 || barcode ==null)
-                    	throw new BusinessException("[该项目组剩可用条码数量不足，请申请后再操作！]");
+                	Barcode barcode = barcodeList.get(i);
+                    if(barcode == null) throw new BusinessException("[该项目组剩可用条码数量不足，请申请后再操作！]");
+                    logger.info("==========next barcode=========>{}",barcode.getBarcode());
                     String barcodeStr = barcode.getBarcode();
                     WaybillContext context = WaybillContext.buildContext(userKey, waybill);
                     context.setBarcode(barcodeStr);
@@ -1517,6 +1521,7 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
                     }
                     modifyWaybillContext(context);
                     waybill.setBarcode(context.getBarcode());
+                    i++;
                 }
             }
         }
@@ -1591,6 +1596,10 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 				if(groupId !=null && groupId > 0) {
 					criteria.andEqualTo("groupid", groupId);
 				}
+				if(json.getString("waybillIds")!=null) {
+					logger.info("waybillIds================{}",json.getString("waybillIds"));
+					criteria.andIn("id", StringUtils.integerCollection(json.getString("waybillIds")));
+				}
 				if(StringUtils.isNotBlank(json.getString("deliverStartTime"))) {
 					criteria.andGreaterThanOrEqualTo("createtime", json.getString("deliverStartTime"));
 				}
@@ -1607,20 +1616,11 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 	}
 
 	@Override
-	public void batchBind(Integer userKey,Collection<Waybill> con) throws ParameterException, BusinessException {
+	public void batchBind(Integer userKey,Collection<Waybill> con,Integer groupId) throws ParameterException, BusinessException {
 		Assert.notNull(con, "绑定列表不能为空");
+		Assert.notBlank(groupId, "群编号不能为空");
 		try {
-			/*for (Waybill waybill : con) {
-				MergeApplyRes mergeApplyRes = barCodeService.queryTotalCountByGroupId(waybill.getGroupid());
-				Barcode barcode = barCodeService.queryOneBarcodeByGroupId(waybill.getGroupid());
-                if(waybill.getAvailableTotal()==0 || barcode ==null)
-                	throw new BusinessException("[该项目组剩可用条码数量不足，请申请后再操作！]");
-				waybill.setBarcode(barcode.getBarcode());
-				waybill.setBarcodeid(barcode.getId());
-				waybill.setBindTime(new Date());
-				waybillMapper.updateByPrimaryKeySelective(waybill);
-			}*/
-			buildBarcode(userKey, con);
+			buildBarcode(userKey, con, groupId);
 		} catch (ParameterException | BusinessException e) {
 			throw e;
 		}catch (Exception e) {
