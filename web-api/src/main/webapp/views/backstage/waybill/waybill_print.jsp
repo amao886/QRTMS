@@ -176,7 +176,7 @@
         });
         var listWaybill = function(){
             var parmas = {waybillKeys: $("#waybillKeys").data("keys")};
-        	var groupId = $("#waybillKeys").data("data-groupId").val();
+        	var groupId = $("#waybillKeys").data("data-groupId");
             parmas["groupId"] = groupId;
             $.util.json(base_url + '/backstage/trace/print/waybills', parmas, function (data) {
                 if (data.success) {//处理返回结果
