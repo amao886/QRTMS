@@ -1560,7 +1560,7 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             File destFile = FileUtils.newFile(fileEntity.getDirectory(), fileEntity.getFileName());
             easyExcel = EasyExcelBuilder.createWriteExcel(destFile);
             easyExcel.createSheet("出库单列表");
-            easyExcel.columnWidth(30,40, 30, 30,40, 20, 20, 10, 10, 20, 20, 30, 35, 10, 10);
+            easyExcel.columnWidth(50,150, 50, 50,150, 70, 70, 10, 10, 60, 70, 70, 150, 10, 10);
             easyExcel.header("提货日期","经销商简称","始发城市", "目的城市","配送地址", "装运号", "送货单号", "数量", "体积", "车型", "预计到达","实际到达日期","当前位置","距离目的地剩余（km）","上一次距离目的地剩余（km）");
             for (Waybill waybill : depotAlliances) {
                 easyExcel.row(StringUtils.isNotBlank(waybill.getLoadTime()) ? waybill.getLoadTime() : "",waybill.getReceiverName(),StringUtils.isNotBlank(waybill.getSimpleStartStation())?waybill.getSimpleStartStation():"",waybill.getSimpleEndStation(),

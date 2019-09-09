@@ -185,7 +185,7 @@ public class ExcelWriter implements java.lang.AutoCloseable {
     }
 
     public void columnWidth(int columnIndex, int width) {
-        sheet.setColumnWidth(columnIndex, width * 256);
+        sheet.setColumnWidth(columnIndex, (int)(width+0.72) * 256);
     }
 
     /**
