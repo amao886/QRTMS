@@ -450,7 +450,7 @@
                 $.util.error("请至少选择一条数据");
                 return false;
             }
-            location.href = base_url + '/backstage/trace/print/page?waybillKeys=' + waybillKeys.join(',') +"&groupId=" + groupId;
+            location.href = base_url + '/backstage/trace/print/page?groupId=' + groupId + '&waybillKeys=' + waybillKeys.join(',');
         });
 
         //tab切换
