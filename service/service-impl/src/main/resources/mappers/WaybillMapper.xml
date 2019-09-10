@@ -402,7 +402,7 @@
         SELECT
         <include refid="include_column"/>
         FROM
-        waybill_tab w.createtime
+        waybill_tab w
         <where>
             <choose>
                 <when test="groupId != null and groupId gt 0">
