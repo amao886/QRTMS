@@ -111,8 +111,6 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 				if (location != null) {
 					track.setLatitude(new Double(location.getLatitude()));
 					track.setLongitude(new Double(location.getLongitude()));
-					StringBuilder subStr = new StringBuilder();
-					track.setDescribe(subStr.append(location.getCity()).append("【扫描定位】").toString());
 				}
 			} catch (Exception e) {
 				logger.error("获取收货地址经纬度异常 {}", track.getLocations(), e);
@@ -315,16 +313,16 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 					Waybill waybill = waybillService.getWaybillByCode(barcode.getBarcode());
 					if (waybill != null && WaybillFettle.convert(waybill.getWaybillStatus()).ing()) {
 						WaybillTrack waybillTrack = new WaybillTrack(waybill.getId(), uKey, new Double(track.getLongitude()), new Double(track.getLatitude()), track.getReportLoaction(), track.getReportTime());
+						if(track!=null) {
+                            StringBuilder subStr = new StringBuilder();
+                            waybillTrack.setDescribe(subStr.append(track.getReportLoaction().substring(0,track.getReportLoaction().lastIndexOf("市"))).append("【扫描装车】").toString());
+                        }
 						if(waybillTrack.getLatitude() == null || waybillTrack.getLongitude() == null){
 							try {
 								AutoMapLocation location = autoMapService.coordinate(waybillTrack.getLocations());
 								if (location != null) {
 									waybillTrack.setLatitude(new Double(location.getLatitude()));
 									waybillTrack.setLongitude(new Double(location.getLongitude()));
-									if(track!=null) {
-									    StringBuilder subStr = new StringBuilder();
-									    waybillTrack.setDescribe(subStr.append(location.getCity()).append("【扫描装车】").toString());
-									}
 								}
 							} catch (Exception e) {
 								logger.error("获取收货地址经纬度异常 {}", waybillTrack.getLocations(), e);
