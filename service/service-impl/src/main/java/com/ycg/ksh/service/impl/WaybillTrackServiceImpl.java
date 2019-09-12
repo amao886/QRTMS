@@ -104,12 +104,15 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 			throw new BusinessException("运单已经送达不能上报定位!!!");
 		}
 		*/
+		logger.info("========来自扫码定位===========");
 		if(track.getLatitude() == null || track.getLongitude() == null){
 			try {
 				AutoMapLocation location = autoMapService.coordinate(track.getLocations());
 				if (location != null) {
 					track.setLatitude(new Double(location.getLatitude()));
 					track.setLongitude(new Double(location.getLongitude()));
+					StringBuilder subStr = new StringBuilder();
+					track.setDescribe(subStr.append(location.getCity()).append("【扫描定位】").toString());
 				}
 			} catch (Exception e) {
 				logger.error("获取收货地址经纬度异常 {}", track.getLocations(), e);
@@ -318,6 +321,10 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 								if (location != null) {
 									waybillTrack.setLatitude(new Double(location.getLatitude()));
 									waybillTrack.setLongitude(new Double(location.getLongitude()));
+									if(track!=null) {
+									    StringBuilder subStr = new StringBuilder();
+									    waybillTrack.setDescribe(subStr.append(location.getCity()).append("【扫描装车】").toString());
+									}
 								}
 							} catch (Exception e) {
 								logger.error("获取收货地址经纬度异常 {}", waybillTrack.getLocations(), e);
@@ -329,7 +336,7 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 					}
 				}
 				if(CollectionUtils.isNotEmpty(waybillTracks)){
-					trackMapper.inserts(waybillTracks);
+					//trackMapper.inserts(waybillTracks);
 					for (WaybillTrack waybillTrack : waybillTracks) {
 						locationReport(WaybillContext.buildContext(uKey, waybillService.getWaybillById(waybillTrack.getWaybillid())), waybillTrack, true);
 					}

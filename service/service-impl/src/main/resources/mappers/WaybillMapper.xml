@@ -552,6 +552,17 @@
             #{wkey,jdbcType=INTEGER}
         </foreach>
     </update>
+    <!-- 批量修改要求到货时间 -->
+    <update id="batchUpdateArrivaltime">
+        UPDATE
+          waybill_tab
+        SET
+          arrivaltime=#{arg0}
+        WHERE id IN
+        <foreach collection="arg1" item="wkey" separator="," open="(" close=")">
+            #{wkey,jdbcType=INTEGER}
+        </foreach>
+    </update>
     <!-- 批量导入 -->
     <insert id="batchInsert" parameterType="java.util.List">
         insert into waybill_tab

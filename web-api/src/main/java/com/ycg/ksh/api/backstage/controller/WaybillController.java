@@ -845,4 +845,18 @@ public class WaybillController extends BaseController {
         }
         return jsonResult;
     }
+    /**
+     * 修改要求到货时间
+     * @param object
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value ="/changeArrivaltime")
+    @ResponseBody
+    public JsonResult changeArrivaltime(@RequestBody RequestObject object,HttpServletRequest request) throws Exception{
+        JsonResult jsonResult = new JsonResult(true,"修改成功");
+        waybillService.batchUpdateArrivaltime(object);
+        return jsonResult;
+    }
 }

@@ -59,6 +59,11 @@ public class WaybillTrack extends BaseEntity {
     @Column(name = "`createtime`")
     private Date createtime;
 
+    /**
+     * 位置描述
+     */
+    @Column(name = "`describe`")
+    private String describe;
     
     
     public WaybillTrack() {
@@ -212,5 +217,13 @@ public class WaybillTrack extends BaseEntity {
      */
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 }

@@ -422,4 +422,10 @@ public interface WaybillService {
 	 * @return
 	 */
     FileEntity buildPDF(RequestObject object) throws BusinessException, ParameterException;
+
+    /**
+     * @TODO
+     * @param object
+     */
+    void batchUpdateArrivaltime(RequestObject object) throws BusinessException, ParameterException;
 }

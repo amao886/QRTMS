@@ -7,18 +7,6 @@
 <%@ include file="/views/include/head.jsp"%>
 <link rel="stylesheet" href="${baseStatic}css/count.css?times=${times}" />
 <link rel="stylesheet" href="${baseStatic}plugin/css/bootstrap-datetimepicker.css" />
-<style type="text/css">
-	.except{
-	display: inline-block;
-    padding:0 20px;
-    margin-top:-1px;
-    line-height: 30px;
-    color:#fff;
-    border-radius: 3px;
-    background:#31acfa;
-    margin-left: -20px;
-	}
-</style>
 </head>
 <body>
 	<div class="custom-content">
@@ -95,11 +83,11 @@
 							</div>
 						</div>
 					</div>
-                    <div class="fl col-min">
-                        <a href="javascript:;" class="content-search-btn">查询</a>
+                    <div class="fl" style="width: 75px; height: 30px;">
+                        <a href="javascript:;" id="search-btn" class="content-search-btn">查询</a>
                     </div>
-				    <div style="fl col-min">
-	                      <a href="javascript:;"  id="link_excel" class="except">跟踪表</a>
+				    <div class="fl" style="width: 85px; height: 30px; margin-left: 15px;">
+	                      <a href="javascript:;"  id="link_excel" class="content-search-btn">跟踪表</a>
 	                </div>
 				</div>
 			</div>
@@ -187,7 +175,7 @@ $(document).ready(function(){
             $.cookie("open","0")
         }       
     })
-	$(".content-search-btn").on("click", function(){
+	$("#search-btn").on("click", function(){
 		$("#searchDailyForm").submit();
 	});
 	$(".add-info").on("click", function(){

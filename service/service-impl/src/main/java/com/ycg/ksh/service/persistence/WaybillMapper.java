@@ -11,6 +11,7 @@ import org.apache.ibatis.session.RowBounds;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -201,4 +202,11 @@ public interface WaybillMapper extends Mapper<Waybill> {
      * @return
      */
 	Collection<Waybill> listExportWabills(JSONObject req);
+	
+	/**
+	 * 批量修改要求到货时间
+	 * @param delayStatus
+	 * @param list
+	 */
+	void batchUpdateArrivaltime(Date arrivaltime, Collection<Integer> list);
 }

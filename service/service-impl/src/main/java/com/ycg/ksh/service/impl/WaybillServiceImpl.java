@@ -1690,4 +1690,22 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 		}
 		return null;
 	}
+
+    /**
+     * @see com.ycg.ksh.service.api.WaybillService#batchUpdateArrivaltime(com.ycg.ksh.common.entity.RequestObject)
+     */
+    @Override
+    public void batchUpdateArrivaltime(RequestObject object) throws BusinessException, ParameterException {
+        String waybillKeyString  = object.get("waybillIds");
+        Date arrivaltime = object.getDate("arrivaltime");
+        Assert.notNull(waybillKeyString, "运单编号不能为空");
+        Assert.notNull(arrivaltime, "要求到货时间不能为空");
+        try {
+            Collection<Integer> collection = StringUtils.integerCollection(waybillKeyString);
+            waybillMapper.batchUpdateArrivaltime(arrivaltime, collection);
+        } catch (Exception e) {
+            logger.error("batchUpdateArrivaltime()========object:{},e:{}",object,e);
+            throw BusinessException.dbException(Constant.FAIL_MSG);
+        }
+    }
 }

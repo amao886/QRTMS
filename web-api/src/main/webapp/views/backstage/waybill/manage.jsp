@@ -7,9 +7,31 @@
     <%@ include file="/views/include/head.jsp" %>
     <link rel="stylesheet" href="${baseStatic}css/taskList.css?times=${times}"/>
     <link rel="stylesheet" href="${baseStatic}plugin/css/bootstrap-datetimepicker.css"/>
-    
     <link rel="stylesheet" href="${baseStatic}css/sendcustomer.css?times=${times}"/>
-    
+    <style type="text/css">
+    	.date_input{
+		    position:absolute;
+		    top:35px;
+		    left:18%;
+		    width:60%;
+		    height:26px;
+		    border:1px solid #dedede;
+		    text-indent:4px;
+		    border-radius:4px;
+		}
+		.date_input input-append{
+		    width:46%;
+		    position: relative;
+		}
+		.date_input input-append>input{
+		    width:100%;
+		    height:26px;
+		    line-height: 26px;
+		    border:1px solid #dedede;
+		    border-radius: 4px;
+		    text-indent: 4px;
+		}
+    </style>
 </head>
 <body>
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -103,6 +125,7 @@
             <button class="layui-btn layui-btn-danger link_delete">删除</button>
             <button class="layui-btn layui-btn-normal" id="batch_bind">批量綁定</button>
             <button class="layui-btn layui-btn-normal" id="batch_down">已綁定任务单下载</button>
+            <button class="layui-btn layui-btn-normal" id="update_arrivaltime">预约送货日修改</button>
             <!--<i class="layui-icon pos_right delete-icon link_delete">&#xe640;</i>-->
         </div>
         <table>
@@ -219,15 +242,29 @@
         </form>
     </div>
 </div>
+<!-- 预约送货日修改 -->
+<div id="edit_arrivaltime_panel"  style="display: none">
+    <div style="width: 480px;height: 260px;margin-top: 35px;" >
+            <label>预约送货日:</label>
+            <div class="date_input">
+                <!-- <input type="datetime" name="arrivaltime" id="arrivaltime"/> -->
+                <div class="input-append date fl"  id="arrivaltime">
+						<input type="text" name="arrivaltime" readonly>
+						<span class="add-on">
+							<i class="icon-th"></i>
+						</span>
+				</div>
+            </div>
+    </div>
+</div>
 </body>
 <%@ include file="/views/include/floor.jsp" %>
 <script src="${baseStatic}plugin/js/bootstrap-datetimepicker.js"></script>
 <script src="${baseStatic}plugin/js/bootstrap-datetimepicker.zh-CN.js"></script>
-<script type="text/javascript" src="${baseStatic}js/datetimepicker1.js"></script>
+<script type="text/javascript" src="${baseStatic}js/datetimepicker.js"></script>
 <%-- <script src="${baseStatic}plugin/js/jquery-hcheckbox.js"></script> --%>
 <script src="${baseStatic}plugin/js/jquery.mloading.js"></script>
 <script src="${baseStatic}plugin/js/jquery.cookie.js"></script>
-<script src="${baseStatic}js/datetimepicker.js"></script>
 <script src="${baseStatic}js/select.resource.js?times=${times}"></script>
 <script>
 
@@ -536,6 +573,58 @@
                 } else {
                     $.util.error(response.message);
                 }
+            });
+        });
+        /*批量修改预约送货日期*/
+        $("#update_arrivaltime").on("click",function(){
+            $.util.form('预约送货日期', $("#edit_arrivaltime_panel").html(), function(){
+            	var editBody = this.$body;
+            	//日期插件初始化
+         		editBody.find('#arrivaltime').datetimepicker({
+         			language : 'zh-CN',
+         			format : 'yyyy-mm-dd hh:mm',
+         			weekStart : 1, /*以星期一为一星期开始*/
+         			todayBtn : 1,
+         			autoclose : 1,
+         			minView : 2, /*精确到天*/
+         			pickerPosition : "bottom-left"
+         		}).on(
+         				"changeDate",
+         				function(ev) { //值改变事件
+         					//选择的日期不能大于第二个日期控件的日期
+         					if (ev.date) {
+         						$("#datetimeEnd").datetimepicker('setStartDate',
+         								new Date(ev.date.valueOf()));
+         					} else {
+         						$("#datetimeEnd").datetimepicker('setStartDate', null);
+         					}
+         				});
+            },function () {
+                var  chk_value = [], parmas = {}, editBody = this.$body;
+                $('input[name="waybillId"]:checked').each(function () {
+                    chk_value.push($(this).val());
+                });
+                if (chk_value == null || chk_value == "") {
+                    $.util.error("请至少选择一条数据");
+                    return false;
+                }
+                parmas.waybillIds = chk_value.join(',');
+                parmas.arrivaltime = editBody.find("input[name='arrivaltime']").val();
+                if (!parmas.arrivaltime) {
+                    $.util.error("预约送货日期不能为空");
+                    return false;
+                }
+                console.log(parmas);
+                
+                $.util.json(base_url + '/backstage/trace/changeArrivaltime', parmas, function (data) {
+                    if (data.success) {
+                        $.util.alert('操作提示', data.message, function () {
+                            $("#searchWaybillForm").submit();
+                        });
+                    } else {
+                        $.util.error(data.message);
+                    }
+                });
             });
         });
     });

@@ -9,14 +9,15 @@
         <result column="latitude" jdbcType="DOUBLE" property="latitude"/>
         <result column="locations" jdbcType="VARCHAR" property="locations"/>
         <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="describe" jdbcType="VARCHAR" property="describe"/>
     </resultMap>
 
     <insert id="saveTrack" parameterType="java.util.List">
-        insert into track_tab (waybillid, userid, longitude, latitude, locations, createtime)
+        insert into track_tab (waybillid, userid, longitude, latitude, locations, createtime, describe)
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.waybillid},#{item.userid},#{item.longitude},#{item.latitude},
-            #{item.locations},#{item.createtime})
+            #{item.locations},#{item.createtime},#{item.describe})
         </foreach>
     </insert>
     
