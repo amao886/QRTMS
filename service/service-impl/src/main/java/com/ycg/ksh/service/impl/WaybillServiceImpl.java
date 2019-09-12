@@ -1641,6 +1641,7 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 		String suffix = "pdf";
 		try {
 			WaybillSerach serach = object.toJavaBean(WaybillSerach.class);
+			logger.info("buildPDF====================>serach:{}",serach);
 			serach.setWaybillFettles(new Integer[]{20});
 			File directory = new File(SystemUtils.directoryTemp(suffix + gKey));
 			if (directory.exists()) {

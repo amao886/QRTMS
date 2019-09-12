@@ -831,7 +831,8 @@ public class WaybillController extends BaseController {
     @ResponseBody
     public JsonResult downBind(@RequestBody RequestObject object, HttpServletRequest request) throws Exception {
         logger.info("downBind params -> {}", object);
-        //User u = RequestUitl.getUserInfo(request);
+        User u = RequestUitl.getUserInfo(request);
+        object.put("userId", u.getId());
     	FileEntity fileEntity = waybillService.buildPDF(object);
     	JsonResult jsonResult = new JsonResult();
         if (null != fileEntity && StringUtils.isNotBlank(fileEntity.getPath())) {

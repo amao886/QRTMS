@@ -315,7 +315,7 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 						WaybillTrack waybillTrack = new WaybillTrack(waybill.getId(), uKey, new Double(track.getLongitude()), new Double(track.getLatitude()), track.getReportLoaction(), track.getReportTime());
 						if(track!=null) {
                             StringBuilder subStr = new StringBuilder();
-                            waybillTrack.setDescribe(subStr.append(track.getReportLoaction().substring(0,track.getReportLoaction().lastIndexOf("市"))).append("【扫描装车】").toString());
+                            waybillTrack.setDescribe(subStr.append(track.getReportLoaction().substring(0,track.getReportLoaction().lastIndexOf("市")+1)).append("【扫描装车】").toString());
                         }
 						if(waybillTrack.getLatitude() == null || waybillTrack.getLongitude() == null){
 							try {

@@ -98,7 +98,7 @@ function geocoder(latitude,longitude,waybillId) {
 						latitude  : $('#address').attr('data-latitude'),
 						longitude : $('#address').attr('data-longitude'),
 						locations : addressTxt,
-						city : city,
+						city      : city,
 						waybillid : waybillId	
 					});					
 				}
@@ -118,6 +118,7 @@ function uploadPosition(options){
 	    latitude  : options.latitude,
 	    locations : options.locations,
 	    longitude : options.longitude,
+	    city      : options.city,
 	    waybillid : options.waybillid
 	}
 	EasyAjax.ajax_Post_Json({
