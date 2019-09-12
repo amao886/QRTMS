@@ -98,7 +98,7 @@ function geocoder(latitude,longitude,waybillId) {
 						latitude  : $('#address').attr('data-latitude'),
 						longitude : $('#address').attr('data-longitude'),
 						locations : addressTxt,
-						city : result.regeocode.addressComponent.city,
+						city : city,
 						waybillid : waybillId	
 					});					
 				}

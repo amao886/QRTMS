@@ -36,7 +36,10 @@ public class ToWeixinController extends BaseController{
 		JsonResult jsonResult = new JsonResult();
 		Assert.notNull(object, Constant.PARAMS_ERROR);
 		User user = RequestUitl.getUserInfo(request);
-		trackService.saveLoactionReport(user.getId(), object.toJavaBean(WaybillTrack.class));
+		WaybillTrack track = object.toJavaBean(WaybillTrack.class);
+		StringBuilder subStr = new StringBuilder();
+        track.setDescribe(subStr.append(object.get("city")).append("【扫描定位】").toString());
+		trackService.saveLoactionReport(user.getId(), track);
 		return jsonResult;
 	}
 }
