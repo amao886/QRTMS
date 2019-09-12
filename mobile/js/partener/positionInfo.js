@@ -89,20 +89,16 @@ function geocoder(latitude,longitude,waybillId) {
 		        $('#address').text(result.regeocode.formattedAddress+"("+result.regeocode.addressComponent.district+result.regeocode.addressComponent.township+result.regeocode.addressComponent.street+result.regeocode.addressComponent.streetNumber+")");
 		        //定位完成后自动上报位置
 		        var addressTxt = $('#address').text();
+		        var city = result.regeocode.addressComponent.city;
 		        if(addressTxt == ""){
 					$.toptip("定位地址不能为空", 'error');
 				}else{
-					console.log('传的参数：')
-					console.log('wbarCode：' + barCode);
-					console.log('latitude：' + $('#address').attr('data-latitude'));
-					console.log('longitude：' + $('#address').attr('data-longitude'));
-					console.log('locations：' + addressTxt);
-					console.log('waybillid：' + waybillId);
 		      		uploadPosition({
 						barCode   : barCode,
 						latitude  : $('#address').attr('data-latitude'),
 						longitude : $('#address').attr('data-longitude'),
 						locations : addressTxt,
+						city : result.regeocode.addressComponent.city,
 						waybillid : waybillId	
 					});					
 				}
