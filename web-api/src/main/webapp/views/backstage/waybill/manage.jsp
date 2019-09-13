@@ -266,6 +266,7 @@
 <script src="${baseStatic}plugin/js/jquery.mloading.js"></script>
 <script src="${baseStatic}plugin/js/jquery.cookie.js"></script>
 <script src="${baseStatic}js/select.resource.js?times=${times}"></script>
+<script src="${baseStatic}plugin/js/fileDownload.js"></script>
 <script>
 
     function remove() {
@@ -565,7 +566,6 @@
                 		var msg = "二维码PDF文件下载,数量 : <font color='red'>" + response.count + "</font>个,大小 : <font color='red'>" + response.size + "</font>MB";
 						$.util.success(msg, function(){
 							$.fileDownload(response.url);
-								$("#"+ resid +"printStatus").html("已下载");
 						}, 3000);
 					}else{
 							$.util.error(response.message);
