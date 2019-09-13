@@ -1650,15 +1650,19 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 			directory = FileUtils.directory(directory);
 			do {
 				waybills = waybillMapper.listBySomething(serach,new RowBounds(pageNum++, 1000));
-				if(CollectionUtils.isEmpty(waybills)) {
-					throw new BusinessException("未找到已绑定的任务单");
-				}
-				PDFBuilder builder = new PDFBuilder(FileUtils.file(directory, FileUtils.appendSuffix(System.currentTimeMillis()+"", suffix)));
-				builder.ready();
-				for (Waybill waybill : waybills) {
-					builder.insert(waybill.getBarcode(), SystemUtils.buildQRcodeContext(waybill.getBarcode()));
-				}
-				builder.close();
+				if(CollectionUtils.isNotEmpty(waybills)) {
+					PDFBuilder builder = new PDFBuilder(FileUtils.file(directory, FileUtils.appendSuffix(System.currentTimeMillis()+"", suffix)));
+					builder.ready();
+					for (Waybill waybill : waybills) {
+						builder.insert(waybill.getBarcode(), SystemUtils.buildQRcodeContext(waybill.getBarcode()));
+					}
+					total += waybills.size();
+					builder.close();
+				}else {
+                    if (pageNum == 1) {
+                    	throw new BusinessException("未找到已绑定的任务单");
+                    }
+                }
 			}while(total < waybills.getTotal());
 			File[] files = directory.listFiles();
             if (files != null) {
@@ -1686,8 +1690,8 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 		} catch (BusinessException | ParameterException e) {
 			throw e;
 		}catch (Exception e) {
-			logger.error("============>{}",e);
-			throw BusinessException.dbException("");
+			logger.error("PDF文件生成异常：object：{},e:{}",object,e);
+			throw new BusinessException("PDF文件生成异常,稍后再尝试!!!");
 		}
 		return null;
 	}
