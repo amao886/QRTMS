@@ -7,6 +7,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.ycg.ksh.common.extend.QRCode;
+import com.ycg.ksh.common.util.StringUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,22 +45,26 @@ public class PDFBuilder {
         //打开文件
         document.open();
         document.addTitle("合同物流管理平台二维码");//标题
-        document.addAuthor("http://www.ycgwl.com");//作者
+        document.addAuthor("http://www.lehan-tech.com");//作者
         document.addSubject("合同物流管理平台二维码");//主题
         document.addCreationDate();//创建时间
-        document.addCreator("www.ycgwl.com"); //应用程序
+        document.addCreator("www.lehan-tech.com"); //应用程序
         
         qrCode = new QRCode(QRCODE_SIZE, QRCODE_FORMAT);
 	}
 	
-	public void insert(String barcode, String qrcodeContext) throws Exception {
+	public void insert(String barcode,String deliveryNumber, String qrcodeContext) throws Exception {
 	    Paragraph bp = new Paragraph(barcode, font);
 	    bp.setAlignment(Element.ALIGN_CENTER);
         document.add(bp);
         Image image = Image.getInstance(qrCode.bytes(qrcodeContext));
         image.setAlignment(Element.ALIGN_CENTER);
         document.add(image);
-        Paragraph text = new Paragraph(NAME, font);
+        Paragraph text = null;
+        if(StringUtils.isEmpty(deliveryNumber))
+            text = new Paragraph(NAME, font);
+        else
+            text = new Paragraph(deliveryNumber, font);
         text.setAlignment(Element.ALIGN_CENTER);
         document.add(text);
 	}
@@ -80,7 +85,7 @@ public class PDFBuilder {
 		PDFBuilder builder = new PDFBuilder(new File("C:\\Users\\baymax\\Desktop\\test2.pdf"));
 		builder.ready();
 		for (int i = 0; i < 1000; i++) {
-			builder.insert("barcode_"+i, "http://www.ycgwl.com");
+			builder.insert("barcode_"+i, "" ,"http://www.ycgwl.com");
 		}
 		builder.close();
 	}

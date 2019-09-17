@@ -500,7 +500,7 @@ public class BarcodeServiceImpl implements BarCodeService, WaybillObserverAdapte
                     PDFBuilder builder = new PDFBuilder(FileUtils.file(directory, FileUtils.appendSuffix(fileName.toString(), suffix)));
                     builder.ready();
                     for (Barcode barcode : barcodes) {
-                        builder.insert(barcode.getBarcode(), SystemUtils.buildQRcodeContext(barcode.getBarcode()));
+                        builder.insert(barcode.getBarcode(), "", SystemUtils.buildQRcodeContext(barcode.getBarcode()));
                     }
                     total += barcodes.size();
                     builder.close();
