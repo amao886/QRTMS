@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="${baseStatic}css/taskList.css?times=${times}"/>
     <link rel="stylesheet" href="${baseStatic}plugin/css/bootstrap-datetimepicker.css"/>
     <link rel="stylesheet" href="${baseStatic}css/sendcustomer.css?times=${times}"/>
+    <link rel="stylesheet" href="${baseStatic}element-ui/lib/theme-chalk/index.css"/>
     <style type="text/css">
     	.date_input{
 		    position:absolute;
@@ -30,6 +31,9 @@
 		    border:1px solid #dedede;
 		    border-radius: 4px;
 		    text-indent: 4px;
+		}
+		.el-upload__input {
+		    display: none !important;
 		}
     </style>
 </head>
@@ -126,6 +130,7 @@
             <button class="layui-btn layui-btn-normal" id="batch_bind">批量綁定</button>
             <button class="layui-btn layui-btn-normal" id="batch_down">已綁定任务单下载</button>
             <button class="layui-btn layui-btn-normal" id="update_arrivaltime">预约送货日修改</button>
+			<button class="layui-btn layui-btn-normal" id="upload_receipt"  type="text">批量上传回单</button>
             <!--<i class="layui-icon pos_right delete-icon link_delete">&#xe640;</i>-->
         </div>
         <table>
@@ -257,6 +262,24 @@
             </div>
     </div>
 </div>
+<div id="app">
+	<el-dialog title="上传文件导入" :visible.sync="dialog.dialogVisible" :before-close="handleClose" :close-on-click-modal="false" :close-on-press-escape="false"
+           width="40%">
+	    <el-upload style="margin-bottom: 20px;"
+		  class="upload-demo"
+		  action="https://jsonplaceholder.typicode.com/posts/"
+		  :on-preview="handlePreview"
+		  :on-remove="handleRemove"
+		  :before-remove="beforeRemove"
+  		  :auto-upload="false"
+		  :limit="9"
+		  :file-list="fileList">
+		  <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+		  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+		  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+		</el-upload>
+	</el-dialog>
+</div>
 </body>
 <%@ include file="/views/include/floor.jsp" %>
 <script src="${baseStatic}plugin/js/bootstrap-datetimepicker.js"></script>
@@ -267,8 +290,40 @@
 <script src="${baseStatic}plugin/js/jquery.cookie.js"></script>
 <script src="${baseStatic}js/select.resource.js?times=${times}"></script>
 <script src="${baseStatic}plugin/js/fileDownload.js"></script>
+<script type="text/javascript" src="${baseStatic}element-ui/lib/index.js"></script>
 <script>
-
+	var vm = new Vue({
+		el:'#app',
+	    data() {
+	      return {
+	        fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
+	        dialog: {
+		    	dialogVisible: false
+		    },
+	      };
+	    },
+	    methods: {
+	      submitUpload() {
+	           this.$refs.upload.submit();
+	      },
+	      handleRemove(file, fileList) {
+	        console.log(file, fileList);
+	      },
+	      handlePreview(file) {
+	        console.log(file);
+	      },
+	      handleExceed(files, fileList) {
+	        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+	      },
+	      beforeRemove(file, fileList) {
+	        return this.$confirm(`确定移除 ${ file.name }？`);
+	      },
+	      handleClose(done) {
+	    	  done();
+	      }
+	    }
+	});
+	
     function remove() {
         $("input[name='likeString']").val("");
         $("input[name='startStation']").val("");
@@ -627,6 +682,11 @@
                 });
             });
         });
+        
+        $("#upload_receipt").on("click",function(){
+             vm.$data.dialog.dialogVisible = true;
+             console.log(vm.$data.dialog.dialogVisible);
+        }); 
     });
 </script>
 </html>
