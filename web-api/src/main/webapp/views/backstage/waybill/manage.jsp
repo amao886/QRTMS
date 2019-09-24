@@ -76,11 +76,11 @@
                         <label class="transport-status"><input type="radio" name="waybillFettles" value="30" val="${search.waybillFettles}"/>运输中</label>
                     </li>
                     <li>
-                        <label class="transport-status"><input type="radio" name="waybillFettles" value="35" val="${search.waybillFettles}"/>已送达</label>
-                    </li>
-                    <li>
                         <label class="transport-status"><input type="radio" name="waybillFettles" value="40" val="${search.waybillFettles}"/>确认到货</label>
                     </li>
+                   <%--  <li>
+                        <label class="transport-status"><input type="radio" name="waybillFettles" value="35" val="${search.waybillFettles}"/>已上传回单</label>
+                    </li> --%>
                 </ul>
                 <span class="more" id="moreCon"><span>更多搜索条件</span><i class="icon"></i></span>
             </div>
@@ -191,8 +191,8 @@
                     <td><c:if test="${waybill.waybillStatus== 10 }">未绑定</c:if>
                         <c:if test="${waybill.waybillStatus== 20 }">已绑定</c:if>
                         <c:if test="${waybill.waybillStatus== 30 }">运输中</c:if>
-                        <c:if test="${waybill.waybillStatus== 35 }">已送达</c:if>
                         <c:if test="${waybill.waybillStatus== 40 }">确认到货</c:if>
+                        <%-- <c:if test="${waybill.waybillStatus== 35 }">已上传回单</c:if> --%>
                     </td>
                     <td>
                         <a class="aBtn" href="${basePath}/backstage/trace/findById/${waybill.id}">查看</a>
@@ -262,22 +262,26 @@
             </div>
     </div>
 </div>
+<!-- :http-request="handleUpload" -->
 <div id="app">
 	<el-dialog title="上传文件导入" :visible.sync="dialog.dialogVisible" :before-close="handleClose" :close-on-click-modal="false" :close-on-press-escape="false"
            width="40%">
-	    <el-upload style="margin-bottom: 20px;"
-		  class="upload-demo"
-		  action="https://jsonplaceholder.typicode.com/posts/"
-		  :on-preview="handlePreview"
-		  :on-remove="handleRemove"
-		  :before-remove="beforeRemove"
-  		  :auto-upload="false"
-		  :limit="9"
-		  :file-list="fileList">
-		  <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-		  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
-		  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-		</el-upload>
+		   <el-upload style="margin-bottom: 20px;"
+			  class="upload-demo"
+			  action="no"
+			  ref="upload"
+			  accept="image/jpeg,image/gif,image/png"
+	          :before-upload="onBeforeUpload"
+			  :on-preview="handlePreview"
+			  :multiple="true"
+			  :before-remove="beforeRemove"
+	  		  :auto-upload="false"
+			  :limit="9"
+			  :file-list="fileList">
+			  <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+			  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+			  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过8MB</div>
+		  </el-upload>
 	</el-dialog>
 </div>
 </body>
@@ -296,30 +300,67 @@
 		el:'#app',
 	    data() {
 	      return {
-	        fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
+	        fileList: [],
+	        files: [],
 	        dialog: {
 		    	dialogVisible: false
 		    },
 	      };
 	    },
 	    methods: {
-	      submitUpload() {
-	           this.$refs.upload.submit();
-	      },
-	      handleRemove(file, fileList) {
-	        console.log(file, fileList);
+	    submitUpload() {
+	    	  console.log(this.$refs.upload.uploadFiles);
+	          //this.$refs.upload.submit();
+	          var formData =new FormData();
+	    	  this.$refs.upload.uploadFiles.forEach(function (file) {
+	    		  formData.append(file.uid, file.raw); // 因为要上传多个文件，所以需要遍历一下才行
+	    	  });
+	    	  $.ajax({
+                  url: base_url + "/backstage/receipt/batchupload",
+                  type: 'POST',
+                  data: formData,
+                  processData: false, // 告诉jQuery不要去处理发送的数据
+                  contentType: false,// 告诉jQuery不要去设置Content-Type请求头
+                  success: function (response) {
+                      if (response.success) {
+                    	  console.log(response);
+                    	  response.imagPaths.forEach(function(path){
+                    	  	  var img = {};
+	                    	  img["name"] = path.substr(path.lastIndexOf("/")+1, path.length);
+							  img["url"] = response.imgUrl + path;	                    		  
+                    	 	  vm.$data.fileList.push(img);
+                    	  })
+                      } else {
+                          $.util.error(response.message);
+                      }
+                  }
+              });
+	    	  return false;
 	      },
 	      handlePreview(file) {
 	        console.log(file);
 	      },
 	      handleExceed(files, fileList) {
-	        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+	    	if(fileList.length>9){
+		        this.$message.warning(`当前限制选择9个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+	    	}
 	      },
 	      beforeRemove(file, fileList) {
-	        return this.$confirm(`确定移除 ${ file.name }？`);
+		      return this.$confirm(`确定移除 ${ file.name }？`);
 	      },
 	      handleClose(done) {
 	    	  done();
+	      },
+	      onBeforeUpload(file) {
+	        var isIMAGE = file.type === 'image/jpeg'||'image/gif'||'image/png';
+	        var isLt1M = file.size / 1024 / 1024 < 10;
+	        if (!isIMAGE) {
+	          this.$message.error('上传文件只能是图片格式!');
+	        }
+	        if (!isLt1M) {
+	          this.$message.error('上传文件大小不能超过 10MB!');
+	        }
+	        return isIMAGE && isLt1M;
 	      }
 	    }
 	});
@@ -685,7 +726,6 @@
         
         $("#upload_receipt").on("click",function(){
              vm.$data.dialog.dialogVisible = true;
-             console.log(vm.$data.dialog.dialogVisible);
         }); 
     });
 </script>
