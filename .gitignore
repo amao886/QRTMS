@@ -3,6 +3,7 @@
 .idea
 .project
 .settings
+.classpath
+/logs
 *.log
-*.classpah
 *.log.zip
