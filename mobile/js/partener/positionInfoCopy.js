@@ -2,7 +2,7 @@ var barCode = _common.getUrlParam('barcode') || '';
 
 //点击首页跳转
 $('#toIndex').click(function(){
-	window.location.href = _common.version('../../index.html');
+	window.location.href = _common.version('../../home.html?jstatus='+0);
 })
 
 //初始化页面数据
@@ -45,8 +45,24 @@ function getBarCodeInfo(){
 		})
 		
 		//点击继续扫码
-		$('#scanCode').click(function(){
+		/*$('#scanCode').click(function(){
 			scanCode();
+		})*/
+		//点击确认到货
+		$('#isConfirm').click(function(){
+			$.toast(waybillId);
+			$.confirm({
+			  	title: '提示',
+			  	text: '是否确认到货及未审核的回单都设置为合格？',
+			  	onOK: function () {
+			    	EasyAjax.ajax_Post_Json({
+						url:'mobile/trace/confirmArrive/'+waybillId
+					},function(res){
+						$('#isConfirm').hide();
+						$.toast("操作成功");	
+					})
+			  	}
+			});		
 		})
 		
 		//点击装货上车

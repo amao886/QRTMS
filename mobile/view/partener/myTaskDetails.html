@@ -344,7 +344,7 @@
 		        <p class="footer-item-text color-red">异常上报</p>
       		</a>
       	</div>
-      	<!-- {{if (waybill.isGroupMermer != null) && (waybill.isGroupMermer == true)}} -->
+      	{{if waybill.waybillStatus < 40}}
       	<div class="weui-flex__item" id="arriveItem">
       		<a href="javascript:;" class="db" id="isConfirm" uid="{{:waybill.id}}">
       			<div class="weui-grid__icon footer-item">
@@ -353,7 +353,7 @@
 		        <p class="footer-item-text color-blue">确认到货</p>
       		</a>
       	</div>
-      	<!-- {{/if}} -->
+      	{{/if}}
     </div>	
 </script>
 <script type="text/x-jsrender" id="mapTips">

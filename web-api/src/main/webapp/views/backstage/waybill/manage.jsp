@@ -190,7 +190,7 @@
                     <td>${waybill.receiverName}</td>
                     <td><c:if test="${waybill.waybillStatus== 10 }">未绑定</c:if>
                         <c:if test="${waybill.waybillStatus== 20 }">已绑定</c:if>
-                        <c:if test="${waybill.waybillStatus== 30 }">运输中</c:if>
+                        <c:if test="${waybill.waybillStatus== 30 || waybill.waybillStatus== 35 }">运输中</c:if>
                         <c:if test="${waybill.waybillStatus== 40 }">确认到货</c:if>
                         <%-- <c:if test="${waybill.waybillStatus== 35 }">已上传回单</c:if> --%>
                     </td>
