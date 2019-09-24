@@ -2,17 +2,23 @@ package com.ycg.ksh.common.extend;/**
  * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2018/3/18
  */
 
-import com.ycg.ksh.common.exception.BusinessException;
-import com.ycg.ksh.common.util.FileUtils;
-import com.ycg.ksh.common.util.StringUtils;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import com.ycg.ksh.common.exception.BusinessException;
+import com.ycg.ksh.common.util.FileUtils;
+import com.ycg.ksh.common.util.StringUtils;
 
 /**
  * 文件上传
@@ -40,7 +46,22 @@ public class FileUploadHelper {
             }
         });
     }
-
+    
+    public static Collection<HashMap<Integer, String>> saveReceipt(HttpServletRequest request, String baseDic, String subDic) throws IOException {
+        return saveReceipt(request, baseDic, subDic, new ValidateSuffix(){
+            @Override
+            public String validate(String suffix) throws BusinessException {
+                String _suffix = suffix;
+                if (StringUtils.isBlank(_suffix)) {
+                    _suffix = "jpeg";
+                }
+                if (!FileUtils.isImage(_suffix)) {
+                    throw new BusinessException("必须是图片文件,请重新选择文件!!!");
+                }
+                return _suffix;
+            }
+        });
+    }
     public static File saveExcel(HttpServletRequest request, String baseDic) throws IOException {
         return saveSingle(request, baseDic, null, new ValidateSuffix(){
             @Override
@@ -82,7 +103,40 @@ public class FileUploadHelper {
         }
         return collection;
     }
-
+    
+    private static Collection<HashMap<Integer, String>> saveReceipt(HttpServletRequest request, String baseDic, String subDic, ValidateSuffix validate) throws IOException {
+        Collection<HashMap<Integer, String>> collection = new ArrayList<HashMap<Integer, String>>();
+        //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        //检查form中是否有enctype="multipart/form-data"
+        if (multipartResolver.isMultipart(request)) {
+            //将request变成多部分request
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+            //获取multiRequest 中所有的文件名
+            Iterator<String> iterator = multiRequest.getFileNames();
+            while (iterator.hasNext()) {
+                MultipartFile file = multiRequest.getFile(iterator.next());
+                if (file != null) {
+                    String suffix = FileUtils.suffix(file.getOriginalFilename());
+                    if(validate != null){
+                        suffix = validate.validate(suffix);
+                    }
+                    //String filePath = FileUtils.appendSuffix(file.getName(), suffix);
+                    //if(StringUtils.isNotBlank(subDic)){
+                    //    filePath = FileUtils.path(subDic, filePath);
+                    //}
+                    //file.transferTo(FileUtils.file(FileUtils.path(baseDic, filePath), true));
+                    HashMap<Integer, String> map = new HashMap<Integer,String>();
+                    
+                    
+                    
+                    collection.add(map);
+                }
+            }
+        }
+        return collection;
+    }
+    
     public static File saveSingle(HttpServletRequest request, String baseDic, String subDic, ValidateSuffix validate) throws IOException {
         //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());

@@ -12,12 +12,13 @@ import com.ycg.ksh.common.exception.ParameterException;
 import com.ycg.ksh.common.extend.mybatis.page.CustomPage;
 import com.ycg.ksh.entity.persistent.*;
 import com.ycg.ksh.entity.service.*;
-import com.ycg.ksh.entity.persistent.*;
 import com.ycg.ksh.entity.service.enterprise.OrderAlliance;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * 回单管理
@@ -317,4 +318,12 @@ public interface ReceiptService {
      * @throws ParameterException
      */
     Collection<ImageStorage> listIamgesByOrderKey(Long orderKey) throws BusinessException, ParameterException;
+
+    /**
+     * 三菱物流专享
+     * 批量上传回单
+     * @param user
+     * @param collection
+     */
+    void saveReceipt(User user, HashMap<Integer, String> collection);
 }

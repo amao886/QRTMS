@@ -1400,4 +1400,29 @@ public class ReceiptServiceImpl implements ReceiptService, WaybillObserverAdapte
         }
         return null;
     }
+
+    /**
+     * @see com.ycg.ksh.service.api.ReceiptService#saveReceipt(com.ycg.ksh.entity.persistent.User, java.util.Collection)
+     */
+    @Override
+    public void saveReceipt(User user, HashMap<Integer, String> collection) {
+        Assert.notEmpty(collection, "回单图片地址不能为空");
+        try {
+            for(Map.Entry<Integer,String> entry : collection.entrySet()) {
+                WaybillReceipt receipt = new WaybillReceipt(user.getId(), user.getUname(), entry.getKey());
+                if (receiptMapper.insert(receipt) > 0) {
+                    //imageInfoMapper.insertSelective(new ImageInfo(entry.getValue(), receipt.getCreatetime(), receipt.getId()));
+                    Collection<ImageInfo> imageInfos = new ArrayList<ImageInfo>();
+                    imageInfos.add(new ImageInfo(entry.getValue(), receipt.getCreatetime(), receipt.getId()));
+                    Waybill waybill = waybillMapper.selectByPrimaryKey(entry.getKey());
+                    saveReceipt(WaybillContext.buildContext(user, waybill), receipt, imageInfos, true);
+                }
+            }
+        } catch (BusinessException | ParameterException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error("回单信息保存异常 {} {} ", user.getId(), collection, e);
+            throw BusinessException.dbException("回单信息保存异常");
+        }
+    }
 }

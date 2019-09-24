@@ -177,7 +177,7 @@ public class DriverServiceImpl implements DriverService, BarcodeObserverAdapter,
         if (StringUtils.isNotBlank(receipt.getBarcode()) && count != null && count > 0) {
             try {
                 //上传回单时卸货
-                unloadQuiet(receipt.getUserId(), receipt.getBarcode());
+                unloadQuiet(receipt.getUserId(), receipt.getBarcode());//2019-9-23 业务待确认
             } catch (Exception e) {
                 logger.error("上传回单卸货时异常 {} {}", receipt, count, e);
                 throw new BusinessException("上传回单卸货时异常");
@@ -190,7 +190,7 @@ public class DriverServiceImpl implements DriverService, BarcodeObserverAdapter,
         if (StringUtils.isNotBlank(context.getBarcode()) && count != null && count > 0) {
             try {
                 //上传回单时卸货
-                unloadQuiet(context.getUserKey(), context.getBarcode());
+                unloadQuiet(context.getUserKey(), context.getBarcode());//2019-9-23 业务待确认
             } catch (Exception e) {
                 logger.error("上传回单卸货时异常 {} {}", receipt, count, e);
                 throw new BusinessException("上传回单卸货时异常");

@@ -495,10 +495,10 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
                 if (waybill == null) {
                     throw new ParameterException(waybillKey, "指定任务单不存在");
                 }
-                //判断用户是否有操作权限
-                if (!permissionService.validateByWaybillID(waybillKey, userId, PermissionCode.CONFIRM_RECEIVE)) {
+                //判断用户是否有操作权限(确定到货，权限修改)
+                /*if (!permissionService.validateByWaybillID(waybillKey, userId, PermissionCode.CONFIRM_RECEIVE)) {
                     throw new BusinessException("没有确认到货的权限");
-                }
+                }*/
                 WaybillFettle waybillFettle = WaybillFettle.convert(waybill.getWaybillStatus());
                 if (waybillFettle.unbind()) {
                     throw new BusinessException("未绑定状态不能确认收货!!!");
@@ -1027,7 +1027,7 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
                 }
                 WaybillFettle waybillFettle = context.getWaybillStatus();
                 if (!waybillFettle.unbind() && !waybillFettle.cancel()) {
-                    context.setWaybillStatus(WaybillFettle.ARRIVE);
+                    //context.setWaybillStatus(WaybillFettle.ARRIVE);//2019-9-23 业务待确认
                     context.setConfirmDeliveryWay(Constant.CONFIRM_DELIVERY_WAY_RECEIPT);
                 }
                 if (context.getActualArrivalTime() == null) {

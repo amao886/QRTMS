@@ -8,7 +8,6 @@ import com.ycg.ksh.api.backstage.model.ReceiptModel;
 import com.ycg.ksh.api.common.socket.CustomWebSocketHandler;
 import com.ycg.ksh.api.common.socket.SocketConstant;
 import com.ycg.ksh.api.common.controller.BaseController;
-import com.ycg.ksh.api.common.socket.SocketHelper;
 import com.ycg.ksh.common.constant.Constant;
 import com.ycg.ksh.common.constant.Directory;
 import com.ycg.ksh.common.entity.FileEntity;
@@ -35,11 +34,15 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -738,5 +741,58 @@ public class ReceiptController extends BaseController {
         }
         receiptService.saveReceipt(user, waybillKey, collection, false);
         return JsonResult.SUCCESS;
+    }
+    
+    @RequestMapping(value = "/batchupload", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult batchUpload(HttpServletRequest request) throws Exception {
+        User user = RequestUitl.getUserInfo(request);
+        JsonResult jsonResult = new JsonResult(true, "上传成功");
+        HashMap<Integer, String> collection = saveReceipt(request, SystemUtils.directoryUpload(), Directory.UPLOAD_RECEIPT.getDir());
+        if (collection.isEmpty()) {
+            throw new BusinessException("请上传一个回单文件!!!");
+        }
+        receiptService.saveReceipt(user,collection);
+        jsonResult.put("imgUrl",SystemUtils.staticPathPrefix());
+        jsonResult.put("imagPaths", collection.values());
+        return jsonResult;
+    }
+    
+    
+    private  HashMap<Integer, String> saveReceipt(HttpServletRequest request, String baseDic, String subDic) throws Exception {
+        HashMap<Integer, String> map = new HashMap<Integer,String>();
+        //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        //检查form中是否有enctype="multipart/form-data"
+        if (multipartResolver.isMultipart(request)) {
+            //将request变成多部分request
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+            //获取multiRequest 中所有的文件名
+            Iterator<String> iterator = multiRequest.getFileNames();
+            while (iterator.hasNext()) {
+                MultipartFile file = multiRequest.getFile(iterator.next());
+                if (file != null) {
+                    String suffix = FileUtils.suffix(file.getOriginalFilename());
+                    if (StringUtils.isBlank(suffix)) {
+                        suffix = "jpeg";
+                    }
+                    if (!FileUtils.isImage(suffix)) {
+                        throw new BusinessException("必须是图片文件,请重新选择文件!!!");
+                    }
+                    String fileName = FileUtils.name(file.getOriginalFilename());
+                   
+                    Waybill waybill = waybillService.getWaybillByCode(fileName);
+                    if(waybill == null) continue;
+                    String filePath = FileUtils.appendSuffix(fileName, suffix);
+                    if(StringUtils.isNotBlank(subDic)){
+                        filePath = FileUtils.path(subDic, filePath);
+                    }
+                    file.transferTo(FileUtils.file(FileUtils.path(baseDic, filePath), true));
+                    map.put(waybill.getId(), "/" + filePath);
+                    logger.info("saveReceipt=========>waybillId:{},filePath:{}",waybill.getId(),filePath);
+                }
+            }
+        }
+        return map;
     }
 }
