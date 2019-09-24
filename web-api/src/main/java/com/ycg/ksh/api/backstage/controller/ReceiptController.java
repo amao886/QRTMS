@@ -783,7 +783,7 @@ public class ReceiptController extends BaseController {
                    
                     Waybill waybill = waybillService.getWaybillByCode(fileName);
                     if(waybill == null) continue;
-                    String filePath = FileUtils.appendSuffix(fileName, suffix);
+                    String filePath = FileUtils.appendSuffix(StringUtils.UUID(), suffix);
                     if(StringUtils.isNotBlank(subDic)){
                         filePath = FileUtils.path(subDic, filePath);
                     }
