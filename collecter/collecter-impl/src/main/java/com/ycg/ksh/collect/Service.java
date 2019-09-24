@@ -6,6 +6,6 @@ public class Service {
 
 
     public static void main(String[] args) {
-        new com.ycg.ksh.common.dubbo.Service("collect", ArrayUtils.isNotEmpty(args) ? args[0] : "dev").execute();
+        new com.ycg.ksh.common.dubbo.Service("collect", ArrayUtils.isNotEmpty(args) ? args[0] : "local").execute();
     }
 }

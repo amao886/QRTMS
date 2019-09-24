@@ -73,8 +73,8 @@
 			<system.file.root value="D:/storage" />
 			<system.wx.unionid value="false" />
 			<!-- weixin settings -->
-			<net.wx.common.appid value="wx07bb0817e2487ef6" />
-			<net.wx.common.appsecret value="383a031671a29425a4f711fcf80edc63" />
+			<net.wx.common.appid value="wxb7df6f7ff3599fa8" />
+			<net.wx.common.appsecret value="60953f1f9b39dcb3707cef93741f6619" />
 			<net.wx.msg.template>
 				<whsign value="CfbH83SyQ1gQX50fboJKU41UsU-z9p094vI8JAHIzuA"/><!-- 完好签收模板消息编号 -->
 				<ycsign value="uo_rhY_q5xYb2cjaQlQolDSGQp5gGgxtUWB-XJ1GGv8"/><!-- 异常签收模板消息编号 -->
@@ -91,7 +91,7 @@
 			</e.sign.service.yunghetong>
 			<rabbitmq>
 				<vhost value="vhost_ycd"/>
-				<addresses value="58.221.6.82:56720"/>
+				<addresses value="192.168.0.114:5672"/>
 				<username value="user_qlm"/>
 				<password value="geweiit.com%"/>
 			</rabbitmq>

@@ -4,6 +4,6 @@
 .project
 .settings
 .classpath
-/logs
+/logs/
 *.log
 *.log.zip

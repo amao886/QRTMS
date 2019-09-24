@@ -7,8 +7,8 @@
 	<packaging>pom</packaging>
 	<description>物流可视化父项目</description>
 	<organization>
-		<name>远成集团</name>
-		<url>http://www.ycgwl.com</url>
+		<name>乐翰科技</name>
+		<url>http://www.lehan-tech.com</url>
 	</organization>
 
 
@@ -839,11 +839,11 @@
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
-			<url>http://192.168.0.127:8888/nexus/content/repositories/releases/</url>
+			<url>http://192.168.0.127:8888/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
-			<url>http://192.168.0.127:8888/nexus/content/repositories/snapshots/</url>
+			<url>http://192.168.0.127:8888/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 </project>

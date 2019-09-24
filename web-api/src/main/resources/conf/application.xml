@@ -51,7 +51,7 @@
 			</rabbitmq>
 
 			<!-- file settings  -->
-			<static.path.prefix value="http://localhost:8088/res" />
+			<static.path.prefix value="http://51rong.51vip.biz/res" />
 			<system.file.root value="D:/storage" />
 
 			<!-- weixin settings http://www.fty628.top -->

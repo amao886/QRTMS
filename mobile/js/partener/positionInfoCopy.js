@@ -50,7 +50,6 @@ function getBarCodeInfo(){
 		})
 		//点击确认到货
 		$('#isConfirm').click(function(){
-			$.toast(waybillId);
 			$.confirm({
 			  	title: '提示',
 			  	text: '是否确认到货及未审核的回单都设置为合格？',

@@ -52,7 +52,7 @@ public class ApiUtil {
         //创建公众号菜单
         //prod : 生产环境，test:测试环境，dev:开发环境，其他值为私人测试号
         try {
-            ApiUtil.build("prod");
+            ApiUtil.build("test");
         } catch (Exception e) {
             e.printStackTrace();
         }
