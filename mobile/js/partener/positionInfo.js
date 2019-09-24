@@ -47,9 +47,9 @@ function getBarCodeInfo(){
 		})
 		
 		//点击继续扫码
-		/*$('#scanCode').click(function(){
+		$('#scanCode').click(function(){
 			scanCode();
-		})*/
+		})
 		//确认到货
 		$('#isConfirm').click(function(){
 			$.toast(waybillId);
