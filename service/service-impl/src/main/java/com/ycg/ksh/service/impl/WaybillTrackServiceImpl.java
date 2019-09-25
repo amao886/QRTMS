@@ -4,11 +4,13 @@
 package com.ycg.ksh.service.impl;
 
 import com.ycg.ksh.adapter.api.AutoMapService;
+import com.ycg.ksh.adapter.api.SmsService;
 import com.ycg.ksh.common.constant.Constant;
 import com.ycg.ksh.common.exception.BusinessException;
 import com.ycg.ksh.common.exception.ParameterException;
 import com.ycg.ksh.common.extend.cache.LocalCacheManager;
 import com.ycg.ksh.common.util.Assert;
+import com.ycg.ksh.common.util.DateUtils;
 import com.ycg.ksh.common.util.StringUtils;
 import com.ycg.ksh.entity.adapter.AutoMapLocation;
 import com.ycg.ksh.entity.common.constant.WaybillFettle;
@@ -63,10 +65,11 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 	DriverTrackMapper driverTrackMapper;
     @Resource
 	TransitionTrackMapper transitionTrackMapper;
+    @Resource
+    SmsService smsService;
 	
 	@Autowired(required=false)
 	Collection<TrackObserverAdapter> observers;
-	
 
 
 	/**
@@ -155,6 +158,10 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 
 	private void locationReport(WaybillContext context, WaybillTrack track, boolean driver) throws ParameterException, BusinessException {
 		if(trackMapper.insertSelective(track) > 0) {
+		    if(trackMapper.queryTracks(track.getWaybillid(), null)==null) {
+		        String sendContent = String.format(Constant.SMS_LOCATION_STRING, context.getReceiverName(),context.getNumber(),context.getSimpleStartStation(),context.getDeliveryNumber(),DateUtils.date2Str(context.getArrivaltime()));
+		        smsService.sendmsg(context.getContactPhone(), sendContent);//第一次定位发生短信
+		    }
 			if(driver) {
 	        	if(driverScanMapper.selectCount(new WaybillDriverScan(track.getWaybillid(), track.getUserid())) <= 0) {
 	                driverScanMapper.insertSelective(new WaybillDriverScan(track.getWaybillid(), track.getUserid(), 1, track.getCreatetime()));
@@ -335,10 +342,10 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 					}
 				}
 				if(CollectionUtils.isNotEmpty(waybillTracks)){
-					trackMapper.inserts(waybillTracks);
-					/*for (WaybillTrack waybillTrack : waybillTracks) {
+					//trackMapper.inserts(waybillTracks);
+					for (WaybillTrack waybillTrack : waybillTracks) {
 						locationReport(WaybillContext.buildContext(uKey, waybillService.getWaybillById(waybillTrack.getWaybillid())), waybillTrack, true);
-					}*/
+					}
 				}
 			} catch (BusinessException | ParameterException e) {
 				throw e;
