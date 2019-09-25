@@ -386,6 +386,6 @@ public interface Constant {
     
     /*短信模板*/
     String SMS_CODE_STRING = "您的验证码是 %s，请在对应页面提交验证码完成验证。若不是本人操作，请忽略";//模板请勿修改注册登录
-    String SMS_LOCATION_STRING = "%s，您好！您采购的BS轮胎合计%s条，已从%s发出，送货单号%s。谢谢！";//模板请勿修改第一次上报位置
+    String SMS_LOCATION_STRING = "%s，您好！您采购的BS轮胎合计%s条，已从%s发出，送货单号%s，预计达到时间为%s。谢谢！";//模板请勿修改第一次上报位置
     String SMS_SIGN_STRING = "%s，您好！您订购的BS轮胎关联送货单号%s已签收。谢谢！";//模板请勿修改签收模板
 }

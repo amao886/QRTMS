@@ -162,6 +162,7 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 	        }
 	        if(CollectionUtils.isNotEmpty(observers)) {
 	            for (TrackObserverAdapter abstractObserver : observers) {
+	                logger.info("TrackObserverAdapter=========测试定位==========");
 	                abstractObserver.notifyLocationReport(context, track, driver);
 	            }
 	        }
