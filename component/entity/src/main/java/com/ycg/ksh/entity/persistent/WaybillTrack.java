@@ -79,7 +79,12 @@ public class WaybillTrack extends BaseEntity {
 		this.locations = locations;
 		this.createtime = createtime;
 	}
-
+	
+	public WaybillTrack(Integer waybillid) {
+        super();
+        this.waybillid = waybillid;
+    }
+	
 	public WaybillTrack(Integer waybillid, Integer userid, Date createtime) {
 		super();
 		this.waybillid = waybillid;

@@ -157,11 +157,11 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 	}
 
 	private void locationReport(WaybillContext context, WaybillTrack track, boolean driver) throws ParameterException, BusinessException {
+	    if(trackMapper.selectCount(new WaybillTrack(track.getWaybillid()))==0) {
+	        String sendContent = String.format(Constant.SMS_LOCATION_STRING, context.getReceiverName(),context.getNumber(),context.getSimpleStartStation(),context.getDeliveryNumber(),DateUtils.date2Str(context.getArrivaltime()));
+	        smsService.sendmsg(context.getContactPhone(), sendContent);//第一次定位发生短信
+	    }
 		if(trackMapper.insertSelective(track) > 0) {
-		    if(trackMapper.queryTracks(track.getWaybillid(), null)==null) {
-		        String sendContent = String.format(Constant.SMS_LOCATION_STRING, context.getReceiverName(),context.getNumber(),context.getSimpleStartStation(),context.getDeliveryNumber(),DateUtils.date2Str(context.getArrivaltime()));
-		        smsService.sendmsg(context.getContactPhone(), sendContent);//第一次定位发生短信
-		    }
 			if(driver) {
 	        	if(driverScanMapper.selectCount(new WaybillDriverScan(track.getWaybillid(), track.getUserid())) <= 0) {
 	                driverScanMapper.insertSelective(new WaybillDriverScan(track.getWaybillid(), track.getUserid(), 1, track.getCreatetime()));
