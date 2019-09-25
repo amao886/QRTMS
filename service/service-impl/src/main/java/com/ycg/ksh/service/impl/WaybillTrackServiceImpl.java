@@ -335,10 +335,10 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 					}
 				}
 				if(CollectionUtils.isNotEmpty(waybillTracks)){
-					//trackMapper.inserts(waybillTracks);
-					for (WaybillTrack waybillTrack : waybillTracks) {
+					trackMapper.inserts(waybillTracks);
+					/*for (WaybillTrack waybillTrack : waybillTracks) {
 						locationReport(WaybillContext.buildContext(uKey, waybillService.getWaybillById(waybillTrack.getWaybillid())), waybillTrack, true);
-					}
+					}*/
 				}
 			} catch (BusinessException | ParameterException e) {
 				throw e;
