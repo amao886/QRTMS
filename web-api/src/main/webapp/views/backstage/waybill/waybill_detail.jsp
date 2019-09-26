@@ -277,6 +277,20 @@
             </c:forEach>
         </div>
     </div>
+    <!--轨迹信息-->
+    <div class="dcontent-part">
+        <h2>轨迹信息</h2>
+        <div class="track-con">
+        	<c:if test="${waybill.tracks == null || fn:length(waybill.tracks) <= 0}">
+                <div class="track-sub-part track-con-bg">暂无轨迹信息</div>
+            </c:if>
+        	<c:forEach items="${waybill.tracks}" var="track">
+	        	<ul>
+	        		<li>${track.locations }</li>  <li><someprefix:dateTime date="${track.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/></li>
+	        	</ul>
+        	</c:forEach>
+        </div>
+    </div>
 </div>
 </body>
 <%@ include file="/views/include/floor.jsp" %>
