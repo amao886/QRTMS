@@ -2,9 +2,16 @@ package com.ycg.ksh.entity.persistent;
 
 import javax.persistence.*;
 
+import com.ycg.ksh.common.entity.BaseEntity;
+
 @Table(name = "`leadtime_tab`")
-public class Leadtime {
-    @Column(name = "`shipcity`")
+public class Leadtime extends BaseEntity{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Column(name = "`shipcity`")
     private String shipcity;
 
     @Column(name = "`descity`")

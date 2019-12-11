@@ -173,6 +173,8 @@ public class ManagingUsersServiceImpl implements ManagingUsersService, UserObser
                 managingUsersMapper.updateByPrimaryKeySelective(manager);
             }
             return manager;
+        }catch (BusinessException | ParameterException e) {
+        	throw e;
         } catch (Exception e) {
             logger.error("bindUser -> userId:{} adminKey:{}", userId, adminKey, e);
             throw BusinessException.dbException("管理员账号绑定异常");

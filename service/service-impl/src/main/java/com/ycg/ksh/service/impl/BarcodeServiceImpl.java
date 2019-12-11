@@ -291,10 +291,10 @@ public class BarcodeServiceImpl implements BarCodeService, WaybillObserverAdapte
     public CustomPage<MergeApplyRes> pageApplyResList(MergeApplyRes applyRes, PageScope pageScope, Integer type) throws BusinessException {
         Page<MergeApplyRes> page = null;
         switch (type) {
-            case 1:
+            case 1://项目组条码资源
                 page= applyResMapper.queryApplyResList(applyRes, new RowBounds(pageScope.getPageNum(), pageScope.getPageSize()));
                 break;
-            case 2:
+            case 2://公司条码资源
             	String uname = applyRes.getUname();
             	if(StringUtils.isNotBlank(uname)){
             		applyRes.setUname(UserUtil.encodeName(uname));
@@ -522,6 +522,7 @@ public class BarcodeServiceImpl implements BarCodeService, WaybillObserverAdapte
                         entity.setSize(FileUtils.size(zipFile.length(), FileUtils.ONE_MB));
                     }
                 } else {
+                	if(files.length==0) throw new BusinessException("无可用条码");
                     File file = FileUtils.copyFileToDirectory(files[0], new File(SystemUtils.directoryDownload()), true);
                     if (file != null) {
                         entity.setCount(files.length);

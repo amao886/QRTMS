@@ -725,6 +725,7 @@ public class ReceiptController extends BaseController {
         context.setAssociate(WaybillAssociate.associateProjectGroup());
         model.addAttribute("page", waybillService.pageMergeWaybill(context));
         model.addAttribute("search", body);
+        model.addAttribute("userType", u.getUserType());
         return "/backstage/receipt/waithandle";
     }
 
@@ -742,7 +743,12 @@ public class ReceiptController extends BaseController {
         receiptService.saveReceipt(user, waybillKey, collection, false);
         return JsonResult.SUCCESS;
     }
-    
+    /**
+     * 批量回单上传
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/batchupload", method = RequestMethod.POST)
     @ResponseBody
     public JsonResult batchUpload(HttpServletRequest request) throws Exception {
@@ -780,8 +786,8 @@ public class ReceiptController extends BaseController {
                         throw new BusinessException("必须是图片文件,请重新选择文件!!!");
                     }
                     String fileName = FileUtils.name(file.getOriginalFilename());
-                   
-                    Waybill waybill = waybillService.getWaybillByCode(fileName);
+                    //根据送货单号查询(送货单号必须唯一)
+                    Waybill waybill = waybillService.getWaybillByDeliveryNumber(fileName);
                     if(waybill == null) continue;
                     String filePath = FileUtils.appendSuffix(StringUtils.UUID(), suffix);
                     if(StringUtils.isNotBlank(subDic)){

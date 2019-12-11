@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.xml.crypto.Data;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.session.RowBounds;
@@ -46,6 +45,7 @@ import com.ycg.ksh.common.util.DateUtils;
 import com.ycg.ksh.common.util.FileUtils;
 import com.ycg.ksh.common.util.RegionUtils;
 import com.ycg.ksh.common.util.StringUtils;
+import com.ycg.ksh.common.util.Validator;
 import com.ycg.ksh.entity.adapter.AutoMapLocation;
 import com.ycg.ksh.entity.common.constant.PermissionCode;
 import com.ycg.ksh.entity.common.constant.ReceiptVerifyFettle;
@@ -513,7 +513,10 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
                     modifyWaybillContext(context);
                     //确定到货发送短信
                     String sendContent = String.format(Constant.SMS_SIGN_STRING,context.getReceiverName(),context.getDeliveryNumber());
-                    smsService.sendmsg(context.getContactPhone(), sendContent);
+                    String m = context.getContactPhone();
+                    if(Validator.isMobile((m))) {
+                    	smsService.sendmsg(m, sendContent);
+                    }
                 }
             }
         } catch (BusinessException | ParameterException e) {
@@ -1105,13 +1108,15 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             }
             
             if (context.getDeliveryTime() == null && context.getPositionCount() > 1) {
-                context.setDeliveryTime(currentTime);
+                context.setDeliveryTime(StringUtils.isNotBlank(context.getLoadTime()) ? DateUtils.parseToDate(context.getLoadTime()) : currentTime);
                 context.setArrivaltime(WaybillUtils.arrivaltime(context));
             }
             WaybillFettle waybillFettle = context.getWaybillStatus();
             if(driverScan){
+            	logger.info("TrackObserverAdapter=========测试定位driverScan=========={}, waybillFettle{}",driverScan,waybillFettle);
                 if(waybillFettle.bind()){
                     context.setWaybillStatus(WaybillFettle.ING);
+                    logger.info("setWaybillStatus=========测试定位1111111==========");
                 }
                 if (waybillFettle.ing() || waybillFettle.bind()) {
                     if (context.getFenceStatus() != null && Constant.GRATESATUS_ON - context.getFenceStatus() == 0) {
@@ -1128,10 +1133,7 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             }
             if (context.isExecute()) {
                 waybillMapper.updateByPrimaryKeySelective(context.getUpdate());
-                /*if(waybillMapper.updateByPrimaryKeySelective(context.getUpdate())>0 && context.getPositionCount()==1){
-                	String sendContent = String.format(Constant.SMS_LOCATION_STRING, context.getReceiverName(),context.getNumber(),context.getSimpleStartStation(),context.getDeliveryNumber(),DateUtils.date2Str(context.getArrivaltime()));
-                	smsService.sendmsg(context.getContactPhone(), sendContent);//第一次定位发生短信
-                }*/
+                logger.info("<===setWaybillStatus=========update=========={}",context.getUpdate());
             }
         } catch (BusinessException | ParameterException e) {
             throw e;
@@ -1178,7 +1180,8 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
      */
     @Override
     public void notifyLoadContainer(DriverContainer container, BarcodeContext context) throws BusinessException {
-        if (context != null && context instanceof GroupCodeContext && context.fettle().bind()) {
+    	logger.info("收到运单装车通知2 -> {} {}", container, context);
+    	if (context != null && context instanceof GroupCodeContext && context.fettle().bind()) {
             Waybill waybill = getWaybillByCode(context.getBarcode());
             container.setReceiverName(waybill.getReceiverName());
             container.setContactName(waybill.getContactName());
@@ -1191,6 +1194,9 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
                 Waybill update = new Waybill();
                 update.setId(waybill.getId());
                 update.setDeliveryTime(container.getLoadTime());
+                if(StringUtils.isNotBlank(waybill.getLoadTime())) {
+                	update.setDeliveryTime(DateUtils.parseToDate(waybill.getLoadTime()));//更新发货时间
+            	}
                 update.setArrivaltime(WaybillUtils.arrivaltime(update.getDeliveryTime(), waybill));
                 waybillMapper.updateByPrimaryKeySelective(update);
             }
@@ -1226,81 +1232,48 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
      */
     @Override
     public void saves(Integer uKey, Integer gKey, Customer customer, Collection<MergeWaybill> collection) throws ParameterException, BusinessException {
-        if(CollectionUtils.isEmpty(collection)){ return; }
         for (MergeWaybill mergeWaybill : collection) {
-        	//如果导入的发货人客户编码不为空查询数据库中对应的发货人信息，否则直接获取excel中数据
-        	if(StringUtils.isNotBlank(mergeWaybill.getShipperCode())) {
-        		Customer customerS = customerMapper.queryCustomerByCode(mergeWaybill.getShipperCode());
-        		if(customerS != null) {
-        			mergeWaybill.setShipperName(customerS.getCompanyName());
-        			mergeWaybill.setShipperAddress(customerS.getAddress());
-        			mergeWaybill.setShipperContactName(customerS.getContacts());;
-        			mergeWaybill.setShipperContactTel(customerS.getContactNumber());
-        			mergeWaybill.setStartStation(RegionUtils.merge(customerS.getProvince(), customer.getCity(), customer.getDistrict()));
-        			mergeWaybill.setSimpleStartStation(RegionUtils.simple(customerS.getProvince(), customer.getCity(), customer.getDistrict()));
-        		}
-        		
-        	}
-        	//如果导入的收货人客户编码不为空查询数据库中对应的收货人信息，否则直接获取excel中数据
-        	if(StringUtils.isNotBlank(mergeWaybill.getReceiverCode())) {
-        		Customer customerR = customerMapper.queryCustomerByCode(mergeWaybill.getReceiverCode());
-        		if(customerR != null) {
-        			mergeWaybill.setReceiverName(customerR.getCompanyName());
-        			mergeWaybill.setReceiveAddress(customerR.getAddress());
-        			mergeWaybill.setContactName(customerR.getContacts());
-        			mergeWaybill.setContactPhone(customerR.getContactNumber());
-        			mergeWaybill.setEndStation(RegionUtils.merge(customerR.getProvince(), customer.getCity(), customer.getDistrict()));
-        			mergeWaybill.setSimpleEndStation(RegionUtils.simple(customerR.getProvince(), customer.getCity(), customer.getDistrict()));
-        		}
-        	}
-            Waybill waybill = WaybillUtils.initializeSomething(mergeWaybill, Constant.WAYBILL_STATUS_WAIT);
-            waybill.setUserid(uKey);
-            waybill.setGroupid(gKey);
-            Integer aDay = null, aHour = null;
-            if(mergeWaybill.getArriveDay() == null || mergeWaybill.getArriveHour()== null) {
-            	String s = (mergeWaybill.getSimpleStartStation()==null?"":mergeWaybill.getSimpleStartStation()).replaceAll("市", "");
-            	String e = (mergeWaybill.getSimpleEndStation()==null?"":mergeWaybill.getSimpleEndStation()).replaceAll("市", "");
-            	Leadtime leadtime = leadtimeMapper.quseryByShipCityAndDesCity(s, e);
-            	aDay = leadtime.getLt();
-            	aHour = 9;
-            }
-            if (mergeWaybill.getArriveDay() != null) {
-                aDay = Integer.valueOf(mergeWaybill.getArriveDay());
-            }
-            if (mergeWaybill.getArriveHour() != null) {
-                aHour = Integer.valueOf(mergeWaybill.getArriveHour());
-            }
-            if(customer != null){
-                waybill.setShipperAddress(customer.getAddress());
-                waybill.setShipperContactName(customer.getContacts());
-                waybill.setShipperContactTel(customer.getContactNumber());
-                waybill.setShipperName(customer.getCompanyName());
-                waybill.setShipperTel(customer.getTel());
-                waybill.setStartStation(RegionUtils.merge(customer.getProvince(), customer.getCity(), customer.getDistrict()));
-                waybill.setSimpleStartStation(RegionUtils.simple(customer.getProvince(), customer.getCity(), customer.getDistrict()));
-            }
-            coordinate(waybill, mergeWaybill.getShipperAddress(), mergeWaybill.getReceiveAddress());//处理坐标
-            WaybillUtils.completeSomething(waybill, mergeWaybill.getGoods());
-            waybill.setArrivaltime(WaybillUtils.arrivaltime(waybill, aDay, aHour));
-            if (waybillMapper.insertSelective(mergeWaybill) > 0) {
-                if (CollectionUtils.isNotEmpty(mergeWaybill.getGoods())) {
-                    for (Goods goods : mergeWaybill.getGoods()) {
-                        goods.setWaybillid(waybill.getId());
-                        goods.setCreateTime(waybill.getCreatetime());
-                        goods.setUpdateTime(waybill.getCreatetime());
-                    }
-                    goodsMapper.insertBatch(mergeWaybill.getGoods());
-                }
-                WaybillContext context = WaybillContext.buildContext(uKey, waybill);
-                if (CollectionUtils.isNotEmpty(observers)) {
-                    context.setExecute(false);
-                    for (WaybillObserverAdapter waybillAbstractObserver : observers) {
-                        waybillAbstractObserver.onCompleteWaybill(context, false);
-                    }
-                }
-                modifyWaybillContext(context);
-            }
-        }
+    		Waybill waybill = WaybillUtils.initializeSomething(mergeWaybill, Constant.WAYBILL_STATUS_WAIT);
+    		waybill.setUserid(uKey);
+    		waybill.setGroupid(gKey);
+    		Integer aDay = null, aHour = null;
+    		if (mergeWaybill.getArriveDay() != null) {
+    			aDay = Integer.valueOf(mergeWaybill.getArriveDay());
+    		}
+    		if (mergeWaybill.getArriveHour() != null) {
+    			aHour = Integer.valueOf(mergeWaybill.getArriveHour());
+    		}
+    		if(customer != null){
+    			waybill.setShipperAddress(customer.getAddress());
+    			waybill.setShipperContactName(customer.getContacts());
+    			waybill.setShipperContactTel(customer.getContactNumber());
+    			waybill.setShipperName(customer.getCompanyName());
+    			waybill.setShipperTel(customer.getTel());
+    			waybill.setStartStation(RegionUtils.merge(customer.getProvince(), customer.getCity(), customer.getDistrict()));
+    			waybill.setSimpleStartStation(RegionUtils.simple(customer.getProvince(), customer.getCity(), customer.getDistrict()));
+    		}
+    		coordinate(waybill, mergeWaybill.getShipperAddress(), mergeWaybill.getReceiveAddress());//处理坐标
+    		WaybillUtils.completeSomething(waybill, mergeWaybill.getGoods());
+    		waybill.setArrivaltime(WaybillUtils.arrivaltime(waybill, aDay, aHour));
+    		if (waybillMapper.insertSelective(mergeWaybill) > 0) {
+    			if (CollectionUtils.isNotEmpty(mergeWaybill.getGoods())) {
+    				for (Goods goods : mergeWaybill.getGoods()) {
+    					goods.setWaybillid(waybill.getId());
+    					goods.setCreateTime(waybill.getCreatetime());
+    					goods.setUpdateTime(waybill.getCreatetime());
+    				}
+    				goodsMapper.insertBatch(mergeWaybill.getGoods());
+    			}
+    			WaybillContext context = WaybillContext.buildContext(uKey, waybill);
+    			if (CollectionUtils.isNotEmpty(observers)) {
+    				context.setExecute(false);
+    				for (WaybillObserverAdapter waybillAbstractObserver : observers) {
+    					waybillAbstractObserver.onCompleteWaybill(context, false);
+    				}
+    			}
+    			modifyWaybillContext(context);
+    		}
+    	}
     }
 
     private void coordinate(Waybill waybill, String sendAddress, String reciveAddress){
@@ -1507,13 +1480,13 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
                     //builder.append("0").append(waybillKey).append(RandomUtils.string(count));//打印条码生产需要修改
                 	Barcode barcode = barcodeList.get(i);
                     if(barcode == null) throw new BusinessException("[该项目组剩可用条码数量不足，请申请后再操作！]");
-                    logger.info("==========next barcode=========>{}",barcode.getBarcode());
                     String barcodeStr = barcode.getBarcode();
                     WaybillContext context = WaybillContext.buildContext(userKey, waybill);
                     context.setBarcode(barcodeStr);
                     context.setWaybillStatus(WaybillFettle.BOUND);
                     context.setBindTime(ctime);
-                    context.setDeliveryTime(ctime);
+                    logger.info("==========buildBarcode=========>barcode:{}",barcode.getBarcode());
+                    context.setDeliveryTime(StringUtils.isNotBlank(waybill.getLoadTime()) ? DateUtils.parseToDate(waybill.getLoadTime()) : ctime);
                     //builder.setLength(0);
                     //barCodeService.save(context.getUserid(), context.getGroupid(), context.getBarcode());
                     barCodeService.updateStatusById(barcode);
@@ -1561,13 +1534,18 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             File destFile = FileUtils.newFile(fileEntity.getDirectory(), fileEntity.getFileName());
             easyExcel = EasyExcelBuilder.createWriteExcel(destFile);
             easyExcel.createSheet("出库单列表");
-            easyExcel.columnWidth(50,150, 50, 50,150, 70, 70, 10, 10, 60, 70, 70, 150, 10, 10);
-            easyExcel.header("提货日期","经销商简称","始发城市", "目的城市","配送地址", "装运号", "送货单号", "数量", "体积", "车型", "预计到达","实际到达日期","当前位置","距离目的地剩余（km）","上一次距离目的地剩余（km）");
+            easyExcel.columnWidth(50,150, 50, 50,150, 70, 70, 10, 10, 60, 70, 70, 150, 10, 10, 60);
+            easyExcel.header("提货日期","经销商简称","始发城市", "目的城市","配送地址", "装运号", "送货单号", "数量", "体积", "车型", "预计到达","实际到达日期","当前位置","距离目的地剩余（km）","上一次距离目的地剩余（km）","货物名称");
             for (Waybill waybill : depotAlliances) {
+            	List<Goods> goods = goodsMapper.select(new Goods(waybill.getId()));
+            	String goodName = null;
+            	if(CollectionUtils.isNotEmpty(goods)) {
+            		goodName = goods.get(0).getGoodsName();
+            	}
                 easyExcel.row(StringUtils.isNotBlank(waybill.getLoadTime()) ? DateUtils.dataformat(waybill.getLoadTime(),"yyyy-MM-dd") : "",waybill.getReceiverName(),StringUtils.isNotBlank(waybill.getSimpleStartStation())?waybill.getSimpleStartStation():"",waybill.getSimpleEndStation(),
                         StringUtils.isNotBlank(waybill.getReceiveAddress())? waybill.getReceiveAddress():"",StringUtils.isNotBlank(waybill.getLoadNo())? waybill.getLoadNo():"",StringUtils.isNotBlank(waybill.getDeliveryNumber()) ? waybill.getDeliveryNumber() :"",waybill.getNumber(),waybill.getVolume()==null?0:waybill.getVolume(),
                         StringUtils.isNotBlank(waybill.getCarType()) ? waybill.getCarType() : "",waybill.getArrivaltime() != null ? DateUtils.formatDate(waybill.getArrivaltime()) : "",waybill.getActualArrivalTime()!= null ? DateUtils.formatDate(waybill.getActualArrivalTime()):"",StringUtils.isNotBlank(waybill.getAddress()) ? waybill.getAddress() : "", 
-                                waybill.getDistance()!=null?waybill.getDistance():"",waybill.getPreDistance()!=null?waybill.getPreDistance():"");
+                                waybill.getDistance()!=null?waybill.getDistance():"",waybill.getPreDistance()!=null?waybill.getPreDistance():"",goodName);
             }
             easyExcel.write();
             fileEntity.setPath(destFile.getPath());
@@ -1642,6 +1620,7 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
 		String suffix = "pdf";
 		try {
 			WaybillSerach serach = object.toJavaBean(WaybillSerach.class);
+			serach.setWaybillKeys(StringUtils.integerCollection(object.get("waybillIds")));
 			logger.info("buildPDF====================>serach:{}",serach);
 			serach.setWaybillFettles(new Integer[]{20});
 			File directory = new File(SystemUtils.directoryTemp(suffix + gKey));
@@ -1714,4 +1693,24 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             throw BusinessException.dbException(Constant.FAIL_MSG);
         }
     }
+    
+	@Override
+	public Waybill getWaybillByDeliveryNumber(String deliveryNumber) throws ParameterException, BusinessException {
+		 Assert.notNull(deliveryNumber, "条码编号不能为空");
+	        try {
+	            String cacheKey = CACHE_KEY + deliveryNumber;
+	            Waybill waybill = null;
+	            Object cacheObject = cacheManager.get(cacheKey);
+	            if (cacheObject == null) {
+	                waybill = waybillMapper.selectByDeliveryNumber(deliveryNumber);
+	                cacheManager.set(cacheKey, waybill, 30L, TimeUnit.SECONDS);
+	            } else {
+	                waybill = (Waybill) cacheObject;
+	            }
+	            return waybill;
+	        } catch (Exception e) {
+	            logger.error("getWaybillByDeliveryNumber -> deliveryNumber:{}", deliveryNumber, e);
+	            throw BusinessException.dbException("根据送货单号查询运单信息异常");
+	        }
+	}
 }

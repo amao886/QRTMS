@@ -55,6 +55,7 @@ public class ResistDuplicateRequest {
 	//添加map
 	public boolean validate(HttpServletRequest httpServletRequest, String sessionKey, CacheManager cacheManager){
 	    if (pattern != null && pattern.matcher(httpServletRequest.getRequestURI()).find()) {
+	    	logger.info("validate()==================>:{}",httpServletRequest.getRequestURI());
             return true;
         }
 	    try {
@@ -62,6 +63,7 @@ public class ResistDuplicateRequest {
 	        Long ctime = System.currentTimeMillis();
 	        if(setNotExist(requestKey, ctime)){//本机
 	            if(cacheManager.setNotExist(requestKey, ctime)) {//分布式
+	            	logger.info("validate()==================>requestKey:{}",requestKey);
 	                return true;
 	            }
 	        }

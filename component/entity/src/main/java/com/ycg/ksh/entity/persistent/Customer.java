@@ -124,7 +124,7 @@ public class Customer extends BaseEntity {
     @Column(name = "`company_customer_id`")
     private Long companyCustomerId;
     
-    @Column(name = "`customerCode`")
+    @Column(name = "`customer_code`")
     private String customerCode;
     
     public Customer(Integer id) {

@@ -141,6 +141,15 @@ public interface WaybillService {
      * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-12-04 09:24:37
      */
     Waybill getWaybillByCode(String barcodeString) throws ParameterException, BusinessException;
+    
+    /**
+     * 根据送货单号获取运单信息
+     * @param deliveryNumber
+     * @return
+     * @throws ParameterException
+     * @throws BusinessException
+     */
+    Waybill getWaybillByDeliveryNumber(String deliveryNumber) throws ParameterException, BusinessException;
 
     /**
      * APP根据条码获取运单信息

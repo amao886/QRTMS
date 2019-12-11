@@ -18,6 +18,7 @@ import com.ycg.ksh.common.util.*;
 import com.ycg.ksh.common.util.encrypt.RSA;
 import com.ycg.ksh.common.util.encrypt.SignUtil;
 import com.ycg.ksh.common.validate.Validator;
+import com.alibaba.fastjson.JSONObject;
 import com.ycg.ksh.adapter.api.MessageQueueService;
 import com.ycg.ksh.adapter.api.SmsService;
 import com.ycg.ksh.constant.CoreConstants;
@@ -26,6 +27,7 @@ import com.ycg.ksh.entity.common.wechat.message.Message;
 import com.ycg.ksh.entity.common.wechat.message.MessageBuilder;
 import com.ycg.ksh.entity.common.wechat.message.common.TextMessage;
 import com.ycg.ksh.entity.persistent.User;
+import com.ycg.ksh.entity.service.AuthorityMenu;
 import com.ycg.ksh.entity.service.AuthorizeUser;
 import com.ycg.ksh.entity.service.user.UserContext;
 import com.ycg.ksh.service.api.AccessoryService;
@@ -81,30 +83,36 @@ public class SystemController extends BaseController {
 		accessoryService.modifyHotspot(u.getId(), HotspotType.convert(type), collection);
 		return JsonResult.SUCCESS;
 	}
-
+	
+	public MenuType getMenuType(AuthorizeUser u) {
+		if(u.getSysRole().getId() == 5) {
+			return MenuType.BACK;
+		}else if(u.getSysRole().getId() == 3) {
+			return MenuType.BACKSTAGE;
+		}
+		return MenuType.GROUP;
+	}
+	
 	@RequestMapping(value={"/group"})
 	public String group(HttpServletRequest request, Model model)throws Exception{
-		logger.debug("======group========");
-
-		model.addAttribute("menus", permissionService.loadAuthoritys(loadUserKey(request), MenuType.GROUP));
-
+		AuthorizeUser u = loadUser(request);
+		Collection<AuthorityMenu> menuList = permissionService.loadAuthoritys(u, getMenuType(u));
+		model.addAttribute("menus", menuList);
 		return "/group";
 	}
 	@RequestMapping(value={"/backstage"})
 	public String backstage(HttpServletRequest request, Model model)throws Exception{
-		logger.debug("======backstage========");
-
-		model.addAttribute("menus", permissionService.loadAuthoritys(loadUserKey(request), MenuType.BACKSTAGE));
-
+		AuthorizeUser u = loadUser(request);
+		model.addAttribute("menus", permissionService.loadAuthoritys(u, getMenuType(u)));
 		return "/backstage";
 	}
 
 	@RequestMapping(value={"/", "/index"})
 	public String index(HttpServletRequest request, Model model)throws Exception{
-		logger.debug("======index========");
-
+		AuthorizeUser u = loadUser(request);
 		//model.addAttribute("menus", permissionService.loadAuthoritys(loadUserKey(request), MenuType.NORMAL));
-		model.addAttribute("menus", permissionService.loadAuthoritys(loadUserKey(request), MenuType.GROUP));
+		Collection<AuthorityMenu> menuList = permissionService.loadAuthoritys(u, getMenuType(u));
+		model.addAttribute("menus", menuList);
 		return "/group";
 	}
 

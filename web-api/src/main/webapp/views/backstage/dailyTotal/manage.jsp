@@ -48,19 +48,21 @@
                     </div>
                 </div>
 				<div class="clearfix otherSelect">
-					<div class="fl col-middle">
-						<label class="labe_l">项目组:</label>
-						<select class="tex_t selec_t" name="groupid" id="selectGroup">
-							<c:forEach items="${groups}" var="group">
-								<c:if test="${billTotal.groupid == group.id }">
-									<option value="${ group.id}" selected>${group.groupName }</option>
-								</c:if>
-								<c:if test="${billTotal.groupid != group.id }">
-									<option value="${ group.id}">${group.groupName }</option>
-								</c:if>
-							</c:forEach>
-						</select>
-					</div>
+					<c:if test="${userType == 0}">
+						<div class="fl col-middle">
+							<label class="labe_l">项目组:</label>
+							<select class="tex_t selec_t" name="groupid" id="selectGroup">
+								<c:forEach items="${groups}" var="group">
+									<c:if test="${billTotal.groupid == group.id }">
+										<option value="${ group.id}" selected>${group.groupName }</option>
+									</c:if>
+									<c:if test="${billTotal.groupid != group.id }">
+										<option value="${ group.id}">${group.groupName }</option>
+									</c:if>
+								</c:forEach>
+							</select>
+						</div>
+					</c:if>
 					<div class="fl col-middle">
 						<label class="labe_l">收货客户:</label>
 						<input type="text" class="tex_t" placeholder="请输入客户名称筛选" name="companyName" value="${billTotal.companyName }">

@@ -124,15 +124,17 @@
                         </c:if>
                     </select>
                 </div>
-                <div class="fl col-min">
-                    <label class="labe_l">项目组:</label>
-                    <select class="tex_t selec_t" name="groupid">
-                        <option value="0" selected>其他</option>
-                        <c:forEach items="${groups}" var="group">
-                            <option value="${ group.id}" <c:if test="${group.id == search.groupid}"> selected</c:if>>${group.groupName }</option>
-                        </c:forEach>
-                    </select>
-                </div>
+                <c:if test="${userType == 0}">
+	                <div class="fl col-min">
+	                    <label class="labe_l">项目组:</label>
+	                    <select class="tex_t selec_t" name="groupid">
+	                        <option value="0" selected>其他</option>
+	                        <c:forEach items="${groups}" var="group">
+	                            <option value="${ group.id}" <c:if test="${group.id == search.groupid}"> selected</c:if>>${group.groupName }</option>
+	                        </c:forEach>
+	                    </select>
+	                </div>
+                </c:if>
             </div>
         </div>
     </form>

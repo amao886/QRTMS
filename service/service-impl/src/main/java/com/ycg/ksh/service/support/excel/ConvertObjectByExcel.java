@@ -158,7 +158,6 @@ public abstract class ConvertObjectByExcel<T> {
             appendMessage(builder, handler.validate(objects));
         }
         if(ConvertObjectByExcel.this instanceof DefaultTemplate) {
-        	System.out.println("this===============>"+this.getClass().getName());
         	appendMessage(builder,((DefaultTemplate)this).checkCustomer(objects));
         }
         for (ConvertHandler handler : analyzeCommodity()) {

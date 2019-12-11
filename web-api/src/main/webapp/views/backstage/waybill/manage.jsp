@@ -50,12 +50,14 @@
             <input type="hidden" name="num" value="${search.num }">
             <input type="hidden" name="size" value="14">
             <div class="selectCondition">
-                <select name="groupid" id="groupSelect" val="${search.groupid}">
-                    <c:forEach items="${groups}" var="group">
-                        <option value="${ group.id}">${group.groupName }</option>
-                    </c:forEach>
-                    <option value="0">其他</option>
-                </select>
+            	<c:if test="${userType == 0}">
+	                <select name="groupid" id="groupSelect" val="${search.groupid}">
+	                    <c:forEach items="${groups}" var="group">
+	                        <option value="${ group.id}">${group.groupName }</option>
+	                    </c:forEach>
+	                    <option value="0">其他</option>
+	                </select>
+            	</c:if>
                 <select name="TimeSearch" id="TimeSearch" val="${search.TimeSearch}">
                     <option value="3">近三天发货任务</option>
                     <option value="7">近一周发货任务</option>
@@ -120,19 +122,21 @@
     </div>
     <!-- 表格部分 -->
     <div class="table-style">
-        <div class="handle-box">
-            <button class="layui-btn layui-btn-normal" onclick="window.location.href='${basePath}/backstage/trace/send/goods'">我要发货</button>
-            <button class="layui-btn layui-btn-normal btn-print">任务单打印</button>
-            <button class="layui-btn layui-btn-normal btn_task_import">批量发货</button>
-            <button class="layui-btn layui-btn-normal" url="${template}" id="down_template">模板下载</button>
-            <button class="layui-btn layui-btn-warm link_sure_batch">确认到货</button>
-            <button class="layui-btn layui-btn-danger link_delete">删除</button>
-            <button class="layui-btn layui-btn-normal" id="batch_bind">批量綁定</button>
-            <button class="layui-btn layui-btn-normal" id="batch_down">已綁定任务单下载</button>
-            <button class="layui-btn layui-btn-normal" id="update_arrivaltime">预约送货日修改</button>
-			<button class="layui-btn layui-btn-normal" id="upload_receipt"  type="text">批量上传回单</button>
-            <!--<i class="layui-icon pos_right delete-icon link_delete">&#xe640;</i>-->
-        </div>
+    	<c:if test="${userType == 0}">
+	        <div class="handle-box">
+	            <button class="layui-btn layui-btn-normal" onclick="window.location.href='${basePath}/backstage/trace/send/goods'">我要发货</button>
+	            <button class="layui-btn layui-btn-normal btn-print">任务单打印</button>
+	            <button class="layui-btn layui-btn-normal btn_task_import">批量发货</button>
+	            <button class="layui-btn layui-btn-normal" url="${template}" id="down_template">模板下载</button>
+	            <button class="layui-btn layui-btn-warm link_sure_batch">确认到货</button>
+	            <button class="layui-btn layui-btn-danger link_delete">删除</button>
+	            <button class="layui-btn layui-btn-normal" id="batch_bind">批量綁定</button>
+	            <button class="layui-btn layui-btn-normal" id="batch_down">已綁定任务单下载</button>
+	            <button class="layui-btn layui-btn-normal" id="update_arrivaltime">预约送货日修改</button>
+				<button class="layui-btn layui-btn-normal" id="upload_receipt"  type="text">批量上传回单</button>
+	            <!--<i class="layui-icon pos_right delete-icon link_delete">&#xe640;</i>-->
+	        </div>
+    	</c:if>
         <table>
             <thead>
             <tr>
@@ -196,7 +200,9 @@
                     </td>
                     <td>
                         <a class="aBtn" href="${basePath}/backstage/trace/findById/${waybill.id}">查看</a>
-                        <a class="aBtn" href="${basePath}/backstage/trace/eidtview/${waybill.id}">编辑</a>
+                        <c:if test="${waybill.waybillStatus != 40 and userType == 0}">
+                        	<a class="aBtn" href="${basePath}/backstage/trace/eidtview/${waybill.id}">编辑</a>
+                        </c:if>
                         <span class="others_val" waybillid="${waybill.id}" groupid="${waybill.groupid }"
                               weight="${waybill.weight }" volume="${waybill.volume }" number="${waybill.number }"
                               verifyTotal="${waybill.receiptCount}" verifyCount="${waybill.receiptVerifyCount}"></span>
@@ -641,9 +647,12 @@
         //批量下载
         $("#batch_down").on("click", function () {
             var chk_value = [], parmas = {};
-            /* $('input[name="waybillId"]:checked').each(function () {
+            $('input[name="waybillId"]:checked').each(function () {
                 chk_value.push($(this).val());
-            }); */
+            });
+            if (chk_value && chk_value != "") {
+            	parmas["waybillIds"] = chk_value.join(',')
+            }
             var groupId = $("#groupSelect option:selected").val();
             parmas["groupId"] = groupId;
             

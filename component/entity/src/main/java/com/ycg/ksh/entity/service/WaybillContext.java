@@ -4,6 +4,7 @@
 package com.ycg.ksh.entity.service;
 
 import com.ycg.ksh.common.entity.BaseEntity;
+import com.ycg.ksh.common.util.DateUtils;
 import com.ycg.ksh.common.util.RegionUtils;
 import com.ycg.ksh.common.util.StringUtils;
 import com.ycg.ksh.entity.common.constant.PaperyReceiptFettle;
@@ -57,7 +58,7 @@ public class WaybillContext extends BaseEntity {
     private Collection<Goods> commodities;//商品明细
     /**要删除的货物信息*/
     private Collection<Integer> deleteCommodityKeys;//要删除商品的主键
-
+    
 	private WaybillContext() {
 		super();
 	}
@@ -348,6 +349,18 @@ public class WaybillContext extends BaseEntity {
 		}
 		return barcodeid;
 	}
+	
+	public String getLoadTime() {
+		String loadTime = null;
+		if(update != null){
+			loadTime = update.getLoadTime();
+		}
+		if(StringUtils.isEmptyNull(loadTime) && persistence != null){
+			loadTime = persistence.getLoadTime();
+		}
+		return loadTime;
+	}
+
 
 	/**
 	 * 设置条码主键
@@ -1429,7 +1442,7 @@ public class WaybillContext extends BaseEntity {
 	public void setBindTime(Date bindTime) {
 		update.setBindTime(bindTime);
 		if(update.getDeliveryTime() == null){
-			update.setDeliveryTime(bindTime);
+			update.setDeliveryTime(StringUtils.isEmptyNull(update.getLoadTime())?bindTime:DateUtils.parseToDate(update.getLoadTime()));
 		}
 	}
 

@@ -8,6 +8,7 @@ import com.ycg.ksh.common.util.DateUtils;
 import com.ycg.ksh.common.util.StringUtils;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -36,8 +37,11 @@ public class WaybillSerach extends BaseEntity {
     private Integer paperyReceiptStatus;//纸质回单状态
     private Date deliveryTimeStart;//发货开始时间
     private Date deliveryTimeEnd;//发货结束时间
-
+    private Integer userType;//用户类型（1:货主，0:承运商、司机）
+    
     private boolean all;
+    
+    private Collection<Integer> waybillKeys;
 
     public Date getDeliveryTimeStart() {
         return deliveryTimeStart;
@@ -301,4 +305,21 @@ public class WaybillSerach extends BaseEntity {
     public void setAll(boolean all) {
         this.all = all;
     }
+
+	public Collection<Integer> getWaybillKeys() {
+		return waybillKeys;
+	}
+
+	public void setWaybillKeys(Collection<Integer> waybillKeys) {
+		this.waybillKeys = waybillKeys;
+	}
+
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
 }

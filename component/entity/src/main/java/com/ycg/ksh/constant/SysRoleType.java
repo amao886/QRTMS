@@ -5,11 +5,11 @@ package com.ycg.ksh.constant;
  */
 public enum SysRoleType {
 
-    GROUP(2, 1, 2, "项目组角色"), MOUTAI(3, 101, 4, "茅台角色"), ENTERPRISE(4, 102, 1, "企业角色"), SUPER(1, 9999, 0, "超级管理员");
+    GROUP(2, 1, 2, "项目组角色"), MOUTAI(3, 101, 3, "货主角色"), ENTERPRISE(4, 102, 1, "企业角色"), SUPER(1, 9999, 0, "超级管理员"), BACK(5, 103, 5, "其他角色");
 
     private int key;
     private int code;
-    private int type;//0:所有菜单;1:企业版本权限;2:项目版本权限;3:后台管理权限;4:茅台权限
+    private int type;//0:所有菜单;1:企业版本权限;2:项目版本权限;3:货主权限
     private String desc;
 
     private SysRoleType(int key, int code, int type, String desc) {

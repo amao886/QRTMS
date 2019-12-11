@@ -44,8 +44,8 @@ public class DefaultTemplate extends ConvertObjectByExcel<MergeWaybill> {
                 add(new ConvertHandler(new Property("receiveAddress", "收货地址"), 8, true, null,null));//收货地址
                 add(new ConvertHandler(new Property("contactName", "联系人"), 9, true, null,null));//联系人
                 add(new ConvertHandler(new Property("contactPhone", "联系电话"), 10, true, null,null));//联系电话
-                add(new ConvertHandler(new Property("arriveDay", "发货后天数"), 16, new Validator[] {Validator.NUMBER}));//发货后天数
-                add(new ConvertHandler(new Property("arriveHour", "时间点"), 17, new Validator[] {Validator.NUMBER}));//时间点
+                add(new ConvertHandler(new Property("arriveDay", "发货后天数"), 16, true,null,null));//发货后天数
+                add(new ConvertHandler(new Property("arriveHour", "时间点"), 17, true,null,null));//时间点
                 add(new ConvertHandler(new Property("loadNo", "装运单号"), 19));//装运号
                 add(new ConvertHandler(new Property("carType", "车型"), 20));//车型
                 add(new ConvertHandler(new Property("loadTime", "装运日期"), 21, new Validator[] {Validator.NOTBLANK }));//时间点

@@ -154,7 +154,7 @@ public abstract class FrontUtils {
      * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-09-22 11:44:43
      */
     public static String center(String token) {
-        return SystemUtils.buildUrl(base(), FRONT_PAGE_CENTER) + "?token=" + token + "&v=" + System.nanoTime();
+        return SystemUtils.buildUrl(base(), FRONT_PAGE_PEOPLECENTER) + "?token=" + token + "&v=" + System.nanoTime();
     }
 
     /**

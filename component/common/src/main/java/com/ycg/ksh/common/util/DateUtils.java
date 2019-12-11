@@ -603,7 +603,7 @@ public class DateUtils {
     }
 
     public static Date parseToDate(String strDate) {
-        return parseToDate(strDate, "yyyy-MM-dd HH:mm:ss");
+        return parseToDate(strDate, "yyyy-MM-dd HH:mm");
     }
 
     public static Date getDateAddTime(Date date, Date time) {

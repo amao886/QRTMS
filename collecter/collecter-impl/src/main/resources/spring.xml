@@ -11,9 +11,10 @@
 	<!-- 开启AOP -->
 	<aop:config proxy-target-class="true" />
 	<context:component-scan base-package="com.ycg.ksh.collect.impl"/>
-
-	<!-- <import resource="spring-cache.xml" /> -->
-	<import resource="redis.xml" />
+	<!-- 集群版配置 -->
+	<import resource="spring-cache.xml" />
+	<!-- 单集版配置 -->
+	<!-- <import resource="redis.xml" /> -->
 	<import resource="spring-dubbo.xml" />
 	<import resource="classpath*:dubbo-reference-adapter.xml" />
 	<import resource="spring-persistence.xml" />

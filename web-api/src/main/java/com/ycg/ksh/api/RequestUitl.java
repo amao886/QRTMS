@@ -323,7 +323,7 @@ public class RequestUitl {
 			builder.append(request.getScheme()).append("://");
 			builder.append(request.getServerName());
 			Integer serverPort = request.getServerPort();
-			if(80 - serverPort != 0) {
+			if((80 - serverPort != 0) && (443 - serverPort != 0)) {
 				builder.append(":").append(serverPort);
 			}
 			String contextPath = request.getContextPath();

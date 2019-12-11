@@ -9,7 +9,8 @@
     <result column="descity" jdbcType="VARCHAR" property="descity" />
     <result column="lt" jdbcType="INTEGER" property="lt" />
   </resultMap>
+  
   <select id="quseryByShipCityAndDesCity" resultMap="BaseResultMap">
-      select * from leadtime_tab where shipcity = #{arg1} and descity = #{arg2}
+      select * from leadtime_tab where LOCATE(#{arg0},shipcity)>0 and LOCATE(#{arg1},descity)>0
   </select>
 </mapper>

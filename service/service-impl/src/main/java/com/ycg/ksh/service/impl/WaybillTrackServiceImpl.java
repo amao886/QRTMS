@@ -12,6 +12,7 @@ import com.ycg.ksh.common.extend.cache.LocalCacheManager;
 import com.ycg.ksh.common.util.Assert;
 import com.ycg.ksh.common.util.DateUtils;
 import com.ycg.ksh.common.util.StringUtils;
+import com.ycg.ksh.common.util.Validator;
 import com.ycg.ksh.entity.adapter.AutoMapLocation;
 import com.ycg.ksh.entity.common.constant.WaybillFettle;
 import com.ycg.ksh.entity.persistent.*;
@@ -159,7 +160,10 @@ public class WaybillTrackServiceImpl implements WaybillTrackService, WaybillObse
 	private void locationReport(WaybillContext context, WaybillTrack track, boolean driver) throws ParameterException, BusinessException {
 	    if(trackMapper.selectCount(new WaybillTrack(track.getWaybillid()))==0) {
 	        String sendContent = String.format(Constant.SMS_LOCATION_STRING, context.getReceiverName(),context.getNumber(),context.getSimpleStartStation(),context.getDeliveryNumber(),DateUtils.date2Str(context.getArrivaltime()));
-	        smsService.sendmsg(context.getContactPhone(), sendContent);//第一次定位发生短信
+	        String m = context.getContactPhone();
+	        if(Validator.isMobile(m)) {
+	        	smsService.sendmsg(m, sendContent);//第一次定位发生短信
+	        }
 	    }
 		if(trackMapper.insertSelective(track) > 0) {
 			if(driver) {

@@ -119,6 +119,7 @@
     </sql>
     
     <sql id="include_column_excel">
+    	w.id,
         w.barcode,
         w.order_summary,
         w.address,
@@ -165,6 +166,16 @@
         WHERE
         w.barcode= #{barcode}
     </select>
+    <!-- 根据送货单号查询 -->
+    <select id="selectByDeliveryNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="include_column"/>
+        FROM
+        waybill_tab w
+        WHERE
+        w.delivery_number= #{deliveryNumber}
+    </select>
+    
     <select id="countByCode" resultType="java.lang.Integer" parameterType="java.lang.String">
         SELECT
           COUNT(w.barcode)
@@ -291,6 +302,12 @@
                     AND w.receipt_count > w.receipt_verify_count
                 </if>
             </if>
+            <if test="waybillKeys != null">
+                and id IN
+		        <foreach collection="waybillKeys" item="wkey" separator="," open="(" close=")">
+		            #{wkey,jdbcType=INTEGER}
+		        </foreach>
+            </if>
         </where>
         ORDER BY w.createtime DESC, w.waybill_status ASC
     </select>
@@ -306,6 +323,9 @@
 	      </if>
 	      <if test="deliverEndTime != null and deliverEndTime != ''">
                 <![CDATA[ AND DATE_FORMAT(w.createtime,'%Y-%m-%d') <= #{deliverEndTime} ]]>
+          </if>
+          <if test="userId !=null and userId gt 0">
+              and groupid in (SELECT groupid FROM group_members_tab WHERE userid = #{userId})
           </if>
 	    </where>
     </select>

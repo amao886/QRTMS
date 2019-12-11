@@ -225,7 +225,7 @@
 
 </body>
 <%@ include file="/views/include/floor.jsp" %>
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=a4e0b28c9ca0d166b8872fc3823dbb8a&plugin=AMap.Geocoder"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.0&key=a4e0b28c9ca0d166b8872fc3823dbb8a&plugin=AMap.Geocoder"></script>
 <script src="${baseStatic}plugin/js/jquery.labelauty.js"></script>
 <script src="${baseStatic}plugin/js/bootstrap-datetimepicker.js"></script>
 <script src="${baseStatic}plugin/js/bootstrap-datetimepicker.zh-CN.js"></script>

@@ -19,7 +19,7 @@
         <include refid="Base_Column_List"/>
         from waybill_Total_view t
         where 1=1
-        <if test="groupid!=null and groupid != ''">
+        <if test="groupid!=null and groupid gt 0">
             and t.groupid = #{groupid,jdbcType=INTEGER}
         </if>
         <if test="companyName!=null and companyName != ''">
@@ -30,6 +30,9 @@
         </if>
         <if test="endTime != null and endTime != ''">
             <![CDATA[ AND DATE_FORMAT(createTime,'%Y-%m-%d') <= #{endTime,jdbcType=VARCHAR} ]]>
+        </if>
+        <if test="userType != null and userType == 1">
+            and t.groupid in (SELECT groupid FROM group_members_tab WHERE userid = #{userId})
         </if>
         <if test="sort == 'desc'">
             order by createTime DESC

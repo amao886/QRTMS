@@ -114,7 +114,7 @@
         <property name="properties" ref="ksh.application.properties"/>
     </bean>
 
-    <websocket:handlers>
+    <websocket:handlers allowed-origins="*">
         <websocket:mapping path="**/websocket/**" handler="ksh.websocket.handler"/>
         <websocket:handshake-interceptors>
             <ref bean="ksh.websocket.interceptor"/>
@@ -122,7 +122,7 @@
     </websocket:handlers>
 
     <!--  注册 sockJS -->
-    <websocket:handlers>
+    <websocket:handlers allowed-origins="*">
         <websocket:mapping path="**/sockjs/websocket/**" handler="ksh.websocket.handler"/>
         <websocket:handshake-interceptors>
             <ref bean="ksh.websocket.interceptor"/>

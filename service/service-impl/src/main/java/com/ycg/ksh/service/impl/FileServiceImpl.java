@@ -7,18 +7,26 @@ import com.ycg.ksh.common.entity.FileEntity;
 import com.ycg.ksh.common.exception.BusinessException;
 import com.ycg.ksh.common.exception.ParameterException;
 import com.ycg.ksh.common.util.Assert;
+import com.ycg.ksh.common.util.RegionUtils;
+import com.ycg.ksh.common.util.StringUtils;
 import com.ycg.ksh.entity.persistent.Customer;
+import com.ycg.ksh.entity.persistent.Leadtime;
 import com.ycg.ksh.entity.persistent.depot.InboundOrder;
 import com.ycg.ksh.entity.persistent.moutai.Order;
 import com.ycg.ksh.entity.service.MergeWaybill;
 import com.ycg.ksh.entity.service.enterprise.TemplateContext;
 import com.ycg.ksh.service.api.*;
+import com.ycg.ksh.service.persistence.CustomerMapper;
+import com.ycg.ksh.service.persistence.LeadtimeMapper;
 import com.ycg.ksh.service.support.excel.ConvertObjectByExcel;
 import com.ycg.ksh.service.support.excel.template.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -42,6 +50,11 @@ public class FileServiceImpl implements FileService {
     MoutaiService moutaiService;
     @Resource
     DepotOutboundService depotOutboundService;
+    
+    @Resource
+    CustomerMapper customerMapper;
+    @Resource
+    LeadtimeMapper leadtimeMapper;
 
     /**
      * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-12-19 09:19:13
@@ -71,7 +84,7 @@ public class FileServiceImpl implements FileService {
                 converter = new DefaultTemplate();
             }
             if (converter.readExcel(fileEntity).convert().have()) {
-                waybillService.saves(uKey, gKey, customer, converter.objects().values());
+                waybillService.saves(uKey, gKey, customer, checkList(converter.objects().values()));
             }
             if (CollectionUtils.isNotEmpty(converter.exceptions())) {
                 FileEntity exception = converter.writeExcel();
@@ -80,13 +93,72 @@ public class FileServiceImpl implements FileService {
                 }
             }
             resultEntity.modify(converter.getSuccessCount(), converter.getFailureCount());
-        } catch (Exception e) {
+        }catch (ParameterException | BusinessException e) {
+        	throw e;
+		} catch (Exception e) {
             logger.error("文件处理异常 -> {}", fileEntity, e);
         }
         return resultEntity;
     }
+	
+	/**
+	 * 自动匹逻辑校验
+	 * @param values 需要优化
+	 */
+    private Collection<MergeWaybill> checkList(Collection<MergeWaybill> values) throws BusinessException{
+    	Collection<MergeWaybill> list = null;
+    	if(CollectionUtils.isNotEmpty(values)) {
+    		 list = new ArrayList<MergeWaybill>(values.size());
+    	}
+    	for (MergeWaybill mergeWaybill : values) {
+    		//如果导入的发货人客户编码不为空查询数据库中对应的发货人信息，否则直接获取excel中数据
+    		if(StringUtils.isNotBlank(mergeWaybill.getShipperCode())) {
+    			Customer customerS = customerMapper.queryCustomerByCode(mergeWaybill.getShipperCode());
+    			if(customerS == null) {
+    				list.clear();
+    				throw new BusinessException("【"+ mergeWaybill.getDeliveryNumber()+"】未匹配到对应的发货信息");
+    			}
+    			mergeWaybill.setShipperName(customerS.getCompanyName());
+    			mergeWaybill.setShipperAddress(customerS.getFullAddress());
+    			mergeWaybill.setShipperContactName(customerS.getContacts());;
+    			mergeWaybill.setShipperContactTel(customerS.getContactNumber());
+    			mergeWaybill.setStartStation(RegionUtils.merge(customerS.getProvince(), customerS.getCity(), customerS.getDistrict()));
+    			mergeWaybill.setSimpleStartStation(RegionUtils.simple(customerS.getProvince(), customerS.getCity(), customerS.getDistrict()));
+    			
+    		}
+    		//如果导入的收货人客户编码不为空查询数据库中对应的收货人信息，否则直接获取excel中数据
+    		if(StringUtils.isNotBlank(mergeWaybill.getReceiverCode())) {
+    			Customer customerR = customerMapper.queryCustomerByCode(mergeWaybill.getReceiverCode());
+    			if(customerR == null) {
+    				list.clear();
+    				throw new BusinessException("【"+ mergeWaybill.getDeliveryNumber()+"】未匹配到对应的收货信息");
+    			}
+    			mergeWaybill.setReceiverName(customerR.getCompanyName());
+    			mergeWaybill.setReceiveAddress(customerR.getFullAddress());
+    			mergeWaybill.setContactName(customerR.getContacts());
+    			mergeWaybill.setContactPhone(customerR.getContactNumber());
+    			mergeWaybill.setEndStation(RegionUtils.merge(customerR.getProvince(), customerR.getCity(), customerR.getDistrict()));
+    			mergeWaybill.setSimpleEndStation(RegionUtils.simple(customerR.getProvince(), customerR.getCity(), customerR.getDistrict()));
+    		}
+    		if(mergeWaybill.getArriveDay() == null || mergeWaybill.getArriveHour() == null) {
+    			String s = (mergeWaybill.getSimpleStartStation()==null?RegionUtils.simple(RegionUtils.analyze(mergeWaybill.getShipperAddress())):mergeWaybill.getSimpleStartStation()).replaceAll("市", "");
+    			String e = (mergeWaybill.getSimpleEndStation()==null?RegionUtils.simple(RegionUtils.analyze(mergeWaybill.getReceiveAddress())):mergeWaybill.getSimpleEndStation()).replaceAll("市", "");
+    			if(StringUtils.isNotBlank(s) && StringUtils.isNotBlank(e)) {
+    				Leadtime leadtime = leadtimeMapper.quseryByShipCityAndDesCity(s, e);
+    				if(leadtime==null){
+    					list.clear();
+    					throw new BusinessException("【"+s+"】至【"+e+"】,送货单是【"+ mergeWaybill.getDeliveryNumber()+"】的运单未匹配到对应的运输时效");
+    				}
+    				mergeWaybill.setArriveDay(leadtime.getLt());
+    				mergeWaybill.setArriveHour(21);
+    			}
+    		}
+			list.add(mergeWaybill);
+		}
+    	return list;
+	}
 
-    /**
+	/**
      * 通过模板文件批量保存数据
      *
      * @param uKey        操作人编号

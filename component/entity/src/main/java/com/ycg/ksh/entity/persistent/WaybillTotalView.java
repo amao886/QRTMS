@@ -38,6 +38,11 @@ public class WaybillTotalView extends BaseEntity {
 
     //准时到达率
     private String sendRate;
+    
+    //用户类型
+    private Integer userType;
+    
+    private Integer userId;
 
     public String getSendRate() {
         if (toCount == null || toCount == 0 || timeCount == null || timeCount == 0) {
@@ -107,4 +112,20 @@ public class WaybillTotalView extends BaseEntity {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
+
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 }

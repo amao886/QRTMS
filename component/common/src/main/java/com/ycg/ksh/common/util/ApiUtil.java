@@ -62,7 +62,7 @@ public class ApiUtil {
         String host = null, appid = null, secret = null;
         if("prod".equals(env)) {
             System.out.println("创建生产环境菜单");
-            host = "http://www.lehan-tech.com";
+            host = "https://trace.mclogi.com.cn";
             appid = "wxde218922b232741f";
             secret = "41c6a697695a3acc13b88a8056cb9105";
         }else if("test".equals(env)) {

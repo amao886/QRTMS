@@ -59,23 +59,23 @@
     <select id="queryCustomer" resultMap="BaseResultMap" parameterType="com.ycg.ksh.entity.service.AddressSearch">
         SELECT * FROM customer_tab c
 		<where>
-           <!--  <choose>
+            <choose>
                 <when test="groupId != null and groupId gt 0">
                     AND c.group_id = #{groupId}
                 </when>
                 <otherwise>
-                    <![CDATA[ AND c.userid = #{userId} AND c.group_id <= 0 ]]>
-                    <![CDATA[ AND (c.userid = #{userId} OR c.group_id IN (SELECT groupid FROM group_members_tab WHERE userid = #{userId})) ]]>
+                    <!-- <![CDATA[ AND c.userid = #{userId} AND c.group_id <= 0 ]]> -->
+                    <![CDATA[ AND c.group_id IN (SELECT groupid FROM group_members_tab WHERE userid = #{userId}) ]]>
                 </otherwise>
-            </choose> -->
-             <choose>
+            </choose>
+             <!-- <choose>
                 <when test="companyId != null and companyId != 0">
                      AND c.company_id = #{companyId}
                 </when>
                 <when test="groupId != null and groupId != 0">
                 	 AND c.group_id = #{groupId}
               </when>
-            </choose>
+            </choose> -->
             <if test="companyName != null and companyName !=''">
                 AND LOCATE(#{companyName}, c.company_name) > 0
             </if>
@@ -84,6 +84,9 @@
             </if>
             <if test="contactNumber != null and contactNumber !=''">
                 AND LOCATE(#{contactNumber}, c.contact_number) > 0
+            </if>
+            <if test="customerCode != null and customerCode !=''">
+                AND LOCATE(#{customerCode}, c.customer_code) > 0
             </if>
             <if test="fullAddress != null and fullAddress !=''">
                 AND LOCATE(#{fullAddress}, c.fullAddress) > 0

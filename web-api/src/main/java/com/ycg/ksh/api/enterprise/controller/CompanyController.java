@@ -179,7 +179,7 @@ public class CompanyController extends BaseController {
     @ResponseBody
     public JsonResult authorityList(@RequestBody RequestObject body, HttpServletRequest request) throws Exception {
         JsonResult jsonResult = new JsonResult();
-        jsonResult.put("authorities", permissionService.loadAuthoritys(loadUserKey(request), MenuType.NORMAL));
+        jsonResult.put("authorities", permissionService.loadAuthoritys(loadUser(request), MenuType.NORMAL));
         return jsonResult;
     }
 
@@ -232,7 +232,7 @@ public class CompanyController extends BaseController {
                 jsonResult.put("customers", customerService.searchCustomerBySomething(new CustomerSearch(user.getId(), company.getId())));
             }
             if (body.getBoolean("authoritys")) {
-                jsonResult.put("authorities", permissionService.loadAuthoritys(loadUserKey(request), MenuType.NORMAL));
+                jsonResult.put("authorities", permissionService.loadAuthoritys(loadUser(request), MenuType.NORMAL));
             }
         }
         return jsonResult;
@@ -281,7 +281,7 @@ public class CompanyController extends BaseController {
         jsonResult.put("seals", companyService.listCompanySealKeys(alliance.getCompanyId(), alliance.getEmployeeId()));
         jsonResult.put("customers", customerService.listCustomerAuthoritys(alliance.getEmployeeId()));
         if (RequestUitl.isMobileDevice(request)) {
-            jsonResult.put("baseAuthoritys", permissionService.loadAuthoritys(loadUserKey(request), MenuType.NORMAL));
+            jsonResult.put("baseAuthoritys", permissionService.loadAuthoritys(loadUser(request), MenuType.NORMAL));
         }
         jsonResult.put("employee", alliance);
         return jsonResult;

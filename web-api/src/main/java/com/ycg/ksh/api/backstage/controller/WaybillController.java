@@ -187,10 +187,20 @@ public class WaybillController extends BaseController {
         WaybillContext context = WaybillContext.buildContext(u, serach, new PageScope(pageNum, pageSize));
         context.setAssociate(WaybillAssociate.associate(true, false, false, false, false, true));
         model.addAttribute("groups", projectGroups);
-        model.addAttribute("page", waybillService.pageMergeWaybill(context));
+        //判断是否是货主类型的用户
+        if(u.getUserType() == 1) {
+        	context.getSearch().setAll(true);
+        	model.addAttribute("page", waybillService.pageMergeWaybill(context));
+        }else{
+        	context.getSearch().setAll(false);
+        	model.addAttribute("page", waybillService.pageMergeWaybill(context));
+        }
+        
+        
         String filePath = SystemUtils.fileRootPath(Directory.TEMPLATE.sub("waybill_template.xlsx"));
         model.addAttribute("template", FileUtils.buildDownload(filePath, "任务单模板.xlsx", false));//要修改
         model.addAttribute("search", body);
+        model.addAttribute("userType", u.getUserType());
         return "/backstage/waybill/manage";
     }
     
@@ -206,6 +216,7 @@ public class WaybillController extends BaseController {
     public JsonResult outBoundExport(@RequestBody RequestObject object, HttpServletRequest request) throws Exception {
         JSONObject requestParam = new JSONObject();
         requestParam.putAll(object);
+        requestParam.put("userId", loadUserKey(request));
         //Collection<Long> waybillIds = StringUtils.longCollection(object.get("waybillIds"));
         //object.put("waybillIds", waybillIds);
         

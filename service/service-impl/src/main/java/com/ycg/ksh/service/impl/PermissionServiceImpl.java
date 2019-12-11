@@ -261,8 +261,8 @@ public class PermissionServiceImpl implements PermissionService , UserObserverAd
 	 * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-12-28 15:18:54
 	 */
 	@Override
-	public Collection<AuthorityMenu> loadAuthoritys(Integer userKey, MenuType menuType) throws ParameterException, BusinessException {
-        Collection<AuthorityMenu> collection = loadAuthoritys(userService.get(userKey));
+	public Collection<AuthorityMenu> loadAuthoritys(AuthorizeUser u, MenuType menuType) throws ParameterException, BusinessException {
+		Collection<AuthorityMenu> collection = loadAuthoritys(u);
         if(CollectionUtils.isNotEmpty(collection) && menuType != null){
             return AuthorityUtil.filterAuthority(collection, m -> m.getType() != null && m.getType() - menuType.getCode() == 0);
         }
@@ -284,25 +284,27 @@ public class PermissionServiceImpl implements PermissionService , UserObserverAd
 
 
 	private Collection<AuthorityMenu> loadAuthoritys(AuthorizeUser authorizeUser) {
-		//return cacheManger.get(cacheAuthorityKey(authorizeUser.getId()), 60L, ()->{
-        Integer idKey = authorizeUser.getIdentityKey();
-        SysRoleType roleType = authorizeUser.getRoleType();
-        if(roleType.isSuper()){//超级管理员
-            return listAuthority(SysRoleType.SUPER, m-> AuthorityUtil.validateIdentityKey(m.getIdKey(), idKey));
-        }else{
-            Collection<AuthorityMenu> collection = new ArrayList<AuthorityMenu>();
-            if(authorizeUser.getHasGroup()){
-                collection.addAll(listAuthority(SysRoleType.GROUP, m -> true));
-            }
-            CompanyEmployee employee = authorizeUser.getEmployee();
-            if(employee == null || EmployeeType.convert(employee.getEmployeeType()).isManage()){//不是员工或者是企业管理员，根据角色加载权限菜单
-                collection.addAll(listAuthority(roleType, m -> AuthorityUtil.validateIdentityKey(m.getIdKey(), idKey)));
-            }else{
-                collection.addAll(listAuthorityMenu(employee.getCompanyId(), employee.getEmployeeId(), m-> AuthorityUtil.validateIdentityKey(m.getIdKey(), idKey) && m.getType() != null && roleType.getType() - m.getType() == 0));//查询员工在企业里的权限列表
-            }
-            return collection;
-        }
-		//});
+		return cacheManger.get(cacheAuthorityKey(authorizeUser.getId()), 60L, ()->{
+	        Integer idKey = authorizeUser.getIdentityKey();
+	        SysRoleType roleType = authorizeUser.getRoleType();
+	        if(roleType.isSuper()){//超级管理员
+	            return listAuthority(SysRoleType.SUPER, m-> AuthorityUtil.validateIdentityKey(m.getIdKey(), idKey));
+	        }else{
+	            Collection<AuthorityMenu> collection = new ArrayList<AuthorityMenu>();
+	            if(authorizeUser.getHasGroup() && authorizeUser.getSysRole() != null && authorizeUser.getSysRole().getId() != 5  && authorizeUser.getSysRole().getId() != 3){
+	                collection.addAll(listAuthority(SysRoleType.GROUP, m -> true));
+	            }else{
+	            	collection.addAll(listAuthority(roleType, m -> AuthorityUtil.validateIdentityKey(m.getIdKey(), idKey)));
+	            }
+	            /*CompanyEmployee employee = authorizeUser.getEmployee();
+	            if(employee == null || EmployeeType.convert(employee.getEmployeeType()).isManage()){//不是员工或者是企业管理员，根据角色加载权限菜单
+	                collection.addAll(listAuthority(roleType, m -> AuthorityUtil.validateIdentityKey(m.getIdKey(), idKey)));
+	            }else{
+	                collection.addAll(listAuthorityMenu(employee.getCompanyId(), employee.getEmployeeId(), m-> AuthorityUtil.validateIdentityKey(m.getIdKey(), idKey) && m.getType() != null && roleType.getType() - m.getType() == 0));//查询员工在企业里的权限列表
+	            }*/
+	            return collection;
+	        }
+		});
 	}
 
 	/*private Collection<AuthorityMenu> loadByType(Integer roleKey, SysRoleType roleType, Integer idKey){

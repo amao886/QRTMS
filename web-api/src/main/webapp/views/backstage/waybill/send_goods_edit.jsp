@@ -541,7 +541,7 @@
                     c['city'] = items[1];
                     c['district'] = items[2];
                 }
-                if(c.contactNumber && !(/^1[\d]{10}$/.test(c.contactNumber))){
+                if(c.contactNumber && !(/^1[\d]{10}$/.test(c.contactNumber)) && !(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(c.contactNumber))){
                     msgs.push((c.type == 1 ? "收货":"发货") + "联系电话格式错误");
                 }
             });

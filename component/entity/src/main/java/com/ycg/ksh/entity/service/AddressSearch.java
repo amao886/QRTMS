@@ -15,6 +15,8 @@ public class AddressSearch extends BaseEntity {
     private Integer userId; //操作人编号
     private Integer type; //地址类型 1：收货地址，2：发货地址
 
+    private String customerCode; //收获客户编码
+
 	private Long companyId;	//所属公司
 	private Long customerId; //客户编号
 	private Integer customerType;	//客户类型(1:货主,2:收货客户，3:承运方)
@@ -117,6 +119,14 @@ public class AddressSearch extends BaseEntity {
 
 	public void setCustomerKeys(Collection<Long> customerKeys) {
 		this.customerKeys = customerKeys;
+	}
+
+	public String getCustomerCode() {
+		return customerCode;
+	}
+
+	public void setCustomerCode(String customerCode) {
+		this.customerCode = customerCode;
 	}
 }
 

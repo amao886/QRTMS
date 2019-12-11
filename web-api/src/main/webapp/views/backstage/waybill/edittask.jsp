@@ -512,7 +512,7 @@
             if ($("input[name='contactPhone']").val() == "") {
                 $("#msgTips").text("联系电话不能为空")
                 return false;
-            } else if (!(/^1[\d]{10}$/.test($("input[name='contactPhone']").val()))) {
+            } else if (!(/^1[\d]{10}$/.test($("input[name='contactPhone']").val())) && !(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test($("input[name='contactPhone']").val()))) {
                 $("#msgTips").text("联系电话格式错误")
                 return false;
             }

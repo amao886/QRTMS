@@ -11,19 +11,21 @@
 <div class="body-content">
 	<div class="content-search">
 		<div class="clearfix">
-			<div class="fl col-middle">
-				<label class="labe_l">项目组名:</label>
-				<select class="tex_t selec_t" name="groupid" id="selectGroup">
-					<c:forEach items="${groups}" var="group">
-						<c:if test="${groupid == group.id }">
-							<option value="${ group.id}" selected>${group.groupName }</option>
-						</c:if>
-						<c:if test="${groupid != group.id }">
-							<option value="${ group.id}">${group.groupName }</option>
-						</c:if>
-					</c:forEach>
-				</select>
-			</div>
+			<c:if test="${userType == 0}">
+				<div class="fl col-middle">
+					<label class="labe_l">项目组名:</label>
+					<select class="tex_t selec_t" name="groupid" id="selectGroup">
+						<c:forEach items="${groups}" var="group">
+							<c:if test="${groupid == group.id }">
+								<option value="${ group.id}" selected>${group.groupName }</option>
+							</c:if>
+							<c:if test="${groupid != group.id }">
+								<option value="${ group.id}">${group.groupName }</option>
+							</c:if>
+						</c:forEach>
+					</select>
+				</div>
+			</c:if>
 			<div class="fl col-middle">
 				<label class="labe_l">选择年份:</label>
 				<select class="tex_t selec_t" name="selectYear">

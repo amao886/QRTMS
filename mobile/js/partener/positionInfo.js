@@ -99,7 +99,7 @@ function geocoder(latitude,longitude,waybillId) {
 		var lnglatXY=[longitude, latitude];//地图上所标点的坐标
 		var geocoder = new AMap.Geocoder();
 		geocoder.getAddress(lnglatXY, function(status, result) {
-		    if (status === 'complete' && result.info === 'OK') {
+		    if (status === 'complete' && result.regeocode) {
 		        //获得了有效的地址信息:
 		        $('#address').text(result.regeocode.formattedAddress+"("+result.regeocode.addressComponent.district+result.regeocode.addressComponent.township+result.regeocode.addressComponent.street+result.regeocode.addressComponent.streetNumber+")");
 		        //定位完成后自动上报位置

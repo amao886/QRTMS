@@ -77,7 +77,13 @@ public class User extends BaseEntity {
      */
     @Column(name = "`remark`")
     private String remark;
-
+    
+    /**
+     * 	用户类型 1.收货方，0：其他
+     */
+    @Column(name = "`user_type`")
+    private Integer userType;
+    
     public User() {
 		super();
 	}
@@ -272,4 +278,12 @@ public class User extends BaseEntity {
     public void setHeadImg(String headImg) {
         this.headImg = headImg;
     }
+
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
 }

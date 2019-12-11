@@ -63,6 +63,12 @@
             <span id="shipAddress" class="tabBtn curr" data-type="2">发货地址</span>
             <span id="receiveAddress" class="tabBtn" data-type="1">收货地址</span>
         </div>
+        <div class="content-search">
+	        <span>客户名称：</span><input type="text" class="tex_t" id="companyName" name="companyName" value="${ search.companyName}"/>
+	        <span>联系电话：</span><input type="text" class="tex_t" id="contactNumber" name="contactNumber" value="${ search.contactNumber}"/>
+	        <span>客户编码：</span><input type="text" class="tex_t" id="customerCode" name="customerCode" value="${ search.customerCode}"/>
+        	<a id="search" class="btn btn-default search">查询</a>
+        </div>
     </form>
     <div class="topInfo clearfix">
         <span>当前共${page.currSize}条</span>
@@ -135,6 +141,10 @@
             <label><input type="radio" id="shipAddressRadio" name="type" value="2" style="width:auto;">发货地址</label>
             <label><input type="radio" id="receiveAddressRadio" name="type" checked="checked" value="1"
                           style="width:auto;">收货地址</label>
+        </div>
+        <div class="model-form-field">
+            <label for="" id="customerCode">客户编码:</label>
+            <input type="text" name="customerCode" style="width:61%"/>
         </div>
         <div class="model-form-field">
             <label for="" id="companyName">收货客户:</label>
@@ -224,6 +234,10 @@
                 $("#searchCustomerForm").submit();
             });
         });
+        //条件查询
+        $("#search").on('click', function () {
+            $("#searchCustomerForm").submit();
+        });   
 
         /*编辑*/
         $(".edit_row").on('click', function () {
@@ -233,6 +247,7 @@
                     var customer = data.customer;
                     $.util.form('编辑客户', $(".edit_customer_panel").html(), function (model) {
                         var editBody = this.$body;
+                        editBody.find(":input[name='customerCode']").val(customer.customerCode);
                         editBody.find(":input[name='companyName']").val(customer.companyName);
                         editBody.find(":input[name='contacts']").val(customer.contacts);
                         editBody.find(":input[name='contactNumber']").val(customer.contactNumber);
@@ -442,7 +457,7 @@
             $.util.error("请选择城市");
         } else if (!address || address == '') {
             $.util.error("详细地址不能为空");
-        } else if (contactNumber && !(/^1[\d]{10}$/.test(contactNumber))) {
+        } else if (contactNumber && !(/^1[\d]{10}$/.test(contactNumber)) && !(/^((0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/.test(contactNumber))) {
             $.util.error("手机号码格式错误！");
         } else if (parmas['tel'] && !(/\d{3,4}-\d{8}|\d{4}-\{7,8}/.test(parmas['tel']))) {
             $.util.error("固定电话格式错误！");

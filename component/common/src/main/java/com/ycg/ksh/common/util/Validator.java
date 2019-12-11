@@ -51,6 +51,9 @@ public class Validator {
 	
 	public static final String REGEX_NUM = "^[0-9]\\d*$";
 
+	public static final String REGEX_TEL = "^((0\\d{2,3})-)(\\d{7,8})(-(\\d{3,}))?$";
+	
+
 	/**
 	 * 校验用户名
 	 *
@@ -170,10 +173,15 @@ public class Validator {
      */ 
     public static boolean checkDecimals(String decimals) { 
         return Pattern.matches(REGEX_DOUBlE,decimals); 
-    }  
+    }
+    
+    
+    public static boolean isTel(String tel) {
+		return Pattern.matches(REGEX_TEL, tel);
+	}
 	
 	public static void main(String[] args) {
-		String telphone = "17769351123";
-		System.out.println(Validator.isMobile(telphone));
+		String telphone = "021-3295638";
+		System.out.println(Validator.isTel(telphone));
 	}
 }

@@ -52,8 +52,9 @@
                     <td>${obj.realName}</td>
                     <td>
                         <c:if test="${obj.role.roleCategory == 1}">普通用户</c:if>
-                        <c:if test="${obj.role.roleCategory == 101}">茅台用户</c:if>
+                        <c:if test="${obj.role.roleCategory == 101}">货主用户</c:if>
                         <c:if test="${obj.role.roleCategory == 102}">九阳用户</c:if>
+                        <c:if test="${obj.role.roleCategory == 103}">其他用户</c:if>
                         <c:if test="${obj.role.roleCategory == 9999}">超级管理员</c:if>
                     </td>
                     <td>${obj.lastLoginIp}</td>
@@ -181,7 +182,7 @@
             if (parmas.password == "" || parmas.password == null) {
                 $.util.error("密码不能为空");
                 return false;
-            } else if (!(/^[a-zA-Z0-9_-]{6,15}$/.test(parmas.password))) {
+            } else if (!(/^[@&#!a-zA-Z0-9_-]{8,15}$/.test(parmas.password))) {
                 $.util.error("密码格式错误");
                 return false;
             }

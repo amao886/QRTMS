@@ -36,14 +36,16 @@
                     <input type="text" class="tex_t" name="mobilephone" placeholder="申请手机号" value="${search.mobilephone}">
                 </div>
                 <div class="fl col-min">
-                    <button type="button" class="btn btn-default content-search-btn" @click="search">查询</button>
+                    <button type="button" class="btn btn-default content-search-btn">查询</button>
                 </div>
             </div>
         </div>
     </form>
     <div class="btnBox">
         <button type="button" class="btn btn-default addBarcode">创建二维码</button>
-        <button type="button" class="btn btn-default editBarcode">条码变更</button>
+        <c:if test="${userType == 1 }">
+	        <button type="button" class="btn btn-default editBarcode">条码变更</button>
+        </c:if>
     </div>
     <div class="table-style">
         <table class="dtable" id="trackTable">
@@ -104,24 +106,24 @@
             <label for="">二维码数量 :</label>
             <input name="add_number" type="number" min="1" max="10001">
         </div>
-        <div class="model-form-field">
+       <!--  <div class="model-form-field">
             <label for="">分配至 :</label>
             <label style="font-weight: 400;" class="singleUser">
                 <input type="radio" name="addcodeType" value="1" checked="checked"
                        style="width:15px; vertical-align: middle;"/>个人用户
             </label>
             <label style="font-weight: 400;" class="teamUser">
-                <input type="radio" name="addcodeType" value="2"
+                <input type="radio" name="addcodeType" value="2" checked="checked"
                        style="width:15px;vertical-align: middle;margin-left:20px;"/>资源组
             </label>
-        </div>
-        <div class="model-form-field" style="overflow:hidden;">
-            <div class="phone-box" style="width:220px;position:absolute;top:150px;left:16px;z-index:999999999;">
+        </div> -->
+        <div class="model-form-field">
+            <!-- <div class="phone-box" style="width:220px;position:absolute;top:150px;left:16px;z-index:999999999;">
                 <select class="phone-box-select addSelect" name="addSelect">
                 </select>
-            </div>
-
-            <select style="width:220px;float:right;background:#eee;" class="addSelectId" disabled="disabled"
+            </div> -->
+			<label for="">分配至 :</label>
+            <select style="width:220px;float:right;background:#eee;margin-right: 20%; " class="addSelectId"
                     name="groupid">
                 <option>请选择资源组</option>
             </select>
@@ -258,20 +260,22 @@
                 var parmas = {};
                 $.util.form('创建二维码', $(".add_barcode_panel").html(), function () {
                     var editBody = this.$body;
-                    $(".singleUser").click(function () {
+                    /* $(".singleUser").click(function () {
                         editBody.find(".addSelectId").attr("disabled", "disabled").css({"background": "#eee"});
-                    })
-                    $(".teamUser").click(function () {
+                    }) */
+                    userid =  editBody.find("input[name='userId']").val();
+                    getGroups(userid, editBody.find(".addSelectId"));
+                    /* $(".teamUser").click(function () {
                         editBody.find(".addSelectId").removeAttr("disabled").css({"background": "transparent"});
-
+                        userid =  editBody.find("input[name='userId']").val()
                         if(null == editBody.find("select[name='addSelect']").val() || "" == editBody.find("select[name='addSelect']").val()){
-                            userid =  editBody.find("input[name='userId']").val()
+                            userid =  editBody.find("input[name='userId']").val();
                         }else{
                             userid = editBody.find("select[name='addSelect']").val().substr(0, editBody.find("select[name='addSelect']").val().indexOf("|"));
                         }
                         getGroups(userid, editBody.find(".addSelectId"));
 
-                    })
+                    }) */
                     $.util.json(base_url + '/admin/barcode/queryUserByMobile/', parmas, function (data) {
                         if (data.success) {
                             editBody.find('.addSelect').html('');
@@ -288,17 +292,18 @@
                     $(".addSelect").change(function () {
                         var str = "<option value='0'>请选择资源组</option>";
                         if (editBody.find("input[name='addcodeType']:checked").val() == 2) {
-                            if(null == editBody.find("select[name='addSelect']").val() || "" == editBody.find("select[name='addSelect']").val()){
+                        	userid =  editBody.find("input[name='userId']").val()
+                        	/* if(null == editBody.find("select[name='addSelect']").val() || "" == editBody.find("select[name='addSelect']").val()){
                                 userid =  editBody.find("input[name='userId']").val()
                             }else{
                                 userid = editBody.find("select[name='addSelect']").val().substr(0, editBody.find("select[name='addSelect']").val().indexOf("|"));
-                            }
+                            } */
                             getGroups(userid, editBody.find(".addSelectId"));
                         }
                     })
                 }, function () {
                     var editBody = this.$body;
-                    parmas.mobilephone = editBody.find("input[name='mobilephone']").val();
+                    /* parmas.mobilephone = editBody.find("input[name='mobilephone']").val();
                     var user = editBody.find("select[name='addSelect']").val();
                     if (user.indexOf("|") < 0) {
                         $.util.error("请选择手机号码");
@@ -306,9 +311,9 @@
                     } else {
                         parmas.userid = user.substr(0, user.indexOf("|"));
                         parmas.mobilephone = user.substr(user.indexOf("|") + 1, user.length);
-                    }
+                    } */
                     parmas.groupid = editBody.find("select[name='groupid']").val();
-                    if (editBody.find("input[name='addcodeType']:checked").val() == 2) {
+                    /* if (editBody.find("input[name='addcodeType']:checked").val() == 2) {
                         if (null == editBody.find("select[name='groupid']").val() || "" == editBody.find("select[name='groupid']").val() || 0 == editBody.find("select[name='groupid']").val()) {
                             $.util.error("请选择资源组");
                             return false;
@@ -317,6 +322,12 @@
                         }
                     } else {
                         parmas.groupid = 0;
+                    } */
+                    if (null == editBody.find("select[name='groupid']").val() || "" == editBody.find("select[name='groupid']").val() || 0 == editBody.find("select[name='groupid']").val()) {
+                        $.util.error("请选择资源组");
+                        return false;
+                    } else {
+                        parmas.groupid = editBody.find("select[name='groupid']").val();
                     }
 
                     parmas.number = editBody.find("input[name='add_number']").val();

@@ -121,8 +121,8 @@ body,html, #container{
      </div>
 </body>
 <%@ include file="/views/include/floor.jsp"%>
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=a4e0b28c9ca0d166b8872fc3823dbb8a&plugin=AMap.ToolBar,AMap.Scale,AMap.OverView,AMap.MapType,AMap.Geocoder"></script>
-<script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.0&key=a4e0b28c9ca0d166b8872fc3823dbb8a&plugin=AMap.ToolBar,AMap.Scale,AMap.OverView,AMap.MapType,AMap.Geocoder"></script>
+<script src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
 <script src="${baseStatic}plugin/js/bootstrap-datetimepicker.js"></script>
 <script src="${baseStatic}plugin/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript" src="${baseStatic}js/datetimepicker.js"></script>
@@ -396,7 +396,7 @@ function ajaxSearch(){
 				var positionPicker = new PositionPicker({
 		            mode: 'dragMarker', map: map,
 		            iconStyle: { //自定义外观
-		                ancher: [24, 40], size: [48, 48],url: 'http://webapi.amap.com/ui/1.0/assets/position-picker2.png'
+		                ancher: [24, 40], size: [48, 48],url: 'https://webapi.amap.com/ui/1.0/assets/position-picker2.png'
 		            }
 		        });
 		        positionPicker.on('success', function(positionResult) {

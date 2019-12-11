@@ -61,6 +61,13 @@ public interface WaybillMapper extends Mapper<Waybill> {
      * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-12-04 09:15:07
      */
     Waybill selectByCode(String barcode);
+    
+    /**
+     * 根据送货单号查询运单信息
+     * @param barcode
+     * @return
+     */
+    Waybill selectByDeliveryNumber(String deliveryNumber);
 
     /**
      * 根据运单编号和用户编号查询运单信息

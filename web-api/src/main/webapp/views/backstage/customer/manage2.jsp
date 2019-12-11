@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<base href="//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/" />
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <title>物流跟踪-客户管理</title>
 <%@ include file="/views/include/head.jsp"%>

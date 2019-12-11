@@ -1,7 +1,7 @@
 /**
  * 系统路径
  */
-var api_header="www.wq5000.xyz", //fty.3w.dkys.org   开发环境：kshdev.ycgwl.com  测试环境：kshtest.ycgwl.com
+var api_header="trace.mclogi.com.cn", //fty.3w.dkys.org   开发环境：kshdev.ycgwl.com  测试环境：kshtest.ycgwl.com
     project="",
     api_host="http://"+api_header+"/"+project;
 

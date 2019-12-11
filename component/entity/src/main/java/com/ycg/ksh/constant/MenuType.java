@@ -7,7 +7,7 @@ package com.ycg.ksh.constant;
  * @create 2018-06-06 16:25
  **/
 public enum MenuType {
-    NORMAL(1, "企业版本权限"), GROUP(2, "项目版本权限"), BACKSTAGE(3, "后台管理权限");
+    NORMAL(1, "企业版本权限"), GROUP(2, "项目版本权限"), BACKSTAGE(3, "货主版本权限"), BACK(5,"其他版本权限");
 
     private int code;
     private String desc;

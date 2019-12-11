@@ -196,11 +196,12 @@ public class CustomerServiceImpl implements CustomerService, RabbitMessageListen
         Assert.notBlank(customer.getProvince(), "客户地址省份不能为空");
         Assert.notBlank(customer.getCity(), "客户地址城市不能为空");
         Assert.notBlank(customer.getAddress(), "客户详细地址不能为空");
+        Assert.notBlank(customer.getCustomerCode(), "客户编码不能为空");
         Assert.notBlank(customer.getCompanyName(), "客户名称不能为空");
         Assert.notBlank(customer.getContactNumber(), "客户联系人电话不能为空");
         Assert.notBlank(customer.getContacts(), "客户联系人不能为空");
         com.ycg.ksh.common.validate.Validator validator = com.ycg.ksh.common.validate.Validator.MOBILE;
-        if (!validator.verify(customer.getContactNumber())) {
+        if (!validator.verify(customer.getContactNumber()) && !com.ycg.ksh.common.util.Validator.isTel(customer.getContactNumber())) {
             throw new ParameterException(validator.getMessage("联系人手机号"));
         }
         try {
@@ -424,8 +425,8 @@ public class CustomerServiceImpl implements CustomerService, RabbitMessageListen
             String s = RegionUtils.merge(customer.getProvince(), customer.getCity(), customer.getDistrict());
             Assert.notNull(s, p + "地区不能为空");
             Validator validator = Validator.MOBILE;
-            if (!validator.verify(customer.getContactNumber())) {
-                throw new ParameterException(customer.getContactNumber(), p + "联系人手机号");
+            if (!validator.verify(customer.getContactNumber()) && !com.ycg.ksh.common.util.Validator.isTel(customer.getContactNumber())) {
+                throw new ParameterException(customer.getContactNumber(), p + "联系人手机号格式错误");
             }
             customer.setUpdatetime(new Date());
             customer.setFullAddress(customer.getProvince() + customer.getCity() + customer.getDistrict() + customer.getAddress());

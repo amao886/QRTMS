@@ -16,34 +16,39 @@
 
 
     <select id="queryApplyResList" resultType="com.ycg.ksh.entity.service.MergeApplyRes"
-            parameterType="com.ycg.ksh.entity.persistent.ApplyRes">
+            parameterType="com.ycg.ksh.entity.service.MergeApplyRes">
             SELECT
-            a.id,
-            a.groupid,
-            a.number,
-            a.userid,
-            a.createtime,
-            a.remark,
-            a.print_status AS printStatus,
-            a.start_num AS startNum,
-            a.end_num AS endNum,
-            c.uname,
-            c.mobilephone,
-            (
-            SELECT
-            count(1)
-            FROM
-            barcode_tab b
-            WHERE
-            b.resourceid = a.id
-            AND b.bindstatus != 10
-            ) AS total,
-            d.group_name as groupName
-            FROM
-            resourcse_app_tab a
-            LEFT JOIN user_tab c ON a.userid = c.id LEFT JOIN group_tab d on d.id = a.groupid
-            WHERE a.company_id is null
-            order by a.createtime desc
+				a.id,
+				a.groupid,
+				a.number,
+				a.userid,
+				a.createtime,
+				a.remark,
+				a.print_status AS printStatus,
+				a.start_num AS startNum,
+				a.end_num AS endNum,
+				c.uname,
+				c.mobilephone,
+				( SELECT count( 1 ) FROM barcode_tab b WHERE b.resourceid = a.id AND b.bindstatus != 10 ) AS total,
+				d.group_name AS groupName 
+			FROM
+				resourcse_app_tab a
+				LEFT JOIN user_tab c ON a.userid = c.id
+				LEFT JOIN group_tab d ON d.id = a.groupid
+				LEFT JOIN group_members_tab gm ON gm.groupid = a.groupid 
+			WHERE
+				a.company_id = 0
+				<if test="userid !=null and userid gt 0">
+					AND gm.userid = #{userid}
+				</if>
+				<if test="uname!=null and uname!=''">
+				    and c.uname = #{uname}
+				</if>
+				<if test="mobilephone!=null and mobilephone!=''">
+				    and c.mobilephone = #{mobilephone}
+				</if>
+			ORDER BY
+				a.createtime DESC
          </select>
 
         <select id="queryApplyResListv2" resultType="com.ycg.ksh.entity.service.MergeApplyRes"

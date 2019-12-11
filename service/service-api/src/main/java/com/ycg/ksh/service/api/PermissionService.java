@@ -9,6 +9,7 @@ import com.ycg.ksh.constant.MenuType;
 import com.ycg.ksh.entity.persistent.ProjectGroupPermission;
 import com.ycg.ksh.entity.persistent.ProjectGroupRole;
 import com.ycg.ksh.entity.service.AuthorityMenu;
+import com.ycg.ksh.entity.service.AuthorizeUser;
 import com.ycg.ksh.entity.service.MergeAuthorityMenu;
 import com.ycg.ksh.entity.service.RoleAndPermission;
 import org.slf4j.Logger;
@@ -249,7 +250,7 @@ public interface PermissionService {
 	 * @throws ParameterException
 	 * @throws BusinessException
 	 */
-	public Collection<AuthorityMenu> loadAuthoritys(Integer userKey, MenuType menuType) throws ParameterException, BusinessException;
+	public Collection<AuthorityMenu> loadAuthoritys(AuthorizeUser u, MenuType menuType) throws ParameterException, BusinessException;
 
 	/**
 	 * 查询权限编码

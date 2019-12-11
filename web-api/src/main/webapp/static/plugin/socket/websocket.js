@@ -13,11 +13,11 @@ function CustomSocket(host, wss_path, sockjs_path, swf_path){
     socket.contact = function(refresh){
         var self = socket;
         if ('WebSocket' in window) {
-            self.instance = new WebSocket("ws://" + socket.host + "/" + socket.wss_path);
+            self.instance = new WebSocket("wss://" + socket.host + "/" + socket.wss_path);
         } else if ('MozWebSocket' in window) {
-            self.instance = new MozWebSocket("ws://" + socket.host + "/" + socket.wss_path);
+            self.instance = new MozWebSocket("wss://" + socket.host + "/" + socket.wss_path);
         } else {
-            self.instance = new SockJS("http://" + socket.host + "/" + socket.sockjs_path);
+            self.instance = new SockJS("https://" + socket.host + "/" + socket.sockjs_path);
         }
         if(!refresh){
             self.bind();

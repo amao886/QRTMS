@@ -16,6 +16,7 @@ import com.ycg.ksh.entity.persistent.ApplyRes;
 import com.ycg.ksh.entity.persistent.Company;
 import com.ycg.ksh.entity.persistent.ProjectGroup;
 import com.ycg.ksh.entity.persistent.User;
+import com.ycg.ksh.entity.service.AuthorizeUser;
 import com.ycg.ksh.entity.service.BarCodeDescription;
 import com.ycg.ksh.entity.service.BarcodeSearch;
 import com.ycg.ksh.entity.service.MergeApplyRes;
@@ -60,6 +61,7 @@ public class BarCodeController extends BaseController {
 
     @Resource
     CompanyService companyService;
+    
 
     /**
      * 条码管理列表页跳转 --旧版本,有用户使用(保留) 项目组、个人相关
@@ -74,8 +76,14 @@ public class BarCodeController extends BaseController {
         Integer pageSize = body.getInteger("size");
         Integer pageNum = body.getInteger("num");
         model.addAttribute("search", body);
-        model.addAttribute("userId",RequestUitl.getUserInfo(request).getId());
-        model.addAttribute("results", barCodeService.pageApplyResList(new MergeApplyRes(), new PageScope(pageNum, pageSize) ,1)); //旧版,无公司id
+        AuthorizeUser user = RequestUitl.getUserInfo(request);
+        model.addAttribute("userId",user.getId());
+        if(user.getManager() != null) {
+        	model.addAttribute("userType",user.getManager().getUserType());
+        }
+        MergeApplyRes m = body.toJavaBean(MergeApplyRes.class);
+        m.setUserid(user.getId());//当前用户Id,用以条件查询
+        model.addAttribute("results", barCodeService.pageApplyResList(m, new PageScope(pageNum, pageSize) ,1)); //旧版,无公司id
         return "/admin/barcode/manage_old";
     }
 
@@ -116,8 +124,14 @@ public class BarCodeController extends BaseController {
         RequestObject body = new RequestObject(request.getParameterMap());
         Integer pageSize = body.getInteger("size");
         Integer pageNum = body.getInteger("num");
-        model.addAttribute("userId",RequestUitl.getUserInfo(request).getId());
-        model.addAttribute("results", barCodeService.pageApplyResList(new MergeApplyRes(), new PageScope(pageNum, pageSize) ,1)); //旧版,无公司id
+        AuthorizeUser user = RequestUitl.getUserInfo(request);
+        model.addAttribute("userId",user.getId());
+        if(user.getManager() != null) {
+        	model.addAttribute("userType",user.getManager().getUserType());
+        }
+        MergeApplyRes m = body.toJavaBean(MergeApplyRes.class);
+        m.setUserid(user.getId());//当前用户Id,用以条件查询
+        model.addAttribute("results", barCodeService.pageApplyResList(m, new PageScope(pageNum, pageSize) ,1)); //旧版,无公司id
         return "/admin/barcode/manage_old";
     	/*RequestObject body = new RequestObject(request.getParameterMap());
     	Integer pageSize = body.getInteger("size");
@@ -189,11 +203,11 @@ public class BarCodeController extends BaseController {
      */
     @RequestMapping(value = "saveApplyRes")
     @ResponseBody
-    public JsonResult saveApplyRes(@RequestBody RequestObject object) throws ReflectiveOperationException {
+    public JsonResult saveApplyRes(@RequestBody RequestObject object,HttpServletRequest request) throws ReflectiveOperationException {
         logger.info("--------------saveApplyRes--------------", object);
         Assert.notNull(object, Constant.PARAMS_ERROR);
-        User u = userService.getUserByMobile(object.get("mobilephone"));
-        barCodeService.applyRes(u.getId(), object.toJavaBean(ApplyRes.class));
+        //User u = userService.getUserByMobile(object.get("mobilephone"));个人申请条码逻辑
+        barCodeService.applyRes(RequestUitl.getUserInfo(request).getId(), object.toJavaBean(ApplyRes.class));
         return JsonResult.SUCCESS;
     }
     /**

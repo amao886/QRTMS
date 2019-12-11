@@ -311,6 +311,14 @@ public class UserServiceImpl implements UserService, ReceiptObserverAdapter, Act
             user = getUserByKey(context.getUserKey());
         }
         if(user != null){
+        	ManagingUsers managingUsers = null;
+            //djq update set userType
+            if(context.getAdminKey() != null) {
+            	managingUsers = managingUsersService.queryUserById(context.getAdminKey());
+            	if(managingUsers != null && managingUsers.getUserType() == 3) {
+            		user.setUserType(1);//设置为货主
+            	}
+            }
             boolean cache = updateUser(user, context);
             if(context.getAdminKey() != null && context.getAdminKey() > 0){
                 managingUsersService.bindUser(context.getUserKey(), context.getAdminKey());
@@ -337,6 +345,7 @@ public class UserServiceImpl implements UserService, ReceiptObserverAdapter, Act
         user.setCreatetime(new Date());
         user.setUpdatetime(user.getCreatetime());
         user.setMobilephone(context.getMobilephone());
+        user.setUserType(0);
         userMapper.insert(user);
 
         UserCommonly commonly = new UserCommonly(user.getId(), CoreConstants.USER_CATEGORY_CONVEY);
@@ -371,6 +380,9 @@ public class UserServiceImpl implements UserService, ReceiptObserverAdapter, Act
         if(!StringUtils.equalsIgnoreCase(user.getHeadImg(), context.getHeadImg())){
             user.setHeadImg(context.getHeadImg());
             update++;
+        }
+        if(user.getUserType()>0){
+        	update++;
         }
         if(update > 0){
             userMapper.updateByPrimaryKeySelective(user);

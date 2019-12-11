@@ -61,7 +61,8 @@
 			<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 			<ul class="layui-nav layui-nav-tree side_bar" lay-filter="test">
 				<c:forEach items="${menus}" var="m">
-					<c:if test="${m.type == 2 && m.fettle == 1}">
+					<%-- <c:if test="${m.type == 2 && m.fettle == 1}"> --%>
+					<c:if test="${m.fettle == 1}">
 						<li class="layui-nav-item">
 							<a class="main_menu" href="javascript:void(0);">
 								<i class="i-icon ${m.menuIcon}"></i>
@@ -70,7 +71,8 @@
 							</a>
 							<dl class="layui-nav-child">
 								<c:forEach items="${m.children}" var="cm">
-									<c:if test="${cm.type == 2 && cm.fettle == 1}">
+									<%-- <c:if test="${cm.type == 2 && cm.fettle == 1}"> --%>
+									<c:if test="${cm.fettle == 1}">
 										<dd class="layui-this">
 											<a href="javascript:void(0);" class="menu_a" link="${basePath}/${cm.menuUrl}">${cm.menuName}</a>
 										</dd>

@@ -107,9 +107,7 @@ public class ControllerAspect extends LogAspect {
                     if(guestsKey != null){
                         serial.setUserKey(guestsKey.toString());
                     }
-                    logger.debug("======================>ffff");
                     serial.setSessionKey(RequestUitl.getSessionId(request));
-                    logger.debug("======================>mmmm");
                     serial.setUri(request.getRequestURI());
                     serial.setHost(RequestUitl.getRemoteHost(request));
                     serial.setMethod(request.getMethod());

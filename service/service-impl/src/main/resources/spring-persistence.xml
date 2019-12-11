@@ -106,8 +106,9 @@
 	<!-- 合同物流管理平台主库 ====== 配置事务 -->
 	<tx:advice id="ksh.transaction.advice.db-service" transaction-manager="ksh.transaction.manager.db-service">
 		<tx:attributes>
-			<tx:method name="*" propagation="REQUIRED" rollback-for="com.ycg.ksh.common.exception.BusinessException" />
+			<tx:method name="*" read-only="true" propagation="SUPPORTS" rollback-for="com.ycg.ksh.common.exception.BusinessException"/>
 			<!--
+			<tx:method name="*" propagation="REQUIRED" rollback-for="com.ycg.ksh.common.exception.BusinessException" />
 			<tx:method name="update*" propagation="REQUIRED" rollback-for="BusinessException" />
 			<tx:method name="modify*" propagation="REQUIRED" rollback-for="BusinessException" />
 			<tx:method name="edit*" propagation="REQUIRED" rollback-for="BusinessException" />

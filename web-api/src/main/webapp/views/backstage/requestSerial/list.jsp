@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<base href="//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/" />
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <title>物流跟踪-客户管理</title>
 <%@ include file="/views/include/head.jsp"%>
@@ -109,9 +108,9 @@
 	<!--弹出框-->
 </body>
 <%@ include file="/views/include/floor.jsp"%>
-<script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.0&key=a4e0b28c9ca0d166b8872fc3823dbb8a&plugin=AMap.ToolBar,AMap.DistrictSearch,AMap.Geocoder'></script>
+<script type="text/javascript" src='https//webapi.amap.com/maps?v=1.4.0&key=a4e0b28c9ca0d166b8872fc3823dbb8a&plugin=AMap.ToolBar,AMap.DistrictSearch,AMap.Geocoder'></script>
 <!-- UI组件库 1.0 -->
-<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script src="https//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
 <script>
 var searchBody;
 $(document).ready(function(){

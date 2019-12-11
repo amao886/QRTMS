@@ -115,24 +115,30 @@ public class DailyTotalController extends BaseController {
         logger.info("-----------searchDayCount------------{}", body);
         User u = RequestUitl.getUserInfo(request);
         // 查询资源组
-        List<ProjectGroup> groupList = groupService.listByUserKey(u.getId());
-        if (CollectionUtils.isNotEmpty(groupList)) {
-            model.addAttribute("groups", groupList);
-            if (body.getInteger("groupid") == null || body.getInteger("groupid") <= 0) {
-                body.put("groupid", RequestUitl.getGroupKey(request, groupList.get(0).getId()));
-            }
-        } else {
-            return "/backstage/dailyTotal/manage";
+        if(u.getUserType() != 1) {
+	        List<ProjectGroup> groupList = groupService.listByUserKey(u.getId());
+	        if (CollectionUtils.isNotEmpty(groupList)) {
+	        		model.addAttribute("groups", groupList);
+	            if (body.getInteger("groupid") == null || body.getInteger("groupid") <= 0) {
+	                body.put("groupid", RequestUitl.getGroupKey(request, groupList.get(0).getId()));
+	            }
+	        } else {
+	            return "/backstage/dailyTotal/manage";
+	        }
         }
         if (body.getInteger("flag") == null || body.getInteger("flag") <= 0) {
             body.put("flag", 0);
         }
         Integer pageSize = body.getInteger("size");
         Integer pageNum = body.getInteger("num");
+        body.put("userType", u.getUserType());
+        body.put("userId", u.getId());
         body.put("sort", "desc");
         CustomPage<WaybillTotalView> page = wayBillTotalService.queryTotalPage(body.toJavaBean(MergeBillTotal.class), new PageScope(pageNum, pageSize));
         model.addAttribute("page", page);
         model.addAttribute("billTotal", body);
+        model.addAttribute("billTotal", body);
+        model.addAttribute("userType", u.getUserType());
         return "/backstage/dailyTotal/manage";
     }
 
@@ -159,15 +165,22 @@ public class DailyTotalController extends BaseController {
             model.addAttribute("groups", groupList);//项目组信息
             model.addAttribute("groupid", RequestUitl.getGroupKey(request, groupList.get(0).getId()));//默认选中项目组
         }
+        model.addAttribute("userType", u.getUserType());
         return "/backstage/dailyTotal/monthchart";
     }
 
     @RequestMapping(value = "monthchart/search")
     @ResponseBody
     public JsonResult monthchart(@RequestBody RequestObject object, HttpServletRequest request, Model model) throws Exception {
-        Integer groupId = object.getInteger("groupid");
-        if (groupId == null || groupId <= 0) {
-            throw new ParameterException(groupId, "必须选择一个项目组");
+    	AuthorizeUser u = loadUser(request);
+    	if(u.getUserType() == 1) {
+    		object.put("userType", u.getUserType());
+    		object.put("userId", u.getId());
+        }else {
+        	Integer groupId = object.getInteger("groupid");
+        	if (groupId == null || groupId <= 0) {
+        		throw new ParameterException(groupId, "必须选择一个项目组");
+        	}
         }
         Integer selectYear = object.getInteger("selectYear");
         LocalDate localDate = LocalDate.now().minusMonths(1);//前一个月l

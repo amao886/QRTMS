@@ -108,7 +108,6 @@ public class CustomerController extends BaseController {
             logger.info("结果==========>:result:{}", customPage);
         }
         model.addAttribute("search", body);
-        model.addAttribute("search", body);
         return "/backstage/customer/manage";
     }
 

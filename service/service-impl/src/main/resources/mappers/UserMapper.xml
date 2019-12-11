@@ -12,10 +12,11 @@
         <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
         <result column="head_img" jdbcType="VARCHAR" property="headImg"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="user_type" jdbcType="INTEGER" property="userType"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, username, password, openid, mobilephone, uname, createtime, updatetime, remark, head_img
+    id, username, password, openid, mobilephone, uname, createtime, updatetime, remark, head_img,user_type
   	</sql>
     <select id="loadUserByMobile" resultMap="BaseResultMap" parameterType="java.lang.String">
         SELECT

@@ -14,6 +14,7 @@ import com.ycg.ksh.common.extend.cache.LocalCacheManager;
 import com.ycg.ksh.common.extend.mybatis.page.CustomPage;
 import com.ycg.ksh.common.system.Globallys;
 import com.ycg.ksh.common.util.Assert;
+import com.ycg.ksh.common.util.DateUtils;
 import com.ycg.ksh.common.util.StringUtils;
 import com.ycg.ksh.constant.*;
 import com.ycg.ksh.entity.adapter.AutoMapLocation;
@@ -79,6 +80,8 @@ public class DriverServiceImpl implements DriverService, BarcodeObserverAdapter,
     protected UserMapper userMapper;
     @Resource
     protected CompanyMapper companyMapper;
+    @Resource
+    protected WaybillMapper waybillMapper;
 
 
     @Autowired(required = false)
@@ -91,7 +94,7 @@ public class DriverServiceImpl implements DriverService, BarcodeObserverAdapter,
                 if (context.getWaybillStatus().bind() && context.getDeliveryTime() == null) {
                     DriverContainer container = driverContainerMapper.first(context.getBarcode());
                     if (container != null) {
-                        context.setDeliveryTime(container.getLoadTime());//更新发货时间
+                    	context.setDeliveryTime(StringUtils.isNotBlank(context.getLoadTime()) ? DateUtils.parseToDate(context.getLoadTime()) : container.getLoadTime());//更新发货时间
                     }
                 }
             } catch (Exception e) {
@@ -324,6 +327,14 @@ public class DriverServiceImpl implements DriverService, BarcodeObserverAdapter,
             }
         }
         driverContainerMapper.insertSelective(container);
+       //通知装车添加更改运单状态逻辑djq
+        Waybill way = waybillService.getWaybillByCode(context.getBarcode());
+        if(way.getWaybillStatus() == WaybillFettle.BOUND.getCode()){
+        	Waybill update = new Waybill();
+        	update.setId(way.getId());
+        	update.setWaybillStatus(WaybillFettle.ING.getCode());
+        	waybillMapper.updateByPrimaryKeySelective(update);
+        }
     }
 
     @Override

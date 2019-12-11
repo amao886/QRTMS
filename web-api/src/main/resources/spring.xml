@@ -13,9 +13,10 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
-
-	<!-- <import resource="spring-cache.xml" /> -->
-	<import resource="redis.xml" />
+	<!-- 集群版配置 -->
+	<import resource="spring-cache.xml" />
+	<!-- 单集版配置 -->
+	<!-- <import resource="redis.xml" /> -->
 	<import resource="spring-dubbo.xml" />
 	<import resource="classpath*:dubbo-reference-service.xml" />
 	<import resource="classpath*:dubbo-reference-adapter.xml" />

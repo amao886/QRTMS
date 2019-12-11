@@ -63,7 +63,7 @@ var vm = {
 			        var results = res.commonlies;
 			        if(res.success){
 			        	vm.commonFunc.collection = results;
-			        }			        
+			        }
 			        console.info(vm.commonFunc.collection);			        				        								        					       	
 			    });
             },
