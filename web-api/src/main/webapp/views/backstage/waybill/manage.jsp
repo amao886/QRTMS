@@ -10,31 +10,31 @@
     <link rel="stylesheet" href="${baseStatic}css/sendcustomer.css?times=${times}"/>
     <link rel="stylesheet" href="${baseStatic}element-ui/lib/theme-chalk/index.css"/>
     <style type="text/css">
-    	.date_input{
-		    position:absolute;
-		    top:35px;
-		    left:18%;
-		    width:60%;
-		    height:26px;
-		    border:1px solid #dedede;
-		    text-indent:4px;
-		    border-radius:4px;
-		}
-		.date_input input-append{
-		    width:46%;
-		    position: relative;
-		}
-		.date_input input-append>input{
-		    width:100%;
-		    height:26px;
-		    line-height: 26px;
-		    border:1px solid #dedede;
-		    border-radius: 4px;
-		    text-indent: 4px;
-		}
-		.el-upload__input {
-		    display: none !important;
-		}
+        .date_input{
+            position:absolute;
+            top:35px;
+            left:18%;
+            width:60%;
+            height:26px;
+            border:1px solid #dedede;
+            text-indent:4px;
+            border-radius:4px;
+        }
+        .date_input input-append{
+            width:46%;
+            position: relative;
+        }
+        .date_input input-append>input{
+            width:100%;
+            height:26px;
+            line-height: 26px;
+            border:1px solid #dedede;
+            border-radius: 4px;
+            text-indent: 4px;
+        }
+        .el-upload__input {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -50,14 +50,14 @@
             <input type="hidden" name="num" value="${search.num }">
             <input type="hidden" name="size" value="14">
             <div class="selectCondition">
-            	<c:if test="${userType == 0}">
-	                <select name="groupid" id="groupSelect" val="${search.groupid}">
-	                    <c:forEach items="${groups}" var="group">
-	                        <option value="${ group.id}">${group.groupName }</option>
-	                    </c:forEach>
-	                    <option value="0">其他</option>
-	                </select>
-            	</c:if>
+                <c:if test="${userType == 0}">
+                    <select name="groupid" id="groupSelect" val="${search.groupid}">
+                        <c:forEach items="${groups}" var="group">
+                            <option value="${ group.id}">${group.groupName }</option>
+                        </c:forEach>
+                            <%--<option value="0">其他</option>--%>
+                    </select>
+                </c:if>
                 <select name="TimeSearch" id="TimeSearch" val="${search.TimeSearch}">
                     <option value="3">近三天发货任务</option>
                     <option value="7">近一周发货任务</option>
@@ -78,11 +78,12 @@
                         <label class="transport-status"><input type="radio" name="waybillFettles" value="30" val="${search.waybillFettles}"/>运输中</label>
                     </li>
                     <li>
+                        <label class="transport-status"><input type="radio" name="waybillFettles" value="35" val="${search.waybillFettles}"/>回单已传</label>
+                    </li>
+                    <li>
                         <label class="transport-status"><input type="radio" name="waybillFettles" value="40" val="${search.waybillFettles}"/>确认到货</label>
                     </li>
-                   <%--  <li>
-                        <label class="transport-status"><input type="radio" name="waybillFettles" value="35" val="${search.waybillFettles}"/>已上传回单</label>
-                    </li> --%>
+
                 </ul>
                 <span class="more" id="moreCon"><span>更多搜索条件</span><i class="icon"></i></span>
             </div>
@@ -122,21 +123,22 @@
     </div>
     <!-- 表格部分 -->
     <div class="table-style">
-    	<c:if test="${userType == 0}">
-	        <div class="handle-box">
-	            <button class="layui-btn layui-btn-normal" onclick="window.location.href='${basePath}/backstage/trace/send/goods'">我要发货</button>
-	            <button class="layui-btn layui-btn-normal btn-print">任务单打印</button>
-	            <button class="layui-btn layui-btn-normal btn_task_import">批量发货</button>
-	            <button class="layui-btn layui-btn-normal" url="${template}" id="down_template">模板下载</button>
-	            <button class="layui-btn layui-btn-warm link_sure_batch">确认到货</button>
-	            <button class="layui-btn layui-btn-danger link_delete">删除</button>
-	            <button class="layui-btn layui-btn-normal" id="batch_bind">批量綁定</button>
-	            <button class="layui-btn layui-btn-normal" id="batch_down">已綁定任务单下载</button>
-	            <button class="layui-btn layui-btn-normal" id="update_arrivaltime">预约送货日修改</button>
-				<button class="layui-btn layui-btn-normal" id="upload_receipt"  type="text">批量上传回单</button>
-	            <!--<i class="layui-icon pos_right delete-icon link_delete">&#xe640;</i>-->
-	        </div>
-    	</c:if>
+        <c:if test="${userType == 0}">
+            <div class="handle-box">
+                    <%--<button class="layui-btn layui-btn-normal" onclick="window.location.href='${basePath}/backstage/trace/send/goods'">我要发货</button>--%>
+
+                <button class="layui-btn layui-btn-normal btn_task_import">批量上传</button>
+                <button class="layui-btn " url="${template}" id="down_template">模板下载</button>
+                <button class="layui-btn layui-btn-warm btn-print">任务单打印</button>
+                <button class="layui-btn layui-btn-danger link_delete">删除</button>
+                <button class="layui-btn " id="batch_bind">自动綁定</button>
+                <button class="layui-btn layui-btn-normal" id="batch_down">二维码打印</button>
+                <button class="layui-btn link_sure_batch">确认到货</button>
+                <button class="layui-btn layui-btn-warm" id="update_arrivaltime">修改预约</button>
+                <button class="layui-btn layui-btn-normal" id="upload_receipt"  type="text">回单上传</button>
+                <!--<i class="layui-icon pos_right delete-icon link_delete">&#xe640;</i>-->
+            </div>
+        </c:if>
         <table>
             <thead>
             <tr>
@@ -196,12 +198,12 @@
                         <c:if test="${waybill.waybillStatus== 20 }">已绑定</c:if>
                         <c:if test="${waybill.waybillStatus== 30 || waybill.waybillStatus== 35 }">运输中</c:if>
                         <c:if test="${waybill.waybillStatus== 40 }">确认到货</c:if>
-                        <%-- <c:if test="${waybill.waybillStatus== 35 }">已上传回单</c:if> --%>
+                            <%-- <c:if test="${waybill.waybillStatus== 35 }">已上传回单</c:if> --%>
                     </td>
                     <td>
                         <a class="aBtn" href="${basePath}/backstage/trace/findById/${waybill.id}">查看</a>
                         <c:if test="${waybill.waybillStatus != 40 and userType == 0}">
-                        	<a class="aBtn" href="${basePath}/backstage/trace/eidtview/${waybill.id}">编辑</a>
+                            <a class="aBtn" href="${basePath}/backstage/trace/eidtview/${waybill.id}">编辑</a>
                         </c:if>
                         <span class="others_val" waybillid="${waybill.id}" groupid="${waybill.groupid }"
                               weight="${waybill.weight }" volume="${waybill.volume }" number="${waybill.number }"
@@ -256,39 +258,39 @@
 <!-- 预约送货日修改 -->
 <div id="edit_arrivaltime_panel"  style="display: none">
     <div style="width: 480px;height: 260px;margin-top: 35px;" >
-            <label>预约送货日:</label>
-            <div class="date_input">
-                <!-- <input type="datetime" name="arrivaltime" id="arrivaltime"/> -->
-                <div class="input-append date fl"  id="arrivaltime">
-						<input type="text" name="arrivaltime" readonly>
-						<span class="add-on">
+        <label>预约送货日:</label>
+        <div class="date_input">
+            <!-- <input type="datetime" name="arrivaltime" id="arrivaltime"/> -->
+            <div class="input-append date fl"  id="arrivaltime">
+                <input type="text" name="arrivaltime" readonly>
+                <span class="add-on">
 							<i class="icon-th"></i>
 						</span>
-				</div>
             </div>
+        </div>
     </div>
 </div>
 <!-- :http-request="handleUpload" -->
 <div id="app">
-	<el-dialog title="上传文件导入" :visible.sync="dialog.dialogVisible" :before-close="handleClose" :close-on-click-modal="false" :close-on-press-escape="false"
-           width="40%">
-		   <el-upload style="margin-bottom: 20px;"
-			  class="upload-demo"
-			  action="no"
-			  ref="upload"
-			  accept="image/jpeg,image/gif,image/png"
-	          :before-upload="onBeforeUpload"
-			  :on-preview="handlePreview"
-			  :multiple="true"
-			  :before-remove="beforeRemove"
-	  		  :auto-upload="false"
-			  :limit="9"
-			  :file-list="fileList">
-			  <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-			  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
-			  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过8MB</div>
-		  </el-upload>
-	</el-dialog>
+    <el-dialog title="上传文件导入" :visible.sync="dialog.dialogVisible" :before-close="handleClose" :close-on-click-modal="false" :close-on-press-escape="false"
+               width="40%">
+        <el-upload style="margin-bottom: 20px;"
+                   class="upload-demo"
+                   action="no"
+                   ref="upload"
+                   accept="image/jpeg,image/gif,image/png"
+                   :before-upload="onBeforeUpload"
+                   :on-preview="handlePreview"
+                   :multiple="true"
+                   :before-remove="beforeRemove"
+                   :auto-upload="false"
+                   :limit="9"
+                   :file-list="fileList">
+            <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+            <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过8MB</div>
+        </el-upload>
+    </el-dialog>
 </div>
 </body>
 <%@ include file="/views/include/floor.jsp" %>
@@ -302,75 +304,75 @@
 <script src="${baseStatic}plugin/js/fileDownload.js"></script>
 <script type="text/javascript" src="${baseStatic}element-ui/lib/index.js"></script>
 <script>
-	var vm = new Vue({
-		el:'#app',
-	    data() {
-	      return {
-	        fileList: [],
-	        files: [],
-	        dialog: {
-		    	dialogVisible: false
-		    },
-	      };
-	    },
-	    methods: {
-	    submitUpload() {
-	    	  console.log(this.$refs.upload.uploadFiles);
-	          //this.$refs.upload.submit();
-	          var formData =new FormData();
-	    	  this.$refs.upload.uploadFiles.forEach(function (file) {
-	    		  formData.append(file.uid, file.raw); // 因为要上传多个文件，所以需要遍历一下才行
-	    	  });
-	    	  $.ajax({
-                  url: base_url + "/backstage/receipt/batchupload",
-                  type: 'POST',
-                  data: formData,
-                  processData: false, // 告诉jQuery不要去处理发送的数据
-                  contentType: false,// 告诉jQuery不要去设置Content-Type请求头
-                  success: function (response) {
-                      if (response.success) {
-                    	  console.log(response);
-                    	  response.imagPaths.forEach(function(path){
-                    	  	  var img = {};
-	                    	  img["name"] = path.substr(path.lastIndexOf("/")+1, path.length);
-							  img["url"] = response.imgUrl + path;	                    		  
-                    	 	  vm.$data.fileList.push(img);
-                    	  })
-                      } else {
-                          $.util.error(response.message);
-                      }
-                  }
-              });
-	    	  return false;
-	      },
-	      handlePreview(file) {
-	        console.log(file);
-	      },
-	      handleExceed(files, fileList) {
-	    	if(fileList.length>9){
-		        this.$message.warning(`当前限制选择9个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-	    	}
-	      },
-	      beforeRemove(file, fileList) {
-		      return this.$confirm(`确定移除 ${ file.name }？`);
-	      },
-	      handleClose(done) {
-	    	  done();
-	      },
-	      onBeforeUpload(file) {
-	        var isIMAGE = file.type === 'image/jpeg'||'image/gif'||'image/png';
-	        var isLt1M = file.size / 1024 / 1024 < 10;
-	        if (!isIMAGE) {
-	          this.$message.error('上传文件只能是图片格式!');
-	        }
-	        if (!isLt1M) {
-	          this.$message.error('上传文件大小不能超过 10MB!');
-	        }
-	        return isIMAGE && isLt1M;
-	      }
-	    }
-	});
-	
+    var vm = new Vue({
+        el:'#app',
+        data() {
+            return {
+                fileList: [],
+                files: [],
+                dialog: {
+                    dialogVisible: false
+                },
+            };
+        },
+        methods: {
+            submitUpload() {
+                console.log(this.$refs.upload.uploadFiles);
+                //this.$refs.upload.submit();
+                var formData =new FormData();
+                this.$refs.upload.uploadFiles.forEach(function (file) {
+                    formData.append(file.uid, file.raw); // 因为要上传多个文件，所以需要遍历一下才行
+                });
+                $.ajax({
+                    url: base_url + "/backstage/receipt/batchupload",
+                    type: 'POST',
+                    data: formData,
+                    processData: false, // 告诉jQuery不要去处理发送的数据
+                    contentType: false,// 告诉jQuery不要去设置Content-Type请求头
+                    success: function (response) {
+                        if (response.success) {
+                            console.log(response);
+                            response.imagPaths.forEach(function(path){
+                                var img = {};
+                                img["name"] = path.substr(path.lastIndexOf("/")+1, path.length);
+                                img["url"] = response.imgUrl + path;
+                                vm.$data.fileList.push(img);
+                            })
+                        } else {
+                            $.util.error(response.message);
+                        }
+                    }
+                });
+                return false;
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleExceed(files, fileList) {
+                if(fileList.length>50){
+                    this.$message.warning(`当前限制选择50个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+                }
+            },
+            beforeRemove(file, fileList) {
+                return this.$confirm(`确定移除 ${ file.name }？`);
+            },
+            handleClose(done) {
+                done();
+            },
+            onBeforeUpload(file) {
+                var isIMAGE = file.type === 'image/jpeg'||'image/gif'||'image/png';
+                var isLt1M = file.size / 1024 / 1024 < 10;
+                if (!isIMAGE) {
+                    this.$message.error('上传文件只能是图片格式!');
+                }
+                if (!isLt1M) {
+                    this.$message.error('上传文件大小不能超过 10MB!');
+                }
+                return isIMAGE && isLt1M;
+            }
+        }
+    });
+
     function remove() {
         $("input[name='likeString']").val("");
         $("input[name='startStation']").val("");
@@ -617,8 +619,8 @@
                 $.cookie('open', '1');
             }
         })
-        
-        
+
+
         //批量绑定
         $("#batch_bind").on("click", function () {
             var chk_value = [], parmas = {};
@@ -626,7 +628,7 @@
                 chk_value.push($(this).val());
             });
             if (chk_value && chk_value != "") {
-            	parmas["waybillIds"] = chk_value.join(',')
+                parmas["waybillIds"] = chk_value.join(',')
             }
             var groupId = $("#groupSelect option:selected").val();
             parmas["groupId"] = groupId;
@@ -637,13 +639,13 @@
             // 请求
             $.util.json(base_url + '/backstage/trace/batchBind', parmas, function (data) {
                 if (data.success) {//处理返回结果
-                	submit(1);
+                    submit(1);
                 } else {
                     $.util.error(data.message);
                 }
             });
         });
-        
+
         //批量下载
         $("#batch_down").on("click", function () {
             var chk_value = [], parmas = {};
@@ -651,30 +653,30 @@
                 chk_value.push($(this).val());
             });
             if (chk_value && chk_value != "") {
-            	parmas["waybillIds"] = chk_value.join(',')
+                parmas["waybillIds"] = chk_value.join(',')
             }
             var groupId = $("#groupSelect option:selected").val();
             parmas["groupId"] = groupId;
-            
+
             var groupId = $("#TimeSearch option:selected").val();
             parmas["TimeSearch"] = groupId;
-            
+
             var startStation =$("#startStation").val();
             parmas["startStation"] = startStation;
-            
+
             var endStation =$("#endStation").val();
             parmas["endStation"] = endStation;
-            
+
             $.util.json(base_url + '/backstage/trace/downBind', parmas, function (response) {
                 if (response.success) {
-                	if(response.url){
-                		var msg = "二维码PDF文件下载,数量 : <font color='red'>" + response.count + "</font>个,大小 : <font color='red'>" + response.size + "</font>MB";
-						$.util.success(msg, function(){
-							$.fileDownload(response.url);
-						}, 3000);
-					}else{
-							$.util.error(response.message);
-					} 
+                    if(response.url){
+                        var msg = "二维码PDF文件下载,数量 : <font color='red'>" + response.count + "</font>个,大小 : <font color='red'>" + response.size + "</font>MB";
+                        $.util.success(msg, function(){
+                            $.fileDownload(response.url);
+                        }, 3000);
+                    }else{
+                        $.util.error(response.message);
+                    }
                 } else {
                     $.util.error(response.message);
                 }
@@ -683,27 +685,27 @@
         /*批量修改预约送货日期*/
         $("#update_arrivaltime").on("click",function(){
             $.util.form('预约送货日期', $("#edit_arrivaltime_panel").html(), function(){
-            	var editBody = this.$body;
-            	//日期插件初始化
-         		editBody.find('#arrivaltime').datetimepicker({
-         			language : 'zh-CN',
-         			format : 'yyyy-mm-dd hh:mm',
-         			weekStart : 1, /*以星期一为一星期开始*/
-         			todayBtn : 1,
-         			autoclose : 1,
-         			minView : 2, /*精确到天*/
-         			pickerPosition : "bottom-left"
-         		}).on(
-         				"changeDate",
-         				function(ev) { //值改变事件
-         					//选择的日期不能大于第二个日期控件的日期
-         					if (ev.date) {
-         						$("#datetimeEnd").datetimepicker('setStartDate',
-         								new Date(ev.date.valueOf()));
-         					} else {
-         						$("#datetimeEnd").datetimepicker('setStartDate', null);
-         					}
-         				});
+                var editBody = this.$body;
+                //日期插件初始化
+                editBody.find('#arrivaltime').datetimepicker({
+                    language : 'zh-CN',
+                    format : 'yyyy-mm-dd hh:mm',
+                    weekStart : 1, /*以星期一为一星期开始*/
+                    todayBtn : 1,
+                    autoclose : 1,
+                    minView : 2, /*精确到天*/
+                    pickerPosition : "bottom-left"
+                }).on(
+                    "changeDate",
+                    function(ev) { //值改变事件
+                        //选择的日期不能大于第二个日期控件的日期
+                        if (ev.date) {
+                            $("#datetimeEnd").datetimepicker('setStartDate',
+                                new Date(ev.date.valueOf()));
+                        } else {
+                            $("#datetimeEnd").datetimepicker('setStartDate', null);
+                        }
+                    });
             },function () {
                 var  chk_value = [], parmas = {}, editBody = this.$body;
                 $('input[name="waybillId"]:checked').each(function () {
@@ -720,7 +722,7 @@
                     return false;
                 }
                 console.log(parmas);
-                
+
                 $.util.json(base_url + '/backstage/trace/changeArrivaltime', parmas, function (data) {
                     if (data.success) {
                         $.util.alert('操作提示', data.message, function () {
@@ -732,10 +734,10 @@
                 });
             });
         });
-        
+
         $("#upload_receipt").on("click",function(){
-             vm.$data.dialog.dialogVisible = true;
-        }); 
+            vm.$data.dialog.dialogVisible = true;
+        });
     });
 </script>
 </html>
