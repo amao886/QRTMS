@@ -144,7 +144,6 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
     @Autowired(required = false)
     Collection<WaybillObserverAdapter> observers;
 
-
     @PostConstruct
     public void initialize(){
         try {
@@ -1533,9 +1532,9 @@ public class WaybillServiceImpl implements WaybillService, ReceiptObserverAdapte
             fileEntity.setFileName(FileUtils.appendSuffix("" + System.nanoTime(), FileUtils.XLSX_SUFFIX));
             File destFile = FileUtils.newFile(fileEntity.getDirectory(), fileEntity.getFileName());
             easyExcel = EasyExcelBuilder.createWriteExcel(destFile);
-            easyExcel.createSheet("出库单列表");
-            easyExcel.columnWidth(50,150, 50, 50,150, 70, 70, 10, 10, 60, 70, 70, 150, 10, 10, 60);
-            easyExcel.header("提货日期","经销商简称","始发城市", "目的城市","配送地址", "装运号", "送货单号", "数量", "体积", "车型", "预计到达","实际到达日期","当前位置","距离目的地剩余（km）","上一次距离目的地剩余（km）","货物名称");
+            easyExcel.createSheet("跟踪表明细");
+            easyExcel.columnWidth(120,150, 100, 100,350, 150, 30, 30, 60, 120, 120, 350, 30, 30);
+            easyExcel.header("提货日期","经销商简称","始发城市", "目的城市","配送地址",  "送货单号", "数量", "体积", "车型", "预计到达","实际到达日期","当前位置","距离目的地剩余（km）","上一次距离目的地剩余（km）");
             for (Waybill waybill : depotAlliances) {
             	List<Goods> goods = goodsMapper.select(new Goods(waybill.getId()));
             	String goodName = null;
