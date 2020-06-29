@@ -287,8 +287,8 @@
         	<c:forEach items="${waybill.tracks}" var="track">
 	        	<ul>
 	        		<%-- <li>${track.locations }</li>  <li><someprefix:dateTime date="${track.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/></li> --%>
-	        		<li>${track.describe }</li>  <li><someprefix:dateTime date="${track.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/></li>
-	        	</ul>
+                        <li><someprefix:dateTime date="${track.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/>&nbsp&nbsp&nbsp ${track.describe }&nbsp货物当前位于【${track.locations }】</li>
+                </ul>
         	</c:forEach>
         </div>
     </div>
