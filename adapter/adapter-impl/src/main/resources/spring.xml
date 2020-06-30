@@ -16,9 +16,10 @@
 	
 	<!-- 开启AOP -->
 	<aop:config proxy-target-class="true" />
-	
-	<!-- <import resource="spring-cache.xml" /> -->
-	<import resource="redis.xml" />
+	<!-- 集群版配置 -->
+	<import resource="spring-cache.xml" />
+	<!-- 单集版配置 -->
+	<!-- <import resource="redis.xml" /> -->
 	<import resource="spring-dubbo.xml" />
 	<import resource="spring-rabbitmq.xml"/>
 
@@ -46,7 +47,7 @@
 	<bean id="log.aspect" class="com.ycg.ksh.common.log.LogAspect"/>
 	<aop:config>
 		<aop:aspect ref="log.aspect">
-			<aop:pointcut id="log.pointcut" expression="execution (* com.ycg.ksh.net.adapter.service.impl.*ServiceImpl.*(..))" />
+			<aop:pointcut id="log.pointcut" expression="execution (* com.ycg.ksh.adapter.impl.*ServiceImpl.*(..))" />
 			<aop:around pointcut-ref="log.pointcut" method="aroundAspect"/>
 		</aop:aspect>
 	</aop:config>

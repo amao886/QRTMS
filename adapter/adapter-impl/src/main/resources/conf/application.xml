@@ -44,9 +44,9 @@
 		<net.automap.key value="69e5e2d97a977edb7bbc0bccbb6f8388" />
 
 
-		<!-- sms settings -->
-		<sms.username value="shlhxx0000" />
-		<sms.password value="fHxFuGTp" />
+		<!-- sms settings 三菱 -->
+		<sms.username value="lehan" />
+		<sms.password value="Jpp7vKgckv" />
 		<sms.send.url value="http://userinterface.vcomcn.com/Opration.aspx" />
 		<sms.ye.url value="http://userinterface.vcomcn.com/GetResult.aspx" />
 		<certified.service>
@@ -62,7 +62,7 @@
 			<!-- zookeeper settings -->
 			<zookeeper.cluster.hoststr value="127.0.0.1:2181" />
 			<!-- redis settings -->
-			<redis.server.address value="172.17.0.8:7001,172.17.0.8:7002,172.17.0.8:7003,172.17.0.8:7004,172.17.0.8:7005,172.17.0.8:7006" />
+			<redis.server.address value="192.168.0.114:7001,192.168.0.114:7002,192.168.0.114:7003,192.168.0.114:7004,192.168.0.114:7005,192.168.0.114:7006" />
 			<redis.cluster.max.redirects value="3" />
 			<!-- redis settings -->
 			<!-- redis stand-alone -->
@@ -91,6 +91,7 @@
 			</e.sign.service.yunghetong>
 			<rabbitmq>
 				<vhost value="vhost_ycd"/>
+				<!-- <addresses value="58.221.6.82:56720"/> -->
 				<addresses value="192.168.0.114:5672"/>
 				<username value="user_qlm"/>
 				<password value="geweiit.com%"/>
@@ -100,12 +101,12 @@
 			<!-- 系统异常邮件通知收件人邮箱,多个','隔开 -->
 			<net.email.exception.key value="junqiangdang@163.com"/>
 			<!-- zookeeper settings -->
-			<zookeeper.cluster.hoststr value="58.221.6.82:21810" />
+			<zookeeper.cluster.hoststr value="172.17.0.8:2181" />
 			<!-- redis settings -->
 			<redis.server.address value="172.17.0.8:7001,172.17.0.8:7002,172.17.0.8:7003,172.17.0.8:7004,172.17.0.8:7005,172.17.0.8:7006" />
 			<redis.cluster.max.redirects value="3" />
 			<!-- redis singleton setting -->
-			<redis.host value="192.168.0.148"/>
+			<redis.host value="172.17.0.8"/>
             <redis.port value="6379"/>
             <redis.auth value="cy123456"/>
 			<!-- file settings  -->
@@ -190,13 +191,12 @@
 			<!-- zookeeper settings -->
 			<zookeeper.cluster.hoststr value="172.19.71.2:2181" />
 			<!-- redis settings -->
-			<redis.server.address value="172.16.235.14:6380,172.16.235.15:6380,172.16.235.16:6380" />
-			<!--<redis.server.address value="172.16.42.16:7000,172.16.42.25:7000,172.16.42.24:7000,172.16.42.19:7000,172.16.42.17:7000,172.16.42.20:7000" />-->
+			<redis.server.address value="172.19.71.2:7001,172.19.71.2:7002,172.19.71.2:7003,172.19.71.2:7004,172.19.71.2:7005,172.19.71.2:7006" />
 			<redis.cluster.max.redirects value="3" />
 			<!-- redis stand-alone -->
-			<redis.host value="172.19.71.2"/>
+			<!-- <redis.host value="172.19.71.2"/>
             <redis.port value="6379"/>
-            <redis.auth value=""/>
+            <redis.auth value=""/> -->
 			<!-- file settings  -->
 			<system.file.root value="/opt/storage" />
 			<!-- weixin settings -->

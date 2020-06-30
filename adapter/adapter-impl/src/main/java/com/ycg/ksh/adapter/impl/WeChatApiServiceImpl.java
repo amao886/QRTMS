@@ -110,7 +110,7 @@ public class WeChatApiServiceImpl implements WeChatApiService, RabbitMessageList
 
 
     /**
-     * @see WeChatApiService#authorizeUrl(java.lang.String, java.lang.String, SnsapiScope)
+     * @see WeChatApiService#authorizeUrl(String, String, SnsapiScope)
      * <p>
      * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-12-27 11:36:23
      */
@@ -320,7 +320,7 @@ public class WeChatApiServiceImpl implements WeChatApiService, RabbitMessageList
     }
     
     /**
-     * @see WeChatApiService#swapInfoByAccessToken(com.ycg.ksh.entity.adapter.wechat.AccessToken)
+     * @see WeChatApiService#swapInfoByAccessToken(AccessToken)
      * <p>
      * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-12-25 15:11:20
      */
@@ -343,7 +343,7 @@ public class WeChatApiServiceImpl implements WeChatApiService, RabbitMessageList
     }
     
     /**
-     * @see WeChatApiService#subscribe(java.lang.String)
+     * @see WeChatApiService#subscribe(String)
      * <p>
      * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-12-25 15:11:20
      */
@@ -365,7 +365,7 @@ public class WeChatApiServiceImpl implements WeChatApiService, RabbitMessageList
     }
     
     /**
-     * @see WeChatApiService#sendMessage(java.lang.String)
+     * @see WeChatApiService#sendMessage(String)
      * <p>
      * @developer Create by <a href="mailto:110686@ycgwl.com">dingxf</a> at 2017-12-25 15:11:20
      */
@@ -453,7 +453,7 @@ public class WeChatApiServiceImpl implements WeChatApiService, RabbitMessageList
             throw new ParameterException("模板消息ID没有配置");
         }
         try {
-            CommonToken token = loadToken(SnsapiScope.BASE);
+            /*CommonToken token = loadToken(SnsapiScope.BASE);
             HttpClient client = new HttpClient(url(PRE_URL, "message/template/send?access_token=" + token.getToken()));
             client.parameter("touser", messsage.getTouser());
             client.parameter("template_id", templateId);
@@ -462,7 +462,8 @@ public class WeChatApiServiceImpl implements WeChatApiService, RabbitMessageList
             String respone = client.json();
             logger.info("发送模板消息 : {}", client);
             JSONObject jsonObject = validate(respone);
-            return jsonObject.getString("msgid");
+            return jsonObject.getString("msgid");*/
+        	return "";
         } catch (BusinessException | ParameterException e) {
             throw e;
         } catch(Exception e){
