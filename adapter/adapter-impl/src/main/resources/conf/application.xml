@@ -45,8 +45,8 @@
 
 
 		<!-- sms settings -->
-		<sms.username value="shslsswl" />
-		<sms.password value="UDteYkTV" />
+		<sms.username value="shlhxx0000" />
+		<sms.password value="fHxFuGTp" />
 		<sms.send.url value="http://userinterface.vcomcn.com/Opration.aspx" />
 		<sms.ye.url value="http://userinterface.vcomcn.com/GetResult.aspx" />
 		<certified.service>
@@ -62,7 +62,7 @@
 			<!-- zookeeper settings -->
 			<zookeeper.cluster.hoststr value="127.0.0.1:2181" />
 			<!-- redis settings -->
-			<redis.server.address value="172.16.235.14:6380,172.16.235.15:6380,172.16.235.16:6380" />
+			<redis.server.address value="172.17.0.8:7001,172.17.0.8:7002,172.17.0.8:7003,172.17.0.8:7004,172.17.0.8:7005,172.17.0.8:7006" />
 			<redis.cluster.max.redirects value="3" />
 			<!-- redis settings -->
 			<!-- redis stand-alone -->
@@ -102,7 +102,7 @@
 			<!-- zookeeper settings -->
 			<zookeeper.cluster.hoststr value="58.221.6.82:21810" />
 			<!-- redis settings -->
-			<redis.server.address value="172.16.35.71:6380,172.16.35.71:6381,172.16.35.72:6380,172.16.35.72:6381,172.16.35.73:6380,172.16.35.73:6381" />
+			<redis.server.address value="172.17.0.8:7001,172.17.0.8:7002,172.17.0.8:7003,172.17.0.8:7004,172.17.0.8:7005,172.17.0.8:7006" />
 			<redis.cluster.max.redirects value="3" />
 			<!-- redis singleton setting -->
 			<redis.host value="192.168.0.148"/>
