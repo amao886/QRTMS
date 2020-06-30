@@ -35,7 +35,7 @@ public interface UserMapper extends Mapper<User> {
 	 */
 	User loadUserByUnionId(String unionId);
 	
-	
+
 	/**
 	 * 根据openid更新关注状态
 	 * <p>
