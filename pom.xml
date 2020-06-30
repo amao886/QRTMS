@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 	<description>物流可视化父项目</description>
 	<organization>
-		<name>乐翰科技</name>
+		<name>上海乐翰信息技术有限公司</name>
 		<url>http://www.lehan-tech.com</url>
 	</organization>
 
@@ -20,7 +20,19 @@
 		<module>web-api</module>
         <module>core</module>
     </modules>
-
+	<repositories>
+		<repository>
+			<id>alimaven</id>
+			<name>Maven Aliyun Mirror</name>
+			<url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 	<properties>
 		<!-- Build args -->
 		<file_encoding>UTF-8</file_encoding>
@@ -695,7 +707,11 @@
 				<artifactId>javax.mail</artifactId>
 				<version>1.6.1</version>
 			</dependency>
-
+			<dependency>
+				<groupId>org.apache</groupId>
+				<artifactId>javax.mail</artifactId>
+				<version>1.6.1</version>
+			</dependency>
 
 		</dependencies>
 	</dependencyManagement>
