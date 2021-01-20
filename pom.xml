@@ -60,7 +60,7 @@
 		<springframework.security.version>4.2.2.RELEASE</springframework.security.version>
 		<ch.qos.logback.version>1.2.2</ch.qos.logback.version>
 		<mybatis.version>3.4.5</mybatis.version>
-		<com.fasterxml.jackson.core>2.9.5</com.fasterxml.jackson.core>
+		<com.fasterxml.jackson.core>2.12.1</com.fasterxml.jackson.core>
 		<org.javassist.version>3.21.0-GA</org.javassist.version>
 		<dubbo.varsion>2.6.5</dubbo.varsion><!-- 2.8.4-->
 		<poi.version>3.17</poi.version>
